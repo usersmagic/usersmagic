@@ -1,0 +1,111 @@
+extends ./../partials/head
+block content
+  .header-wrapper
+    a.main-logo-wrapper(href="/")
+      img.main-logo(src="/res/images/logo.png", alt="usersmagic logo")
+      span.logo-text usersmagic
+    .change-language-wrapper
+      a.each-language(href="/") Tr
+      a.each-language(href="/?lang=en") Eng
+    .header-register-button
+      span #{__('Hemen Başla')}
+  .content-wrapper
+    .content-inner-wrapper
+      .start-page-wrapper
+        span.start-page-title
+          span #{__('Ürününü hedef kitlene')}
+          span.green #{__(' test ')}
+          span #{__('ettirmenin en kolay yolu.')}
+        span.start-page-info
+          span.red #{__('usersmagic')}
+          span #{__(', bir şirket için en iyisi')}
+        .start-page-button
+          span #{__('Hemen Başla')}
+        .learn-more-link
+          span #{__('Daha fazla öğren')}
+          i.fas.fa-chevron-down
+      .services-wrapper
+        span.services-title #{__('Hizmetlerimiz')}
+        .each-services-line
+          img(src="/res/images/testing.png", alt="testing")
+          .each-services-content
+            .each-services-title.purple Testing
+            .each-services-info #{__('Ürününüzü hedef kitlenize test ettiriyoruz.')}
+        .each-services-line(style="justify-content: center")
+          img(src="/res/images/marketing.png", alt="marketing")
+          .each-services-content
+            .each-services-title.red Marketing
+            .each-services-info #{__('Ürününüzü sosyal medya kanalları aracılığıyla tanıtıyoruz. ')}
+        .each-services-line(style="justify-content: flex-end")
+          img(src="/res/images/analysing.png", alt="analysing")
+          .each-services-content
+            .each-services-title.green Analysing
+            .each-services-info #{__('Sonuçları analiz edip size bir yol haritası çiziyoruz.')}
+      .tester-info-wrapper
+        span.tester-info-first
+          span.purple #{__('14-50 Yaş')}
+          span(style="margin-left: 10px") #{__('Aralığında')}
+        span.tester-info-second
+          span.purple #{__('2150 Kişilik')}
+          span(style="margin-left: 10px") #{__('Tester Ağı')}
+      .steps-wrapper
+        img(src="/res/images/steps.png", alt="usersmagic in three steps")
+        .steps-inner-wrapper
+          span.first-step
+            span #{__('Hedef kitlenizi belirleyin ve kitleniz ürününüzü')}
+            span.purple #{__(' test etmeye ')}
+            span #{__('başlasın.')}
+          span.second-step
+            span #{__('Test edecek kişiler')}
+            span.red #{__(' bir hafta boyunca ')}
+            span #{__('ürününüzü kullansın, sorularınızı cevaplasın ve ekran kaydı ile deneyimlerini paylaşıp')}
+            span.red #{__(' geri bildirim ')}
+            span #{__('versin.')}
+          span.third-step
+            span #{__('Hedef kitleniz deneyimlerini')}
+            span.yellow #{__(' sosyal medyada  ')}
+            span #{__('paylaşsın ve markanızı kitlenize yaysın.')}
+      .steps-wrapper-responsive
+        img(src="/res/images/step_one.png", alt="usersmagic")
+        span.step-text-responsive
+          span #{__('Hedef kitlenizi belirleyin ve kitleniz ürününüzü')}
+          span.purple #{__(' test etmeye ')}
+          span #{__('başlasın.')}
+        img(src="/res/images/step_two.png", alt="usersmagic" style="margin-left: auto")
+        span.step-text-responsive(style="margin-left: auto; text-align: right")
+          span #{__('Test edecek kişiler')}
+          span.red #{__(' bir hafta boyunca ')}
+          span #{__('ürününüzü kullansın, sorularınızı cevaplasın ve ekran kaydı ile deneyimlerini paylaşıp')}
+          span.red #{__(' geri bildirim ')}
+          span #{__('versin.')}
+        img(src="/res/images/step_three.png", alt="usersmagic")
+        span.step-text-responsive
+          span #{__('Hedef kitleniz deneyimlerini')}
+          span.yellow #{__(' sosyal medyada  ')}
+          span #{__('paylaşsın ve markanızı kitlenize yaysın.')}
+      .missions-wrapper
+        span.first-mission
+          span.yellow #{__('Product ')}
+          span =
+          span.blue #{__(' Growth')}
+        span.second-mission
+          span.blue #{__('Growth ')}
+          span =
+          span.green #{__(' Testing')}
+        img(src="/res/images/missions.png", alt="usersmagic missions")
+      form.form-wrapper
+        span.form-title
+          span.red #{__('Büyümeye ')}
+          span #{__('hazır mısın?')}
+        .form-input-wrapper
+          .form-input-first-column
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="İsim Soyisim" name="name")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="Ünvan" name="title")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="Sektör" name="area")
+          .form-input-second-column
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="Şirket Adı" name="company_name")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="Telefon Numarası" name="phone")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder="Ürün Linki" name="link")
+        button.form-send-button
+          span Aramıza Katıl
+      .footer

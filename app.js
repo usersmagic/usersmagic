@@ -23,6 +23,8 @@ dotenv.config({ path: path.join(__dirname, ".env") });
 const PORT = process.env.PORT || 3000;
 const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/usersmagic";
 
+const indexRouteController = require('./routes/indexRoute');
+
 const {
   SESSION_SECRET
 } = process.env;
@@ -53,6 +55,8 @@ app.use((req, res, next) => {
 });
 
 app.use(i18n.init);
+
+app.use('/', indexRouteController);
 
 server.listen(PORT, () => {
   console.log(`Server is on port ${PORT}`);
