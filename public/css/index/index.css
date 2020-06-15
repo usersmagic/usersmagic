@@ -185,6 +185,7 @@ body {
   display: flex;
   align-items: center;
   margin-top: 60px;
+  opacity: 0;
 }
 .each-services-line img {
   height: 150px;
@@ -278,6 +279,9 @@ body {
   font-weight: 700;
   margin-left: auto;
   margin-top: 15px;
+}
+.tester-info-text {
+  opacity: 0;
 }
 
 .missions-wrapper {
@@ -412,6 +416,10 @@ body {
 .opacity-increase-animation-class {
   -webkit-animation: opacityIncrease 0.1s ease-in-out 0s 1 forwards;
   animation: opacityIncrease 0.1s ease-in-out 0s 1 forwards;
+}
+.opacity-slowly-increase-animation-class {
+  -webkit-animation: opacityIncrease 1s ease-in-out 0s 1 forwards;
+  animation: opacityIncrease 1s ease-in-out 0s 1 forwards;
 }
 
 @keyframes opacityDecrease {

@@ -14,6 +14,8 @@ window.onload = () => {
   const headerWrapper = document.querySelector('.header-wrapper');
   const learnMoreLink = document.querySelector('.learn-more-link');
   const formTitle = document.querySelector('.form-title');
+  const eachServices = document.querySelectorAll('.each-services-line');
+  const testerInfo = document.querySelectorAll('.purple.tester-info-text');
 
   contentWrapper.onscroll = event => {
     if (contentWrapper.scrollTop >= 70) {
@@ -30,6 +32,20 @@ window.onload = () => {
       if (learnMoreLink.classList.contains('opacity-decrease-animation-class'))
         learnMoreLink.classList.remove('opacity-decrease-animation-class');
       learnMoreLink.classList.add('opacity-increase-animation-class');
+    }
+
+    if (contentWrapper.scrollTop >= window.innerHeight - 220) {
+      eachServices.forEach(service => {
+        if (!service.classList.contains('opacity-increase-animation-class'))
+          service.classList.add('opacity-slowly-increase-animation-class');
+      });
+    }
+
+    if (contentWrapper.scrollTop >= window.innerHeight + 200) {
+      testerInfo.forEach(info => {
+        if (!info.classList.contains('opacity-increase-animation-class'))
+          info.classList.add('opacity-slowly-increase-animation-class');
+      });
     }
   }
 
