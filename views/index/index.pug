@@ -93,7 +93,7 @@ block content
           span =
           span.green #{__(' Testing')}
         img(src="/res/images/missions.png", alt="usersmagic missions")
-      form.form-wrapper
+      form.form-wrapper(method="POST" action="/")
         span.form-title
           span.red #{__('Büyümeye ')}
           span #{__('hazır mısın?')}
@@ -115,7 +115,7 @@ block content
             span.footer-text hello@usersmagic.com
             span.footer-text instagram - usersmagic
             span.footer-text linkedin - usersmagic
-          .each-footer-column(style="margin-left: 20px")
+          .each-footer-column.services-footer(style="margin-left: 20px")
             span.footer-title #{__('Hizmetlerimiz')}
             span.footer-text Testing
             span.footer-text Marketing
