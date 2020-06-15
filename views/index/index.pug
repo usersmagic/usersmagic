@@ -6,7 +6,7 @@ block content
       span.logo-text usersmagic
     .change-language-wrapper
       a.each-language(href="/") Tr
-      a.each-language(href="/?lang=en") Eng
+      a.each-language(href="/?lang=en") En
     .header-register-button
       span #{__('Hemen Başla')}
   .content-wrapper
@@ -99,13 +99,27 @@ block content
           span #{__('hazır mısın?')}
         .form-input-wrapper
           .form-input-first-column
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="İsim Soyisim" name="name")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="Ünvan" name="title")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="Sektör" name="area")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('İsim Soyisim') name="name")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Ünvan') name="title")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Sektör') name="area")
           .form-input-second-column
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="Şirket Adı" name="company_name")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="Telefon Numarası" name="phone")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder="Ürün Linki" name="link")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Şirket Adı') name="company_name")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Telefon Numarası') name="phone")
+            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Ürün Linki') name="link")
         button.form-send-button
-          span Aramıza Katıl
+          span #{__('Aramıza Katıl')}
       .footer
+        .footer-top
+          .each-footer-column(style="margin-right: 20px")
+            span.footer-title #{__('İletişim')}
+            span.footer-text hello@usersmagic.com
+            span.footer-text instagram - usersmagic
+            span.footer-text linkedin - usersmagic
+          .each-footer-column(style="margin-left: 20px")
+            span.footer-title #{__('Hizmetlerimiz')}
+            span.footer-text Testing
+            span.footer-text Marketing
+            span.footer-text Analysing
+        .footer-bottom
+          span.copyright Copyright 2020 - LOY combinator
+          span.copyright #{__('Tüm hakları saklıdır.')}
