@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "10.7.0"
+  },
   "author": "Yunus Gürlek",
   "license": "MIT",
   "dependencies": {
