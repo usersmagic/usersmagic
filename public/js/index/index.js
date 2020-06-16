@@ -36,7 +36,7 @@ window.onload = () => {
 
     if (contentWrapper.scrollTop >= window.innerHeight - 220) {
       eachServices.forEach(service => {
-        if (!service.classList.contains('opacity-increase-animation-class'))
+        if (!service.classList.contains('opacity-slowly-increase-animation-class'))
           service.classList.add('opacity-slowly-increase-animation-class');
       });
     }

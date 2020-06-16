@@ -114,7 +114,7 @@ body {
 
 .start-page-wrapper {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 70px;
   display: flex;
   flex-direction: column;
@@ -123,6 +123,7 @@ body {
 }
 .start-page-title {
   font-size: 480%;
+  line-height: 85px;
   font-weight: 700;
   color: rgb(254, 254, 254);
   text-align: center;
@@ -303,9 +304,8 @@ body {
   font-size: 500%;
   font-weight: 700;
   color: rgb(254, 254, 254);
+  margin: 50px 0;
   margin-left: auto;
-  margin-top: 50px;
-  margin-bottom: 200px;
 }
 
 .form-wrapper {
@@ -456,6 +456,23 @@ body {
     opacity: 1;
   }
 }
+
+/* @keyframes changeColor {
+  from {
+    
+  }
+  to {
+    
+  }
+}
+@-webkit-keyframes opacityIncrease {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+} */
 
 @media only screen and (max-width: 520px) and (min-width: 300px) {
   .header-wrapper {
