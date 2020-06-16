@@ -15,7 +15,7 @@ i18n.configure({
   locales:['tr', 'en'],
   directory: __dirname + '/translations',
   queryParameter: 'lang',
-  defaultLocale: 'tr'
+  defaultLocale: 'en'
 });
 
 dotenv.config({ path: path.join(__dirname, ".env") });

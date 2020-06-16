@@ -361,7 +361,7 @@ body {
   outline: none;
   border: none;
   margin-top: 50px;
-  font-size: 175%;
+  font-size: 150%;
   cursor: pointer;
 }
 .form-send-button:hover {
