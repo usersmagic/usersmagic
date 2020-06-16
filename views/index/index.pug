@@ -99,13 +99,13 @@ block content
           span #{__('hazır mısın?')}
         .form-input-wrapper
           .form-input-first-column
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('İsim Soyisim') name="name")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Ünvan') name="title")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Sektör') name="area")
+            input.each-form-input(type="text" required placeholder=__('İsim Soyisim') name="user_name" autocomplete="nope")
+            input.each-form-input(type="text" required placeholder=__('Ünvan') name="user_title" autocomplete="nope")
+            input.each-form-input(type="text" required placeholder=__('Sektör') name="business_area" autocomplete="nope")
           .form-input-second-column
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Şirket Adı') name="company_name")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Telefon Numarası') name="phone")
-            input.each-form-input(type="text" autocomplete="nope" required placeholder=__('Ürün Linki') name="link")
+            input.each-form-input(type="text" required placeholder=__('Şirket Adı') name="company_name" autocomplete="nope")
+            input.each-form-input(type="text" required placeholder=__('Telefon Numarası') name="company_phone" autocomplete="nope")
+            input.each-form-input(type="text" required placeholder=__('Ürün Linki') name="company_link" autocomplete="nope")
         button.form-send-button
           span #{__('Aramıza Katıl')}
       .footer
