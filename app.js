@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 
 i18n.configure({
-  locales:['tr', 'en'],
+  locales:['tr', 'en', 'de', 'es', 'fr'],
   directory: __dirname + '/translations',
   queryParameter: 'lang',
   defaultLocale: 'en'

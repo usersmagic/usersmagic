@@ -12,16 +12,20 @@ const smoothScroll = (scrollAmount, contentWrapper) => {
 window.onload = () => {
   const contentWrapper = document.querySelector('.content-wrapper');
   const headerWrapper = document.querySelector('.header-wrapper');
+  const currentLanguage = document.querySelector('.current-language');
   const learnMoreLink = document.querySelector('.learn-more-link');
   const formTitle = document.querySelector('.form-title');
   const eachServices = document.querySelectorAll('.each-services-line');
   const testerInfo = document.querySelectorAll('.purple.tester-info-text');
+  const changeLanguageMenu = document.querySelector('.change-language-menu');
 
   contentWrapper.onscroll = event => {
     if (contentWrapper.scrollTop >= 70) {
       headerWrapper.style.borderBottom = "1px solid rgba(254, 254, 254, 0.1)";
+      currentLanguage.style.marginTop = "1px";
     } else {
       headerWrapper.style.borderBottom = "0px";
+      currentLanguage.style.marginTop = "0px";
     }
 
     if (contentWrapper.scrollTop > 0 && !learnMoreLink.classList.contains('opacity-decrease-animation-class')) {
@@ -56,6 +60,14 @@ window.onload = () => {
 
     if (event.target.classList.contains('header-register-button') || event.target.parentNode.classList.contains('header-register-button') || event.target.classList.contains('start-page-button') || event.target.parentNode.classList.contains('start-page-button')) {
       formTitle.scrollIntoView();
+    }
+  });
+
+  document.addEventListener('mouseover', event => {
+    if (event.target.className == 'change-language-wrapper' || event.target.parentNode.className == 'change-language-wrapper' || event.target.parentNode.parentNode.className == 'change-language-wrapper' || event.target.parentNode.parentNode.parentNode.className == 'change-language-wrapper') {
+      changeLanguageMenu.style.display = 'block';
+    } else {
+      changeLanguageMenu.style.display = 'none';
     }
   })
 }

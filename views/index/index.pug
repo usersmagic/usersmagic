@@ -5,8 +5,16 @@ block content
       img.main-logo(src="/res/images/logo.png", alt="usersmagic logo")
       span.logo-text usersmagic
     .change-language-wrapper
-      a.each-language(href="/?lang=tr") Tr
-      a.each-language(href="/?lang=en") En
+      .change-language-inner-wrapper
+        span.current-language= current_language
+        i.fas.fa-globe-americas
+      .change-language-menu
+        .change-language-menu-inner-wrapper
+          a.each-language-button(href="?lang=tr") TR
+          a.each-language-button(href="?lang=en") EN
+          a.each-language-button(href="?lang=es") ES
+          a.each-language-button(href="?lang=fr") FR
+          a.each-language-button(href="?lang=de") DE
     .header-register-button
       span #{__('Hemen Başla')}
   .content-wrapper
