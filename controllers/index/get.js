@@ -5,6 +5,7 @@ module.exports = (req, res) => {
     includes: {
       external: ['js', 'css', 'fontawesome']
     },
-    current_language: req.query.lang ? req.query.lang.toUpperCase() : req.headers["accept-language"].split('-')[0].toUpperCase()
+    current_language: req.query.lang ? req.query.lang.toUpperCase() : req.headers["accept-language"].split('-')[0].toUpperCase(),
+    language_key: req.query.lang ? req.query.lang : null
   });
 }

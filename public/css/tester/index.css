@@ -240,42 +240,6 @@ body {
   margin-left: 8px;
 }
 
-.services-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-.services-title {
-  color: rgb(254, 254, 254);
-  font-weight: 800;
-  font-size: 350%;
-  align-self: center;
-  margin-top: 110px;
-}
-.each-services-line {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-top: 60px;
-  opacity: 0;
-}
-.each-services-line img {
-  height: 150px;
-}
-.each-services-content {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-}
-.each-services-title {
-  font-size: 250%;
-  font-weight: 700;
-}
-.each-services-info {
-  color: rgb(254, 254, 254);
-  font-weight: 500;
-  margin-top: 10px;
-}
-
 .steps-wrapper {
   display: flex;
   flex-direction: column;
@@ -302,7 +266,7 @@ body {
   color: rgb(254, 254, 254);
   font-size: 125%;
   font-weight: 600;
-  margin-top: -40px;
+  margin-top: 10px;
 }
 .third-step {
   margin-top: 5px;
@@ -359,6 +323,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: 200px;
+  width: 100%;
 }
 .missions-wrapper img {
   width: 100%;
@@ -415,6 +380,63 @@ body {
   color: rgb(254, 254, 254);
   font-size: 175%;
   outline-color: rgb(254, 254, 254);
+}
+.date-input-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.date-input-small {
+  flex: 1;
+  margin-right: 20px;
+  border: none;
+  background-color: rgba(50, 50, 50, 0.45);
+  border-radius: 10px;
+  padding: 20px 25px;
+  width: 100%;
+  color: rgb(254, 254, 254);
+  font-size: 175%;
+  outline-color: rgb(254, 254, 254);
+}
+.date-input-big {
+  flex: 2;
+  border: none;
+  background-color: rgba(50, 50, 50, 0.45);
+  border-radius: 10px;
+  padding: 20px 25px;
+  width: 100%;
+  color: rgb(254, 254, 254);
+  font-size: 175%;
+  outline-color: rgb(254, 254, 254);
+}
+.student-button-wrapper {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.student-button {
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(254, 254, 254);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.student-button i {
+  color: rgb(24, 24, 24);
+  font-weight: 700;
+  font-size: 85%;
+  margin-top: 2px;
+  display: none;
+}
+.student-button-wrapper span {
+  font-size: 125%;
+  color: rgb(254, 254, 254);
+  font-weight: 500;
+  margin-left: 10px;
 }
 .form-send-button {
   height: 70px;
@@ -662,7 +684,7 @@ body {
     font-size: 100%;
   }
   .second-step {
-    margin-top: -25px;
+    margin-top: 10px;
     font-size: 100%;
   }
   .third-step {
@@ -712,7 +734,7 @@ body {
   .form-input-first-column, .form-input-second-column {
     margin: 0px;
   }
-  .each-form-input, .form-send-button {
+  .each-form-input, .form-send-button, .date-input-small, .date-input-big {
     font-size: 125%;
   }
 }

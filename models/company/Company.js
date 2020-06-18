@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const ApplicationSchema = new Schema({
+const CompanySchema = new Schema({
   name: {
     type: String,
     required: true
@@ -29,4 +29,4 @@ const ApplicationSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Application', ApplicationSchema);
+module.exports = mongoose.model('Company', CompanySchema);

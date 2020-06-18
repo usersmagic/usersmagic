@@ -17,15 +17,17 @@ block content
           a.each-language-button(href="?lang=de") DE
     .header-register-button
       span #{__('Hemen Başla')}
+    a.header-change-page-button(href=language_key ? `/tester?lang=${language_key}` : '/tester')
+      span #{__('Para Kazan')}
   .content-wrapper
     .content-inner-wrapper
       .start-page-wrapper
         span.start-page-title
           span #{__('Ürününü hedef kitlene')}
-          span.green #{__(' test ')}
+          span.colored #{__(' test ')}
           span #{__('ettirmenin en kolay yolu.')}
         span.start-page-info
-          span.red #{__('usersmagic')}
+          span.purple.bold #{__('usersmagic')}
           span #{__(', bir şirket için en iyisi')}
         .start-page-button
           span #{__('Hemen Başla')}
@@ -104,7 +106,7 @@ block content
       form.form-wrapper(method="POST" action="/")
         span.form-title
           span.red #{__('Büyümeye ')}
-          span #{__('hazır mısın?')}
+          span #{__('hazır mısınız?')}
         .form-input-wrapper
           .form-input-first-column
             input.each-form-input(type="text" required placeholder=__('İsim Soyisim') name="user_name" autocomplete="nope")
