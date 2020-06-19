@@ -28,10 +28,12 @@ body {
   flex-direction: column;
 }
 .colored {
-  background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(141, 91, 255), rgb(234, 49, 96));
+  background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-animation: colorChange 3.5s ease-in-out 0s infinite;
+  animation: colorChange 3.5s ease-in-out 0s infinite;
 }
 .red {
   color: rgb(234, 49, 96) !important;
@@ -536,6 +538,155 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), transparent, rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  2.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), transparent, rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), transparent, rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  7.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), transparent, rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  10% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), transparent, rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  12.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), transparent, rgb(234, 49, 96), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  15% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), transparent, rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  17.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96), transparent, rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  20% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  22.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  25% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  100% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+@-webkit-keyframes colorChange {
+  0% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), transparent, rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  2.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), transparent, rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), transparent, rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  7.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), transparent, rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  10% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), transparent, rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  12.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), transparent, rgb(234, 49, 96), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  15% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), transparent, rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  17.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96), transparent, rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  20% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  22.5% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255), rgb(20, 161, 255), rgb(20, 161, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(141, 91, 255), rgb(234, 49, 96), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  25% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  100% {
+    background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 

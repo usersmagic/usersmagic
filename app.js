@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const expressSession = require('express-session');
 const i18n = require('i18n');
 
 const app = express();
@@ -26,10 +25,6 @@ const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/usersmagi
 const indexRouteController = require('./routes/indexRoute');
 const testerRouteController = require('./routes/testerRoute');
 
-const {
-  SESSION_SECRET
-} = process.env;
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
@@ -41,19 +36,6 @@ app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-const session = expressSession({
-  secret: SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-});
-
-app.use(session);
-
-app.use((req, res, next) => {
-  next();
-});
 
 app.use(i18n.init);
 
