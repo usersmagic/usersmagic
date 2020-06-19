@@ -15,9 +15,14 @@ window.onload = () => {
   const currentLanguage = document.querySelector('.current-language');
   const learnMoreLink = document.querySelector('.learn-more-link');
   const formTitle = document.querySelector('.form-title');
+  const formWrapper = document.querySelector('.form-wrapper');
   const eachServices = document.querySelectorAll('.each-services-line');
   const testerInfo = document.querySelectorAll('.purple.tester-info-text');
   const changeLanguageMenu = document.querySelector('.change-language-menu');
+  const successText = document.getElementById('success-text');
+  const badRequestError = document.getElementById('bad-request-error');
+  const databaseError = document.getElementById('database-error');
+  const unknownError = document.getElementById('unknown-error');
 
   contentWrapper.onscroll = event => {
     if (contentWrapper.scrollTop >= 70) {
@@ -69,5 +74,48 @@ window.onload = () => {
     } else {
       changeLanguageMenu.style.display = 'none';
     }
-  })
+  });
+
+  formWrapper.onsubmit = event => {
+    event.preventDefault();
+    console.log("here");
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      name: document.getElementById('name-input').value,
+      title: document.getElementById('title-input').value,
+      business: document.getElementById('business-input').value,
+      phone: document.getElementById('phone-input').value,
+      company: document.getElementById('company-input').value,
+      link: document.getElementById('link-input').value
+    }));
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 200) {
+          successText.style.display = 'block';
+          badRequestError.style.display = 'none';
+          databaseError.style.display = 'none';
+          unknownError.style.display = 'none';
+        } else if (xhr.status == 400) {
+          successText.style.display = 'none';
+          badRequestError.style.display = 'block';
+          databaseError.style.display = 'none';
+          unknownError.style.display = 'none';
+        } else if (xhr.status == 500) {
+          successText.style.display = 'none';
+          badRequestError.style.display = 'none';
+          databaseError.style.display = 'block';
+          unknownError.style.display = 'none';
+        } else {
+          successText.style.display = 'none';
+          badRequestError.style.display = 'none';
+          databaseError.style.display = 'none';
+          unknownError.style.display = 'block';
+        }
+      }
+    }
+  }
 }

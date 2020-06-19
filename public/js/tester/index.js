@@ -16,12 +16,15 @@ window.onload = () => {
   const learnMoreLink = document.querySelector('.learn-more-link');
   const formTitle = document.querySelector('.form-title');
   const formWrapper = document.querySelector('.form-wrapper');
-  const formResponse = document.querySelector('.form-response');
   const eachServices = document.querySelectorAll('.each-services-line');
   const testerInfo = document.querySelectorAll('.purple.tester-info-text');
   const changeLanguageMenu = document.querySelector('.change-language-menu');
   const studentButton = document.querySelector('.student-button');
   const professionInput = document.getElementById('profession-input');
+  const successText = document.getElementById('success-text');
+  const validEmailError = document.getElementById('valid-email-error');
+  const emailRepeatError = document.getElementById('email-repeat-error');
+  const unknownError = document.getElementById('unknown-error');
 
   contentWrapper.onscroll = event => {
     if (contentWrapper.scrollTop >= 70) {
@@ -110,17 +113,25 @@ window.onload = () => {
     xhr.onreadystatechange = () => {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         if (xhr.status == 200) {
-          formResponse.innerHTML = "Kaydın başarı ile alında, bir hafta içinde temsilcilerimiz sana ulaşacak!"
-          formResponse.style.color = "rgb(0, 204, 136)";
+          successText.style.display = 'block';
+          validEmailError.style.display = 'none';
+          emailRepeatError.style.display = 'none';
+          unknownError.style.display = 'none';
         } else if (xhr.status == 400) {
-          formResponse.innerHTML = "Lütfen geçerli bir e-posta adresi gir."
-          formResponse.style.color = "rgb(234, 49, 96)";
+          successText.style.display = 'none';
+          validEmailError.style.display = 'block';
+          emailRepeatError.style.display = 'none';
+          unknownError.style.display = 'none';
         } else if (xhr.status == 500) {
-          formResponse.innerHTML = "Bu e-posta adresi zaten kaydedilmiş."
-          formResponse.style.color = "rgb(234, 49, 96)";
+          successText.style.display = 'none';
+          validEmailError.style.display = 'none';
+          emailRepeatError.style.display = 'block';
+          unknownError.style.display = 'none';
         } else {
-          formResponse.innerHTML = "Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar dene."
-          formResponse.style.color = "rgb(234, 49, 96)";
+          successText.style.display = 'none';
+          validEmailError.style.display = 'none';
+          emailRepeatError.style.display = 'none';
+          unknownError.style.display = 'block';
         }
       }
     }

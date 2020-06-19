@@ -1,7 +1,7 @@
 extends ./../partials/head
 block content
   .header-wrapper
-    a.main-logo-wrapper(href="/")
+    a.main-logo-wrapper(href=language_key ? `/?lang=${language_key}` : '/')
       img.main-logo(src="/res/images/logo.png", alt="usersmagic logo")
       span.logo-text usersmagic
     .change-language-wrapper
@@ -109,15 +109,20 @@ block content
           span #{__('hazır mısınız?')}
         .form-input-wrapper
           .form-input-first-column
-            input.each-form-input(type="text" required placeholder=__('İsim Soyisim') name="user_name" autocomplete="nope")
-            input.each-form-input(type="text" required placeholder=__('Ünvan') name="user_title" autocomplete="nope")
-            input.each-form-input(type="text" required placeholder=__('Sektör') name="business_area" autocomplete="nope")
+            input.each-form-input#name-input(type="text" required placeholder=__('İsim Soyisim') name="user_name" autocomplete="nope")
+            input.each-form-input#title-input(type="text" required placeholder=__('Ünvan') name="user_title" autocomplete="nope")
+            input.each-form-input#business-input(type="text" required placeholder=__('Sektör') name="business_area" autocomplete="nope")
           .form-input-second-column
-            input.each-form-input(type="text" required placeholder=__('Şirket Adı') name="company_name" autocomplete="nope")
-            input.each-form-input(type="text" required placeholder=__('Telefon Numarası') name="company_phone" autocomplete="nope")
-            input.each-form-input(type="text" required placeholder=__('Ürün Linki') name="company_link" autocomplete="nope")
+            input.each-form-input#company-input(type="text" required placeholder=__('Şirket Adı') name="company_name" autocomplete="nope")
+            input.each-form-input#phone-input(type="text" required placeholder=__('Telefon Numarası') name="company_phone" autocomplete="nope")
+            input.each-form-input#link-input(type="text" required placeholder=__('Ürün Linki') name="company_link" autocomplete="nope")
         button.form-send-button
           span #{__('Aramıza Katıl')}
+        .form-response-wrapper
+          span.form-response#success-text #{__('Başvurunuz başarı ile alındı, ekibimiz birkaç gün içinde sizinle iletişime geçecektir. Aramıza katıldığınız için teşekkür ederiz.')}
+          span.form-response.red#bad-request-error #{__('Lütfen formdaki bütün alanları doldurun.')}
+          span.form-response.red#database-error #{__('Kaydınız alınırken bir hata oluştu, lütfen bilgilerinizi kontrol edin ve tekrar deneyin.')}
+          span.form-response.red#unknown-error #{__('Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar deneyin.')}
       .footer
         .footer-top
           .each-footer-column(style="margin-right: 20px")

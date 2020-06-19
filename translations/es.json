@@ -75,5 +75,13 @@
 	" bir hafta süresince ": " bir hafta süresince ",
 	" geri bildirimlerini ": " geri bildirimlerini ",
 	"ver.": "ver.",
-	"Öğrenciyim": "I am a student"
+	"Öğrenciyim": "I am a student",
+	"Kaydın başarı ile alındı, bir hafta içinde ekibimiz sana ulaşacak!": "Your application is taken succesfully, our team will contact you within a week!",
+	"Lütfen geçerli bir e-posta adresi gir.": "Please enter a valid email address.",
+	"Bu e-posta adresi zaten kaydedilmiş.": "This e-mail address is already in use.",
+	"Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar dene.": "An unknown error occured, please try again later.",
+	"Başvurunuz başarı ile alındı, ekibimiz birkaç gün içinde sizinle iletişime geçecektir. Aramıza katıldığınız için teşekkür ederiz.": "Your application is taken successfully, thank you for joining us. Our team will contact you within a week.",
+	"Lütfen formdaki bütün alanları doldurun.": "Please fill all the information in the form.",
+	"Kaydınız alınırken bir hata oluştu, lütfen bilgilerinizi kontrol edin ve tekrar deneyin.": "There was an error about the information you have entered. Please check it and try again.",
+	"Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar deneyin.": "An unknown error occured, please try again later."
 }

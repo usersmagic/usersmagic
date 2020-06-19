@@ -1,23 +1,23 @@
 const Company = require('../../models/company/Company');
 
 module.exports = (req, res) => {
-  if (!req.body || !req.body.user_name || !req.body.user_title || !req.body.business_area || !req.body.company_name || !req.body.company_phone || !req.body.company_link)
-    return res.redirect('/');
+  if (!req.body || !req.body.name || !req.body.title || !req.body.business || !req.body.company || !req.body.phone || !req.body.link)
+    return res.sendStatus(400);
 
   const newCompanyData = {
-    name: req.body.user_name,
-    title: req.body.user_title,
-    area: req.body.business_area,
-    company_name: req.body.company_name,
-    phone: req.body.company_phone,
-    link: req.body.company_link
+    name: req.body.name,
+    title: req.body.title,
+    area: req.body.business,
+    company_name: req.body.company,
+    phone: req.body.phone,
+    link: req.body.link
   };
 
   const newCompany = new Company(newCompanyData);
 
   newCompany.save(err => {
-    if (err) return res.redirect('/');
+    if (err) return res.sendStatus(500);
 
-    return res.redirect('/');
+    return res.sendStatus(200);
   });
 }

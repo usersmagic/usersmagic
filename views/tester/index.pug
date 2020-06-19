@@ -1,7 +1,7 @@
 extends ./../partials/head
 block content
   .header-wrapper
-    a.main-logo-wrapper(href="/")
+    a.main-logo-wrapper(href=language_key ? `/?lang=${language_key}` : '/')
       img.main-logo(src="/res/images/logo.png", alt="usersmagic logo")
       span.logo-text usersmagic
     .change-language-wrapper
@@ -101,7 +101,10 @@ block content
         button.form-send-button
           span #{__('Aramıza Katıl')}
         .form-response-wrapper
-          span.form-response
+          span.form-response#success-text #{__('Kaydın başarı ile alındı, bir hafta içinde ekibimiz sana ulaşacak!')}
+          span.form-response.red#valid-email-error #{__('Lütfen geçerli bir e-posta adresi gir.')}
+          span.form-response.red#email-repeat-error #{__('Bu e-posta adresi zaten kaydedilmiş.')}
+          span.form-response.red#unknown-error #{__('Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar dene.')}
       .footer
         .footer-top
           .each-footer-column(style="margin-right: 20px")

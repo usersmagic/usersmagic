@@ -468,6 +468,8 @@ body {
   color: rgb(0, 204, 136);
   font-weight: 700;
   font-size: 125%;
+  display: none;
+  text-align: center;
 }
 
 .footer {
