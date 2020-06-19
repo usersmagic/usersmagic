@@ -32,8 +32,8 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: colorChange 3.5s ease-in-out 0s infinite;
-  animation: colorChange 3.5s ease-in-out 0s infinite;
+  -webkit-animation: colorChange 3.5s ease-in-out 0.5s infinite;
+  animation: colorChange 3.5s ease-in-out 0.5s infinite;
 }
 .red {
   color: rgb(234, 49, 96) !important;
