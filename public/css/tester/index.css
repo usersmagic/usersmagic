@@ -458,6 +458,17 @@ body {
 .form-send-button:hover {
   box-shadow: 0px 2px 5px rgba(20, 161, 255, 0.2);
 }
+.form-response-wrapper {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.form-response {
+  color: rgb(0, 204, 136);
+  font-weight: 700;
+  font-size: 125%;
+}
 
 .footer {
   display: flex;

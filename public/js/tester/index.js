@@ -15,6 +15,8 @@ window.onload = () => {
   const currentLanguage = document.querySelector('.current-language');
   const learnMoreLink = document.querySelector('.learn-more-link');
   const formTitle = document.querySelector('.form-title');
+  const formWrapper = document.querySelector('.form-wrapper');
+  const formResponse = document.querySelector('.form-response');
   const eachServices = document.querySelectorAll('.each-services-line');
   const testerInfo = document.querySelectorAll('.purple.tester-info-text');
   const changeLanguageMenu = document.querySelector('.change-language-menu');
@@ -84,4 +86,43 @@ window.onload = () => {
       changeLanguageMenu.style.display = 'none';
     }
   });
+
+  formWrapper.onsubmit = event => {
+    event.preventDefault();
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/tester', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      email: document.getElementById('email-input').value,
+      name: document.getElementById('name-input').value,
+      gender: document.getElementById('gender-input').value,
+      phone: document.getElementById('phone-input').value,
+      birth_time: {
+        day: document.getElementById('birth-day-input').value,
+        month: document.getElementById('birth-month-input').value,
+        year: document.getElementById('birth-year-input').value
+      },
+      last_school: document.getElementById('last-school-input').value,
+      profession: document.getElementById('profession-input').value
+    }));
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 200) {
+          formResponse.innerHTML = "Kaydın başarı ile alında, bir hafta içinde temsilcilerimiz sana ulaşacak!"
+          formResponse.style.color = "rgb(0, 204, 136)";
+        } else if (xhr.status == 400) {
+          formResponse.innerHTML = "Lütfen geçerli bir e-posta adresi gir."
+          formResponse.style.color = "rgb(234, 49, 96)";
+        } else if (xhr.status == 500) {
+          formResponse.innerHTML = "Bu e-posta adresi zaten kaydedilmiş."
+          formResponse.style.color = "rgb(234, 49, 96)";
+        } else {
+          formResponse.innerHTML = "Bilinmeyen bir hata oluştu, lütfen daha sonra tekrar dene."
+          formResponse.style.color = "rgb(234, 49, 96)";
+        }
+      }
+    }
+  }
 }

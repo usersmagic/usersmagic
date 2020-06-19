@@ -3,31 +3,31 @@ const validator = require('validator');
 const Tester = require('../../models/tester/Tester');
 
 module.exports = (req, res) => {
-  if (!req.body || !req.body.user_email || !req.body.user_name || !req.body.user_phone || !req.body.user_gender || !req.body.user_birth_day || !req.body.user_birth_month || !req.body.user_birth_year || !req.body.last_school || !req.body.user_profession)
-    return res.redirect('/');
+  if (!req.body || !req.body.email || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_time || !req.body.birth_time.day || !req.body.birth_time.month || !req.body.birth_time.year || !req.body.last_school || !req.body.profession)
+    return res.sendStatus(400);
 
-  if (!validator.isEmail(req.body.user_email))
-    return res.redirect('/');
+  if (!validator.isEmail(req.body.email))
+    return res.sendStatus(400);
   
   const newTesterData = {
-    email: req.body.user_email,
-    phone: req.body.user_phone,
-    name: req.body.user_name,
-    gender: req.body.user_gender,
+    email: req.body.email,
+    phone: req.body.phone,
+    name: req.body.name,
+    gender: req.body.gender,
     birth_time: {
-      day: req.body.user_birth_day,
-      month: req.body.user_birth_month,
-      year: req.body.user_birth_year
+      day: req.body.birth_time.day,
+      month: req.body.birth_time.month,
+      year: req.body.birth_time.year
     },
     last_school: req.body.last_school,
-    profession: req.body.user_profession
+    profession: req.body.profession
   };
 
   const newTester = new Tester(newTesterData);
 
   newTester.save((err, tester) => {
-    if (err) return res.redirect('/');
+    if (err) return res.sendStatus(500);;
 
-    return res.redirect('/tester');
+    return res.sendStatus(200);
   });
 }
