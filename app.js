@@ -24,6 +24,7 @@ const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/usersmagi
 
 const indexRouteController = require('./routes/indexRoute');
 const testerRouteController = require('./routes/testerRoute');
+const agreementRouteController = require('./routes/agreementRoute');
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -41,6 +42,7 @@ app.use(i18n.init);
 
 app.use('/', indexRouteController);
 app.use('/tester', testerRouteController);
+app.use('/agreement', agreementRouteController);
 
 server.listen(PORT, () => {
   console.log(`Server is on port ${PORT}`);
