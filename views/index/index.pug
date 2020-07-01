@@ -1,7 +1,7 @@
 extends ./../partials/head
 block content
   .header-wrapper
-    a.main-logo-wrapper(href=language_key ? `/?lang=${language_key}` : '/')
+    a.main-logo-wrapper(href=language_key ? `/company?lang=${language_key}` : '/')
       img.main-logo(src="/res/images/logo.png", alt="usersmagic logo")
       span.logo-text usersmagic
     .change-language-wrapper
@@ -12,12 +12,12 @@ block content
         .change-language-menu-inner-wrapper
           a.each-language-button(href="?lang=tr") TR
           a.each-language-button(href="?lang=en") EN
-          a.each-language-button(href="?lang=es") ES
-          a.each-language-button(href="?lang=fr") FR
+          //- a.each-language-button(href="?lang=es") ES
+          //- a.each-language-button(href="?lang=fr") FR
           a.each-language-button(href="?lang=de") DE
     .header-register-button
       span #{__('Hemen Başla')}
-    a.header-change-page-button(href=language_key ? `/tester?lang=${language_key}` : '/tester')
+    a.header-change-page-button(href=language_key ? `/?lang=${language_key}` : '/')
       span #{__('Para Kazan')}
   .content-wrapper
     .content-inner-wrapper
@@ -93,6 +93,18 @@ block content
           span #{__('Hedef kitleniz deneyimlerini')}
           span.yellow #{__(' sosyal medyada  ')}
           span #{__('paylaşsın ve markanızı kitlenize yaysın.')}
+      .references-wrapper
+        each reference in references
+          .each-reference
+            .each-reference-inner-wrapper
+              span.reference-explanation= reference.explanation
+              span.reference-quote
+                span "
+                each quote in reference.quote
+                  span(class=quote.trim().toLowerCase() == "usersmagic" ? "red" : "")= quote
+                span "
+              span.reference-person ~#{reference.person}
+              span.reference-product= reference.product
       .missions-wrapper
         span.first-mission
           span.yellow #{__('Product ')}

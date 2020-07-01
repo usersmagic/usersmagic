@@ -12,12 +12,12 @@ block content
         .change-language-menu-inner-wrapper
           a.each-language-button(href="?lang=tr") TR
           a.each-language-button(href="?lang=en") EN
-          a.each-language-button(href="?lang=es") ES
-          a.each-language-button(href="?lang=fr") FR
+          //- a.each-language-button(href="?lang=es") ES
+          //- a.each-language-button(href="?lang=fr") FR
           a.each-language-button(href="?lang=de") DE
     .header-register-button
       span #{__('Hemen Başla')}
-    a.header-change-page-button(href="/" + language_key ? `?lang=${language_key}` : '')
+    a.header-change-page-button(href="/company" + (language_key ? `?lang=${language_key}` : ''))
       span #{__('Şirket Hesabı Aç')}
   .content-wrapper
     .content-inner-wrapper
@@ -34,7 +34,7 @@ block content
         .learn-more-link
           span #{__('Daha fazla öğren')}
           i.fas.fa-chevron-down
-      .steps-wrapper
+      //- .steps-wrapper
         img(src="/res/images/steps_tester.png", alt="usersmagic in three steps")
         .steps-inner-wrapper
           span.first-step
@@ -54,7 +54,7 @@ block content
             span.yellow #{__(' bir hafta ')}
             span #{__('içinde')}
             span.yellow #{__(' paran hesabına yatsın. ')}
-      .steps-wrapper-responsive
+      //- .steps-wrapper-responsive
         img(src="/res/images/step_tester_one.png", alt="usersmagic")
         span.step-text-responsive
           span #{__('Sana hitap eden app ve websitelerin test etmek için')}
@@ -75,7 +75,7 @@ block content
           span.yellow #{__(' bir hafta ')}
           span #{__('içinde')}
           span.yellow #{__(' paran hesabına yatsın. ')}
-      .missions-wrapper
+      //- .missions-wrapper
         img(src="/res/images/missions.png", alt="usersmagic missions")
       form.form-wrapper(method="POST" action="/tester")
         span.form-title

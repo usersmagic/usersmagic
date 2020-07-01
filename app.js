@@ -40,8 +40,8 @@ app.use(bodyParser.json());
 
 app.use(i18n.init);
 
-app.use('/', indexRouteController);
-app.use('/tester', testerRouteController);
+app.use('/', testerRouteController);
+app.use('/company', indexRouteController);
 app.use('/agreement', agreementRouteController);
 
 server.listen(PORT, () => {

@@ -9,6 +9,25 @@ const smoothScroll = (scrollAmount, contentWrapper) => {
   }, 0.001);
 }
 
+const dissapearToLeft = (referencesWrapper) => {
+  const currNode = referencesWrapper.childNodes[0];
+
+  if (currNode.classList.contains('reference-disappear-animation-class'))
+    currNode.classList.remove('reference-disappear-animation-class');
+
+  currNode.classList.add('reference-disappear-animation-class');
+
+  setTimeout(() => {
+    currNode.remove();
+
+    setTimeout(() => {
+      currNode.classList.remove('reference-disappear-animation-class');
+      referencesWrapper.appendChild(currNode);
+      return dissapearToLeft(referencesWrapper);
+    }, 10000);
+  }, 1500);
+}
+
 window.onload = () => {
   const contentWrapper = document.querySelector('.content-wrapper');
   const headerWrapper = document.querySelector('.header-wrapper');
@@ -23,6 +42,9 @@ window.onload = () => {
   const badRequestError = document.getElementById('bad-request-error');
   const databaseError = document.getElementById('database-error');
   const unknownError = document.getElementById('unknown-error');
+  const referencesWrapper = document.querySelector('.references-wrapper');
+
+  dissapearToLeft(referencesWrapper);
 
   contentWrapper.onscroll = event => {
     if (contentWrapper.scrollTop >= 70) {
