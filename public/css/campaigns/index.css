@@ -1,0 +1,213 @@
+.all-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.all-header {
+  min-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.all-header-menu-wrapper {
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  min-height: fit-content;
+  padding-bottom: 40px;
+}
+.each-header-menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  width: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(80, 177, 238);
+}
+.each-header-menu:hover {
+  color: rgb(240, 84, 79);
+}
+.each-header-menu i {
+  margin-bottom: 5px;
+  font-size: 150%;
+}
+.selected {
+  color: rgb(240, 84, 79) !important;
+}
+
+.all-content {
+  flex: 1;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.no-campaign-text {
+  width: 100%;
+  height: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  text-align: center;
+}
+.all-content-inner-wrapper {
+  min-height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 20px;
+}
+.campaign-outer-wrapper {
+  padding: 20px;
+  height: 100%;
+}
+.campaign-wrapper {
+  background-color: rgb(254, 254, 254);
+  border-radius: 20px;
+  border: 2px solid rgb(236, 236, 236);
+  min-height: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.campaign-photo-wrapper {
+  height: 10vw;
+  width: 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin-right: 20px;
+}
+.campaign-photo {
+  height: 100%;
+  width: auto;
+}
+
+.campaign-info-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.campaign-name {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  font-size: 125%;
+  margin-bottom: 10px;
+}
+.campaign-description {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 100%;
+  margin-bottom: 20px;
+  max-height: 10vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.campaign-price-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.campaign-price-text {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 75%;
+  margin-right: 5px;
+}
+.campaign-price {
+  color: rgb(240, 84, 79);
+  font-weight: 800;
+  font-size: 150%;
+}
+.campaign-join-button {
+  margin-top: 20px;
+  margin-left: auto;
+  background-color: rgb(80, 177, 238);
+  box-shadow: 0 0 20px rgba(80, 177, 238, 0.5);
+  text-decoration: none;
+  height: 50px;
+  padding: 0px 30px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+.campaign-join-button:hover {
+  box-shadow: 0 0 23px rgba(80, 177, 238, 0.6);
+}
+.campaign-join-text {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 125%;
+}
+
+@media only screen and (max-width: 450px) and (min-width: 300px) {
+  .all-wrapper {
+    flex-direction: column;
+  }
+  .all-content-inner-wrapper {
+    margin-bottom: 100px;
+  }
+  .all-header-menu-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    flex-direction: row;
+    height: 75px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 0px;
+    border-radius: 0px;
+  }
+  .each-header-menu {
+    margin-top: 0px;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 800px) {
+  .all-content-inner-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (max-width: 800px) and (min-width: 300px) {
+  .all-content-inner-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .campaign-photo-wrapper {
+    width: 20vw;
+    height: 20vw;
+  }
+}
+@media only screen and (max-width: 900px) and (min-width: 300px) {
+  .all-content-inner-wrapper {
+    padding: 10px;
+  }
+  .campaign-outer-wrapper {
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 600px) and (min-width: 300px) {
+  .campaign-wrapper {
+    flex-direction: column;
+  }
+  .campaign-info-wrapper {
+    width: 100%;
+  }
+  .campaign-photo-wrapper {
+    width: 30vw;
+    height: 30vw;
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+}

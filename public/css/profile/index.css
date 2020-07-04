@@ -1,0 +1,306 @@
+.all-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.all-header {
+  min-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.all-header-menu-wrapper {
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  min-height: fit-content;
+  padding-bottom: 40px;
+}
+.each-header-menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  width: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(80, 177, 238);
+}
+.each-header-menu:hover {
+  color: rgb(240, 84, 79);
+}
+.each-header-menu i {
+  margin-bottom: 5px;
+  font-size: 150%;
+}
+.selected {
+  color: rgb(240, 84, 79) !important;
+}
+
+.all-content {
+  flex: 1;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+
+}
+.all-content-inner-wrapper {
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.content-logo {
+  width: 5vw;
+  margin-top: 20px;
+}
+.user-name {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  font-size: 150%;
+  margin-top: 20px;
+}
+.user-info {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 100%;
+  margin-top: 5px;
+}
+.credit-info {
+  margin-top: 40px;
+  font-weight: 300;
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+}
+.credit-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.credit-text {
+  font-weight: 600;
+  color: rgb(30, 30, 30);
+  font-size: 150%;
+  margin-right: 13px;
+}
+.credit {
+  font-weight: 600;
+  color: rgb(30, 30, 30);
+  font-size: 175%;
+}
+.currency {
+  font-weight: 800;
+  color: rgb(80, 177, 238);
+  font-size: 175%;
+  margin-left: 3px;
+}
+
+
+.payment-error {
+  color: rgb(240, 84, 79);
+  margin-top: 10px;
+  margin-bottom: -15px;
+  font: 600;
+  font-size: 100%;
+}
+.get-credit-button {
+  margin-top: 30px;
+  background-color: rgb(240, 84, 79);
+  box-shadow: 0 0 20px rgba(240, 84, 79, 0.5);
+  text-decoration: none;
+  height: 50px;
+  padding: 0px 30px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.get-credit-button:hover {
+  box-shadow: 0 0 23px rgba(240, 84, 79, 0.6);
+}
+.get-credit-button-text {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 125%;
+}
+
+.user-payment-number {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+.logout-button {
+  margin-top: 15px;
+  color: rgb(80, 177, 238);
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+.logout-button:hover {
+  text-decoration: underline;
+}
+
+.each-input {
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0px;
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  padding: 15px 20px;
+  width: 25vw;
+  margin-top: 10px;
+  outline: none;
+  border-radius: 30px;
+}
+
+.send-button {
+  height: 60px;
+  padding: 0px 40px;
+  background-color: rgb(80, 177, 238);
+  border: 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  outline: none;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(88, 177, 238, 0.5);
+}
+.send-button:hover {
+  box-shadow: 0 0 23px rgba(88, 177, 238, 0.6);
+}
+.send-button span {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 150%;
+}
+
+.payment-number-wrapper {
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid rgb(236, 236, 236);
+  background-color: rgb(254, 254, 254);
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 37.5px;
+  display: none;
+}
+.payment-title {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  font-size: 125%;
+  margin-bottom: 10px;
+}
+.payment-subtitle {
+  width: 25vw;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.payment-send-button {
+  height: 60px;
+  padding: 0px 40px;
+  background-color: rgb(240, 84, 79);
+  border: 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  outline: none;
+  margin-top: 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(240, 84, 79, 0.5);
+}
+.payment-send-button:hover {
+  box-shadow: 0 0 23px rgba(240, 84, 79, 0.6);
+}
+.payment-send-button span {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 150%;
+}
+.close-payment-button {
+  margin-top: 20px;
+  color: rgb(80, 177, 238);
+  font-weight: 600;
+  font-size: 100%;
+  cursor: pointer;
+}
+.close-payment-button:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 450px) and (min-width: 300px) {
+  .all-wrapper {
+    flex-direction: column;
+  }
+  .all-content-inner-wrapper {
+    padding-bottom: 100px;
+  }
+  .all-header-menu-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    flex-direction: row;
+    height: 75px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 0px;
+    border-radius: 0px;
+  }
+  .each-header-menu {
+    margin-top: 0px;
+    width: auto;
+  }
+  .payment-number-wrapper {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 300px) {
+  .content-logo {
+    width: 10vw;
+  }
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 900px) {
+  .each-input, .payment-subtitle {
+    width: 30vw;
+  }
+}
+@media only screen and (max-width: 900px) and (min-width: 700px) {
+  .each-input, .payment-subtitle {
+    width: 35vw;
+  }
+}
+@media only screen and (max-width: 700px) and (min-width: 600px) {
+  .each-input, .payment-subtitle {
+    width: 45vw;
+  }
+}
+@media only screen and (max-width: 600px) and (min-width: 450px) {
+  .each-input, .payment-subtitle {
+    width: 55vw;
+  }
+}
+@media only screen and (max-width: 450px) and (min-width: 300px) {
+  .each-input, .payment-subtitle {
+    width: 80vw;
+  }
+}
