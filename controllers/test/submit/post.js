@@ -13,9 +13,14 @@ module.exports = (req, res) => {
 
     let answers = req.body.answers;
 
+    if (answers.filter(each => !each.length).length)
+      return res.redirect('/test?id=' + req.query.id);
+
     const campaigns = user.campaigns.map(campaign => {
-      if (campaign._id.toString() == req.query.id)
+      if (campaign._id.toString() == req.query.id) {
+        campaign.answers = req.body.answers;
         campaign.status = "waiting";
+      }
 
       return campaign;
     });

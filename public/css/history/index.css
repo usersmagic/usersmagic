@@ -154,13 +154,15 @@
 .campaign-join-text {
   color: rgb(254, 254, 254);
   font-weight: 700;
-  font-size: 125%;
+  font-size: 100%;
+  text-align: center;
 }
 .campaign-info-text {
   margin-top: 20px;
   color: rgb(80, 177, 238);
   font-weight: 700;
   align-self: center;
+  text-align: center;
 }
 
 @media only screen and (max-width: 450px) and (min-width: 300px) {

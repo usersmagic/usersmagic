@@ -20,7 +20,7 @@ block content
                     img.campaign-photo(src=campaign.photo alt=campaign.name)
                   .campaign-info-wrapper
                     span.campaign-name= campaign.name
-                    span.campaign-description= campaign.description
+                    span.campaign-description= campaign.error ? campaign.error : campaign.description
                     .campaign-price-wrapper
                       span.campaign-price-text Kazanacağın:
                       span.campaign-price #{campaign.price}₺

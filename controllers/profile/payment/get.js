@@ -17,7 +17,7 @@ module.exports = (req, res) => {
     const newPaymentData = {
       user_id: user._id,
       payment_number: user.payment_number,
-      amout: user.credit
+      amount: user.credit
     };
 
     const newPayment = new Payment(newPaymentData);

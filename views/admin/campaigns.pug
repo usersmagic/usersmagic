@@ -9,7 +9,7 @@ block main
   .all-content-inner-wrapper
     .campaigns-wrapper
       each campaign in campaigns 
-        a.each-campaign(href=`/admin/campaigns/details?id=${campaign._id.toString()}`)
+        a.each-campaign(href=`/admin/submitions?id=${campaign._id.toString()}`)
           .campaign-photo-wrapper
             img.each-campaign-photo(src=campaign.photo)
           span.each-campaign-name= campaign.name
