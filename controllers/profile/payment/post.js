@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     if (err) return res.redirect('/profile');
 
     if (user) {
-      req.session.payment_error = 'Bu Papara numarası zaten kayıtlı, lütfen başka bir numara deneyin';
+      req.session.payment_error = res.__('Bu Papara numarası zaten kayıtlı, lütfen başka bir numara deneyin');
       return res.redirect('/profile');
     }
 

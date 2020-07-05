@@ -8,7 +8,7 @@ module.exports = (req, res) => {
     if (err || !user) return res.redirect('/profile');
 
     if (user.credit < 10) {
-      req.session.payment_error = 'Paranızı çekebilmek için bakiyeniz en az 10₺ olmalıdır.';
+      req.session.payment_error = res.__('Paranızı çekebilmek için bakiyeniz en az 10₺ olmalıdır');
       return res.redirect('/profile');
     }
 

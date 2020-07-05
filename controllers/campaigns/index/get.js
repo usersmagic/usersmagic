@@ -21,7 +21,7 @@ module.exports = (req, res) => {
 
       return res.render('campaigns/index', {
         page: 'campaigns/index',
-        title: 'Kampanyalar',
+        title: res.__('Kampanyalar'),
         includes: {
           external: ['css', 'fontawesome']
         },

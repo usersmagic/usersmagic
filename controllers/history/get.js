@@ -8,7 +8,7 @@ module.exports = (req, res) => {
 
     return res.render('history/index', {
       page: 'history/index',
-      title: 'Kampanya Geçmişi',
+      title: res.__('Kampanya Geçmişi'),
       includes: {
         external: ['css', 'fontawesome']
       },
