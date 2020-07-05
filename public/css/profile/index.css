@@ -12,16 +12,6 @@
   align-items: center;
   justify-content: center;
 }
-.all-header-responsive {
-  width: 100vw;
-  background-color: rgb(254, 254, 254);
-  border-top: 2px solid rgb(236, 236, 236);
-  height: 75px;
-  display: none;
-  align-items: center;
-  justify-content: space-evenly;
-  min-height: fit-content;
-}
 .all-header-menu-wrapper {
   background-color: rgb(254, 254, 254);
   border: 2px solid rgb(236, 236, 236);
@@ -42,17 +32,10 @@
   text-decoration: none;
   color: rgb(80, 177, 238);
 }
-.each-header-menu-responsive {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  color: rgb(80, 177, 238);
-}
 .each-header-menu:hover {
   color: rgb(240, 84, 79);
 }
-.each-header-menu i, .each-header-menu-responsive i {
+.each-header-menu i {
   margin-bottom: 5px;
   font-size: 150%;
 }
@@ -268,11 +251,25 @@
   .all-wrapper {
     flex-direction: column;
   }
-  .all-header {
-    display: none;
+  .all-content-inner-wrapper {
+    margin-bottom: 100px;
   }
-  .all-header-responsive {
-    display: flex;
+  .all-header-menu-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    flex-direction: row;
+    height: 75px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 0px;
+    border-radius: 0px;
+    border: none;
+    border-top: 2px solid rgb(236, 236, 236);
+  }
+  .each-header-menu {
+    margin-top: 0px;
+    width: auto;
   }
   .payment-number-wrapper {
     margin-left: 0px;

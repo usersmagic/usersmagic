@@ -169,6 +169,8 @@
     justify-content: space-evenly;
     padding-bottom: 0px;
     border-radius: 0px;
+    border: none;
+    border-top: 2px solid rgb(236, 236, 236);
   }
   .each-header-menu {
     margin-top: 0px;
