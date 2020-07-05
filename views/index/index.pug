@@ -1,13 +1,14 @@
 extends ./../partials/head
 block content
   .all-wrapper
-    span.logo-name usersmagic
-    span.logo-subtitle #{__('Para Kazanmanın En Kolay Yolu')}
-    a.register-button(href="/auth/register")
-      span Hemen Başla
-    .login-wrapper
-      span.login-text #{__('Zaten üye misin?')}
-      a.login-link(href="/auth/login") #{__('Giriş Yap')}
+    .all-inner-wrapper
+      span.logo-name usersmagic
+      span.logo-subtitle #{__('Para Kazanmanın En Kolay Yolu')}
+      a.register-button(href="/auth/register")
+        span Hemen Başla
+      .login-wrapper
+        span.login-text #{__('Zaten üye misin?')}
+        a.login-link(href="/auth/login") #{__('Giriş Yap')}
     .bottom-wrapper
       a.brand-wrapper(href="/brand")
         img.brand-logo(src="/res/images/logo_black.png", alt="")
