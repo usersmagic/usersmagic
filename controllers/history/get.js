@@ -10,7 +10,7 @@ module.exports = (req, res) => {
       page: 'history/index',
       title: res.__('Kampanya Geçmişi'),
       includes: {
-        external: ['css', 'fontawesome']
+        external: ['css', 'js', 'fontawesome']
       },
       campaigns: user.campaigns
     });

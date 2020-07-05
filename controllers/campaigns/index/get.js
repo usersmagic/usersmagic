@@ -23,7 +23,7 @@ module.exports = (req, res) => {
         page: 'campaigns/index',
         title: res.__('Kampanyalar'),
         includes: {
-          external: ['css', 'fontawesome']
+          external: ['css', 'js', 'fontawesome']
         },
         campaigns
       });
