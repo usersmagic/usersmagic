@@ -3,7 +3,7 @@ module.exports = (req, res) => {
     page: 'auth/login',
     title: res.__('Giriş Yap'),
     includes: {
-      external: ['css', 'js']
+      external: ['css']
     }
   });
 }

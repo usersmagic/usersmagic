@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     page: 'index/index',
     title: res.__('Test et ve Para Kazan'),
     includes: {
-      external: ['css', 'js', 'fontawesome']
+      external: ['css', 'fontawesome']
     },
     current_language,
     language_key: req.query.lang ? req.query.lang : null

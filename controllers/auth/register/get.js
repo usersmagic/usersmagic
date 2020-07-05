@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     page: 'auth/register',
     title: res.__('Kaydol'),
     includes: {
-      external: ['css', 'js']
+      external: ['css']
     },
     error
   });

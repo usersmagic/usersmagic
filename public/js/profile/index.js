@@ -1,6 +1,4 @@
 window.onload = () => {
-  window.scrollTo(0,1);
-  
   const user = JSON.parse(document.getElementById('user-object').value);
 
   const paymentNumberWrapper = document.querySelector('.payment-number-wrapper');

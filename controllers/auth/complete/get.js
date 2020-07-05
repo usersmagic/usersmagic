@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     page: 'auth/complete',
     title: res.__('Hesabını Tamamla'),
     includes: {
-      external: ['css', 'js']
+      external: ['css']
     },
     error
   });
