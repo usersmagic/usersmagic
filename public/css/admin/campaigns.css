@@ -76,6 +76,19 @@
   margin-left: 10px;
   font-size: 100%;
 }
+.campaign-applications-button {
+  margin-left: auto;
+  text-decoration: none;
+  color: rgba(112, 112, 112, 0.5);
+}
+.campaign-delete-button {
+  margin-left: 10px;
+  text-decoration: none;
+  color: rgba(112, 112, 112, 0.5);
+}
+.campaign-delete-button:hover, .campaign-applications-button:hover {
+  color: rgb(112, 112, 112);
+}
 
 .new-form-wrapper {
   flex: 7;

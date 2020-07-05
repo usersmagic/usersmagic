@@ -26,7 +26,7 @@ module.exports = async (file_name, file_size, callback) => {
     ACL: 'public-read'	
   };	
   
-  s3.upload(params, function(err, data) {	
+  s3.upload(params, (err, data) => {	
     if (err) return callback(err);	
   
     fs.unlink("./public/res/uploads/" + file_name, err => {	

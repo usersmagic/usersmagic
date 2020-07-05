@@ -9,6 +9,7 @@ const isAdmin = require('../middleware/isAdmin');
 const indexGetController = require('../controllers/admin/index/get');
 const loginGetController = require('../controllers/admin/auth/get');
 const campaignsIndexGetController = require('../controllers/admin/campaigns/index/get');
+const campaignsDeleteGetController = require('../controllers/admin/campaigns/delete/get');
 const paymentsIndexGetController = require('../controllers/admin/payments/index/get');
 const paymentsApproveGetController = require('../controllers/admin/payments/approve/get');
 const submitionsIndexGetController = require('../controllers/admin/submitions/index/get');
@@ -31,6 +32,11 @@ router.get(
   '/campaigns',
     isAdmin,
     campaignsIndexGetController
+);
+router.get(
+  '/campaigns/delete',
+    isAdmin,
+    campaignsDeleteGetController
 );
 router.get(
   '/payments',
