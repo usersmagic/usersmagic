@@ -13,5 +13,9 @@ window.onload = () => {
 
     if (event.target.className == 'close-payment-button')
       paymentNumberWrapper.style.display = 'none';
-  })
+  });
+}
+
+window.onscroll = () => {
+  document.querySelector('.all-header-menu-wrapper').style.bottom = "0px";
 }
