@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+
+const User = require("../../../models/user/User");
+
 module.exports = (req, res) => {
   let error = null;
 
@@ -5,13 +9,20 @@ module.exports = (req, res) => {
     error = req.session.error;
     req.session.error = null;
   }
-  
-  return res.render('auth/complete', {
-    page: 'auth/complete',
-    title: res.__('Hesabını Tamamla'),
-    includes: {
-      external: ['css']
-    },
-    error
+
+  User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
+    if (err || !user) return res.redirect('/');
+
+    if (user.completed)
+      return res.redirect('/campaigns');
+
+    return res.render('auth/complete', {
+      page: 'auth/complete',
+      title: res.__('Hesabını Tamamla'),
+      includes: {
+        external: ['css']
+      },
+      error
+    });
   });
 }

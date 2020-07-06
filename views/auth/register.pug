@@ -1,5 +1,7 @@
 extends ./../partials/head
 block content
+  a.brand-wrapper(href="/brand")
+    span.brand-text #{__('Marka Sayfası')}
   form.all-wrapper(method="POST" action="/auth/register")
     .all-inner-wrapper
       span.logo-name usersmagic
@@ -14,7 +16,4 @@ block content
         span.register-text #{__('Zaten üye misin')}
         a.register-link(href="/auth/login") #{__('Giriş Yap')}
     .bottom-wrapper
-      a.brand-wrapper(href="/brand")
-        img.brand-logo(src="/res/images/logo_black.png", alt="")
-        span.brand-text #{__('Marka Sayfası')}
       span.copyright-text Copyright 2020 - Loy Yazılım

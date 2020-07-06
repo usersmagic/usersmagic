@@ -1,3 +1,7 @@
+body {
+  overflow: hidden !important;
+}
+
 .all-wrapper {
   width: 100vw;
   height: 100vh;
@@ -175,7 +179,7 @@
   text-decoration: none;
   outline: none;
   margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(88, 177, 238, 0.5);
 }
@@ -186,6 +190,21 @@
   color: rgb(254, 254, 254);
   font-weight: 700;
   font-size: 150%;
+}
+
+.user-info {
+  width: 25vw;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.user-info span {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+}
+.user-info a {
+  color: rgb(80, 177, 238);
+  font-weight: 500;
+  margin: 0px 5px;
 }
 
 .payment-number-wrapper {
@@ -291,27 +310,27 @@
 }
 
 @media only screen and (max-width: 1100px) and (min-width: 900px) {
-  .each-input, .payment-subtitle {
+  .each-input, .payment-subtitle, .user-info {
     width: 30vw;
   }
 }
 @media only screen and (max-width: 900px) and (min-width: 700px) {
-  .each-input, .payment-subtitle {
+  .each-input, .payment-subtitle, .user-info {
     width: 35vw;
   }
 }
 @media only screen and (max-width: 700px) and (min-width: 600px) {
-  .each-input, .payment-subtitle {
+  .each-input, .payment-subtitle, .user-info {
     width: 45vw;
   }
 }
 @media only screen and (max-width: 600px) and (min-width: 450px) {
-  .each-input, .payment-subtitle {
+  .each-input, .payment-subtitle, .user-info {
     width: 55vw;
   }
 }
 @media only screen and (max-width: 450px) and (min-width: 300px) {
-  .each-input, .payment-subtitle {
+  .each-input, .payment-subtitle, .user-info {
     width: 80vw;
   }
 }

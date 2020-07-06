@@ -1,6 +1,8 @@
 extends ./../partials/head
 block content
   .all-wrapper
+    a.brand-wrapper(href="/brand")
+      span.brand-text #{__('Marka Sayfası')}
     .all-inner-wrapper
       span.logo-name usersmagic
       span.logo-subtitle #{__('Para Kazanmanın En Kolay Yolu')}
@@ -10,7 +12,4 @@ block content
         span.login-text #{__('Zaten üye misin?')}
         a.login-link(href="/auth/login") #{__('Giriş Yap')}
     .bottom-wrapper
-      a.brand-wrapper(href="/brand")
-        img.brand-logo(src="/res/images/logo_black.png", alt="")
-        span.brand-text #{__('Marka Sayfası')}
       span.copyright-text Copyright 2020 - Loy Yazılım
