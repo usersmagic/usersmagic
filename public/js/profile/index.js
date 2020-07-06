@@ -15,7 +15,3 @@ window.onload = () => {
       paymentNumberWrapper.style.display = 'none';
   });
 }
-
-window.onscroll = () => {
-  document.querySelector('.all-header-menu-wrapper').style.bottom = "0px";
-}

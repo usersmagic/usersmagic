@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 .all-header-menu-wrapper {
   background-color: rgb(254, 254, 254);
@@ -21,6 +22,7 @@
   flex-direction: column;
   min-height: fit-content;
   padding-bottom: 40px;
+  z-index: 2;
 }
 .each-header-menu {
   display: flex;
@@ -30,6 +32,7 @@
   align-items: center;
   text-decoration: none;
   color: rgb(80, 177, 238);
+  z-index: 2;
 }
 .each-header-menu:hover {
   color: rgb(240, 84, 79);
@@ -159,10 +162,15 @@
   .all-content-inner-wrapper {
     margin-bottom: 100px;
   }
-  .all-header-menu-wrapper {
+  .all-header {
+    width: 100vw;
     position: absolute;
     bottom: 0;
-    width: 100vw;
+    height: 75px;
+    min-height: fit-content;
+  }
+  .all-header-menu-wrapper { 
+    width: 100%;
     flex-direction: row;
     height: 75px;
     align-items: center;
