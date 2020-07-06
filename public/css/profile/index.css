@@ -274,7 +274,7 @@ body {
     flex-direction: column;
   }
   .all-content-inner-wrapper {
-    margin-bottom: 100px;
+    padding-bottom: 100px;
   }
   .all-header {
     width: 100vw;
