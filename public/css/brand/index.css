@@ -1,6 +1,9 @@
 html {
   background-color: rgb(24, 24, 24) !important;
 }
+body {
+  overflow: hidden !important;
+}
 .colored {
   background: -webkit-linear-gradient(-45deg, rgb(20, 161, 255),rgb(141, 91, 255), rgb(234, 49, 96));
   background-clip: text;
@@ -145,7 +148,8 @@ html {
 }
 
 .content-wrapper {
-  flex: 1;
+  width: 100%;
+  height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }

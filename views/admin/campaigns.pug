@@ -3,7 +3,7 @@ block main
   .all-content-header
     .title-wrapper
       span.title Kampanyalar
-      span.subtitle Bu sayfadan eklediğiniz kampanyaları görebilir, düzenleyebilir ve yeni kampanyalar yaratabilirsiniz. Bir kampanyayı düzenlemek için üzerine tıklayın.
+      span.subtitle Bu sayfadan eklediğiniz kampanyaları görebilir, düzenleyebilir, silebilir, kampanyalara gelen başvuruları görebilir ve yeni kampanyalar yaratabilirsiniz.
     .new-campaign-button
       span +
   .all-content-inner-wrapper
@@ -15,7 +15,9 @@ block main
           span.each-campaign-name= campaign.name
           a.campaign-applications-button(href=`/admin/submitions?id=${campaign._id.toString()}`)
             i.fas.fa-list-ul
-          a.campaign-delete-button(href="/admin/campaigns/delete?id=" + campaign._id.toString())
+          a.campaign-delete-button(href="/admin/campaigns/details?id=" + campaign._id.toString())
+            i.fas.fa-cog
+          a.campaign-delete-button(href="/admin/campaigns/delete?id=" + campaign._id.toString() onclick="return confirm('Bu kampanyayı silmek istediğinize emin misiniz?')")
             i.fas.fa-trash
   form.new-form-wrapper(action="/admin/campaigns" method="POST" enctype="multipart/form-data")
     .form-inner-wrapper
