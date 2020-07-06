@@ -65,6 +65,11 @@
   font-weight: 600;
   margin-bottom: 10px;
 }
+.submition-user-info {
+  color: rgb(112, 112, 112);
+  font-weight: 300;
+  margin-bottom: 10px;
+}
 .each-answer {
   margin-left: 10px;
   margin-bottom: 5px;
