@@ -15,6 +15,7 @@ window.onload = () => {
 
   document.addEventListener('click', event => {
     if (event.target.className == 'save-button') {
+      event.target.classList.add('clicked');
       const xhr = new XMLHttpRequest();
       xhr.open("POST", "/test?id=" + campaign_id);
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -33,6 +34,8 @@ window.onload = () => {
     if (event.target.className == 'submit-button') {
       if (answers.filter(answer => !answer.length).length)
         return alert("Lütfen bütün soruları doldurun");
+
+      event.target.classList.add('clicked');
 
       const xhr = new XMLHttpRequest();
       xhr.open("POST", "/test/submit?id=" + campaign_id);

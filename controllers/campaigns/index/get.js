@@ -21,11 +21,12 @@ module.exports = (req, res) => {
 
       return res.render('campaigns/index', {
         page: 'campaigns/index',
-        title: res.__('Kampanyalar'),
+        title: 'Kampanyalar',
         includes: {
           external: ['css', 'fontawesome']
         },
-        campaigns
+        campaigns,
+        code: user._id.toString()
       });
     })
   });

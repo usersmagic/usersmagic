@@ -25,7 +25,8 @@ module.exports = (req, res) => {
 
   const newUserData = {
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    invitor: (req.query && req.query.code && validator.isMongoId(req.query.code)) ? req.query.code : null
   };
 
   const newUser = new User(newUserData);

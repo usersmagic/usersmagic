@@ -117,9 +117,8 @@ body {
   font-weight: 300;
   font-size: 100%;
   margin-bottom: 20px;
-  max-height: 10vh;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 55px;
+  overflow: scroll;
 }
 .campaign-error {
   color: rgb(240, 84, 79);
@@ -147,7 +146,7 @@ body {
   margin-top: 20px;
   margin-left: auto;
   background-color: rgb(80, 177, 238);
-  box-shadow: 0 0 20px rgba(80, 177, 238, 0.5);
+  box-shadow: 0 0 20px rgba(80, 177, 238, 0.3);
   text-decoration: none;
   height: 50px;
   padding: 0px 30px;
@@ -156,7 +155,7 @@ body {
   align-items: center;
 }
 .campaign-join-button:hover {
-  box-shadow: 0 0 23px rgba(80, 177, 238, 0.6);
+  box-shadow: 0 0 23px rgba(80, 177, 238, 0.4);
 }
 .campaign-join-text {
   color: rgb(254, 254, 254);

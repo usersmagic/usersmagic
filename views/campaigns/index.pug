@@ -1,6 +1,9 @@
 extends ./../partials/head
 block content
   .all-wrapper
+    //- .invite-button
+    //-   i.fas.fa-lira-sign
+    //-   span.invite-text Tanıdıklarını davet et, para kazan!
     .all-header
       .all-header-menu-wrapper
         a.each-header-menu(href="/history")
@@ -21,9 +24,9 @@ block content
                   span.campaign-name= campaign.name
                   span.campaign-description= campaign.description
                   .campaign-price-wrapper
-                    span.campaign-price-text #{__('Kazanacağın')}:
+                    span.campaign-price-text Kazanacağın:
                     span.campaign-price #{campaign.price}₺
                   a.campaign-join-button(href="/campaigns/join?id=" + campaign._id.toString())
-                    span.campaign-join-text= __('Katıl')
+                    span.campaign-join-text Katıl
       else
-        span.no-campaign-text= __('Şuan katılabileceğin hiçbir kampanya görünmüyor, lütfen daha sonra tekrar kontrol et!')
+        span.no-campaign-text Şuan katılabileceğin hiçbir kampanya görünmüyor, lütfen daha sonra tekrar kontrol et!

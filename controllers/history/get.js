@@ -32,11 +32,12 @@ module.exports = (req, res) => {
 
         return res.render('history/index', {
           page: 'history/index',
-          title: res.__('Kampanya Geçmişi'),
+          title: 'Kampanya Geçmişi',
           includes: {
             external: ['css', 'fontawesome']
           },
-          campaigns
+          campaigns,
+          code: user._id.toString()
         });
       }
     );

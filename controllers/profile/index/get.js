@@ -21,13 +21,24 @@ module.exports = (req, res) => {
 
     return res.render('profile/index', {
       page: 'profile/index',
-      title: res.__('Profil'),
+      title: 'Profil',
       includes: {
         external: ['css', 'js', 'fontawesome']
       },
-      user,
+      user: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        gender: user.gender,
+        birth_year: user.birth_year,
+        payment_number: user.payment_number,
+        credit: user.credit,
+        waiting_credit: user.waiting_credit,
+        overall_credit: user.overall_credit
+      },
       error,
-      payment_error
+      payment_error,
+      code: user._id.toString()
     });
-  })
+  });
 }

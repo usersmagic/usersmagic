@@ -69,14 +69,24 @@
   box-shadow: 0px;
   color: rgb(30, 30, 30);
   font-size: 100%;
-  padding: 15px 20px;
+  padding: 15px;
   width: 50%;
   margin-top: 10px;
   outline: none;
   border-radius: 15px;
 }
+.each-choice-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
 .each-choice-wrapper input {
   margin-right: 10px;
+}
+.each-choice-wrapper input:checked {
+  background-color: rgb(240, 84, 79);
 }
 .each-choice-wrapper span {
   color: rgb(30, 30, 30);
@@ -102,6 +112,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  outline: none;
 }
 .save-button:hover {
   border-color: rgb(80, 177, 238);
@@ -118,6 +129,7 @@
   align-items: center;
   cursor: pointer;
   margin-left: 20px;
+  outline: none;
 }
 .submit-button:hover {
   border-color: rgb(240, 84, 79);

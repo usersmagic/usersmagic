@@ -1,19 +1,19 @@
 extends ./../partials/head
 block content
   a.brand-wrapper(href="/brand")
-    span.brand-text #{__('Marka Sayfası')}
-  form.all-wrapper(method="POST" action="/auth/register")
+    span.brand-text Marka Sayfası
+  form.all-wrapper(method="POST" action="/auth/register" + (invitor ? "?code=" + invitor : ""))
     .all-inner-wrapper
       span.logo-name usersmagic
-      input.each-input(type="email" placeholder=__('E-Posta') name="email" required autofocus autocomplete="off")
-      input.each-input(type="password" placeholder=__('Şifre') name="password" required autocomplete="off")
-      input.each-input(type="password" placeholder=__('Şifre Tekrarı') name="password_confirm" required autocomplete="off")
+      input.each-input(type="email" placeholder="E-Posta" name="email" required autofocus autocomplete="off")
+      input.each-input(type="password" placeholder="Şifre" name="password" required autocomplete="off")
+      input.each-input(type="password" placeholder="Şifre Tekrarı" name="password_confirm" required autocomplete="off")
       if error
         span.error-text= error
       button.send-button
-        span #{__('Üye Ol')}
+        span Üye Ol
       .register-link-wrapper
-        span.register-text #{__('Zaten üye misin')}
-        a.register-link(href="/auth/login") #{__('Giriş Yap')}
+        span.register-text Zaten üye misin
+        a.register-link(href="/auth/login") Giriş Yap
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım

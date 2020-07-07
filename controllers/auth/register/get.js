@@ -8,10 +8,11 @@ module.exports = (req, res) => {
   
   return res.render('auth/register', {
     page: 'auth/register',
-    title: res.__('Kaydol'),
+    title: 'Kaydol',
     includes: {
       external: ['css']
     },
-    error
+    error,
+    invitor: req.query && req.query.code ? req.query.code : null
   });
 }

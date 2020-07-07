@@ -18,7 +18,7 @@ module.exports = (req, res) => {
 
     return res.render('auth/complete', {
       page: 'auth/complete',
-      title: res.__('Hesabını Tamamla'),
+      title: 'Hesabını Tamamla',
       includes: {
         external: ['css']
       },

@@ -60,6 +60,10 @@ const UserSchema = new Schema({
   overall_credit: {
     type: Number,
     default: 0
+  },
+  invitor: {
+    type: String,
+    default: null
   }
 });
 
