@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const indexGetController = require('../controllers/agreement/get');
+const privacyGetController = require('../controllers/agreement/privacy/get');
+const userGetController = require('../controllers/agreement/user/get');
 
 router.get(
-  '/', 
-    indexGetController
+  '/privacy', 
+    privacyGetController
+);
+router.get(
+  '/user',
+    userGetController
 );
 
 module.exports = router;

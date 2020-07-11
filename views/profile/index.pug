@@ -14,10 +14,17 @@ block content
         span için
         span.invite-title-bold 2₺
         span kazan!
-      span.invite-message(contenteditable="true") https://usersmagic.com/auth/register?code=#{code}
+      span.invite-message https://usersmagic.com/auth/register?code=#{code}
       .invite-copy-button
         span.invite-copy-button-text Linki Kopyala
       span.invite-close-text Kapat
+    form.payment-number-wrapper(action="/profile/payment" method="POST")
+      span.payment-title Papara Numarası
+      span.payment-subtitle Lütfen ödemenizi yapabilmemiz için bir Papara hesap numarası girin. Girdiğiniz bu numarayı daha sonra değiştiremezsiniz. Eğer herhangi bir sorunuz olursa temsilcilerimiz ile konuşabilirsiniz.
+      input.each-input(type="text" placeholder="Papara Numarası" name="payment_number")
+      button.payment-send-button
+        span Gönder
+      span.close-payment-button Vazgeç
     .all-header
       .all-header-menu-wrapper
         a.each-header-menu(href="/history")
@@ -49,16 +56,11 @@ block content
         button.send-button
           span Düzenle
         span.user-info
-          span Kullanım haklarınız ve veri güvenliğiniz ile ilgili sorularınız için gizlik sözleşmemizi okuyabilirsiniz:
-          a(href="/agreement") Gizlilik Sözleşmesi
+          span Kullanım haklarınız ve veri güvenliğiniz ile ilgili sorularınız için Gizlik Sözleşmemizi ve Kullanıcı Sözleşmemizi okuyabilirsiniz:
+          a(href="/agreement/privacy") Gizlilik Sözleşmesi
+          span /
+          a(href="/agreement/user") Kullanıcı Sözleşmesi
         span.user-info
           span Eğer sunduğumuz servisler ile ilgili herhangi bir sorunuz olursa bize
           a hello@usersmagic.com
           span e-posta adresinden erişebilirsiniz. Size bir hafta içinde geri dönüş yapacağız.
-    form.payment-number-wrapper(action="/profile/payment" method="POST")
-      span.payment-title Papara Numarası
-      span.payment-subtitle Lütfen ödemenizi yapabilmemiz için bir Papara hesap numarası girin. Girdiğiniz bu numarayı daha sonra değiştiremezsiniz. Eğer herhangi bir sorunuz olursa temsilcilerimiz ile konuşabilirsiniz.
-      input.each-input(type="text" placeholder="Papara Numarası" name="payment_number")
-      button.payment-send-button
-        span Gönder
-      span.close-payment-button Vazgeç

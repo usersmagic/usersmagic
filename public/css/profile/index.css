@@ -13,9 +13,9 @@ body {
 .invite-button {
   background-color: rgb(254, 254, 254);
   border: 2px solid rgb(236, 236, 236);
-  border-radius: 20px;
-  height: 40px;
-  width: 40px;
+  border-radius: 25px;
+  height: 50px;
+  width: 50px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -27,11 +27,11 @@ body {
 }
 .lira-sign {
   color: rgb(240, 84, 79);
-  font-size: 100%;
-  min-width: 40px;
-  width: 40px;
-  height: 40px;
-  min-height: 40px;
+  font-size: 125%;
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,9 +157,10 @@ body {
 
 .all-content {
   flex: 1;
+  height: 100%;
+  display: block;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
-
 }
 .all-content-inner-wrapper {
   min-height: fit-content;
@@ -376,7 +377,7 @@ body {
 
 @keyframes open-left {
   from {
-    width: 40px;
+    width: 50px;
   }
   to {
     width: 320px;
@@ -384,7 +385,7 @@ body {
 }
 @-webkit-keyframes open-left {
   from {
-    width: 40px;
+    width: 50px;
   }
   to {
     width: 320px;
@@ -396,7 +397,7 @@ body {
     width: 320px;
   }
   to {
-    width: 40px;
+    width: 50px;
   }
 }
 @-webkit-keyframes close-right {
@@ -404,7 +405,7 @@ body {
     width: 320px;
   }
   to {
-    width: 40px;
+    width: 50px;
   }
 }
 
