@@ -54,25 +54,26 @@ body {
   border: 2px solid rgb(236, 236, 236);
   border-radius: 20px;
   height: 40px;
+  width: 40px;
   overflow: hidden;
   display: flex;
   align-items: center;
   position: absolute;
   z-index: 2;
   top: 20px;
-  right: 20px;
+  left: 20px;
   cursor: pointer;
-  animation: close-right 0.5s ease-in-out 0s forwards;
-  -webkit-animation: close-right 0.5s ease-in-out 0s forwards;
 }
-.invite-button:hover {
-  animation: open-left 0.5s ease-in-out 0s forwards;
-  -webkit-animation: open-left 0.5s ease-in-out 0s forwards;
-}
-.invite-button i {
-  color: rgb(0, 128, 0);
+.lira-sign {
+  color: rgb(240, 84, 79);
   font-size: 100%;
   min-width: 40px;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-left: -1px;
   text-align: center;
 }
@@ -81,6 +82,78 @@ body {
   color: rgb(30, 30, 30);
   font-weight: 600;
   min-width: 280px;
+}
+.invite-button-open-animation-class {
+  animation: open-left 0.5s ease-in-out 0s forwards;
+  -webkit-animation: open-left 0.5s ease-in-out 0s forwards;
+}
+.invite-button-close-animation-class {
+  animation: close-right 0.5s ease-in-out 0s forwards;
+  -webkit-animation: close-right 0.5s ease-in-out 0s forwards;
+}
+
+.invite-wrapper {
+  position: absolute;
+  margin-left: 50%;
+  margin-top: 100px;
+  transform: translate(-50%);
+  background-color: rgb(254, 254, 254);
+  padding: 20px;
+  border: 2px solid rgb(236, 236, 236);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 375px;
+  display: none;
+}
+.invite-title {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 150%;
+  text-align: center;
+}
+.invite-title-bold {
+  margin: 0px 5px;
+  color: rgb(240, 84, 79);
+}
+.invite-message {
+  color: rgb(80, 177, 238);
+  font-weight: 600;
+  font-size: 125%;
+  margin: 20px 0px;
+  text-align: center;
+  outline: none;
+}
+.invite-copy-button {
+  background-color: rgb(240, 84, 79);
+  box-shadow: 0 0 20px rgba(240, 84, 79, 0.3);
+  text-decoration: none;
+  height: 50px;
+  padding: 0px 30px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.invite-copy-button:hover {
+  box-shadow: 0 0 20px rgba(240, 84, 79, 0.4);
+}
+.invite-copy-button-text {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 100%;
+  text-align: center;
+}
+.invite-close-text {
+  font-size: 90%;
+  color: rgb(80, 177, 238);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.invite-close-text:hover {
+  text-decoration: underline;
 }
 
 .all-content {
@@ -210,11 +283,17 @@ body {
 }
 
 @keyframes close-right {
+  from {
+    width: 320px;
+  }
   to {
     width: 40px;
   }
 }
 @-webkit-keyframes close-right {
+  from {
+    width: 320px;
+  }
   to {
     width: 40px;
   }

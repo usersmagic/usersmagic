@@ -34,7 +34,7 @@ module.exports = (req, res) => {
           page: 'history/index',
           title: 'Kampanya Geçmişi',
           includes: {
-            external: ['css', 'fontawesome']
+            external: ['css', 'js', 'fontawesome']
           },
           campaigns,
           code: user._id.toString()

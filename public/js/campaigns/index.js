@@ -1,8 +1,4 @@
 window.onload = () => {
-  const user = JSON.parse(document.getElementById('user-object').value);
-
-  const paymentNumberWrapper = document.querySelector('.payment-number-wrapper');
-
   const inviteButton = document.querySelector('.invite-button');
   document.addEventListener('mouseover', event => {
     if (event.target.classList.contains('invite-button') || event.target.parentNode.classList.contains('invite-button')) {
@@ -17,16 +13,6 @@ window.onload = () => {
   });
 
   document.addEventListener('click', event => {
-    if (event.target.className == 'get-credit-button' || event.target.parentNode.className == 'get-credit-button') {
-      if (user.payment_number)
-        return window.location = "/profile/payment";
-
-      paymentNumberWrapper.style.display = 'flex';
-    }
-
-    if (event.target.className == 'close-payment-button')
-      paymentNumberWrapper.style.display = 'none';
-
     if (event.target.className == 'invite-copy-button' || event.target.parentNode.className == 'invite-copy-button') {
       const inviteMessage = document.querySelector('.invite-message');
       const range = document.createRange();

@@ -2,6 +2,22 @@ extends ./../partials/head
 block content
   input.display-none#user-object(type="text" value=JSON.stringify(user))
   .all-wrapper
+    .invite-button
+      i.fas.fa-lira-sign.lira-sign
+      span.invite-text Tanıdıklarını davet et, para kazan!
+    .invite-wrapper
+      span.invite-title
+        span Arkadaşlarını aşağıdaki
+        span.invite-title-bold sana özel
+        span linki kullanarak davet et, uygulamadan para kazanan
+        span.invite-title-bold her arkadaşın
+        span için
+        span.invite-title-bold 2₺
+        span kazan!
+      span.invite-message(contenteditable="true") https://usersmagic.com/auth/register?code=#{code}
+      .invite-copy-button
+        span.invite-copy-button-text Linki Kopyala
+      span.invite-close-text Kapat
     .all-header
       .all-header-menu-wrapper
         a.each-header-menu(href="/history")
