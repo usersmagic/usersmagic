@@ -20,7 +20,7 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   top: 20px;
   left: 20px;
   cursor: pointer;

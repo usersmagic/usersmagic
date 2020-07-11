@@ -59,7 +59,7 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   top: 20px;
   left: 20px;
   cursor: pointer;
@@ -120,7 +120,7 @@ body {
 .invite-message {
   color: rgb(80, 177, 238);
   font-weight: 600;
-  font-size: 125%;
+  font-size: 100%;
   margin: 20px 0px;
   text-align: center;
   outline: none;
