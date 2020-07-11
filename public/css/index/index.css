@@ -15,17 +15,15 @@
 }
 
 .brand-wrapper {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 100%;
 }
 .brand-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
   font-size: 75%;
+  text-decoration: none;
 }
 
 .logo-name {

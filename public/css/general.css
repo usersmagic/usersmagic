@@ -26,3 +26,15 @@ body {
 .display-none {
   display: none;
 }
+.empty-space {
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  display: none;
+}
+
+@media only screen and (max-width: 450px) and (min-width: 300px) {
+  .empty-space {
+    display: block;
+  }
+}

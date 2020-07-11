@@ -1,7 +1,7 @@
 extends ./../partials/head
 block content
-  a.brand-wrapper(href="/brand")
-    span.brand-text Marka Sayfası
+  .brand-wrapper
+    a.brand-text(href="/brand") Marka Sayfası
   form.all-wrapper(method="POST" action="/auth/login")
     .all-inner-wrapper
       span.logo-name usersmagic

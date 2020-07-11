@@ -13,7 +13,11 @@ window.onload = () => {
   });
 
   document.addEventListener('click', event => {
-    if (event.target.className == 'invite-copy-button' || event.target.parentNode.className == 'invite-copy-button') {
+    if (event.target.className == 'invite-close-text') {
+      document.querySelector('.invite-wrapper').style.display = 'none';
+    } else if ((event.target.classList.contains('invite-button') || event.target.parentNode.classList.contains('invite-button'))) {
+      document.querySelector('.invite-wrapper').style.display = 'flex';
+    } else if (event.target.className == 'invite-copy-button' || event.target.parentNode.className == 'invite-copy-button') {
       const inviteMessage = document.querySelector('.invite-message');
       const range = document.createRange();
       range.selectNodeContents(inviteMessage);
@@ -27,13 +31,7 @@ window.onload = () => {
         document.querySelector('.invite-copy-button-text').innerHTML = 'Linki Kopyala';
         document.querySelector('.invite-copy-button').style.cursor = 'pointer';
       }, 1000);
-    }
-
-    if ((event.target.classList.contains('invite-button') || event.target.parentNode.classList.contains('invite-button'))) {
-      document.querySelector('.invite-wrapper').style.display = 'flex';
-    }
-
-    if (event.target.className == 'invite-close-text') {
+    } else if (event.target.className != 'invite-wrapper' && event.target.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.parentNode.className != 'invite-wrapper') {
       document.querySelector('.invite-wrapper').style.display = 'none';
     }
   });
