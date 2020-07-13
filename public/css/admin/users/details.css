@@ -81,6 +81,12 @@
   font-weight: 300;
   margin-bottom: 20px;
 }
+.campaign-status {
+  font-weight: 600;
+  color: rgb(112, 112, 112);
+  font-size: 100%;
+  margin-bottom: 30px;
+}
 .each-question {
   margin-left: 20px;
   display: flex;

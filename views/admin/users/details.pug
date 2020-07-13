@@ -30,6 +30,7 @@ block main
         .each-campaign-wrapper
           span.campaign-title= campaign.name
           span.campaign-description= campaign.description
+          span.campaign-status Kampanya Durumu: #{campaign.status}
           each question, i in campaign.questions
             .each-question
               span.question-text= question.text
