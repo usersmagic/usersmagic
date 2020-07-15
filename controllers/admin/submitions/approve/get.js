@@ -14,14 +14,19 @@ module.exports = (req, res) => {
 
     if (submitions.length == campaign.submitions.length)
       return res.redirect('/admin');
-    
-    Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-      submitions
-    }}, {}, err => {
-      if (err) return res.redirect('/admin');
 
-      User.findById(mongoose.Types.ObjectId(req.query.user), (err, user) => {
-        if (err || !user) return res.redirect('/admin');
+    User.findById(mongoose.Types.ObjectId(req.query.user), (err, user) => {
+      if (err || !user) return res.redirect('/admin');
+
+      Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
+        $set: {
+          submitions
+        },
+        $push: {
+          accepted_submitions: user._id.toString()
+        }
+      }, {}, err => {
+        if (err) return res.redirect('/admin');
 
         const campaigns = user.campaigns.map(campaign => {
           if (campaign._id.toString() == req.query.id.toString()) {

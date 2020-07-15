@@ -43,7 +43,7 @@ module.exports = (req, res) => {
 
       let ended = false;
   
-      if (campaign.participants.length + 1 >= campaign.participant_number.length)
+      if (campaign.participants.length + 1 >= campaign.participant_number)
         ended = true;
   
       User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$push: {

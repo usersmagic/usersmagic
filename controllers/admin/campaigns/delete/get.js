@@ -10,7 +10,10 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
-  Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+  Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+    ended: true,
+    submitions: []
+  }}, {}, (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
 
     async.times(
@@ -20,23 +23,30 @@ module.exports = (req, res) => {
           if (err) return next(err);
 
           User.findByIdAndUpdate(mongoose.Types.ObjectId(campaign.participants[time]), {$set: {
-            campaigns: user.campaigns.filter(cam => cam._id.toString() != req.query.id),
-            campaign_ids: user.campaign_ids.filter(cam => cam.toString() != req.query.id)
+            campaigns: user.campaigns.map(cam => {
+              if (cam._id.toString() == campaign._id.toString()) {
+                return {
+                  _id: cam._id,
+                  name: cam.name,
+                  description: cam.description,
+                  price: cam.price,
+                  photo: cam.photo,
+                  questions: cam.questions,
+                  error: cam.error,
+                  status: "deleted",
+                  answers: cam.answers
+                };
+              } else {
+                return cam;
+              }
+            })
           }}, {}, err => next(err));
         });
       },
       err => {
         if (err) return res.redirect('/admin');
 
-        Campaign.findByIdAndDelete(mongoose.Types.ObjectId(req.query.id), err => {
-          if (err) return res.redirect('/admin');
-
-          deletePhoto(campaign.photo, err => {
-            if (err) return res.redirect('/admin');
-
-            return res.redirect('/admin/campaigns');
-          });
-        });
+        return res.redirect('/admin/campaigns');
       }
     );
   });

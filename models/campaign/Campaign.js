@@ -43,6 +43,10 @@ const CampaignSchema = new Schema({
     type: Array,
     default: []
   },
+  accepted_submitions: {
+    type: Array,
+    default: []
+  },
   questions: {
     type: Array,
     default: []

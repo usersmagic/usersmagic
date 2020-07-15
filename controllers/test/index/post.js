@@ -13,16 +13,16 @@ module.exports = (req, res) => {
   User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
     if (err || !user) return res.sendStatus(500);
 
-    const campaigns = user.campaigns.map(campaign => {
-      if (campaign._id.toString() == req.query.id)
-        campaign.answers = req.body.answers;
-        campaign.status = "saved";
-        
-      return campaign;
-    });
-
     User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
-      campaigns
+      campaigns: user.campaigns.map(campaign => {
+        if (campaign._id.toString() == req.query.id) {
+          campaign.answers = req.body.answers;
+          campaign.status = "saved";
+          campaign.error = null;
+        }
+          
+        return campaign;
+      })
     }}, {new: true}, (err, user) => {
       if (err || !user) return res.sendStatus(500);
 

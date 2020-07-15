@@ -13,6 +13,7 @@ block main
           .campaign-photo-wrapper
             img.each-campaign-photo(src=campaign.photo)
           span.each-campaign-name= campaign.name
+          span.each-campaign-name (#{campaign.accepted_submitions.length} onaylanmış başvuru) #{campaign.ended ? "(Silindi)" : ""}
           a.campaign-applications-button(href=`/admin/submitions?id=${campaign._id.toString()}`)
             i.fas.fa-list-ul
           a.campaign-delete-button(href="/admin/campaigns/details?id=" + campaign._id.toString())
