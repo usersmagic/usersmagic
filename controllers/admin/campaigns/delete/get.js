@@ -33,7 +33,7 @@ module.exports = (req, res) => {
                   photo: cam.photo,
                   questions: cam.questions,
                   error: cam.error,
-                  status: "deleted",
+                  status: cam.status == "approved" ? "deleted/approved" : "deleted",
                   answers: cam.answers
                 };
               } else {
