@@ -40,11 +40,6 @@ module.exports = (req, res) => {
         answers: campaign.questions.map(question => question.type == 'checked' ? [] : ""),
         error: null
       };
-
-      let ended = false;
-  
-      if (campaign.participants.length + 1 >= campaign.participant_number)
-        ended = true;
   
       User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$push: {
         campaign_ids: campaign._id,
@@ -55,9 +50,6 @@ module.exports = (req, res) => {
         Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
           $push: {
             participants: user._id.toString()
-          },
-          $set: {
-            ended
           }
         }, {}, (err, campaign) => {
           if (err) return res.redirect('/campaigns');
