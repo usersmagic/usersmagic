@@ -22,7 +22,7 @@ module.exports = (req, res) => {
         Campaign.findById(mongoose.Types.ObjectId(user.campaigns[time]._id), (err, campaign) => {
           if (err) return next(err);
 
-          if (object_array_equals(user.campaigns[time].questions, campaign.questions) || campaign.ended)
+          // if (object_array_equals(user.campaigns[time].questions, campaign.questions) || campaign.ended)
             return next(null, {
               _id: campaign._id,
               name: campaign.name,
@@ -35,17 +35,17 @@ module.exports = (req, res) => {
               answers: user.campaigns[time].answers
             });
           
-          return next(null, {
-            _id: campaign._id,
-            name: campaign.name,
-            description: campaign.description,
-            price: campaign.price,
-            photo: campaign.photo,
-            questions: campaign.questions,
-            error: "Kampanya soruları güncellendi, lütfen soruları bir daha cevaplayın.",
-            status: "unapproved",
-            answers: campaign.questions.map(question => question.type == 'checked' ? [] : "")
-          });
+          // return next(null, {
+          //   _id: campaign._id,
+          //   name: campaign.name,
+          //   description: campaign.description,
+          //   price: campaign.price,
+          //   photo: campaign.photo,
+          //   questions: campaign.questions,
+          //   error: "Kampanya soruları güncellendi, lütfen soruları bir daha cevaplayın.",
+          //   status: "unapproved",
+          //   answers: campaign.questions.map(question => question.type == 'checked' ? [] : "")
+          // });
         });
       },
       (err, campaigns) => {
