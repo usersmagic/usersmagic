@@ -49,7 +49,10 @@ module.exports = (req, res) => {
         User.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.user), {
           $set: { campaigns },
           $inc: {
-            credit: campaign.price
+            credit: user.paid_campaigns.includes(req.query.id) ? 0 : campaign.price
+          },
+          $push: {
+            paid_campaigns: req.query.id.toString()
           }
         }, {}, (err, user) => {
           if (err || !user) return res.redirect('/admin');
