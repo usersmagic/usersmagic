@@ -11,17 +11,18 @@ module.exports = (req, res) => {
   }, (err, users) => {
     if (err) return res.redirect('/admin');
 
-    const answers = [];
+    const answers = {};
 
     users.forEach(user => {
       return user.campaigns.find(campaign => {
         if (campaign._id.toString() == req.query.id && (campaign.status == "approved" || campaign.status == "deleted/approved"))
-          answers.push(campaign);
+          answers[user._id.toString()] = {};
+          campaign.answers.forEach((answer, i) => {
+            answers[user._id.toString()][i] = answer;
+          });
       });
     });
 
-    return res.status(200).json({
-      answers
-    });
+    return res.status(200).json(answers);
   });
 }
