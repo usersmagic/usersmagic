@@ -18,7 +18,8 @@ module.exports = (req, res) => {
         if (campaign._id.toString() == req.query.id && (campaign.status == "approved" || campaign.status == "deleted/approved"))
           answers[user._id.toString()] = {};
           campaign.answers.forEach((answer, i) => {
-            answers[user._id.toString()][i] = answer;
+            if (answer && answers[user._id.toString()])
+              answers[user._id.toString()][i] = answer;
           });
       });
     });
