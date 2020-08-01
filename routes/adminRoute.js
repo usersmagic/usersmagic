@@ -18,6 +18,7 @@ const submitionsIndexGetController = require('../controllers/admin/submitions/in
 const submitionsApproveGetController = require('../controllers/admin/submitions/approve/get');
 const usersIndexGetController = require('../controllers/admin/users/index/get');
 const usersDetailsGetController = require('../controllers/admin/users/details/get');
+const usersDataGetController = require('../controllers/admin/users/data/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -83,6 +84,11 @@ router.get(
   '/users/details',
     isAdmin,
     usersDetailsGetController
+);
+router.get(
+  '/users/data',
+    isAdmin,
+    usersDataGetController
 );
 
 router.post(
