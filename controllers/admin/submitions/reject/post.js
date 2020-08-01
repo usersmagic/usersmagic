@@ -30,7 +30,7 @@ module.exports = (req, res) => {
               name: campaign.name,
               description: campaign.description,
               status: "unapproved",
-              error: req.body.reason,
+              error: ((req.body.reason && req.body.reason.length) ? req.body.reason : "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz."),
               price: campaign.price,
               photo: campaign.photo,
               questions: campaign.questions,

@@ -18,6 +18,6 @@ block main
           each answer, i in submition.answers
             span.each-answer #{i+1}. #{Array.isArray(answer) ? answer.join(' / ') : answer}
           form.reject-form(action=`/admin/submitions/reject?id=${campaign._id.toString()}&user=${submition.user._id.toString()}` method="POST")
-            input.each-input(type="text" placeholder="Red Sebebi" name="reason" required)
+            input.each-input(type="text" placeholder="Red Sebebi" name="reason")
             button.reject-button Reddet
             a.approve-button(href=`/admin/submitions/approve?id=${campaign._id.toString()}&user=${submition.user._id.toString()}`) Onayla
