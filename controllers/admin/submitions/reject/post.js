@@ -23,6 +23,9 @@ module.exports = (req, res) => {
       User.findById(mongoose.Types.ObjectId(req.query.user), (err, user) => {
         if (err || !user) return res.redirect('/admin');
 
+        if (!req.body.reason || !req.body.reason.length)
+          req.body.reason = "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz.";
+
         const campaigns = user.campaigns.map(campaign => {
           if (campaign._id.toString() == req.query.id.toString()) {
             return {
@@ -30,7 +33,7 @@ module.exports = (req, res) => {
               name: campaign.name,
               description: campaign.description,
               status: "unapproved",
-              error: ((req.body.reason && req.body.reason.length) ? req.body.reason : "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz."),
+              error: req.body.reason,
               price: campaign.price,
               photo: campaign.photo,
               questions: campaign.questions,
