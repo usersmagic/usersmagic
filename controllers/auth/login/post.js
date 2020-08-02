@@ -10,11 +10,12 @@ module.exports = (req, res) => {
 
     req.session.user = user;
 
+    if (!user.completed)
+      return res.redirect('/auth/complete');
+
     if (req.session.redirect)
       return res.redirect(req.session.redirect);
-    else if (user.completed)
-      return res.redirect('/campaigns');
     else
-      return res.redirect('/auth/complete');
+      return res.redirect('/campaigns');
   });
 }

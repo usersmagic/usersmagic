@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
       req.session.user = user;
 
       if (req.originalUrl != '/auth/complete' && !user.completed)
-        return res.redirect('/auth/verify');
+        return res.redirect('/auth/complete');
 
       next();
     });
