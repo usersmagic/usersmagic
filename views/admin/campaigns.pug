@@ -18,7 +18,7 @@ block main
             i.fas.fa-list-ul
           a.campaign-delete-button(href="/admin/campaigns/details?id=" + campaign._id.toString())
             i.fas.fa-cog
-          a.campaign-delete-button(href="/admin/campaigns/results?id=" + campaign._id.toString())
+          a.campaign-delete-button(href="/admin/campaigns/results?id=" + campaign._id.toString() + "&page=0&limit=100")
             i.fas.fa-chart-bar
           a.campaign-delete-button(href="/admin/campaigns/delete?id=" + campaign._id.toString() onclick="return confirm('Bu kampanyayı silmek istediğinize emin misiniz?')")
             i.fas.fa-trash

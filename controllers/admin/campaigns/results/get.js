@@ -13,16 +13,17 @@ module.exports = (req, res) => {
 
     const answers = {};
 
-    users.forEach(user => {
-      user.campaigns.forEach(campaign => {
-        if (campaign._id.toString() == req.query.id.toString() && (campaign.status == "approved" || campaign.status == "deleted/approved")) {
-          answers[user._id.toString()] = {};
-          campaign.answers.forEach((answer, i) => {
-            if (answer && answers[user._id.toString()])
-              answers[user._id.toString()][i] = answer;
-          });
-        }
-      });
+    users.forEach((user, time) => {
+      if (time >= parseInt(req.query.page) * parseInt(req.query.limit) && time < parseInt(req.query.page) * parseInt(req.query.limit) + parseInt(req.query.limit))
+        user.campaigns.forEach(campaign => {
+          if (campaign._id.toString() == req.query.id.toString() && (campaign.status == "approved" || campaign.status == "deleted/approved")) {
+            answers[user._id.toString()] = {};
+            campaign.answers.forEach((answer, i) => {
+              if (answer && answers[user._id.toString()])
+                answers[user._id.toString()][i] = answer;
+            });
+          }
+        });
     });
 
     return res.status(200).json(answers);
