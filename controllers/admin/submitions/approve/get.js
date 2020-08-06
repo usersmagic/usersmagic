@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const User = require('../../../../models/user/User');
 const Campaign = require('../../../../models/campaign/Campaign');
-const { calendarFormat } = require('moment');
 
 module.exports = (req, res) => {
   if (!req.query || !req.query.id || !req.query.user)
