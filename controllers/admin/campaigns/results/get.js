@@ -6,10 +6,9 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
-  User.find({ $or: {
-    campaign_ids: mongoose.Types.ObjectId(req.query.id),
-    campaign_ids: req.query.id
-  }}, (err, users) => {
+  User.find({
+    campaign_ids: mongoose.Types.ObjectId(req.query.id)
+  }, (err, users) => {
     if (err) return res.redirect('/admin');
 
     const answers = {};
