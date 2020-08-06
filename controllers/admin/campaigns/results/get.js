@@ -6,21 +6,23 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
-  User.find({
-    campaign_ids: mongoose.Types.ObjectId(req.query.id)
-  }, (err, users) => {
+  User.find({ $or: {
+    campaign_ids: mongoose.Types.ObjectId(req.query.id),
+    campaign_ids: req.query.id
+  }}, (err, users) => {
     if (err) return res.redirect('/admin');
 
     const answers = {};
 
     users.forEach(user => {
-      return user.campaigns.find(campaign => {
-        if (campaign._id.toString() == req.query.id && (campaign.status == "approved" || campaign.status == "deleted/approved"))
+      user.campaigns.forEach(campaign => {
+        if (campaign._id.toString() == req.query.id.toString() && (campaign.status == "approved" || campaign.status == "deleted/approved")) {
           answers[user._id.toString()] = {};
           campaign.answers.forEach((answer, i) => {
             if (answer && answers[user._id.toString()])
               answers[user._id.toString()][i] = answer;
           });
+        }
       });
     });
 

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const User = require('../../../../models/user/User');
 const Campaign = require('../../../../models/campaign/Campaign');
+const { calendarFormat } = require('moment');
 
 module.exports = (req, res) => {
   if (!req.query || !req.query.id || !req.query.user)
@@ -28,21 +29,21 @@ module.exports = (req, res) => {
       }, {}, err => {
         if (err) return res.redirect('/admin');
 
-        const campaigns = user.campaigns.map(campaign => {
-          if (campaign._id.toString() == req.query.id.toString()) {
+        const campaigns = user.campaigns.map(cam => {
+          if (cam._id.toString() == req.query.id.toString()) {
             return {
-              _id: campaign._id,
-              name: campaign.name,
-              description: campaign.description,
+              _id: cam._id,
+              name: cam.name,
+              description: cam.description,
               status: "approved",
               error: null,
-              price: campaign.price,
-              photo: campaign.photo,
-              questions: campaign.questions,
-              answers: campaign.answers
+              price: cam.price,
+              photo: cam.photo,
+              questions: cam.questions,
+              answers: cam.answers
             };
           } else {
-            return campaign;
+            return cam;
           }
         });
 
