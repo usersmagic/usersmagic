@@ -19,12 +19,17 @@ const submitionsApproveGetController = require('../controllers/admin/submitions/
 const usersIndexGetController = require('../controllers/admin/users/index/get');
 const usersDetailsGetController = require('../controllers/admin/users/details/get');
 const usersDataGetController = require('../controllers/admin/users/data/get');
+const questionsIndexGetController = require('../controllers/admin/questions/index/get');
+const questionsDetailsGetController = require('../controllers/admin/questions/details/get')
+const questionsDeleteGetController = require('../controllers/admin/questions/delete/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
 const campaignsDetailsPostController = require('../controllers/admin/campaigns/details/post');
 const campaignsDetailsPhotoPostController = require('../controllers/admin/campaigns/details/photo');
 const submitionsRejectPostController = require('../controllers/admin/submitions/reject/post');
+const questionsIndexPostController = require('../controllers/admin/questions/index/post');
+const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
 
 router.get(
   '/',
@@ -90,6 +95,21 @@ router.get(
     isAdmin,
     usersDataGetController
 );
+router.get(
+  '/questions',
+    isAdmin,
+    questionsIndexGetController
+);
+router.get(
+  '/questions/details',
+    isAdmin,
+    questionsDetailsGetController
+);
+router.get(
+  '/questions/delete',
+    isAdmin,
+    questionsDeleteGetController
+);
 
 router.post(
   '/login',
@@ -116,6 +136,16 @@ router.post(
   '/submitions/reject',
     isAdmin,
     submitionsRejectPostController  
+);
+router.post(
+  '/questions',
+    isAdmin,
+    questionsIndexPostController
+);
+router.post(
+  '/questions/details',
+    isAdmin,
+    questionsDetailsPostController
 );
 
 module.exports = router;
