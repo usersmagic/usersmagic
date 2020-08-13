@@ -37,11 +37,15 @@ const UserSchema = new Schema({
     type: Number,
     default: null
   },
-  campaigns: {
-    type: Array,
-    default: []
+  information: {
+    type: Object,
+    default: {}
   },
-  campaign_ids: {
+  saved_information: {
+    type: Object,
+    default: {}
+  },
+  campaigns: {
     type: Array,
     default: []
   },

@@ -23,6 +23,10 @@ const CampaignSchema = new Schema({
     type: Number,
     required: true
   },
+  questions: {
+    type: Array,
+    required: true
+  },
   gender: {
     type: String,
     required: true
