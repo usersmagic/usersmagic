@@ -1,60 +1,56 @@
-const createQuestion = (wrapper, question) => {
-  const new_question = document.createElement('div');
-  new_question.classList.add('each-added-question');
+let type_names;
 
-  const trash = document.createElement('i');
-  trash.classList.add('fas');
-  trash.classList.add('fa-trash');
-  trash.classList.add('question-delete-button');
-  trash.id = question._id;
-  new_question.appendChild(trash);
+const createQuestion = (wrapper, question, type) => {
+  const new_question = document.createElement('div');
+  new_question.classList.add('each-question');
+  new_question.id = question._id.toString();
 
   const text = document.createElement('span');
-  text.classList.add('question-info');
-  text.innerHTML = question.text;
+  text.classList.add('question-name');
+  text.innerHTML = `${question.name} (${type_names[question.type]})`;
   new_question.appendChild(text);
 
-  if (question.type == 'short_text') {
-    const type = document.createElement('span');
-    type.classList.add('question-info');
-    type.innerHTML = "Tip: Kısa Yazılı";
-    new_question.appendChild(type);
-  } else if (question.type == 'long_text') {
-    const type = document.createElement('span');
-    type.classList.add('question-info');
-    type.innerHTML = "Tip: Uzun Yazılı";
-    new_question.appendChild(type);
-  } else if (question.type == 'radio') {
-    const type = document.createElement('span');
-    type.classList.add('question-info');
-    type.innerHTML = "Tip: Tek Seçmeli";
-    new_question.appendChild(type);
+  const info_wrapper = document.createElement('a');
+  info_wrapper.classList.add('question-info-button');
+  info_wrapper.href = "/admin/questions/details?id=" + question._id.toString();
+  info_wrapper.target = "_blank";
+  const info = document.createElement('i');
+  info.classList.add('fas');
+  info.classList.add('fa-info');
+  info_wrapper.appendChild(info);
+  new_question.appendChild(info_wrapper);
 
-    question.choices.forEach(choice => {
-      const eachChoice = document.createElement('span');
-      eachChoice.classList.add('question-info');
-      eachChoice.innerHTML = '-' + choice;
-      new_question.appendChild(eachChoice);
-    });
-  } else if (question.type == 'checked') {
-    const type = document.createElement('span');
-    type.classList.add('question-info');
-    type.innerHTML = "Tip: Çok Seçmeli";
-    new_question.appendChild(type);
+  if (type == "added") {
+    const trash = document.createElement('i');
+    trash.classList.add('fas');
+    trash.classList.add('fa-trash');
+    trash.classList.add('delete-question-button');
+    new_question.appendChild(trash);
 
-    question.choices.forEach(choice => {
-      const eachChoice = document.createElement('span');
-      eachChoice.classList.add('question-info');
-      eachChoice.innerHTML = '-' + choice;
-      new_question.appendChild(eachChoice);
-    });
-  } 
-
+    const arrow = document.createElement('i');
+    arrow.classList.add('fas');
+    arrow.classList.add('fa-chevron-up');
+    arrow.classList.add('insert-before-question-button');
+    new_question.appendChild(arrow);
+  } else {
+    const plus = document.createElement('i');
+    plus.classList.add('fas');
+    plus.classList.add('fa-plus');
+    plus.classList.add('add-question-button');
+    new_question.appendChild(plus);
+  }
+  
   wrapper.appendChild(new_question);
 }
 
 window.onload = () => {
   let questions = [];
+  type_names = JSON.parse(document.getElementById('type-names').value);
+  const addedQuestionsWrapper = document.getElementById('added-questions-wrapper');
+  const questionsWrapper = document.getElementById('questions-wrapper');
+  const questionArray = JSON.parse(document.getElementById('questions').value);
+  const questionsInput = document.getElementById('campaign-questions-input');
+  const campaignForm = document.querySelector('.new-form-wrapper');
 
   document.addEventListener('click', event => {
     if (event.target.className == 'new-campaign-button' || event.target.parentNode.className == 'new-campaign-button') {
@@ -67,45 +63,46 @@ window.onload = () => {
       document.querySelector('.new-form-wrapper').style.display = 'none';
     }
 
-    const campaignQuestionsInput = document.getElementById('campaign-questions-input');
-    const questionTextInput = document.getElementById('question-text-input');
-    const typeInputs = document.querySelectorAll('.question-type-input');
-    const questionChoicesInput = document.getElementById('question-choices-input');
+    if (event.target.classList.contains('add-question-button')) {
+      if (!questions.length) addedQuestionsWrapper.innerHTML = "";
+      questions.push(event.target.parentNode.id);
+      createQuestion(addedQuestionsWrapper, questionArray.find(question => question._id.toString() == event.target.parentNode.id), "added");
+      event.target.parentNode.remove();
+    }
 
-    if (event.target.className == 'add-question-button') {
-      if (!questionTextInput.value.length) return;
+    if (event.target.classList.contains('delete-question-button')) {
+      if (questions.length == 1) {
+        const noQuestionText = document.createElement('span');
+        noQuestionText.classList.add('no-question-text');
+        noQuestionText.innerHTML = 'Hiçbir soru seçmediniz.';
+        addedQuestionsWrapper.appendChild(noQuestionText);
+      }
+      questions = questions.filter(question => question != event.target.parentNode.id);
+      createQuestion(questionsWrapper, questionArray.find(question => question._id.toString() == event.target.parentNode.id), "removed");
+      event.target.parentNode.remove();
+    }
 
-      let type = null;
-      typeInputs.forEach(input => {
-        if (input.checked) {
-          type = input.value;
-          input.checked = false;
+    if (event.target.classList.contains('insert-before-question-button')) {
+      if (event.target.parentNode.previousElementSibling);
+      addedQuestionsWrapper.insertBefore(event.target.parentNode, event.target.parentNode.previousElementSibling);
+      const newQuestions = [];
+      questions.forEach((question, index) => {
+        if (question != event.target.parentNode.id)
+          newQuestions.push(question);
+        else {
+          newQuestions.pop();
+          newQuestions.push(question);
+          newQuestions.push(questions[index-1]);
         }
       });
-
-      if (!type) return;
-
-      if ((type == 'radio' || type == 'checked') && !questionChoicesInput.value.length) return;
-
-      const new_question = {
-        _id: Math.random().toString(36).substr(2, 9),
-        text: questionTextInput.value,
-        type,
-        choices: (type == 'radio' || type == 'checked') ? questionChoicesInput.value.split(',').map(e => e.trim()) : null
-      };
-
-      questions.push(new_question)
-
-      campaignQuestionsInput.value = JSON.stringify(questions);
-
-      createQuestion(document.querySelector('.questions-wrapper'), new_question);
-      questionTextInput.value = "";
-      questionChoicesInput.value = "";
-    }
-
-    if (event.target.classList.contains('question-delete-button')) {
-      event.target.parentNode.remove();
-      questions = questions.filter(question => question._id != event.target.id);
+      questions = newQuestions;
     }
   });
+
+  campaignForm.onsubmit = event => {
+    event.preventDefault();
+    if (!questions.length) return alert("Lütfen en az bir soru seçin!");
+    questionsInput.value = JSON.stringify(questions);
+    campaignForm.submit();
+  };
 }

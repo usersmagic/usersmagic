@@ -19,7 +19,8 @@ module.exports = (req, res) => {
       min_value: req.body.min_value || question.min_value,
       max_value: req.body.max_value || question.max_value,
       min_explanation: req.body.min_explanation || question.min_explanation,
-      max_explanation: req.body.max_explanation || question.max_explanation
+      max_explanation: req.body.max_explanation || question.max_explanation,
+      other_option: req.body.other_option ? true : false
     }}, {}, err => {
       if (err) return res.redirect('/admin');
 

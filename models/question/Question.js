@@ -5,8 +5,7 @@ const Schema = mongoose.Schema;
 const QuestionSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   description: {
     type: String,
@@ -27,6 +26,10 @@ const QuestionSchema = new Schema({
   choices: {
     type: Array,
     default: null
+  },
+  other_option: {
+    type: Boolean,
+    default: false
   },
   min_value: {
     type: Number,

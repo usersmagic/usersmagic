@@ -18,9 +18,7 @@ module.exports = (req, res) => {
     req.body.max_birth_year = 2020;
 
   if (!req.body.questions)
-    req.body.questions = [];
-  else
-    req.body.questions = JSON.parse(req.body.questions);
+    return res.redirect('/admin');
 
   uploadPhoto(req.file.filename, req.file.size, (err, location) => {
     if (err) return res.redirect('/admin');
@@ -29,12 +27,11 @@ module.exports = (req, res) => {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      participant_number: req.body.participant_number,
       photo: location,
       gender: req.body.gender,
       min_birth_year: req.body.min_birth_year,
       max_birth_year: req.body.max_birth_year,
-      questions: req.body.questions
+      questions: JSON.parse(req.body.questions)
     };
 
     const newCampaign = new Campaign(newCampaignData);

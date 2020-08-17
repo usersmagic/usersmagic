@@ -19,10 +19,6 @@ const CampaignSchema = new Schema({
     type: Number,
     required: true
   },
-  participant_number: {
-    type: Number,
-    required: true
-  },
   questions: {
     type: Array,
     required: true
@@ -39,23 +35,11 @@ const CampaignSchema = new Schema({
     type: Number,
     required: true
   },
-  participants: {
-    type: Array,
-    default: []
-  },
   submitions: {
     type: Array,
     default: []
   },
-  accepted_submitions: {
-    type: Array,
-    default: []
-  },
-  questions: {
-    type: Array,
-    default: []
-  },
-  ended: {
+  paused: {
     type: Boolean,
     default: false
   }

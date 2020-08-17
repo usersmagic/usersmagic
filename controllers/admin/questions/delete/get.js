@@ -15,7 +15,7 @@ module.exports = (req, res) => {
 
     if (campaigns && campaigns.length) return res.redirect('/admin');
 
-    Question.findByIdAndDelete(mongoose.Types.ObjectId(Req.query.id), err => {
+    Question.findByIdAndDelete(mongoose.Types.ObjectId(req.query.id), err => {
       if (err) return res.redirect('/admin');
 
       return res.redirect('/admin/questions');
