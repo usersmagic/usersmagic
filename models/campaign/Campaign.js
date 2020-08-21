@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CampaignSchema = new Schema({
+  version_number: {
+    type: Number,
+    default: 1.0
+  },
   name: {
     type: String,
     required: true
@@ -15,11 +19,19 @@ const CampaignSchema = new Schema({
     type: String,
     required: true
   },
+  information: {
+    type: String,
+    required: true
+  },
   price: {
     type: Number,
     required: true
   },
   questions: {
+    type: Array,
+    required: true
+  },
+  countries: {
     type: Array,
     required: true
   },
@@ -36,6 +48,10 @@ const CampaignSchema = new Schema({
     required: true
   },
   submitions: {
+    type: Array,
+    default: []
+  },
+  accepted_submitions: {
     type: Array,
     default: []
   },

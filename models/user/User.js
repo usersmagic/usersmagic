@@ -17,6 +17,14 @@ const UserSchema = new Schema({
     required: true,
     minlength: 6
   },
+  country: {
+    type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    required: true
+  },
   completed: {
     type: Boolean,
     default: false
@@ -52,6 +60,14 @@ const UserSchema = new Schema({
   paid_campaigns: {
     type: Array,
     default: []
+  },
+  campaign_errors: {
+    type: Object,
+    default: {}
+  },
+  campaign_versions: {
+    type: Object,
+    default: {}
   },
   payment_number: {
     type: String,

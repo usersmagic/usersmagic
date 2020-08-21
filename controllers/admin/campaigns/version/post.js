@@ -5,19 +5,24 @@ const Campaign = require('../../../../models/campaign/Campaign');
 const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id)
+  if (!req.query || !req.query.id || !req.body || !req.body.questions)
     return res.redirect('/admin');
 
   const error_messages = {
-    tr: "Bu kampanya geçici olarak durduruldu, lütfen kampanya yeniden açıldıktan sonra kayıtlı cevaplarınızı bir daha gönderin. Kampanya açıldığında e-posta ile bilgilendirileceksiniz. Anlayışınız için teşekkürler.",
-    en: "This campaign is paused for now, please resubmit your saved answers once the campaign has been restarted. You will be informed by an email when the campaign restarts. Thank you for your understanding.",
-    de: "This campaign is paused for now, please resubmit your saved answers once the campaign has been restarted. You will be informed by an email when the campaign restarts. Thank you for your understanding."
+    tr: "Kampanya için yeni bir versiyon yayınlandı. Lütfen kampanya sorularını bir daha doldurun ve yeniden gönderin.",
+    en: "A new version released for the campaign. Please refill your answers and resubmit the campaign.",
+    de: "A new version released for the campaign. Please refill your answers and resubmit the campaign."
   };
 
-  Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-    paused: true,
-    submitions: []
-  }}, {}, (err, campaign) => {
+  Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
+    $set: {
+      questions: JSON.parse(req.body.questions),
+      submitions: []
+    },
+    $inc: {
+      version_number: 1.0
+    }
+  }, {}, (err, campaign) => {
     if (err) return res.redirect('/admin');
 
     User.find({
@@ -39,9 +44,9 @@ module.exports = (req, res) => {
         err => {
           if (err) return res.redirect('/admin');
 
-          return res.redirect('/admin/campaigns');
-        }  
-      );
-    });
-  });
+          return res.redirect('/admin/campaigns/details?id=' + req.query.id);
+        }
+      )
+    })
+  })
 }

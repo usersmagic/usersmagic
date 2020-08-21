@@ -12,6 +12,8 @@ const campaignsIndexGetController = require('../controllers/admin/campaigns/inde
 const campaignsDeleteGetController = require('../controllers/admin/campaigns/delete/get');
 const campaignsDetailsGetController = require('../controllers/admin/campaigns/details/get');
 const campaignsResultsGetController = require('../controllers/admin/campaigns/results/get');
+const campaignsPauseGetController = require('../controllers/admin/campaigns/pause/get');
+const campaignsStartGetController = require('../controllers/admin/campaigns/start/get');
 const paymentsIndexGetController = require('../controllers/admin/payments/index/get');
 const paymentsApproveGetController = require('../controllers/admin/payments/approve/get');
 const submitionsIndexGetController = require('../controllers/admin/submitions/index/get');
@@ -27,6 +29,7 @@ const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
 const campaignsDetailsPostController = require('../controllers/admin/campaigns/details/post');
 const campaignsDetailsPhotoPostController = require('../controllers/admin/campaigns/details/photo');
+const campaignsVersionPostController = require('../controllers/admin/campaigns/version/post');
 const submitionsRejectPostController = require('../controllers/admin/submitions/reject/post');
 const questionsIndexPostController = require('../controllers/admin/questions/index/post');
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
@@ -59,6 +62,16 @@ router.get(
   '/campaigns/results',
     isAdmin,
     campaignsResultsGetController
+);
+router.get(
+  '/campaigns/pause',
+    isAdmin,
+    campaignsPauseGetController
+);
+router.get(
+  '/campaigns/start',
+    isAdmin,
+    campaignsStartGetController
 );
 router.get(
   '/payments',
@@ -131,6 +144,11 @@ router.post(
     upload.single('file'),
     isAdmin,
     campaignsDetailsPhotoPostController
+);
+router.post(
+  '/campaigns/version',
+    isAdmin,
+    campaignsVersionPostController
 );
 router.post(
   '/submitions/reject',

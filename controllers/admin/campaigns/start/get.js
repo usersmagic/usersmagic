@@ -8,15 +8,8 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
-  const error_messages = {
-    tr: "Bu kampanya geçici olarak durduruldu, lütfen kampanya yeniden açıldıktan sonra kayıtlı cevaplarınızı bir daha gönderin. Kampanya açıldığında e-posta ile bilgilendirileceksiniz. Anlayışınız için teşekkürler.",
-    en: "This campaign is paused for now, please resubmit your saved answers once the campaign has been restarted. You will be informed by an email when the campaign restarts. Thank you for your understanding.",
-    de: "This campaign is paused for now, please resubmit your saved answers once the campaign has been restarted. You will be informed by an email when the campaign restarts. Thank you for your understanding."
-  };
-
   Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-    paused: true,
-    submitions: []
+    paused: false
   }}, {}, (err, campaign) => {
     if (err) return res.redirect('/admin');
 
@@ -30,11 +23,13 @@ module.exports = (req, res) => {
         users.length,
         (time, next) => {
           const new_campaign_errors = users[time].campaign_errors;
-          new_campaign_errors[req.query.id] = error_messages[users[time].language];
+          delete new_campaign_errors[req.query.id];
 
           User.findByIdAndUpdate(mongoose.Types.ObjectId(users[time]._id), {$set: {
             campaign_errors: new_campaign_errors
-          }}, {}, err => next(err) );
+          }}, {}, err => {
+            return next(err);
+          });
         },
         err => {
           if (err) return res.redirect('/admin');

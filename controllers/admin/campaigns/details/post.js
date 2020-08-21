@@ -2,16 +2,14 @@ const mongoose = require('mongoose');
 
 const Campaign = require('../../../../models/campaign/Campaign');
 
-const array_equals = (one, two) => {
-  return one.length == two.length && one.every((val, index) => val == two[index])
-}
-
-const object_array_equals = (one, two) => {
-  return one.length == two.length && one.every((val, index) => array_equals(Object.keys(val), Object.keys(two[index])) && array_equals(Object.values(val), Object.values(two[index])))
-}
-
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.participant_number)
+  if (!req.query || !req.query.id || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.information || !req.body.countries)
+    return res.redirect('/admin');
+
+  const countries = req.body.countries.split(',').map(each => each.toLocaleLowerCase());
+  const valid_countries = ["türkiye", "amerika", "ingiltere", "almanya"];
+
+  if (countries.filter(each => !valid_countries.includes(each)).length)
     return res.redirect('/admin');
 
   if (!req.body.gender)
@@ -25,24 +23,18 @@ module.exports = (req, res) => {
   if (!req.body.max_birth_year)
     req.body.max_birth_year = 2020;
 
-  if (!req.body.questions)
-    req.body.questions = [];
-  else
-    req.body.questions = JSON.parse(req.body.questions);
-
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err) return res.redirect('/admin');
 
     Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
       name: req.body.name,
       description: req.body.description,
+      information: req.body.information,
       price: req.body.price,
-      participant_number: req.body.participant_number,
+      countries,
       gender: req.body.gender,
       min_birth_year: req.body.min_birth_year,
-      max_birth_year: req.body.max_birth_year,
-      questions: req.body.questions,
-      submitions: object_array_equals(req.body.questions, campaign.questions) ? campaign.submitions : []
+      max_birth_year: req.body.max_birth_year
     }}, {}, err => {
       if (err) return res.redirect('/admin');
   

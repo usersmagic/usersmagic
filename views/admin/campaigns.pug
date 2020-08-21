@@ -28,18 +28,31 @@ block main
     .form-inner-wrapper
       span.form-title Yeni Bir Kampanya Ekle
       span.form-subtitle Kampanya İsmi: *
+      span.form-info Kullanıcıların kampanya için görecekleri isim.
       input.form-input(type="text" placeholder="İsim" name="name" required)
       span.form-subtitle Kampanya Açıklaması: *
+      span.form-info Kullanıcıların kampanyaya katılmadan önce okuyacakları basit ve kısa bir açıklama.
       input.form-input(type="text" placeholder="Açıklama" name="description" required)
+      span.form-subtitle Kampanya Bilgilendirmesi: *
+      span.form-info Kullanıcıların kampanyaya katıldıktan sonra sorulara başlamadan önce okuyacakları detaylı bir bilgilendirme. Burada soruları cevaplamaya başlamadan yapmaları gereken şeyler vb açıklanabilir.
+      input.form-input(type="text" placeholder="Bilgilendirme" name="description" required)
       span.form-subtitle Kampanya Fiyatı: *
-      input.form-input(type="number" placeholder="Fiyat ₺" name="price" required)
+      span.form-info Kullanıcı başına verilecek fiyat. Türkiye'deki kullanıcılar için ₺, ABD için $ ve diğer ülkeler için € cinsinden.
+      input.form-input(type="number" placeholder="Fiyat ₺/$/€" name="price" required)
       span.form-subtitle Kampanya Resmi: *
+      span.form-info Kampanya logosu.
       input.form-input(type="file" name="file" required)
+      span.form-subtitle Geçerli Olduğu Ülkeler: *
+      span.form-info Ülkeye göre filtreleme. Türkiye, Amerika, Almanya ve İngiltere değerlerinden birini yazın. Birden fazla ülke yazmak için araya virgül koyun. Boşluk ya da başka bir noktalama işareti kullanmayın. Her ülke için geçerli para birimi kullanılır. Farklı değerlerde ödeme yapmak için her ülke için ayrı kampanya yaratın.
+      input.form-input(type="text" placeholder="ör: Türkiye,Amerika" name="countries")
       span.form-subtitle Gereken Cinsiyet: (Yoksa boş bırakın)
+      span.form-info Cinsiyete göre filtreleme.
       input.form-input(type="text" placeholder="ör: kadın / erkek" name="gender")
       span.form-subtitle Min Doğum Yılı: (Yoksa boş bırakın)
+      span.form-info Maximum yaşa göre filtreleme.
       input.form-input(type="number" placeholder="ör: 1920" name="min_birth_year")
       span.form-subtitle Max Doğum Yılı: (Yoksa boş bırakın)
+      span.form-info Minimum yaşa göre filtreleme..
       input.form-input(type="number" placeholder="ör: 2020" name="max_birth_year")
       input.display-none#campaign-questions-input(type="text" value="" name="questions")
       span.form-subtitle Kampanya Soruları: (Aşağıdaki listeden ekleyeceğiniz soruları seçin.)
