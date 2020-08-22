@@ -25,10 +25,22 @@ module.exports = (req, res) => {
       min_birth_year: { $lte: user.birth_year },
     }, (err, campaign) => {
       if (err || !campaign) return res.redirect('/campaigns');
+
+      const campaign_status = user.campaign_status || {};
+      const campaign_versions = user.campaign_versions || {};
+
+      campaign_status[req.query.id] = "saved";
+      campaign_versions[req.query.id] = campaign.version_number;
   
-      User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$push: {
-        campaigns: campaign._id.toString()
-      }}, {}, err => {
+      User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {
+        $push: {
+          campaigns: campaign._id.toString()
+        },
+        $set: {
+          campaign_status,
+          campaign_versions
+        }
+      }, {}, err => {
         if (err) return res.redirect('/campaigns');
 
         return res.redirect('/test?id=' + campaign._id.toString());

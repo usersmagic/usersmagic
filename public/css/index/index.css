@@ -15,15 +15,33 @@
 }
 
 .brand-wrapper {
-  padding-left: 20px;
+  padding: 0px 20px;
   padding-top: 20px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .brand-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
   font-size: 75%;
   text-decoration: none;
+}
+.language-change-wrapper span {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  margin: 0px 5px;
+  font-size: 75%;
+} 
+.language-text {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 75%;
+}
+.language-text:hover {
+  text-decoration: underline;
 }
 
 .logo-name {

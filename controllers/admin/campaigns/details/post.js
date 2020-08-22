@@ -6,8 +6,8 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.information || !req.body.countries)
     return res.redirect('/admin');
 
-  const countries = req.body.countries.split(',').map(each => each.toLocaleLowerCase());
-  const valid_countries = ["türkiye", "amerika", "ingiltere", "almanya"];
+  const countries = req.body.countries.split(',').map(each => each.trim().toLocaleLowerCase());
+  const valid_countries = ["TR", "US", "UK", "DE", "RU", "UA"];
 
   if (countries.filter(each => !valid_countries.includes(each)).length)
     return res.redirect('/admin');

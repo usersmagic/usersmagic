@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const CampaignSchema = new Schema({
   version_number: {
     type: Number,
-    default: 1.0
+    default: 1
   },
   name: {
     type: String,

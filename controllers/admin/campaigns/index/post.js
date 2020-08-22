@@ -11,8 +11,8 @@ module.exports = (req, res) => {
   else
     req.body.gender = req.body.gender.toLowerCase().trim();
 
-  const countries = req.body.countries.split(',').map(each => each.toLocaleLowerCase());
-  const valid_countries = ["türkiye", "amerika", "ingiltere", "almanya"];
+  const countries = req.body.countries.split(',').map(each => each.trim().toLocaleLowerCase());
+  const valid_countries = ["TR", "US", "UK", "DE", "RU", "UA"];
 
   if (countries.filter(each => !valid_countries.includes(each)).length)
     return res.redirect('/admin');

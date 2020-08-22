@@ -14,23 +14,15 @@ module.exports = (req, res) => {
         Campaign.findById(mongoose.Types.ObjectId(user.campaigns[time]), (err, campaign) => {
           if (err || !campaign) return res.redirect('/');
 
-          const notKnownInformation = campaign.questions.filter(question => !user.information[question]);
-
-          if (notKnownInformation.length)
-            return next(null, {
-              _id: campaign._id,
-              name: campaign.name,
-              photo: campaign.photo,
-              description: campaign.description,
-              price: campaign.price
-            });
-
-          Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(campaign._id), {$push: {
-            submitions: user._id.toString()
-          }}, {}, err => {
-            if (err) return next(err);
-
-            return next();
+          return next(null, {
+            _id: campaign._id,
+            name: campaign.name,
+            photo: campaign.photo,
+            description: campaign.description,
+            price: campaign.price,
+            version: user.campaign_versions[campaign._id.toString()],
+            error: user.campaign_errors[campaign._id.toString()] || null,
+            status: user.campaign_status[campaign._id.toString()]
           });
         });
       },

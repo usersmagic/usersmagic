@@ -2,6 +2,10 @@ extends ./../partials/head
 block content
   .brand-wrapper
     a.brand-text(href="/brand") Marka Sayfası
+    .language-change-wrapper
+      a.language-text(href="/auth/complete?lang=tr") TR
+      span |
+      a.language-text(href="/auth/complete?lang=en") EN
   form.all-wrapper(method="POST" action="/auth/complete")
     .all-inner-wrapper
       span.logo-name usersmagic

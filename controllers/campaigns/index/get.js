@@ -16,6 +16,7 @@ module.exports = (req, res) => {
       ],
       max_birth_year: { $gte: user.birth_year },
       min_birth_year: { $lte: user.birth_year },
+      countries: user.country,
       paused: false
     }, (err, campaigns) => {
       if (err) return res.redirect('/');

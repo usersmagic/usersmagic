@@ -17,10 +17,6 @@ const UserSchema = new Schema({
     required: true,
     minlength: 6
   },
-  country: {
-    type: String,
-    required: true
-  },
   language: {
     type: String,
     required: true
@@ -28,6 +24,10 @@ const UserSchema = new Schema({
   completed: {
     type: Boolean,
     default: false
+  },
+  country: {
+    type: String,
+    default: null
   },
   name: {
     type: String,
@@ -66,6 +66,10 @@ const UserSchema = new Schema({
     default: {}
   },
   campaign_versions: {
+    type: Object,
+    default: {}
+  },
+  campaign_status: {
     type: Object,
     default: {}
   },
