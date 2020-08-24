@@ -21,10 +21,12 @@ module.exports = (req, res) => {
             name: campaign.name,
             photo: campaign.photo,
             description: campaign.description,
+            information: campaign.information,
             price: campaign.price,
             version: user.campaign_versions[campaign._id.toString()],
             error: user.campaign_errors[campaign._id.toString()] || null,
-            status: user.campaign_status[campaign._id.toString()]
+            status: user.campaign_status[campaign._id.toString()],
+            last_question: user.campaign_last_question[campaign._id.toString()]
           });
         });
       },

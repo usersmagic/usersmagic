@@ -14,23 +14,20 @@ module.exports = (req, res) => {
     if (err || !user) return res.redirect('/campaigns');
 
     Campaign.findOne({
-      _id: {
-        $and: [
-          mongoose.Types.ObjectId(req.query.id),
-          { $in: user.campaigns }
-        ]
-      }
+      _id: mongoose.Types.ObjectId(req.query.id),
+      _id: { $in: user.campaigns }
     }, (err, campaign) => {
       if (err || !campaign) return res.redirect('/campaigns');
 
       async.times(
-        campaign.questions,
+        campaign.questions.length,
         (time, next) => {
-          Question.findById(mongoose.Types.ObjectId(campaign.questions[time]), (err, question) => next(err, {
+          Question.findById(mongoose.Types.ObjectId(campaign.questions[time]), (err, question) => {
+            return next(err, {
               question,
               answer: user.information[question._id.toString()] || user.saved_information[question._id.toString()] || null
             })
-          );
+          });
         },
         (err, questions) => {
           if (err) return res.redirect('/campaigns');

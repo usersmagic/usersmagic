@@ -69,6 +69,10 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
+  campaign_last_question: {
+    type: Object,
+    default: {}
+  },
   payment_number: {
     type: String,
     default: null

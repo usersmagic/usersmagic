@@ -16,21 +16,24 @@ module.exports = (req, res) => {
         { _id: mongoose.Types.ObjectId(req.query.id) },
         { _id: {$nin: user.campaigns} }
       ],
-      paused: false,
       $or: [
         { gender: "both" },
         { gender: user.gender }
       ],
       max_birth_year: { $gte: user.birth_year },
       min_birth_year: { $lte: user.birth_year },
+      countries: user.country,
+      paused: false
     }, (err, campaign) => {
       if (err || !campaign) return res.redirect('/campaigns');
 
       const campaign_status = user.campaign_status || {};
       const campaign_versions = user.campaign_versions || {};
+      const campaign_last_question = user.campaign_last_question || {};
 
       campaign_status[req.query.id] = "saved";
       campaign_versions[req.query.id] = campaign.version_number;
+      campaign_last_question[req.query.id] = 0;
   
       User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {
         $push: {
@@ -38,7 +41,8 @@ module.exports = (req, res) => {
         },
         $set: {
           campaign_status,
-          campaign_versions
+          campaign_versions,
+          campaign_last_question
         }
       }, {}, err => {
         if (err) return res.redirect('/campaigns');
