@@ -3,20 +3,20 @@ block content
   .all-wrapper
     .invite-button
       i.fas.fa-lira-sign.lira-sign
-      span.invite-text Tanıdıklarını davet et, para kazan!
+      span.invite-text #{__('Tanıdıklarını davet et, para kazan!')}
     .invite-wrapper
       span.invite-title
-        span Arkadaşlarını aşağıdaki
-        span.invite-title-bold sana özel
-        span linki kullanarak davet et, uygulamadan para çeken
-        span.invite-title-bold her arkadaşın
-        span için
-        span.invite-title-bold 2₺
-        span kazan!
+        span #{__('Arkadaşlarını aşağıdaki')}
+        span.invite-title-bold #{__('sana özel')}
+        span #{__('linki kullanarak davet et, uygulamadan para çeken')}
+        span.invite-title-bold #{__('her arkadaşın')}
+        span #{__('için')}
+        span.invite-title-bold 2#{currency}
+        span #{__('kazan!')}
       span.invite-message https://usersmagic.com/auth/register?code=#{code}
       .invite-copy-button
-        span.invite-copy-button-text Linki Kopyala
-      span.invite-close-text Kapat
+        span.invite-copy-button-text #{__('Linki Kopyala')}
+      span.invite-close-text #{__('Kapat')}
     .all-header
       .all-header-menu-wrapper
         a.each-header-menu.selected(href="/history")
@@ -38,10 +38,10 @@ block content
                     span.campaign-name= campaign.name
                     span.campaign-description= campaign.error ? campaign.error : campaign.description
                     .campaign-price-wrapper
-                      span.campaign-price-text Kazanacağın:
-                      span.campaign-price #{campaign.price}₺
+                      span.campaign-price-text #{__('Kazanacağın')}:
+                      span.campaign-price #{campaign.price}#{currency}
                     a.campaign-join-button(href="/test?id=" + campaign._id.toString())
-                      span.campaign-join-text Devam Et
+                      span.campaign-join-text #{__('Devam Et')}
             else if campaign.status == "waiting"
               .campaign-outer-wrapper
                 .campaign-wrapper
@@ -51,9 +51,9 @@ block content
                     span.campaign-name= campaign.name
                     span.campaign-description= campaign.description
                     .campaign-price-wrapper
-                      span.campaign-price-text Kazanacağın:
-                      span.campaign-price #{campaign.price}₺
-                    span.campaign-info-text Onay bekliyor...
+                      span.campaign-price-text #{__('Kazanacağın')}:
+                      span.campaign-price #{campaign.price}#{currency}
+                    span.campaign-info-text #{__('Onay bekliyor')}...
             else if campaign.status == "approved"
               .campaign-outer-wrapper
                 .campaign-wrapper
@@ -63,9 +63,9 @@ block content
                     span.campaign-name= campaign.name
                     span.campaign-description= campaign.description
                     .campaign-price-wrapper
-                      span.campaign-price-text Kazanacağın:
-                      span.campaign-price #{campaign.price}₺
-                    span.campaign-info-text Cevapların onaylandı, bakiyeni profil sayfanda görebilirsin!
+                      span.campaign-price-text #{__('Kazanacağın')}:
+                      span.campaign-price #{campaign.price}#{currency}
+                    span.campaign-info-text #{__('Cevapların onaylandı, bakiyeni profil sayfanda görebilirsin')}!
             else if campaign.status == "unapproved"
               .campaign-outer-wrapper
                 .campaign-wrapper
@@ -75,10 +75,10 @@ block content
                     span.campaign-name= campaign.name
                     span.campaign-error= campaign.error
                     .campaign-price-wrapper
-                      span.campaign-price-text Kazanacağın:
-                      span.campaign-price #{campaign.price}₺
+                      span.campaign-price-text #{__('Kazanacağın')}:
+                      span.campaign-price #{campaign.price}#{currency}
                     a.campaign-join-button(href="/test?id=" + campaign._id.toString())
-                      span.campaign-join-text Yeniden Doldur
+                      span.campaign-join-text #{__('Yeniden Doldur')}
         .empty-space
       else
-        span.no-campaign-text Henüz hiçbir kampanyaya katılmamışsın.
+        span.no-campaign-text #{__('Henüz hiçbir kampanyaya katılmamışsın')}.

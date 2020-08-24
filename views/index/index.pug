@@ -2,18 +2,18 @@ extends ./../partials/head
 block content
   .all-wrapper
     .brand-wrapper
-      a.brand-text(href=language_key ? "/brand?lang=" + language_key : "/brand") Marka Sayfası
+      a.brand-text(href=language_key ? "/brand?lang=" + language_key : "/brand") #{__('Marka Sayfası')}
       .language-change-wrapper
         a.language-text(href="/?lang=tr") TR
         span |
         a.language-text(href="/?lang=en") EN
     .all-inner-wrapper
       span.logo-name usersmagic
-      span.logo-subtitle Para Kazanmanın En Kolay Yolu
+      span.logo-subtitle #{__('Para Kazanmanın En Kolay Yolu')}
       a.register-button(href=language_key ? "/auth/register?lang=" + language_key : "/auth/register")
-        span Hemen Başla
+        span #{__('Hemen Başla')}
       .login-wrapper
-        span.login-text Zaten üye misin?
-        a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") Giriş Yap
+        span.login-text #{__('Zaten üye misin?')}
+        a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım

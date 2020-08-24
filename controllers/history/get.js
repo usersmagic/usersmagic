@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const User = require('../../models/user/User');
 const Campaign = require('../../models/campaign/Campaign');
 
+
+
 module.exports = (req, res) => {
   User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
     if (err || !user) return res.redirect('/campaigns');
@@ -31,12 +33,13 @@ module.exports = (req, res) => {
 
         return res.render('history/index', {
           page: 'history/index',
-          title: 'Kampanya Geçmişi',
+          title: res.__('Kampanya Geçmişi'),
           includes: {
             external: ['css', 'js', 'fontawesome']
           },
           campaigns,
-          code: user._id.toString()
+          code: user._id.toString(),
+          currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€")
         });
       }
     );

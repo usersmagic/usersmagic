@@ -17,10 +17,6 @@ const UserSchema = new Schema({
     required: true,
     minlength: 6
   },
-  language: {
-    type: String,
-    required: true
-  },
   completed: {
     type: Boolean,
     default: false

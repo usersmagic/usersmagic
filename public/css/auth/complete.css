@@ -1,10 +1,15 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .all-wrapper {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex: 1;
 }
 .all-inner-wrapper {
   flex: 1;
@@ -15,15 +20,33 @@
 }
 
 .brand-wrapper {
-  padding-left: 20px;
+  padding: 0px 20px;
   padding-top: 20px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .brand-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
   font-size: 75%;
   text-decoration: none;
+}
+.language-change-wrapper span {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  margin: 0px 5px;
+  font-size: 75%;
+} 
+.language-text {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 75%;
+}
+.language-text:hover {
+  text-decoration: underline;
 }
 
 
@@ -47,6 +70,61 @@
   border-radius: 30px;
 }
 
+.select-input-outer-wrapper {
+  height: 55px;
+  margin-top: 10px;
+  overflow: visible;
+  z-index: 2;
+}
+.select-input-wrapper {
+  height: 55px;
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  border-radius: 30px;
+  width: 25vw;
+  overflow: hidden;
+  z-index: 2;
+}
+.select-input {
+  background-color: rgb(254, 254, 254);
+  box-shadow: 0px;
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0px 20px;
+  height: 55px;
+  border-radius: 30px;
+}
+.select-input-choices {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(254, 254, 254);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.each-input-choice {
+  width: 100%;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  margin: 0px 20px;
+  padding: 10px 0px;
+  border-top: 1px solid rgb(236, 236, 236);
+  text-align: center;
+  cursor: pointer;
+}
+
+.open-bottom-animation-class {
+  animation: open-bottom 0.5s ease-in-out 0s 1 forwards;
+  -webkit-animation: open-bottom 0.5s ease-in-out 0s 1 forwards;
+}
+.close-up-animation-class {
+  animation: close-up 0.5s ease-in-out 0s 1 forwards;
+  -webkit-animation: close-up 0.5s ease-in-out 0s 1 forwards;
+}
+
 .error-text {
   color: rgb(240, 84, 79);
   font-weight: 600;
@@ -66,7 +144,6 @@
   text-decoration: none;
   outline: none;
   margin-top: 40px;
-  margin-bottom: 30px;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(240, 84, 79, 0.5);
 }
@@ -93,6 +170,41 @@
   font-weight: 300;
   font-size: 75%;
 }
+
+@keyframes open-bottom {
+  from {
+    height: 55px;
+  }
+  to {
+    height: 200px;
+  }
+}
+@-webkit-keyframes open-bottom {
+  from {
+    height: 55px;
+  }
+  to {
+    height: 200px;
+  }
+}
+
+@keyframes close-up {
+  from {
+    height: 200px;
+  }
+  to {
+    height: 55px;
+  }
+}
+@-webkit-keyframes close-up {
+  from {
+    height: 200px;
+  }
+  to {
+    height: 55px;
+  }
+}
+
 
 @media only screen and (max-width: 1100px) and (min-width: 900px) {
   .each-input {

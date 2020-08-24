@@ -4,8 +4,15 @@ const validator = require('validator');
 const User = require('../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.body || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_year) {
+  if (!req.body || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_year || !req.body.country) {
     req.session.error = res.__('Lütfen bütün bilgileri girin');
+    return res.redirect('/auth/complete');
+  }
+
+  const valid_countries = ["tr", "us", "uk", "de", "ru", "ua"];
+
+  if (!valid_countries.includes(req.body.country)) {
+    req.session.error = res.__('Lütfen yaşadığınız ülkeyi listeden seçin, elle yazmayın');
     return res.redirect('/auth/complete');
   }
 
@@ -34,6 +41,7 @@ module.exports = (req, res) => {
     phone: req.body.phone.trim(),
     gender: req.body.gender.toLowerCase().trim(),
     birth_year: parseInt(req.body.birth_year.trim()),
+    country: req.body.country,
     completed: true
   }}, {new: true}, (err, user) => {
     if (err && err.code == 11000) {

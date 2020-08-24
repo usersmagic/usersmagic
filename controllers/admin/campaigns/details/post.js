@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     return res.redirect('/admin');
 
   const countries = req.body.countries.split(',').map(each => each.trim().toLocaleLowerCase());
-  const valid_countries = ["TR", "US", "UK", "DE", "RU", "UA"];
+  const valid_countries = ["tr", "us", "uk", "de", "ru", "ua"];
 
   if (countries.filter(each => !valid_countries.includes(each)).length)
     return res.redirect('/admin');
