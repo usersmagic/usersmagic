@@ -17,7 +17,7 @@ module.exports = (req, res) => {
     const newPaymentData = {
       user_id: user._id,
       payment_number: user.payment_number,
-      amount: user.credit
+      amount: 10
     };
 
     const newPayment = new Payment(newPaymentData);
@@ -25,9 +25,9 @@ module.exports = (req, res) => {
     newPayment.save(err => {
       if (err) return res.redirect('/profile');
 
-      User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
-        credit: 0,
-        waiting_credit: user.waiting_credit + user.credit
+      User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$inc: {
+        credit: -10,
+        waiting_credit: 10
       }}, {new: true}, (err, user) => {
         if (err) return res.redirect('/profile');
 
