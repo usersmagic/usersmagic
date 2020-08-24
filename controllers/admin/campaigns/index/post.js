@@ -3,7 +3,7 @@ const Campaign = require('../../../../models/campaign/Campaign');
 const uploadPhoto = require('../../../../utils/uploadPhoto');
 
 module.exports = (req, res) => {
-  if (!req.file || !req.file.filename || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.information || !req.body.countries)
+  if (!req.file || !req.file.filename || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.information || !req.body.countries || !req.body.questions)
     return res.redirect('/admin');
 
   if (!req.body.gender)
@@ -22,9 +22,6 @@ module.exports = (req, res) => {
 
   if (!req.body.max_birth_year)
     req.body.max_birth_year = 2020;
-
-  if (!req.body.questions)
-    return res.redirect('/admin');
 
   uploadPhoto(req.file.filename, req.file.size, (err, location) => {
     if (err) return res.redirect('/admin');

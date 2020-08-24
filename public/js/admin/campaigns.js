@@ -70,6 +70,7 @@ window.onload = () => {
     if (event.target.classList.contains('add-question-button')) {
       if (!questions.length) addedQuestionsWrapper.innerHTML = "";
       questions.push(event.target.parentNode.id);
+      questionsInput.value = JSON.stringify(questions);
       createQuestion(addedQuestionsWrapper, questionArray.find(question => question._id.toString() == event.target.parentNode.id), "added");
       event.target.parentNode.remove();
     }
@@ -82,6 +83,7 @@ window.onload = () => {
         addedQuestionsWrapper.appendChild(noQuestionText);
       }
       questions = questions.filter(question => question != event.target.parentNode.id);
+      questionsInput.value = JSON.stringify(questions);
       createQuestion(questionsWrapper, questionArray.find(question => question._id.toString() == event.target.parentNode.id), "removed");
       event.target.parentNode.remove();
     }
@@ -100,15 +102,9 @@ window.onload = () => {
         }
       });
       questions = newQuestions;
+      questionsInput.value = JSON.stringify(questions);
     }
   });
-
-  campaignForm.onsubmit = event => {
-    event.preventDefault();
-    if (!questions.length) return alert("Lütfen en az bir soru seçin!");
-    questionsInput.value = JSON.stringify(questions);
-    campaignForm.submit();
-  };
 
   questionSearchInput.oninput = () => {
     if (questionSearchInput.value) {
@@ -125,5 +121,12 @@ window.onload = () => {
           questionsWrapper.appendChild(question);
       });
     }
-  }
+  };
+
+  campaignForm.onsubmit = event => {
+    event.preventDefault();
+    if (!questions.length) return alert("Lütfen en az bir soru seçin!");
+    questionsInput.value = JSON.stringify(questions);
+    campaignForm.submit();
+  };
 }
