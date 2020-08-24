@@ -61,7 +61,7 @@ block main
         span.no-question-text Hiçbir soru seçmediniz.
       span.form-subtitle Soru Listesi:
       span.form-info Yeni bir soru eklemek için sorular sayfasını kullanın.
-      input.form-input.question-search-input(type="text" placeholder="Soru Ara")
+      input.form-input#question-search-input(type="text" placeholder="Soru Ara")
       .questions-wrapper#questions-wrapper
         each question in questions
           .each-question(id=question._id.toString())

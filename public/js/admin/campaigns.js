@@ -3,6 +3,8 @@ let type_names;
 const createQuestion = (wrapper, question, type) => {
   const new_question = document.createElement('div');
   new_question.classList.add('each-question');
+  if (type == "added")
+    new_question.classList.add('added-question');
   new_question.id = question._id.toString();
 
   const text = document.createElement('span');
@@ -51,6 +53,8 @@ window.onload = () => {
   const questionArray = JSON.parse(document.getElementById('questions').value);
   const questionsInput = document.getElementById('campaign-questions-input');
   const campaignForm = document.querySelector('.new-form-wrapper');
+  const questionSearchInput = document.getElementById('question-search-input')
+  let searchQuestions = document.querySelectorAll('.each-question');
 
   document.addEventListener('click', event => {
     if (event.target.className == 'new-campaign-button' || event.target.parentNode.className == 'new-campaign-button') {
@@ -105,4 +109,21 @@ window.onload = () => {
     questionsInput.value = JSON.stringify(questions);
     campaignForm.submit();
   };
+
+  questionSearchInput.oninput = () => {
+    if (questionSearchInput.value) {
+      questionsWrapper.innerHTML = "";
+      searchQuestions.forEach(question => {
+        const questionName = question.childNodes[0].innerHTML.split('(')[0].trim().toLocaleLowerCase();
+        if (!questions.includes(question.id) && questionName.includes(questionSearchInput.value.toLocaleLowerCase().trim()))
+          questionsWrapper.appendChild(question);
+      });
+    } else {
+      questionsWrapper.innerHTML = "";
+      searchQuestions.forEach(question => {
+        if (!questions.includes(question.id))
+          questionsWrapper.appendChild(question);
+      });
+    }
+  }
 }
