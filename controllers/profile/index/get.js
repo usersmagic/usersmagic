@@ -38,7 +38,8 @@ module.exports = (req, res) => {
       },
       error,
       payment_error,
-      code: user._id.toString()
+      code: user._id.toString(),
+      current_page: "profile"
     });
   });
 }

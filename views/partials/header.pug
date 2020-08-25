@@ -1,0 +1,29 @@
+extends ./head
+block content
+  .all-wrapper
+    .invite-button
+      i.fas.fa-lira-sign.lira-sign
+      span.invite-text #{__('Tanıdıklarını davet et, para kazan!')}
+    .invite-wrapper
+      span.invite-title
+        span #{__('Arkadaşlarını aşağıdaki')}
+        span.invite-title-bold #{__('sana özel')}
+        span #{__('linki kullanarak davet et, uygulamadan para çeken')}
+        span.invite-title-bold #{__('her arkadaşın')}
+        span #{__('için')}
+        span.invite-title-bold 2#{currency}
+        span #{__('kazan')}!
+      span.invite-message https://usersmagic.com/auth/register?code=#{code}
+      .invite-copy-button
+        span.invite-copy-button-text #{__('Linki Kopyala')}
+      span.invite-close-text #{__('Kapat')}
+    .all-header
+      .all-header-menu-wrapper
+        a.each-header-menu(href="/history" class=(current_page == "history" ? "selected" : ""))
+          i.fas.fa-tasks
+        a.each-header-menu(href="/campaigns" class=(current_page == "campaigns" ? "selected" : ""))
+          i.fas.fa-home
+        a.each-header-menu(href="/profile" class=(current_page == "profile" ? "selected" : ""))
+          i.fas.fa-user
+    .all-content
+      block main

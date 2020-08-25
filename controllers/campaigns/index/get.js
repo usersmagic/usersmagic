@@ -59,7 +59,8 @@ module.exports = (req, res) => {
               external: ['css', 'js', 'fontawesome']
             },
             campaigns,
-            code: user._id.toString()
+            code: user._id.toString(),
+            current_page: "campaigns"
           });
         }
       );
