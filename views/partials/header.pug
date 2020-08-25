@@ -2,7 +2,12 @@ extends ./head
 block content
   .all-wrapper
     .invite-button
-      i.fas.fa-lira-sign.lira-sign
+      if (currency == '₺')
+        i.fas.fa-lira-sign.lira-sign
+      else if (currency == "$")
+        i.fas.fa-dolar-sign.lira-sign
+      else
+        i.fas.fa-euro-sign.lira-sign
       span.invite-text #{__('Tanıdıklarını davet et, para kazan!')}
     .invite-wrapper
       span.invite-title
@@ -17,6 +22,7 @@ block content
       .invite-copy-button
         span.invite-copy-button-text #{__('Linki Kopyala')}
       span.invite-close-text #{__('Kapat')}
+      //- span.invite-info #{__('Sahte hesapların önüne geçebilmek için Usersmagic, sizin kodunuz ile kaydolan bir kullanıcı bakiyesinden para çekme işlemi gerçekleştirene kadar hesabınıza 2')}#{currency} #{__('yatırmaz. Fakat merak etmeyin, para çekme işleminin gerçekleştirilmesi için herhangi bir son kullanım tarihi bulunmamaktadır! Eğer bakiyenizde bir hata olduğunu düşünürseniz temsilcilerimiz ile iletişime geçmekten çekinmeyin')}.
     .all-header
       .all-header-menu-wrapper
         a.each-header-menu(href="/history" class=(current_page == "history" ? "selected" : ""))

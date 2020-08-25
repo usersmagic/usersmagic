@@ -39,6 +39,7 @@ module.exports = (req, res) => {
       error,
       payment_error,
       code: user._id.toString(),
+      currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
       current_page: "profile"
     });
   });

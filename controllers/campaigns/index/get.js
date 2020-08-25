@@ -60,6 +60,7 @@ module.exports = (req, res) => {
             },
             campaigns,
             code: user._id.toString(),
+            currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
             current_page: "campaigns"
           });
         }

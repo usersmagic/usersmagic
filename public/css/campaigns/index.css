@@ -33,6 +33,7 @@ body {
   background-color: rgb(254, 254, 254);
   border-radius: 20px;
   border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0 0 20px rgb(236, 236, 236);
   min-height: fit-content;
   height: 100%;
   display: flex;

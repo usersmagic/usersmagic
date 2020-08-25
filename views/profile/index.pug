@@ -1,6 +1,13 @@
 extends ./../partials/header
 block main
   input.display-none#user-object(type="text" value=JSON.stringify(user))
+  form.payment-number-wrapper(action="/profile/payment" method="POST")
+    span.payment-title Papara Numarası
+    span.payment-subtitle Lütfen ödemenizi yapabilmemiz için bir Papara hesap numarası girin. Girdiğiniz bu numarayı daha sonra değiştiremezsiniz. Eğer herhangi bir sorunuz olursa temsilcilerimiz ile konuşabilirsiniz.
+    input.each-input(type="text" placeholder="Papara Numarası" name="payment_number")
+    button.payment-send-button
+      span Gönder
+    span.close-payment-button Vazgeç
   form.all-content-inner-wrapper(action="/profile" method="POST")
     img.content-logo(src="/res/images/logo_black.png" alt="usersmagic")
     span.user-name= user.name
@@ -10,7 +17,7 @@ block main
       span.credit-text Bakiye:
       span
         span.credit #{user.credit}
-        span.currency ₺
+        span.currency #{currency}
     if payment_error
       span.payment-error= payment_error
     .get-credit-button
