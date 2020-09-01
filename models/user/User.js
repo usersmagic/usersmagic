@@ -45,10 +45,6 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
-  saved_information: {
-    type: Object,
-    default: {}
-  },
   campaigns: {
     type: Array,
     default: []

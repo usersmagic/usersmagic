@@ -33,7 +33,7 @@ module.exports = (req, res) => {
 
       campaign_status[req.query.id] = "saved";
       campaign_versions[req.query.id] = campaign.version_number;
-      campaign_last_question[req.query.id] = 0;
+      campaign_last_question[req.query.id] = -1;
   
       User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {
         $push: {

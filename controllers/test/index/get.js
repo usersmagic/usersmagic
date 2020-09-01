@@ -23,10 +23,12 @@ module.exports = (req, res) => {
         campaign.questions.length,
         (time, next) => {
           Question.findById(mongoose.Types.ObjectId(campaign.questions[time]), (err, question) => {
-            return next(err, {
+            if (err) return next(err);
+
+            return next(null, {
               question,
-              answer: user.information[question._id.toString()] || user.saved_information[question._id.toString()] || null
-            })
+              answer: user.information[question._id.toString()] || null
+            });
           });
         },
         (err, questions) => {
@@ -38,7 +40,16 @@ module.exports = (req, res) => {
             includes: {
               external: ['css', 'js', 'fontawesome']
             },
-            campaign,
+            campaign: {
+              _id: campaign._id,
+              name: campaign.name,
+              photo: campaign.photo,
+              information: campaign.information,
+              price: campaign.price,
+              error: user.campaign_errors[campaign._id.toString()],
+              version: user.campaign_versions[campaign._id.toString()],
+              last_question: user.campaign_last_question[campaign._id.toString()]
+            },
             questions
           });
         }

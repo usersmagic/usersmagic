@@ -1,3 +1,4 @@
+const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
@@ -5,43 +6,55 @@ const User = require('../../../models/user/User');
 const Campaign = require('../../../models/campaign/Campaign');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !validator.isMongoId(req.query.id) || !req.body || !req.body.answers)
-    return res.sendStatus(500);
+  if (!req.query || !req.body.id || !validator.isMongoId(req.body.id))
+    return res.sendStatus(400);
 
-  User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
-    if (err || !user) return res.sendStatus(500);
+  Campaign.findById(mongoose.Types.ObjectId(req.body.id), (err, campaign) => {
+    if (err || !campaign) return res.sendStatus(500);
+  
+    User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
+      if (err || !user) return res.sendStatus(500);
 
-    let answers = req.body.answers;
+      if (user.campaign_status[req.body.id] == "waiting" || user.campaign_status[req.body.id] == "approved")
+        return res.sendStatus(500);
+        
+      async.times(
+        campaign.questions.length,
+        (time, next) => {
+          if (user.information[campaign.questions[time]])
+            return next(null, user.information[campaign.questions[time]]);
+          return next(true);
+        },
+        (err, answers) => {
+          if (err) return res.sendStatus(500);
 
-    if (answers.filter(each => !each.length).length)
-      return res.redirect('/test?id=' + req.query.id);
+          Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.body.id), {
+            $push: {
+              submitions: {
+                version: user.campaign_versions[campaign._id.toString()],
+                answers
+              }
+            }
+          }, {}, (err, campaign) => {
+            if (err || !campaign) return res.sendStatus(500);
 
-    const campaigns = user.campaigns.map(campaign => {
-      if (campaign._id.toString() == req.query.id) {
-        campaign.answers = req.body.answers;
-        campaign.status = "waiting";
-      }
+            const campaign_status = user.campaign_status;
+            campaign_status[req.body.id] = "waiting";
 
-      return campaign;
-    });
+            const campaign_last_question = user.campaign_last_question;
+            campaign_last_question[req.body.id] = -1;
 
-    Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$push: {
-      submitions: {
-        user_id: req.session.user._id,
-        answers
-      }
-    }}, {}, (err, campaign) => {
-      if (err || !campaign) return res.sendStatus(500);
+            User.findByIdAndUpdate(req.session.user._id, {$set: {
+              campaign_status,
+              campaign_last_question
+            }}, {}, (err, user) => {
+              if (err || !user) return res.sendStatus(500);
 
-      User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
-        campaigns
-      }}, {new: true}, (err, user) => {
-        if (err || !user) return res.sendStatus(500);
-
-        req.session.user = user;
-
-        return res.sendStatus(200);
-      });
+              res.sendStatus(200);
+            });
+          });
+        }
+      );
     });
   });
 }

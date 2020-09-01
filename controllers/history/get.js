@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const User = require('../../models/user/User');
 const Campaign = require('../../models/campaign/Campaign');
 
-
-
 module.exports = (req, res) => {
   User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
     if (err || !user) return res.redirect('/campaigns');
