@@ -207,27 +207,27 @@ body {
 
 
 @media only screen and (max-width: 1100px) and (min-width: 900px) {
-  .each-input {
+  .each-input, .select-input-wrapper {
     width: 30vw;
   }
 }
 @media only screen and (max-width: 900px) and (min-width: 700px) {
-  .each-input {
+  .each-input, .select-input-wrapper {
     width: 35vw;
   }
 }
 @media only screen and (max-width: 700px) and (min-width: 600px) {
-  .each-input {
+  .each-input, .select-input-wrapper {
     width: 45vw;
   }
 }
 @media only screen and (max-width: 600px) and (min-width: 450px) {
-  .each-input {
+  .each-input, .select-input-wrapper {
     width: 55vw;
   }
 }
 @media only screen and (max-width: 450px) and (min-width: 300px) {
-  .each-input {
+  .each-input, .select-input-wrapper {
     width: 80vw;
   }
 }
