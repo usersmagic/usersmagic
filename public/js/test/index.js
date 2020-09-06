@@ -1,3 +1,5 @@
+let sendingAnswers = false;
+
 const saveAnswers = (id, answers, question) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '/test/save');
@@ -19,13 +21,16 @@ const saveAnswers = (id, answers, question) => {
 }
 
 const sendAnswers = (id, callback) => {
+  if (sendingAnswers) return;
+  sendingAnswers = true;
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '/test/submit');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(JSON.stringify({ id }));
-  setTimeout(() => {
-    callback();
-  }, 200);
+  xhr.onreadystatechange = () => {
+    console.log(xhr.readyState);
+    if (xhr.readyState == 4) return callback();
+  }
 }
 
 window.onload = () => {
@@ -147,7 +152,7 @@ window.onload = () => {
         const choiceChecked = document.createElement('div');
         const choiceInnerChecked = document.createElement('i');
         choiceChecked.classList.add('choice-checked');
-        if (answers[question._id.toString()].includes(choice))
+        if (answers[question._id.toString()] && answers[question._id.toString()].includes(choice))
           choiceChecked.classList.add('selected');
         choiceInnerChecked.classList.add('fas');
         choiceInnerChecked.classList.add('fa-check');
@@ -242,6 +247,7 @@ window.onload = () => {
         });
       } else if (questionNumber == questions.length - 1 && answers[question._id.toString()] && answers[question._id.toString()].length) {
         saveAnswers(campaign._id.toString(), answers, questionNumber);
+        questionNumber++;
         eachQuestionWrapper.style.display = 'none';
         startPageWrapper.style.display = 'none';
         endPageWrapper.style.display = 'flex';
@@ -347,7 +353,7 @@ window.onload = () => {
             const choiceChecked = document.createElement('div');
             const choiceInnerChecked = document.createElement('i');
             choiceChecked.classList.add('choice-checked');
-            if (answers[question._id.toString()].includes(choice))
+            if (answers[question._id.toString()] && answers[question._id.toString()].includes(choice))
               choiceChecked.classList.add('selected');
             choiceInnerChecked.classList.add('fas');
             choiceInnerChecked.classList.add('fa-check');
@@ -468,7 +474,7 @@ window.onload = () => {
             const choiceChecked = document.createElement('div');
             const choiceInnerChecked = document.createElement('i');
             choiceChecked.classList.add('choice-checked');
-            if (answers[question._id.toString()].includes(choice))
+            if (answers[question._id.toString()] && answers[question._id.toString()].includes(choice))
               choiceChecked.classList.add('selected');
             choiceInnerChecked.classList.add('fas');
             choiceInnerChecked.classList.add('fa-check');
