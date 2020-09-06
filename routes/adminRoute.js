@@ -24,6 +24,7 @@ const usersDataGetController = require('../controllers/admin/users/data/get');
 const questionsIndexGetController = require('../controllers/admin/questions/index/get');
 const questionsDetailsGetController = require('../controllers/admin/questions/details/get')
 const questionsDeleteGetController = require('../controllers/admin/questions/delete/get');
+const updateGetController = require('../controllers/admin/update/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -38,6 +39,11 @@ router.get(
   '/',
     isAdmin,
     indexGetController
+);
+router.get(
+  '/update',
+    isAdmin,
+    updateGetController
 );
 router.get(
   '/login',
