@@ -16,14 +16,14 @@ block main
             img.each-campaign-photo(src=campaign.photo)
           span.each-campaign-name= campaign.name
           span.each-campaign-name (#{campaign.accepted_submitions.length} onaylanmış başvuru) #{campaign.ended ? "(Silindi)" : ""}
-          a.campaign-applications-button(href=`/admin/submitions?id=${campaign._id.toString()}`)
-            i.fas.fa-list-ul
-          a.campaign-delete-button(href="/admin/campaigns/details?id=" + campaign._id.toString())
-            i.fas.fa-cog
-          a.campaign-delete-button(href="/admin/campaigns/results?id=" + campaign._id.toString())
-            i.fas.fa-chart-bar
-          a.campaign-delete-button(href="/admin/campaigns/delete?id=" + campaign._id.toString() onclick="return confirm('Bu kampanyayı silmek istediğinize emin misiniz?')")
-            i.fas.fa-trash
+          //- a.campaign-applications-button(href=`/admin/submitions?id=${campaign._id.toString()}`)
+          //-   i.fas.fa-list-ul
+          //- a.campaign-delete-button(href="/admin/campaigns/details?id=" + campaign._id.toString())
+          //-   i.fas.fa-cog
+          //- a.campaign-delete-button(href="/admin/campaigns/results?id=" + campaign._id.toString())
+          //-   i.fas.fa-chart-bar
+          //- a.campaign-delete-button(href="/admin/campaigns/delete?id=" + campaign._id.toString() onclick="return confirm('Bu kampanyayı silmek istediğinize emin misiniz?')")
+          //-   i.fas.fa-trash
   form.new-form-wrapper(action="/admin/campaigns" method="POST" enctype="multipart/form-data")
     .form-inner-wrapper
       span.form-title Yeni Bir Kampanya Ekle

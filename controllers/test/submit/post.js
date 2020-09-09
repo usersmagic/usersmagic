@@ -31,6 +31,7 @@ module.exports = (req, res) => {
           Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.body.id), {
             $push: {
               submitions: {
+                user_id: user._id.toString(),
                 version: user.campaign_versions[campaign._id.toString()],
                 answers
               }

@@ -15,13 +15,7 @@ module.exports = (req, res) => {
       includes: {
         external: ['css', 'js', 'admin_general_css', 'fontawesome']
       },
-      campaign,
-      type_names: {
-        short_text: "Kısa Yazılı",
-        long_text: "Uzun Yazılı",
-        radio: "Tek Seçmeli",
-        checked: "Çok Seçmeli"
-      }
+      campaign
     });
   });
 }

@@ -3,7 +3,7 @@ block main
   .all-content-header
     .title-wrapper
       span.title= campaign.name
-      span.subtitle Bu sayfadan bu kampanyayı düzenleyebilirsiniz.
+      span.subtitle Bu sayfadan bu kampanyayı düzenleyebilir, kampanyayı silebilir, kampanyayı durdurabilir, kampanyaya gelen başvuruları görebilir veya kampanya için yeni bir versiyon yayınlayabilirsiniz.
   form.new-form-wrapper(action="/admin/campaigns/details?id=" + campaign._id.toString() method="POST")
     input.display-none#campaign-json(type="text" value=JSON.stringify(campaign))
     .form-inner-wrapper

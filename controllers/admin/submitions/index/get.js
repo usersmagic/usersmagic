@@ -5,13 +5,13 @@ const Campaign = require('../../../../models/campaign/Campaign');
 const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id)
+  if (!req.query || !req.query.id || !req.query.version)
     return res.redirect('/admin');
-
-  
 
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
+
+    campaign.submitions = campaign.submitions.filter(each => each.version == parseInt(req.query.version));
 
     async.times(
       Math.min(campaign.submitions.length, 50),
@@ -35,7 +35,8 @@ module.exports = (req, res) => {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
-          submitions
+          submitions,
+          version
         });
       }
     );

@@ -26,14 +26,14 @@ module.exports = (req, res) => {
     if (err) return res.redirect('/admin');
 
     User.find({
-      campaigns: req.query.id,
-      _id: { $nin: campaign.accepted_submitions }
+      campaigns: req.query.id
     }, (err, users) => {
       if (err) return res.redirect('/admin');
 
       async.times(
         users.length,
         (time, next) => {
+          if (users[time].campaign_status)
           const new_campaign_errors = users[time].campaign_errors;
           new_campaign_errors[req.query.id] = error_messages[users[time].language];
 

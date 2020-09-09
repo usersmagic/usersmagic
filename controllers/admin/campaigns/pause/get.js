@@ -29,11 +29,14 @@ module.exports = (req, res) => {
       async.times(
         users.length,
         (time, next) => {
-          const new_campaign_errors = users[time].campaign_errors;
-          new_campaign_errors[req.query.id] = error_messages[users[time].language];
+          const campaign_errors = users[time].campaign_errors;
+          campaign_errors[req.query.id] = error_messages[users[time].language];
+          const campaign_status = users[time].campaign_status;
+          campaign_status[req.query.id] = "stopped";
 
           User.findByIdAndUpdate(mongoose.Types.ObjectId(users[time]._id), {$set: {
-            campaign_errors: new_campaign_errors
+            campaign_errors,
+            campaign_status
           }}, {}, err => next(err) );
         },
         err => {

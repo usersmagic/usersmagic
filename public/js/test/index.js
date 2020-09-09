@@ -28,8 +28,10 @@ const sendAnswers = (id, callback) => {
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(JSON.stringify({ id }));
   xhr.onreadystatechange = () => {
-    console.log(xhr.readyState);
-    if (xhr.readyState == 4) return callback();
+    if (xhr.readyState == 4) {
+      if (xhr.status != 200) return alert("An error occured, please try again.");
+      return callback();
+    }
   }
 }
 

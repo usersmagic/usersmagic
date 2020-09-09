@@ -11,7 +11,6 @@ const loginGetController = require('../controllers/admin/auth/get');
 const campaignsIndexGetController = require('../controllers/admin/campaigns/index/get');
 const campaignsDeleteGetController = require('../controllers/admin/campaigns/delete/get');
 const campaignsDetailsGetController = require('../controllers/admin/campaigns/details/get');
-const campaignsResultsGetController = require('../controllers/admin/campaigns/results/get');
 const campaignsPauseGetController = require('../controllers/admin/campaigns/pause/get');
 const campaignsStartGetController = require('../controllers/admin/campaigns/start/get');
 const paymentsIndexGetController = require('../controllers/admin/payments/index/get');
@@ -63,11 +62,6 @@ router.get(
   '/campaigns/details',
     isAdmin,
     campaignsDetailsGetController
-);
-router.get(
-  '/campaigns/results',
-    isAdmin,
-    campaignsResultsGetController
 );
 router.get(
   '/campaigns/pause',
