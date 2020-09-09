@@ -33,7 +33,6 @@ module.exports = (req, res) => {
       async.times(
         users.length,
         (time, next) => {
-          if (users[time].campaign_status)
           const new_campaign_errors = users[time].campaign_errors;
           new_campaign_errors[req.query.id] = error_messages[users[time].language];
 
