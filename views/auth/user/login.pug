@@ -1,0 +1,22 @@
+extends ./../../partials/head
+block content
+  .brand-wrapper
+    //- a.brand-text(href="/brand") #{__('Marka Sayfası')}
+    a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
+      i.fas.fa-home
+    .language-change-wrapper
+      a.language-text(href="/auth/user/login?lang=tr") TR
+      span |
+      a.language-text(href="/auth/user/login?lang=en") EN
+  form.all-wrapper(method="POST" action="/auth/user/login")
+    .all-inner-wrapper
+      span.logo-name usersmagic
+      input.each-input(type="email" placeholder=__('E-Posta') name="email" required autofocus autocomplete="off")
+      input.each-input(type="password" placeholder=__('Şifre') name="password" required autocomplete="off")
+      button.send-button
+        span #{__('Giriş Yap')}
+      .register-link-wrapper
+        span.register-text #{__('Üye değil misin?')}
+        a.register-link(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register") #{__('Üye Ol')}
+    .bottom-wrapper
+      span.copyright-text Copyright 2020 - Loy Yazılım

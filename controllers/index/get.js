@@ -3,9 +3,9 @@ module.exports = (req, res) => {
 
   return res.render('index/index', {
     page: 'index/index',
-    title: res.__('Test et ve Para Kazan'),
+    title: res.__('Test Etmenin En Karlı Yolu'),
     includes: {
-      external: ['css', 'fontawesome']
+      external: ['css', 'js', 'fontawesome']
     },
     current_language,
     language_key: req.query.lang ? req.query.lang : null

@@ -4,38 +4,38 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-const indexGetController = require('../controllers/profile/index/get');
-const paymentGetController = require('../controllers/profile/payment/get');
-const logoutGetController = require('../controllers/profile/logout/get');
+const userIndexGetController = require('../controllers/profile/user/index/get');
+const userPaymentGetController = require('../controllers/profile/user/payment/get');
+const userLogoutGetController = require('../controllers/profile/user/logout/get');
 
-const indexPostController = require('../controllers/profile/index/post');
-const paymentPostController = require('../controllers/profile/payment/post');
+const userIndexPostController = require('../controllers/profile/user/index/post');
+const userPaymentPostController = require('../controllers/profile/user/payment/post');
 
 router.get(
-  '/',
+  '/user',
     isLoggedIn,
-    indexGetController
+    userIndexGetController
 );
 router.get(
-  '/payment',
+  '/user/payment',
     isLoggedIn,
-    paymentGetController
+    userPaymentGetController
 );
 router.get(
-  '/logout',
+  '/user/logout',
     isLoggedIn,
-    logoutGetController
+    userLogoutGetController
 );
 
 router.post(
-  '/',
+  '/user',
     isLoggedIn,
-    indexPostController
+    userIndexPostController
 );
 router.post(
-  '/payment',
+  '/user/payment',
     isLoggedIn,
-    paymentPostController
+    userPaymentPostController
 );
 
 module.exports = router;

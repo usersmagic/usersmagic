@@ -3,40 +3,40 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-const loginGetController = require('../controllers/auth/login/get');
-const registerGetController = require('../controllers/auth/register/get');
-const completeGetController = require('../controllers/auth/complete/get');
+const userLoginGetController = require('../controllers/auth/user/login/get');
+const userRegisterGetController = require('../controllers/auth/user/register/get');
+const userCompleteGetController = require('../controllers/auth/user/complete/get');
 
-const loginPostController = require('../controllers/auth/login/post');
-const registerPostController = require('../controllers/auth/register/post');
-const completePostController = require('../controllers/auth/complete/post');
+const userLoginPostController = require('../controllers/auth/user/login/post');
+const userRegisterPostController = require('../controllers/auth/user/register/post');
+const userCompletePostController = require('../controllers/auth/user/complete/post');
 
 router.get(
-  '/login',
-    loginGetController
+  '/user/login',
+    userLoginGetController
 );
 router.get(
-  '/register',
-    registerGetController
+  '/user/register',
+    userRegisterGetController
 );
 router.get(
-  '/complete',
+  '/user/complete',
     isLoggedIn,
-    completeGetController
+    userCompleteGetController
 );
 
 router.post(
-  '/login',
-    loginPostController
+  '/user/login',
+    userLoginPostController
 );
 router.post(
-  '/register',
-    registerPostController
+  '/user/register',
+    userRegisterPostController
 );
 router.post(
-  '/complete',
+  '/user/complete',
     isLoggedIn,
-    completePostController
+    userCompletePostController
 );
 
 module.exports = router;

@@ -4,18 +4,18 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-const indexGetController = require('../controllers/campaigns/index/get');
-const joinGetController = require('../controllers/campaigns/join/get');
+const userIndexGetController = require('../controllers/campaigns/user/index/get');
+const userJoinGetController = require('../controllers/campaigns/user/join/get');
 
 router.get(
-  '/',
+  '/user',
     isLoggedIn,
-    indexGetController
+    userIndexGetController
 );
 router.get(
-  '/join',
+  '/user/join',
     isLoggedIn,
-    joinGetController
+    userJoinGetController
 );
 
 module.exports = router;

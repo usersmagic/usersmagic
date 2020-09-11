@@ -4,32 +4,32 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-const indexGetController = require('../controllers/test/index/get');
+const userIndexGetController = require('../controllers/test/user/index/get');
 
-const indexPostController = require('../controllers/test/index/post');
-const savePostController = require('../controllers/test/save/post');
-const submitPostController = require('../controllers/test/submit/post');
+const userIndexPostController = require('../controllers/test/user/index/post');
+const userSavePostController = require('../controllers/test/user/save/post');
+const userSubmitPostController = require('../controllers/test/user/submit/post');
 
 router.get(
-  '/',
+  '/user',
     isLoggedIn,
-    indexGetController
+    userIndexGetController
 );
 
 router.post(
-  '/',
+  '/user',
     isLoggedIn,
-    indexPostController
+    userIndexPostController
 );
 router.post(
-  '/save',
+  '/user/save',
     isLoggedIn,
-    savePostController
+    userSavePostController
 );
 router.post(
-  '/submit',
+  '/user/submit',
     isLoggedIn,
-    submitPostController
+    userSubmitPostController
 );
 
 module.exports = router;

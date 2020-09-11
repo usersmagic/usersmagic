@@ -62,7 +62,7 @@ app.use('/campaigns', campaignsRouteController);
 app.use('/profile', profileRouteController);
 app.use('/test', testRouteController);
 app.use('/history', historyRouteController);
-app.use('/brand', brandRouteController);
+// app.use('/brand', brandRouteController);
 app.use('/agreement', agreementRouteController);
 
 server.listen(PORT, () => {

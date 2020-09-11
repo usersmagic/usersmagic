@@ -2,18 +2,25 @@ extends ./../partials/head
 block content
   .all-wrapper
     .brand-wrapper
-      a.brand-text(href=language_key ? "/brand?lang=" + language_key : "/brand") #{__('Marka Sayfası')}
+      //- a.brand-text(href=language_key ? "/brand?lang=" + language_key : "/brand") #{__('Marka Sayfası')}
+      a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
+        i.fas.fa-home
       .language-change-wrapper
         a.language-text(href="/?lang=tr") TR
         span |
         a.language-text(href="/?lang=en") EN
     .all-inner-wrapper
       span.logo-name usersmagic
-      span.logo-subtitle #{__('Para Kazanmanın En Kolay Yolu')}
-      a.register-button(href=language_key ? "/auth/register?lang=" + language_key : "/auth/register")
+      span.logo-subtitle #{__('Test Etmenin En Karlı Yolu')}
+      .register-button
         span #{__('Hemen Başla')}
-      .login-wrapper
-        span.login-text #{__('Zaten üye misin?')}
-        a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
+      //- .login-wrapper
+      //-   span.login-text #{__('Zaten üye misin?')}
+      //-   a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
+      .buttons-wrapper
+        a.tester-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
+          span #{__('Bireysel')}
+        a.company-button(href=language_key ? "/auth/company/register?lang=" + language_key : "/auth/company/register")
+          span #{__('Şirket')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım
