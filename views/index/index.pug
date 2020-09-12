@@ -18,9 +18,9 @@ block content
       //-   span.login-text #{__('Zaten üye misin?')}
       //-   a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
       .buttons-wrapper
-        a.tester-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
-          span #{__('Bireysel')}
         a.company-button(href=language_key ? "/auth/company/register?lang=" + language_key : "/auth/company/register")
           span #{__('Şirket')}
+        a.tester-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
+          span #{__('Tester')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım
