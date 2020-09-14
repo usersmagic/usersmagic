@@ -2,7 +2,7 @@ let sendingAnswers = false;
 
 const saveAnswers = (id, answers, question) => {
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", '/test/save');
+  xhr.open("POST", '/test/user/save');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = () => {
@@ -24,7 +24,7 @@ const sendAnswers = (id, callback) => {
   if (sendingAnswers) return;
   sendingAnswers = true;
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", '/test/submit');
+  xhr.open("POST", '/test/user/submit');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(JSON.stringify({ id }));
   xhr.onreadystatechange = () => {
@@ -245,7 +245,7 @@ window.onload = () => {
     if (event.target.className == 'move-on-button' || event.target.parentNode.className == 'move-on-button') {
       if (questionNumber == questions.length) {
         sendAnswers(campaign._id.toString(), () => {
-          return window.location = "/history";
+          return window.location = "/history/user";
         });
       } else if (questionNumber == questions.length - 1 && answers[question._id.toString()] && answers[question._id.toString()].length) {
         saveAnswers(campaign._id.toString(), answers, questionNumber);

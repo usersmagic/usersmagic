@@ -13,7 +13,7 @@ block main
               .campaign-price-wrapper
                 span.campaign-price-text #{__('Kazanacağın')}:
                 span.campaign-price #{campaign.price}#{currency}
-              a.campaign-join-button(href="/campaigns/join?id=" + campaign._id.toString())
+              a.campaign-join-button(href="/campaigns/user/join?id=" + campaign._id.toString())
                 span.campaign-join-text #{__('Katıl')}
     .empty-space
   else
