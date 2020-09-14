@@ -1,0 +1,52 @@
+extends ./../../partials/companyHeader
+block main
+  span.display-none#uploading-text #{__('Yükleniyor')}...
+  span.display-none#uploaded-text #{__('Kampanyanız için bir fotoğraf seçin.')}
+  .all-content-inner-wrapper
+    span.content-title#campaign-info-title #{__('Kampanya Bilgilerini Girin')}
+    span.content-title#campaign-question-title #{__('Kampanya Sorularını Ekleyin')}
+    span.content-title#campaign-filter-title #{__('Kampanyanızı Göndereceğiniz Kullanıcıları Filtreleyin')}
+    span.content-title#campaign-payment-title #{__('Kampanyanızın Ödeme Seçeneklerini Belirleyin')}
+    .campaign-info-wrapper
+      .campaign-info-left-wrapper
+        label.photo-wrapper
+          input.display-none#photo-select-input(type="file")
+          image.campaign-photo(src="" alt="usersmagic")
+          i.fas.fa-image#campaign-no-photo-icon
+        span.input-info#image-span(style="text-align: center;") #{__('Kampanyanız için bir fotoğraf seçin.')}
+      .campaign-info-right-wrapper
+        input.name-input(type="text" placeholder=__('Kampanya İsmi'))
+        span.input-info #{__('Kampanyanızın içeriğini kullanıcılara belli edecek bir isim seçin.')}
+        input.description-input(type="text" placeholder=__('Kampanya Açıklaması'))
+        span.input-info #{__('Kampanyaya katılmadan önce kullanıcıların okuyacağı basit bir açıklama yazın.')}
+        textarea.information-input(type="text" placeholder=__('Kampanya Bilgilendirmesi'))
+        span.input-info #{__('Kullanıcıların kampanyaya katıldıktan sonra okuyacakları detaylı bir açıklama yazın.')}
+        .continue-button
+          span #{__('Devam Et')}
+    .campaign-question-wrapper
+      .campaign-question-create-wrapper
+        input.each-input(type="text" placeholder=__('Soru Metni'))
+        span.each-input-title #{__('Soru Tipini Seçin')}:
+        span.each-question-type #{__('Tek Seçmeli Şıklı Soru')}
+        span.each-question-type #{__('Çok Seçmeli Şıklı Soru')}
+        span.each-question-type #{__('Puanlama Sorusu')}
+        span.each-question-type #{__('Tek Satırlı Yazılı Soru')}
+        span.each-question-type #{__('Çok Satırlı Yazılı Soru')}
+      //- .selected-question-create-wrapper
+      //-   span.each-input-title= __('Soru Detayları')
+      //-   input.each-input.each-choice-input(type="text" placeholder=__('Seçenek') value=__('Örnek Soru'))
+      //-   .other-option-button
+      //-     .other-option-selection
+      //-     span #{('Diğer seçeneği ekle')}
+      //-   .create-question-button
+      //-     span= __('Bitir')
+      //- .written-question-create-wrapper
+      //-   span.each-input-title= __('Soru Detayları')
+      //-   input.each-input(type="number" placeholder=__('Maximum Karakter Sayısı') value=0)
+      //-   .create-question-button
+      //-     span= __('Bitir')
+      //- .range-question-create-wrapper
+      .campaign-questions-wrapper
+        span.no-question-text #{__('Eklediğiniz sorular burada görünür.')}
+        
+    

@@ -45,6 +45,10 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
+  private_campaigns: {
+    type: Array,
+    default: []
+  },
   campaigns: {
     type: Array,
     default: []

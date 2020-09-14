@@ -36,7 +36,7 @@ module.exports = (req, res) => {
           },
           campaign,
           submitions,
-          version
+          version: req.query.version
         });
       }
     );

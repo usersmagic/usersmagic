@@ -36,6 +36,10 @@ const CompanySchema = new Schema({
   campaigns: {
     type: Array,
     default: []
+  },
+  waiting_photos: {
+    type: Array,
+    default: []
   }
 });
 

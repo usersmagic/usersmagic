@@ -1,0 +1,13 @@
+extends ./head
+block content
+  .all-wrapper
+    .all-header
+      .all-header-menu-wrapper
+        a.each-header-menu(href="/test/company" class=(current_page == "test" ? "selected" : ""))
+          i.fas.fa-plus
+        a.each-header-menu(href="/campaigns/company" class=(current_page == "campaigns" ? "selected" : ""))
+          i.fas.fa-home
+        a.each-header-menu(href="/profile/company" class=(current_page == "profile" ? "selected" : ""))
+          i.fas.fa-cogs
+    .all-content
+      block main
