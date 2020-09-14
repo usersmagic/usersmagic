@@ -28,26 +28,11 @@ module.exports = (req, res) => {
       }, {}, err => {
         if (err) return res.redirect('/admin');
 
-        const campaigns = user.campaigns.map(cam => {
-          if (cam._id.toString() == req.query.id.toString()) {
-            return {
-              _id: cam._id,
-              name: cam.name,
-              description: cam.description,
-              status: "approved",
-              error: null,
-              price: cam.price,
-              photo: cam.photo,
-              questions: cam.questions,
-              answers: cam.answers
-            };
-          } else {
-            return cam;
-          }
-        });
-
+        const campaign_status = user.campaign_status;
+        campaign_status[req.query.id] = "approved";
+        
         User.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.user), {
-          $set: { campaigns },
+          $set: { campaign_status },
           $inc: {
             credit: user.paid_campaigns.includes(req.query.id) ? 0 : campaign.price
           },
@@ -57,7 +42,7 @@ module.exports = (req, res) => {
         }, {}, (err, user) => {
           if (err || !user) return res.redirect('/admin');
 
-          return res.redirect('/admin/submitions?id=' + req.query.id);
+          return res.redirect('/admin/submitions?id=' + req.query.id + '&version=1');
         });
       });
     });

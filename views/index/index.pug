@@ -14,9 +14,9 @@ block content
       span.logo-subtitle #{__('Test Etmenin En Karlı Yolu')}
       a.register-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
         span #{__('Hemen Başla')}
-      //- //- .login-wrapper
-      //- //-   span.login-text #{__('Zaten üye misin?')}
-      //- //-   a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
+      .login-wrapper
+        span.login-text #{__('Zaten üye misin?')}
+        a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
       //- .buttons-wrapper
       //-   a.company-button(href=language_key ? "/auth/company/register?lang=" + language_key : "/auth/company/register")
       //-     span #{__('Şirket')}
