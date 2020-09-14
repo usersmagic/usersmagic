@@ -10,7 +10,7 @@ module.exports = (req, res) => {
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
 
-    const submitions = campaign.submitions.filter(sub => sub.user_id.toString() != req.query.user);
+    const submitions = campaign.submitions.filter(sub => !sub.user_id || sub.user_id.toString() != req.query.user);
 
     if (submitions.length == campaign.submitions.length)
       return res.redirect('/admin');
@@ -26,30 +26,20 @@ module.exports = (req, res) => {
         if (!req.body.reason || !req.body.reason.length)
           req.body.reason = "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz.";
 
-        const campaigns = user.campaigns.map(campaign => {
-          if (campaign._id.toString() == req.query.id.toString()) {
-            return {
-              _id: campaign._id,
-              name: campaign.name,
-              description: campaign.description,
-              status: "unapproved",
-              error: req.body.reason,
-              price: campaign.price,
-              photo: campaign.photo,
-              questions: campaign.questions,
-              answers: campaign.answers
-            };
-          } else {
-            return campaign;
-          }
-        });
+        const campaign_status = user.campaign_status;
+        campaign_status[req.query.id] = "unapproved";
+        const campaign_errors = user.campaign_errors;
+        campaign_errors[req.query.id] = req.body.reason;
 
         User.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.user), {
-          $set: { campaigns }
+          $set: {
+            campaign_status,
+            campaign_errors
+          }
         }, {}, (err, user) => {
           if (err || !user) return res.redirect('/admin');
 
-          return res.redirect('/admin/submitions?id=' + req.query.id);
+          return res.redirect('/admin/submitions?id=' + req.query.id + '&version=1');
         });
       });
     });
