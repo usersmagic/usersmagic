@@ -4,6 +4,7 @@ const router = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 const isLoggedInCompany = require('../middleware/isLoggedInCompany');
 
+const loginGetController = require('../controllers/auth/login/get');
 const userLoginGetController = require('../controllers/auth/user/login/get');
 const userRegisterGetController = require('../controllers/auth/user/register/get');
 const userCompleteGetController = require('../controllers/auth/user/complete/get');
@@ -18,6 +19,10 @@ const companyLoginPostController = require('../controllers/auth/company/login/po
 const companyRegisterPostController = require('../controllers/auth/company/register/post');
 const companyCompletePostController = require('../controllers/auth/company/complete/post');
 
+router.get(
+  '/login',
+    loginGetController
+);
 router.get(
   '/user/login',
     userLoginGetController
