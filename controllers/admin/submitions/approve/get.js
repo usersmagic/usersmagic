@@ -10,7 +10,7 @@ module.exports = (req, res) => {
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
 
-    const submitions = campaign.submitions.filter(sub => sub.user_id.toString() != req.query.user);
+    const submitions = campaign.submitions.filter(sub => !sub.user_id || sub.user_id.toString() != req.query.user);
 
     if (submitions.length == campaign.submitions.length)
       return res.redirect('/admin');
