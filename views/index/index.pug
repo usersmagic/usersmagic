@@ -16,7 +16,7 @@ block content
         span #{__('Hemen Başla')}
       .login-wrapper
         span.login-text #{__('Zaten üye misin?')}
-        a.login-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
+        a.login-link(href=language_key ? "/auth/user/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
       //- .buttons-wrapper
       //-   a.company-button(href=language_key ? "/auth/company/register?lang=" + language_key : "/auth/company/register")
       //-     span #{__('Şirket')}
