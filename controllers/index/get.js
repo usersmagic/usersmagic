@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     includes: {
       external: ['css', 'js', 'fontawesome']
     },
-    current_language,
+    // current_language,
     language_key: req.query.lang ? req.query.lang : null
   });
 }
