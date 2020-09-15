@@ -1,5 +1,6 @@
 extends ./../../partials/head
 block content
+  //- - console.log(campaign)
   input.display-none#campaign-json(type="text" value=JSON.stringify(campaign))
   input.display-none#questions-json(type="text" value=JSON.stringify(questions))
   span.display-none#character-left-text= __('karakter kaldı')

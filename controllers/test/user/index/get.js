@@ -13,10 +13,10 @@ module.exports = (req, res) => {
   User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
     if (err || !user) return res.redirect('/campaigns/user');
 
-    Campaign.findOne({
-      _id: mongoose.Types.ObjectId(req.query.id),
-      _id: { $in: user.campaigns }
-    }, (err, campaign) => {
+    Campaign.findOne({ $and: [
+      { _id: mongoose.Types.ObjectId(req.query.id) },
+      { _id: { $in: user.campaigns } }
+    ]}, (err, campaign) => {
       if (err || !campaign) return res.redirect('/campaigns/user');
 
       async.times(

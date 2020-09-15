@@ -19,7 +19,7 @@ window.onload = () => {
   document.addEventListener('click', event => {
     if (event.target.className == 'get-credit-button' || event.target.parentNode.className == 'get-credit-button') {
       if (user.payment_number)
-        return window.location = "/profile/payment";
+        return window.location = "/profile/user/payment";
 
       paymentNumberWrapper.style.display = 'flex';
     }

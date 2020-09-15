@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   if (req.session && req.session.company) {
     Company.findById(mongoose.Types.ObjectId(req.session.company._id), (err, company) => {
       if (err || !company)
-        return res.redirect('/auth/company/login');;
+        return res.status(401).redirect('/auth/company/login');;
       
       req.session.company = company;
 
@@ -17,6 +17,6 @@ module.exports = (req, res, next) => {
     });
   } else {
     req.session.redirect = req.originalUrl;
-    res.redirect('/auth/company/login');
+    res.status(401).redirect('/auth/company/login');
   };
 };

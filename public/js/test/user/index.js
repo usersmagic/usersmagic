@@ -5,6 +5,12 @@ const saveAnswers = (id, answers, question) => {
   xhr.open("POST", '/test/user/save');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
+  xhr.send(JSON.stringify({
+    answers,
+    question,
+    id
+  }));
+  
   xhr.onreadystatechange = () => {
     if (this.readyState == XMLHttpRequest.DONE) {
       if (this.status == 200)
@@ -13,11 +19,6 @@ const saveAnswers = (id, answers, question) => {
         return alert("Cevabınız kaydedilemedi!");
     }
   }
-  xhr.send(JSON.stringify({
-    answers,
-    question,
-    id
-  }));
 }
 
 const sendAnswers = (id, callback) => {
@@ -172,7 +173,7 @@ window.onload = () => {
 
       if (question.other_option) {
         otherOptionWrapperChecked.style.display = 'flex';
-        otherOptionInputRadio.value = "";
+        otherOptionInputChecked.value = "";
         otherOptionWrapperChecked.childNodes[0].classList.remove('selected');
 
         if (answers[question._id.toString()] && answers[question._id.toString()].filter(each => !question.choices.includes(each)).length) {
@@ -373,7 +374,7 @@ window.onload = () => {
 
           if (question.other_option) {
             otherOptionWrapperChecked.style.display = 'flex';
-            otherOptionInputRadio.value = "";
+            otherOptionInputChecked.value = "";
             otherOptionWrapperChecked.childNodes[0].classList.remove('selected');
 
             if (answers[question._id.toString()] && answers[question._id.toString()].filter(each => !question.choices.includes(each)).length) {
@@ -494,7 +495,7 @@ window.onload = () => {
 
           if (question.other_option) {
             otherOptionWrapperChecked.style.display = 'flex';
-            otherOptionInputRadio.value = "";
+            otherOptionInputChecked.value = "";
             otherOptionWrapperChecked.childNodes[0].classList.remove('selected');
 
             if (answers[question._id.toString()] && answers[question._id.toString()].filter(each => !question.choices.includes(each)).length) {
@@ -625,7 +626,7 @@ window.onload = () => {
 
           if (question.other_option) {
             otherOptionWrapperChecked.style.display = 'flex';
-            otherOptionInputRadio.value = "";
+            otherOptionInputChecked.value = "";
             otherOptionWrapperChecked.childNodes[0].classList.remove('selected');
 
             if (answers[question._id.toString()] && answers[question._id.toString()].filter(each => !question.choices.includes(each)).length) {
