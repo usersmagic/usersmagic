@@ -15,7 +15,7 @@ module.exports = (req, res) => {
       description: req.body.description,
       text: req.body.text,
       answer_length: req.body.answer_length || question.answer_length,
-      choices: req.body.choices || question.choices,
+      choices: req.body.choices.split('/').map(each => each.trim()) || question.choices,
       min_value: req.body.min_value || question.min_value,
       max_value: req.body.max_value || question.max_value,
       min_explanation: req.body.min_explanation || question.min_explanation,
