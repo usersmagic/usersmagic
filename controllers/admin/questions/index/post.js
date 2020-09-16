@@ -18,7 +18,7 @@ module.exports = (req, res) => {
     newQuestionData.answer_length = req.body.answer_length;
 
   if ((req.body.type == 'radio' || req.body.type == 'checked') && req.body.choices) 
-    newQuestionData.choices = req.body.choices.split('/').map(each => each.trim().split('.').join('').split('?').join(''));
+    newQuestionData.choices = req.body.choices.split('*').map(each => each.trim());
 
   if ((req.body.type == 'radio' || req.body.type == 'checked') && !req.body.choices) {
     req.session.error = "Tek/Çok Seçmeli soru tipleri için bir cevap listesi verilmelidir.";
