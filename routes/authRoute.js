@@ -5,6 +5,7 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const isLoggedInCompany = require('../middleware/isLoggedInCompany');
 
 const loginGetController = require('../controllers/auth/login/get');
+const registerGetController = require('../controllers/auth/register/get');
 const userLoginGetController = require('../controllers/auth/user/login/get');
 const userRegisterGetController = require('../controllers/auth/user/register/get');
 const userCompleteGetController = require('../controllers/auth/user/complete/get');
@@ -22,6 +23,10 @@ const companyCompletePostController = require('../controllers/auth/company/compl
 router.get(
   '/login',
     loginGetController
+);
+router.get(
+  '/register',
+    registerGetController
 );
 router.get(
   '/user/login',
