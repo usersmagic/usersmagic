@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const i18n = require('i18n');
 
-const numCPUs = require('os').cpus().length;
+const numCPUs = process.env.WEB_CONCURRENCY || require('os').cpus().length;
 const MongoStore = require('connect-mongo')(expressSession);
 
 if (cluster.isMaster) {
