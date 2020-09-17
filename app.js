@@ -1,5 +1,6 @@
 const express = require('express');
 const cluster = require('cluster');
+const cookieParser = require('cookie-parser');  
 const http = require('http');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -10,6 +11,7 @@ const expressSession = require('express-session');
 const i18n = require('i18n');
 
 const numCPUs = require('os').cpus().length;
+const MongoStore = require('connect-mongo')(expressSession);
 
 if (cluster.isMaster) {
 
@@ -64,10 +66,15 @@ if (cluster.isMaster) {
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false },
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
   });
 
+  app.use(cookieParser());
   app.use(session);
+
   app.use(i18n.init);
 
   app.use('/', indexRouteController);
