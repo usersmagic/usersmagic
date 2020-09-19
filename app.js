@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const expressSession = require('express-session');
 const i18n = require('i18n');
 
 const app = express();
@@ -45,7 +45,7 @@ app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const sessionOptions = session({
+const session = expressSession({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
@@ -54,8 +54,7 @@ const sessionOptions = session({
   }
 });
 
-app.use(sessionOptions);
-
+app.use(session);
 app.use(i18n.init);
 
 app.use('/', indexRouteController);
