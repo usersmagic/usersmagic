@@ -6,10 +6,7 @@ const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');  
 const i18n = require('i18n');
-
-const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 const server = http.createServer(app);
@@ -54,13 +51,9 @@ const sessionOptions = session({
   saveUninitialized: true,
   cookie: {
     secure: false
-  },
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
+  }
 });
 
-app.use(cookieParser());
 app.use(sessionOptions);
 
 app.use(i18n.init);
