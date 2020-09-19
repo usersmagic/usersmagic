@@ -53,16 +53,15 @@ const sessionOptions = session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: true,
-    maxAge: 60000
+    secure: false
   },
   store: new MongoStore({
     mongooseConnection: mongoose.connection
   })
 });
 
-app.use(sessionOptions);
 app.use(cookieParser());
+app.use(sessionOptions);
 
 app.use(i18n.init);
 
