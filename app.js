@@ -5,8 +5,11 @@ const dotenv = require('dotenv');
 const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const expressSession = require('express-session');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');  
 const i18n = require('i18n');
+
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 const server = http.createServer(app);
@@ -45,14 +48,21 @@ app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const session = expressSession({
+const sessionOptions = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: {
+    secure: true,
+    maxAge: 60000
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
 });
 
-app.use(session);
+app.use(sessionOptions);
+app.use(cookieParser());
 
 app.use(i18n.init);
 
