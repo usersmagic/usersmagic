@@ -17,6 +17,7 @@ const paymentsIndexGetController = require('../controllers/admin/payments/index/
 const paymentsApproveGetController = require('../controllers/admin/payments/approve/get');
 const submitionsIndexGetController = require('../controllers/admin/submitions/index/get');
 const submitionsApproveGetController = require('../controllers/admin/submitions/approve/get');
+const submitionsApproveAllGetController = require('../controllers/admin/submitions/approve_all/get');
 const usersIndexGetController = require('../controllers/admin/users/index/get');
 const usersDetailsGetController = require('../controllers/admin/users/details/get');
 const usersDataGetController = require('../controllers/admin/users/data/get');
@@ -92,6 +93,11 @@ router.get(
   '/submitions/approve',
     isAdmin,
     submitionsApproveGetController
+);
+router.get(
+  '/submitions/approve_all',
+    isAdmin,
+    submitionsApproveAllGetController
 );
 router.get(
   '/users',

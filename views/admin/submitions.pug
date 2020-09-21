@@ -6,6 +6,7 @@ block main
       span.subtitle Bu sayfadan bu kampanyaya gelen başvuruları görebilir, onay verebilir veya reddebilirsiniz. Eğer reddederseniz bir sebep yazmalısınız.
   .all-content-inner-wrapper
     .submitions-wrapper
+      a.approve-all-button(href=`/admin/submitions/approve_all?id=${campaign._id.toString()}`) Sayfadaki Başvuruların Hepsini Onayla
       each submition in submitions
         .each-submition-wrapper
           span.submition-title Bilgiler:

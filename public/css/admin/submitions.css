@@ -21,19 +21,19 @@
 }
 .title {
   font-size: 150%;
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-weight: 700;
 }
 .subtitle {
   font-size: 100%;
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-weight: 300;
 }
 .new-campaign-button {
   padding: 10px 50px;
   background-color: rgb(248, 248, 248);
   border: 2px solid rgb(236, 236, 236);
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-size: 200%;
   font-weight: 700;
   border-radius: 15px;
@@ -51,6 +51,17 @@
   flex-direction: column;
   min-height: fit-content;
 }
+.approve-all-button {
+  padding: 20px;
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  color: rgb(30, 30, 30);
+  text-decoration: none;
+  margin-top: 20px;
+  border-radius: 20px;
+  margin-left: auto;
+  color: rgb(30, 30, 30);
+}
 .each-submition-wrapper {
   background-color: rgb(254, 254, 254);
   border: 2px solid rgb(236, 236, 236);
@@ -61,19 +72,19 @@
   flex-direction: column;
 }
 .submition-title {
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-weight: 600;
   margin-bottom: 10px;
 }
 .submition-user-info {
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-weight: 300;
   margin-bottom: 10px;
 }
 .each-answer {
   margin-left: 10px;
   margin-bottom: 5px;
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
   font-weight: 300;
 }
 .reject-form {
@@ -89,7 +100,7 @@
   box-shadow: 0px;
   padding: 10px;
   border-radius: 10px;
-  color: rgb(112, 112, 112);
+  color: rgb(30, 30, 30);
 }
 .reject-button {
   margin-right: 10px;
