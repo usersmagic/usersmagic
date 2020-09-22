@@ -36,7 +36,7 @@ module.exports = (req, res) => {
             });
 
           Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(campaigns[time]._id), {$push: {
-            submitions: user._id.toString()
+            accepted_submitions: user._id.toString()
           }}, {}, err => {
             if (err) return next(err);
 
