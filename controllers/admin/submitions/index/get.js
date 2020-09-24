@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     campaign.submitions = campaign.submitions.filter(each => each.version == parseInt(req.query.version));
 
     async.times(
-      Math.min(campaign.submitions.length, 50),
+      Math.min(campaign.submitions.length, 30),
       (time, next) => {
         User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
           if (err) return next(err);

@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     let accepted_submitions = campaign.accepted_submitions;
 
     async.times(
-      Math.min(campaign.submitions.length, 50),
+      Math.min(campaign.submitions.length, 30),
       (time, next) => {
         if (!campaign.submitions[time].user_id) {
           submitions = submitions.filter((sub, i) => i != time);
@@ -24,7 +24,7 @@ module.exports = (req, res) => {
 
         const user_id = campaign.submitions[time].user_id;
 
-        submitions = submitions.filter(sub => sub.user_id && sub.user_id.toString() != user_id);
+        submitions = submitions.filter(sub => (sub.user_id && sub.user_id.toString() != user_id));
         accepted_submitions.push(user_id);
 
         User.findById(mongoose.Types.ObjectId(user_id), (err, user) => {
