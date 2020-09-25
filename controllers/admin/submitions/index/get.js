@@ -13,7 +13,7 @@ module.exports = (req, res) => {
 
     const submitions = [];
 
-    for (let index = 0; index < submitions.length; index++) {
+    for (let index = 0; index < campaign.submitions.length; index++) {
       if (campaign.submitions[index].version == parseInt(req.query.version)) {
         foundSubmitionNumber++;
         submitions.push(campaign.submitions[index]);
