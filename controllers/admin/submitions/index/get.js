@@ -9,16 +9,15 @@ module.exports = (req, res) => {
     return res.redirect('/admin');
 
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
-    if (err || !campaign) return res.redirect('/admin');
+    if (err || !campaign || !campaign.name) return res.redirect('/admin');
 
     const submitions = [];
 
-    for (let index = 0; index < campaign.submitions.length; index++) {
+    for (let index = 0; index < campaign.submitions.length; index++)
       if (campaign.submitions[index].version == parseInt(req.query.version)) {
         submitions.push(campaign.submitions[index]);
         if (submitions.length >= 30) break;
       }
-    }
 
     async.times(
       submitions.length,
