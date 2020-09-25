@@ -15,9 +15,7 @@ module.exports = (req, res) => {
 
     for (let index = 0; index < campaign.submitions.length; index++) {
       if (campaign.submitions[index].version == parseInt(req.query.version)) {
-        foundSubmitionNumber++;
         submitions.push(campaign.submitions[index]);
-
         if (submitions.length >= 30) break;
       }
     }
