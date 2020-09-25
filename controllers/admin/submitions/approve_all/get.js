@@ -29,6 +29,7 @@ module.exports = (req, res) => {
 
         User.findById(mongoose.Types.ObjectId(user_id), (err, user) => {
           if (err) return next(err);
+          if (!user) return next(null);
     
           const campaign_status = user.campaign_status;
           campaign_status[req.query.id] = "approved";
