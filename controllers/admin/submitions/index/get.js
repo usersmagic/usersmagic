@@ -32,6 +32,7 @@ module.exports = (req, res) => {
         });
       },
       (err, newSubmitions) => {
+        console.log(newSubmitions);
         if (err) return res.redirect('/admin');
 
         return res.render('admin/submitions', {
