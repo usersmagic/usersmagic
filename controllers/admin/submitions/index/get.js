@@ -9,6 +9,7 @@ module.exports = (req, res) => {
     return res.redirect('/admin');
 
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+    console.log(err, campaign);
     if (err || !campaign || !campaign.name) return res.redirect('/admin');
 
     const submitions = [];
