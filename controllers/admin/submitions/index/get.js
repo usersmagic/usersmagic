@@ -9,8 +9,7 @@ module.exports = (req, res) => {
     return res.redirect('/admin');
 
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
-    console.log(err, campaign);
-    if (err || !campaign || !campaign.name) return res.redirect('/admin');
+    if (err || !campaign) return res.redirect('/admin');
 
     const submitions = [];
 
@@ -24,12 +23,12 @@ module.exports = (req, res) => {
       submitions.length,
       (time, next) => {
         User.findById(mongoose.Types.ObjectId(submitions[time].user_id), (err, user) => {
-          if (err) return next(err);
+          if (!user || !user.name) return next(null);
 
-          return next(null, {
+          next(err, {
             user,
             answers: submitions[time].answers
-          });
+          })
         });
       },
       (err, newSubmitions) => {
@@ -37,7 +36,7 @@ module.exports = (req, res) => {
 
         return res.render('admin/submitions', {
           page: 'admin/submitions',
-          title: campaign.name,
+          title: campaign.name || "undefined",
           includes: {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
