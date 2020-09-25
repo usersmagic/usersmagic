@@ -36,12 +36,12 @@ module.exports = (req, res) => {
 
         return res.render('admin/submitions', {
           page: 'admin/submitions',
-          title: campaign.name || "undefined",
+          title: campaign.name,
           includes: {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
-          submitions: newSubmitions.filter(each => each._id && each.name),
+          submitions: newSubmitions.filter(each => each && each._id && each.name),
           version: req.query.version
         });
       }
