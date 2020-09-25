@@ -11,21 +11,30 @@ module.exports = (req, res) => {
   Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
 
-    campaign.submitions = campaign.submitions.filter(each => each.version == parseInt(req.query.version));
+    const submitions = [];
+
+    for (let index = 0; index < submitions.length; index++) {
+      if (campaign.submitions[index].version == parseInt(req.query.version)) {
+        foundSubmitionNumber++;
+        submitions.push(campaign.submitions[index]);
+
+        if (submitions.length >= 30) break;
+      }
+    }
 
     async.times(
-      Math.min(campaign.submitions.length, 30),
+      submitions.length,
       (time, next) => {
-        User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
+        User.findById(mongoose.Types.ObjectId(submitions[time].user_id), (err, user) => {
           if (err) return next(err);
 
           return next(null, {
             user,
-            answers: campaign.submitions[time].answers
+            answers: submitions[time].answers
           });
         });
       },
-      (err, submitions) => {
+      (err, newSubmitions) => {
         if (err) return res.redirect('/admin');
 
         return res.render('admin/submitions', {
@@ -35,7 +44,7 @@ module.exports = (req, res) => {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
-          submitions,
+          submitions: newSubmitions,
           version: req.query.version
         });
       }
