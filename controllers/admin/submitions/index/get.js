@@ -32,7 +32,6 @@ module.exports = (req, res) => {
         });
       },
       (err, newSubmitions) => {
-        console.log(newSubmitions);
         if (err) return res.redirect('/admin');
 
         return res.render('admin/submitions', {
@@ -42,7 +41,7 @@ module.exports = (req, res) => {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
-          submitions: newSubmitions.filter(each => each && each._id && each.name),
+          submitions: newSubmitions.filter(each => each && each.user && each.user._id),
           version: req.query.version
         });
       }
