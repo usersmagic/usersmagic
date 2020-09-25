@@ -41,7 +41,7 @@ module.exports = (req, res) => {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
-          submitions: newSubmitions,
+          submitions: newSubmitions.filter(each => each._id && each.name),
           version: req.query.version
         });
       }
