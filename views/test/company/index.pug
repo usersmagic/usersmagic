@@ -2,6 +2,10 @@ extends ./../../partials/companyHeader
 block main
   span.display-none#uploading-text #{__('Yükleniyor')}...
   span.display-none#uploaded-text #{__('Kampanyanız için bir fotoğraf seçin.')}
+  span.display-none#example-choice-text #{__('Örnek seçenek')}
+  span.display-none#other-text #{__('Diğer')}
+  span.display-none#character-left-text= __('karakter kaldı')
+  span.display-none#your-answer-text= __('Cevabınız')
   .all-content-inner-wrapper
     span.content-title#campaign-info-title #{__('Kampanya Bilgilerini Girin')}
     span.content-title#campaign-question-title #{__('Kampanya Sorularını Ekleyin')}
@@ -25,28 +29,48 @@ block main
           span #{__('Devam Et')}
     .campaign-question-wrapper
       .campaign-question-create-wrapper
-        input.each-input(type="text" placeholder=__('Soru Metni'))
+        span.each-input-title #{__('Soru Metnini Yazın')}:
+        input.each-input#question-text-input(type="text" autocomplete="off" placeholder=__('Soru Metni'))
         span.each-input-title #{__('Soru Tipini Seçin')}:
-        span.each-question-type #{__('Tek Seçmeli Şıklı Soru')}
-        span.each-question-type #{__('Çok Seçmeli Şıklı Soru')}
-        span.each-question-type #{__('Puanlama Sorusu')}
-        span.each-question-type #{__('Tek Satırlı Yazılı Soru')}
-        span.each-question-type #{__('Çok Satırlı Yazılı Soru')}
-      //- .selected-question-create-wrapper
-      //-   span.each-input-title= __('Soru Detayları')
-      //-   input.each-input.each-choice-input(type="text" placeholder=__('Seçenek') value=__('Örnek Soru'))
-      //-   .other-option-button
-      //-     .other-option-selection
-      //-     span #{('Diğer seçeneği ekle')}
-      //-   .create-question-button
-      //-     span= __('Bitir')
-      //- .written-question-create-wrapper
-      //-   span.each-input-title= __('Soru Detayları')
-      //-   input.each-input(type="number" placeholder=__('Maximum Karakter Sayısı') value=0)
-      //-   .create-question-button
-      //-     span= __('Bitir')
-      //- .range-question-create-wrapper
-      .campaign-questions-wrapper
-        span.no-question-text #{__('Eklediğiniz sorular burada görünür.')}
-        
+        .question-types-wrapper
+          .each-question-type-wrapper(id="radio")
+            img.each-question-type-icon(src="/res/images/radio_icon.png" alt="usersmagic radio question")
+            span.each-question-type #{__('Tek Seçmeli Şıklı Soru')}
+          .each-question-type-wrapper(id="checked")
+            img.each-question-type-icon(src="/res/images/checked_icon.png" alt="usersmagic checked question")
+            span.each-question-type #{__('Çok Seçmeli Şıklı Soru')}
+          .each-question-type-wrapper(id="long_text")
+            img.each-question-type-icon(src="/res/images/long_text_icon.png" alt="usersmagic long text question")
+            span.each-question-type #{__('Çok Satırlı Yazılı Soru')}
+        .question-types-wrapper
+          .each-question-type-wrapper(id="short_text")
+            img.each-question-type-icon(src="/res/images/short_text_icon.png" alt="usersmagic short text question")
+            span.each-question-type #{__('Tek Satırlı Yazılı Soru')}
+          .each-question-type-wrapper(id="range")
+            img.each-question-type-icon(src="/res/images/range_icon.png" alt="usersmagic range question")
+            span.each-question-type #{__('Aralık Puanlama Sorusu')}
+        .continue-button
+          span #{__('Devam Et')}
+      .campaign-question-content-wrapper
+        .selected-question-create-wrapper
+          span.each-input-title= __('Soru Seçenekleri')
+          .choice-input-list-wrapper
+            input.each-input.each-choice-input(type="text" placeholder=__('Seçenek'))
+          span.each-input-title= __('Diğer Seçeneği')
+          .other-option-button
+            .other-option-selection
+              i.fas.fa-check
+            span #{('Diğer seçeneği ekle')}
+          .create-question-button
+            span= __('Ekle')
+        .written-question-create-wrapper
+          span.each-input-title= __('Maximum Karakter Sayısı')
+          input.each-input.character-count-input(type="number" pattern="[0-9]" placeholder=__('Maximum Karakter Sayısı') value=0)
+          .create-question-button
+            span= __('Ekle')
+        .range-question-create-wrapper
+      .campaign-questions-outer-wrapper
+        .campaign-questions-wrapper
+          span.no-question-text #{__('Eklediğiniz sorular burada görünür.')}
+    .campaign-filter-wrapper
     

@@ -8,13 +8,13 @@ const s3 = new AWS.S3({
 });
 
 module.exports = async (file_name, file_size, callback) => {
-  if (file_size > 200000) {	
-    const image_path = "./public/res/uploads/" + file_name;
-    const image = await jimp.read(image_path);
-    let image_quality = Math.max(Math.min(200000 * 100 / file_size, 100), 10);
-    await image.quality(image_quality);
-    await image.writeAsync(image_path)
-  }
+  // if (file_size > 100000) {	
+  //   const image_path = "./public/res/uploads/" + file_name;
+  //   const image = await jimp.read(image_path);
+  //   let image_quality = Math.max(Math.min(100000 * 100 / file_size, 100), 10);
+  //   await image.quality(image_quality);
+  //   await image.writeAsync(image_path)
+  // }
 
   const file_content = fs.readFileSync("./public/res/uploads/" + file_name);	
 

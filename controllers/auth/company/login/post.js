@@ -33,7 +33,7 @@ module.exports = (req, res) => {
           if (req.session.redirect)
             return res.redirect(req.session.redirect);
           else
-            return res.redirect('/dashboard/company');
+            return res.redirect('/campaigns/company');
         });
       }
     );
