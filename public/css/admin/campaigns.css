@@ -142,6 +142,17 @@
   height: 100px;
   width: 100%;
 }
+.input-line {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.input-line span {
+  margin-left: 10px;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+}
 .date-input-wrapper {
   display: flex;
   margin-bottom: 20px;

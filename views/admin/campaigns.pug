@@ -39,7 +39,12 @@ block main
         textarea.form-textarea(type="text" cols="30" rows="10" placeholder="Bilgilendirme" name="information" required)
       span.form-subtitle Kampanya Fiyatı: *
       span.form-info Kullanıcı başına verilecek fiyat. Türkiye'deki kullanıcılar için ₺, ABD için $ ve diğer ülkeler için € cinsinden.
-      input.form-input(type="number" placeholder="Fiyat ₺/$/€" name="price" required)
+      input.form-input(type="number" placeholder="Fiyat ₺/$/€" name="price")
+      span.form-subtitle Kampanyayı Ücretsiz Olarak İşaretle: *
+      span.form-info Kullanıcılar bu kampanyayı doldurunca para kazanmaz. Bu seçeneği seçerseniz eklediğiniz fiyat geçersiz olur.
+      label.input-line
+        input(type="checkbox" name="is_free")
+        span Ücretsiz Kampanya
       span.form-subtitle Kampanya Resmi: *
       span.form-info Kampanya logosu.
       input.form-input(type="file" name="file" required)

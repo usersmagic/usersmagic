@@ -32,7 +32,8 @@ module.exports = (req, res) => {
               name: campaigns[time].name,
               photo: campaigns[time].photo,
               description: campaigns[time].description,
-              price: campaigns[time].price
+              price: campaigns[time].price,
+              is_free: campaigns[time].is_free
             });
 
           Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(campaigns[time]._id), {$push: {

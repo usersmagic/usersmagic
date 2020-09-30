@@ -3,7 +3,7 @@ const Campaign = require('../../../../models/campaign/Campaign');
 const uploadPhoto = require('../../../../utils/uploadPhoto');
 
 module.exports = (req, res) => {
-  if (!req.file || !req.file.filename || !req.body || !req.body.price || !req.body.name || !req.body.description || !req.body.information || !req.body.countries || !req.body.questions)
+  if (!req.file || !req.file.filename || !req.body || (!req.body.price && !req.body.is_free) || !req.body.name || !req.body.description || !req.body.information || !req.body.countries || !req.body.questions)
     return res.redirect('/admin');
 
   if (!req.body.gender)
@@ -30,7 +30,8 @@ module.exports = (req, res) => {
       name: req.body.name,
       description: req.body.description,
       information: req.body.information,
-      price: req.body.price,
+      price: req.body.is_free ? 0 : req.body.price,
+      is_free: req.body.is_free ? true : false,
       photo: location,
       countries,
       gender: req.body.gender,

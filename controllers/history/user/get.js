@@ -21,6 +21,7 @@ module.exports = (req, res) => {
             description: campaign.description,
             information: campaign.information,
             price: campaign.price,
+            is_free: campaign.is_free,
             version: user.campaign_versions[campaign._id.toString()],
             error: user.campaign_errors[campaign._id.toString()] || null,
             status: user.campaign_status[campaign._id.toString()],

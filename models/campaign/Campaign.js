@@ -58,6 +58,10 @@ const CampaignSchema = new Schema({
   paused: {
     type: Boolean,
     default: false
+  },
+  is_free: {
+    type: Boolean,
+    default: false
   }
 });
 

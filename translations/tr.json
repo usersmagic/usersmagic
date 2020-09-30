@@ -205,5 +205,12 @@
 	"Lütfen geçerli bir telefon numarası girin": "Lütfen geçerli bir telefon numarası girin",
 	"Soru Seçenekleri": "Soru Seçenekleri",
 	"Soruyu Ekle": "Soruyu Ekle",
-	"Soru Metnini Yazın": "Soru Metnini Yazın"
+	"Soru Metnini Yazın": "Soru Metnini Yazın",
+	"Kullanıcı": "Kullanıcı",
+	"Kampanyanızı yollamak istediğiniz kullanıcıları filtreleyin. Kampanyanızı göndereceğiniz kullanıcı sayısı bulunan maximum kullanıcı sayısından fazla olamaz.": "Kampanyanızı yollamak istediğiniz kullanıcıları filtreleyin. Kampanyanızı göndereceğiniz kullanıcı sayısı bulunan maximum kullanıcı sayısından fazla olamaz.",
+	"Kullanıcı Bulundu": "Kullanıcı Bulundu",
+	"Ulaşmak istediğiniz filtreleri daha kolay bulmak için arayın": "Ulaşmak istediğiniz filtreleri daha kolay bulmak için arayın",
+	"Filtre Ekle": "Filtre Ekle",
+	"Hiçbir filtre eklemediniz": "Hiçbir filtre eklemediniz",
+	"Özel Kampanya": "Özel Kampanya"
 }
