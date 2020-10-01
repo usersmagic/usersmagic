@@ -4,29 +4,23 @@ const mongoose = require('mongoose');
 const User = require('../../../models/user/User');
 const Campaign = require('../../../models/campaign/Campaign');
 
+const sendMail = require('../../../utils/sendMail');
+
 module.exports = (req, res) => {
   if (!req.query || !req.query.updates)
     return res.redirect('/');
 
-  Campaign.find({}, (err, campaigns) => {
-    if (err) return res.redirect('/');
+  User.find({
+    completed: true,
+    country: "tr"
+  }, (err, users) => {
+    if (err) return res.json({err});
 
-    async.times(
-      campaigns.length,
-      (time, next) => {
-        Campaign.findById(mongoose.Types.ObjectId(campaigns[time]._id), (err, campaign) => {
-          if (err) return next(err);
-
-          Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(campaign._id), {$set: {
-            submitions: campaign.submitions.filter(each => each.user_id)
-          }}, {}, err => next(err));
-        });
-      },
-      err => {
-        if (err) return res.redirect('/');
-
-        return res.redirect('/admin');
-      }
-    )
+    sendMail({
+      emailList: users.map(user => user.email) ,
+    }, 'completeCampaign', err => {
+      if (err) return res.json({err});
+      res.redirect('/admin');
+    });
   });
 }

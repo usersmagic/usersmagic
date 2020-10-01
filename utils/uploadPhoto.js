@@ -24,7 +24,7 @@ module.exports = async (file_name, file_size, callback) => {
     Body: file_content,	
     ContentType: 'image/jpg',	
     ACL: 'public-read'	
-  };	
+  };
   
   s3.upload(params, (err, data) => {	
     if (err) return callback(err);	
