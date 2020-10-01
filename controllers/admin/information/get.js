@@ -8,9 +8,11 @@ module.exports = (req, res) => {
 
   const fieldName = "information." + req.query.id;
 
-  User.find({
-    [fieldName]: req.query.value
-  }, (err, users) => {
+  User.find({$or: [
+    {[fieldName]: req.query.value},
+    {[fieldName]: req.query.value + " "},
+    {[fieldName]: " " + req.query.value}
+  ]}, (err, users) => {
     if (err) return res.redirect('/admin');
 
     return res.json({
