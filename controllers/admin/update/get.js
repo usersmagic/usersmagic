@@ -14,8 +14,8 @@ module.exports = (req, res) => {
     {"information.5f74c3442b4e90001c72b747": {$ne: null}},
     {"information.5f74c3442b4e90001c72b747": {$ne: "Lisanslı sporcu değilim"}},
     {gender: "kadın"},
-    {birth_date: {$gte: 2001}},
-    {birth_date: {$lte: 2007}},
+    {birth_year: {$gte: 2001}},
+    {birth_year: {$lte: 2007}},
   ]}, (err, users) => {
     if (err) return res.redirect('/');
 
