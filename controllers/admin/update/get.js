@@ -19,6 +19,15 @@ module.exports = (req, res) => {
   ]}, (err, users) => {
     if (err) return res.redirect('/');
 
-    return res.json({count: users.length, users});
+    return res.json({
+      count: users.length,
+      users: users.map(user => {
+        return {
+          name: user.name,
+          email: user.email,
+          phone: user.phone
+        };
+      })
+    });
   })
 }
