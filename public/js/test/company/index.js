@@ -130,6 +130,71 @@ const addChoice = (question, choice) => {
   return choiceId;
 }
 
+const createFilter = (filter, wrapper, search) => {
+  const eachChooseFilter = document.createElement('div');
+  eachChooseFilter.classList.add('each-choose-filter');
+  eachChooseFilter.id = filter._id.toString();
+
+  const eachChooseFilterName = document.createElement('span');
+  eachChooseFilterName.classList.add('each-choose-filter-name');
+  eachChooseFilterName.innerHTML = filter.name;
+
+  eachChooseFilter.appendChild(eachChooseFilterName);
+  wrapper.appendChild(eachChooseFilter);
+
+  while (search && eachChooseFilter.previousElementSibling && filter.name.toLocaleLowerCase().trim().indexOf(search) < eachChooseFilter.previousElementSibling.childNodes[0].innerHTML.toLocaleLowerCase().trim().indexOf(search))
+    wrapper.insertBefore(eachChooseFilter, eachChooseFilter.previousElementSibling);
+}
+
+const createFilterOption = (option, wrapper) => {
+  const eachFilterOptionWrapper = document.createElement('div');
+  eachFilterOptionWrapper.classList.add('each-filter-option-wrapper');
+
+  const choiceChecked = document.createElement('div');
+  const choiceInnerChecked = document.createElement('i');
+  choiceChecked.classList.add('choice-checked');
+  choiceInnerChecked.classList.add('fas');
+  choiceInnerChecked.classList.add('fa-check');
+  choiceChecked.appendChild(choiceInnerChecked);
+  eachFilterOptionWrapper.appendChild(choiceChecked);
+
+  const eachOptionSpan = document.createElement('span');
+  eachOptionSpan.innerHTML = option;
+  eachFilterOptionWrapper.appendChild(eachOptionSpan);
+
+  wrapper.appendChild(eachFilterOptionWrapper);
+}
+
+const createAddedFilter = (filter, answers, wrapper, text) => {
+  const eachAddedFilter = document.createElement('div');
+  eachAddedFilter.classList.add('each-added-filter');
+
+  const eachAddedFilterName = document.createElement('span');
+  eachAddedFilterName.classList.add('each-added-filter-name');
+  eachAddedFilterName.innerHTML = filter.name;
+  eachAddedFilter.appendChild(eachAddedFilterName);
+
+  const eachAddedFilterText = document.createElement('span');
+  eachAddedFilterText.classList.add('each-added-filter-text');
+  eachAddedFilterText.innerHTML = filter.text;
+  eachAddedFilter.appendChild(eachAddedFilterText);
+
+  const answerWrapper = document.createElement('span');
+  
+  const eachAddedFilterAnswerTitle = document.createElement('span');
+  eachAddedFilterAnswerTitle.classList.add('each-added-filter-answer-title');
+  eachAddedFilterAnswerTitle.innerHTML = text + ':';
+  answerWrapper.appendChild(eachAddedFilterAnswerTitle);
+
+  const eachAddedFilterAnswer = document.createElement('span');
+  eachAddedFilterAnswer.classList.add('each-added-filter-answer');
+  eachAddedFilterAnswer.innerHTML = answers.join(', ');
+  answerWrapper.appendChild(eachAddedFilterAnswer);
+
+  eachAddedFilter.appendChild(answerWrapper);
+  wrapper.appendChild(eachAddedFilter);
+}
+
 window.onload = () => {
   const campaign = {
     name: "",
@@ -137,7 +202,11 @@ window.onload = () => {
     information: "",
     photo: null,
     questions: [],
-    filter: {}
+    filter: {},
+    gender: "",
+    country: "",
+    min_birth_year: 0,
+    max_birth_year: 0
   }
   let questionIdOrder = [], choiceId;
   const question = {
@@ -161,10 +230,17 @@ window.onload = () => {
   const nameInput = document.querySelector('.name-input');
   const descriptionInput = document.querySelector('.description-input');
   const informationInput = document.querySelector('.information-input');
+  const minBirthYearInput = document.querySelector('.min-birth-year-input');
+  const maxBirthYearInput = document.querySelector('.max-birth-year-input');
 
   nameInput.oninput = () => campaign.name = (nameInput.value.length ? nameInput.value : null);
   descriptionInput.oninput = () => campaign.description = (descriptionInput.value.length ? descriptionInput.value : null);
   informationInput.oninput = () => campaign.information = (informationInput.value.length ? informationInput.value : null);
+  minBirthYearInput.oninput = () => campaign.min_birth_year = minBirthYearInput.value;
+  maxBirthYearInput.oninput = () => campaign.max_birth_year = maxBirthYearInput.value;
+
+  const countryEachInputChoices = document.querySelectorAll('.country-each-input-choice');
+  const genderEachInputChoices = document.querySelectorAll('.gender-each-input-choice');
 
   const photoSelectInput = document.getElementById('photo-select-input');
   const imageSpan = document.getElementById('image-span');
@@ -227,9 +303,25 @@ window.onload = () => {
   const selectedQuestionCreateWrapper = document.querySelector('.selected-question-create-wrapper');
   const writtenQuestionCreateWrapper = document.querySelector('.written-question-create-wrapper');
 
+  const campaignFilterWrapper = document.querySelector('.campaign-filter-wrapper');
+  const addedFiltersWrapper = document.querySelector('.added-filters-wrapper');
+
+  const filters = JSON.parse(document.getElementById('filters-json').value);
+  let selectedFilterId;
+
+  const chooseFiltersWrapper = document.querySelector('.choose-filters-wrapper');
+  const chooseFiltersInnerWrapper = document.querySelector('.choose-filters-inner-wrapper')
+  const searchFilterInput = document.querySelector('.search-filter-input');
+  const chooseFiltersFoundNumber = document.querySelector('.choose-filters-found-number');
+  const chooseFiltersEachFilterWrapper = document.querySelector('.choose-filters-each-filter-wrapper');
+  const chooseFiltersOptionsWrapper = document.querySelector('.choose-filters-options-wrapper');
+  const chooseAllButtonWrapper = document.querySelector('.choose-all-button-wrapper');
+  const chooseFiltersEachOptionWrapper = document.querySelector('.choose-filters-each-option-wrapper');
+  const filterAddButton = document.querySelector('.filter-add-button');
+
   document.addEventListener('click', event => {
     if (event.target.classList.contains('continue-button') || event.target.parentNode.classList.contains('continue-button')) {
-      if (campaignProgressCount == 0 && campaign.name.length && campaign.description.length && campaign.information.length && campaign.photo) {
+      if (campaignProgressCount == 0 && campaign.name.length && campaign.description.length && campaign.information.length && campaign.photo && campaign.gender.length && campaign.country.length && campaign.min_birth_year && campaign.max_birth_year) {
         campaignInfoTitle.style.display = "none";
         campaignQuestionTitle.style.display = "block";
         campaignProgressCount++;
@@ -241,7 +333,8 @@ window.onload = () => {
         campaignFilterTitle.style.display = "block";
         campaignProgressCount++;
 
-
+        campaignQuestionWrapper.style.display = "none";
+        campaignFilterWrapper.style.display = "flex";
       } else if (campaignProgressCount == 2) {
         campaignFilterTitle.style.display = "none";
         campaignPaymentTitle.style.display = "block";
@@ -250,6 +343,35 @@ window.onload = () => {
 
       } else {
 
+      }
+    }
+
+    if (event.target.classList.contains('each-input-choice')) {
+      if (event.target.classList.contains('country-each-input-choice')) {
+        event.target.parentNode.parentNode.classList.remove('open-bottom-animation-class');
+        event.target.parentNode.parentNode.classList.add('close-up-animation-class');
+        event.target.parentNode.parentNode.childNodes[0].value = event.target.innerHTML;
+        campaign.country = event.target.id;
+      } else if (event.target.classList.contains('gender-each-input-choice')) {
+        event.target.parentNode.parentNode.classList.remove('open-bottom-animation-class');
+        event.target.parentNode.parentNode.classList.add('close-up-animation-class');
+        event.target.parentNode.parentNode.childNodes[0].value = event.target.innerHTML;
+        campaign.gender = event.target.id;
+      }
+    } else if (event.target.classList.contains('select-input-outer-wrapper') || event.target.parentNode.classList.contains('select-input-outer-wrapper') || event.target.parentNode.parentNode.classList.contains('select-input-outer-wrapper') || event.target.parentNode.parentNode.parentNode.classList.contains('select-input-outer-wrapper') ) {
+      const openSelectInput = document.querySelector('.open-bottom-animation-class');
+      const selectInputOuterWrapper = event.target.classList.contains('select-input-outer-wrapper') ? event.target : (event.target.parentNode.classList.contains('select-input-outer-wrapper') ? event.target.parentNode : (event.target.parentNode.parentNode.classList.contains('select-input-outer-wrapper') ? event.target.parentNode.parentNode : event.target.parentNode.parentNode));
+
+      if (openSelectInput && !(Array.from(openSelectInput.classList)).find(each => selectInputOuterWrapper.classList.contains(each))) {
+        openSelectInput.classList.remove('open-bottom-animation-class');
+        openSelectInput.classList.add('close-up-animation-class');
+      }
+    } else {
+      const openSelectInput = document.querySelector('.open-bottom-animation-class');
+
+      if (openSelectInput) {
+        openSelectInput.classList.remove('open-bottom-animation-class');
+        openSelectInput.classList.add('close-up-animation-class');
       }
     }
 
@@ -376,6 +498,81 @@ window.onload = () => {
       campaignQuestionCreateWrapper.style.display = "flex";
       campaignQuestionContentWrapper.style.display = "none";
     }
+
+    if (event.target.classList.contains('each-choose-filter') || event.target.parentNode.classList.contains('each-choose-filter')) {
+      selectedFilterId = event.target.classList.contains('each-choose-filter') ? event.target.id : event.target.parentNode.id;
+      const filter = filters.find(each => each._id.toString() == selectedFilterId);
+
+      chooseFiltersInnerWrapper.style.display = "none";
+      chooseFiltersOptionsWrapper.style.display = "flex";
+
+      chooseFiltersEachOptionWrapper.innerHTML = "";
+      chooseAllButtonWrapper.childNodes[0].classList.remove('selected-choice');
+      filter.choices.forEach(choice => createFilterOption(choice, chooseFiltersEachOptionWrapper));
+    }
+
+    if (event.target.classList.contains('options-go-back-button')) {
+      chooseFiltersInnerWrapper.style.display = "flex";
+      chooseFiltersOptionsWrapper.style.display = "none";
+    }
+
+    if (event.target.classList.contains('each-filter-option-wrapper') || event.target.parentNode.classList.contains('each-filter-option-wrapper') || event.target.parentNode.parentNode.classList.contains('each-filter-option-wrapper')) {
+      const eachFilterOptionWrapper = event.target.classList.contains('each-filter-option-wrapper') ? event.target : (event.target.parentNode.classList.contains('each-filter-option-wrapper') ? event.target.parentNode : event.target.parentNode.parentNode);
+      if (eachFilterOptionWrapper.childNodes[0].classList.contains('selected-choice'))
+        eachFilterOptionWrapper.childNodes[0].classList.remove('selected-choice');
+      else
+        eachFilterOptionWrapper.childNodes[0].classList.add('selected-choice');
+
+      filterAddButton.style.cursor = (Array.from(chooseFiltersEachOptionWrapper.childNodes)).find(node => node.childNodes[0].classList.contains('selected-choice')) ? "pointer" : "not-allowed";
+    }
+
+    if (event.target.classList.contains('choose-all-button-wrapper') || event.target.parentNode.classList.contains('choose-all-button-wrapper') || event.target.parentNode.parentNode.classList.contains('choose-all-button-wrapper')) {
+      if (chooseAllButtonWrapper.childNodes[0].classList.contains('selected-choice')) {
+        chooseAllButtonWrapper.childNodes[0].classList.remove('selected-choice');
+        chooseFiltersEachOptionWrapper.childNodes.forEach(node => {
+          node.childNodes[0].classList.remove('selected-choice');
+        });
+        filterAddButton.style.cursor = "not-allowed";
+      } else {
+        chooseAllButtonWrapper.childNodes[0].classList.add('selected-choice');
+        chooseFiltersEachOptionWrapper.childNodes.forEach(node => {
+          node.childNodes[0].classList.add('selected-choice');
+        });
+        filterAddButton.style.cursor = "pointer";
+      }
+    }
+
+    if (event.target.classList.contains('add-filters-button') || event.target.parentNode.classList.contains('add-filters-button')) {
+      chooseFiltersInnerWrapper.style.display = "flex";
+      chooseFiltersOptionsWrapper.style.display = "none";
+      campaignFilterTitle.style.opacity = "0.2";
+      campaignFilterWrapper.style.opacity = "0.2";
+      chooseFiltersWrapper.style.display = "block";
+      searchFilterInput.focus();
+    }
+
+    if (event.target.classList.contains('close-filters-button')) {
+      campaignFilterTitle.style.opacity = "1";
+      campaignFilterWrapper.style.opacity = "1";
+      chooseFiltersWrapper.style.display = "none";
+    }
+
+    if (event.target.classList.contains('filter-add-button') || event.target.parentNode.classList.contains('filter-add-button')) {
+      const acceptedAnswers = (Array.from(chooseFiltersEachOptionWrapper.childNodes)).filter(each => each.childNodes[0].classList.contains('selected-choice')).map(each => each.childNodes[1].innerHTML);
+
+      if (!acceptedAnswers.length) return;
+
+      if (!filters.find(each => each._id.toString() == selectedFilterId)) return;
+
+      if (addedFiltersWrapper.childNodes[0].classList.contains('added-filters-text'))
+        addedFiltersWrapper.innerHTML = "";
+
+      createAddedFilter(filters.find(each => each._id.toString() == selectedFilterId), acceptedAnswers, addedFiltersWrapper, document.getElementById('filter-accepted-answer-text').innerHTML);
+
+      campaignFilterTitle.style.opacity = "1";
+      campaignFilterWrapper.style.opacity = "1";
+      chooseFiltersWrapper.style.display = "none";
+    }
   });
 
   eachChoiceInput.onkeydown = event => {
@@ -439,4 +636,76 @@ window.onload = () => {
       document.getElementById(question._id).childNodes[3].innerHTML = 100000 + " " + document.getElementById(question._id).childNodes[3].innerHTML.split(' ').filter((e, i) => i != 0).join(" ");
     }
   }
+
+  searchFilterInput.oninput = () => {
+    chooseFiltersEachFilterWrapper.innerHTML = "";
+    if (searchFilterInput.value.length) {
+      filters.forEach(filter => {
+        if (filter.name.toLocaleLowerCase().trim().indexOf(searchFilterInput.value.toLocaleLowerCase().trim()) > -1)
+          createFilter(filter, chooseFiltersEachFilterWrapper, searchFilterInput.value.toLocaleLowerCase().trim());
+      });
+      chooseFiltersFoundNumber.innerHTML = chooseFiltersEachFilterWrapper.childNodes.length + " " + chooseFiltersFoundNumber.innerHTML.split(' ').filter((e, i) => i != 0).join(' ');
+    } else {
+      filters.forEach(filter => createFilter(filter, chooseFiltersEachFilterWrapper, null));
+      chooseFiltersFoundNumber.innerHTML = filters.length + " " + chooseFiltersFoundNumber.innerHTML.split(' ').filter((e, i) => i != 0).join(' ');
+    }
+  }
+
+  document.addEventListener('focus', event => {
+    const openSelectInput = document.querySelector('.open-bottom-animation-class');
+
+    if (openSelectInput) {
+      openSelectInput.classList.remove('open-bottom-animation-class');
+      openSelectInput.classList.add('close-up-animation-class');
+    }
+
+    if (event.target.classList.contains('select-input')) {
+      const selectInputWrapper = event.target.parentNode;
+
+      if (selectInputWrapper.classList.contains('close-up-animation-class'))
+        selectInputWrapper.classList.remove('close-up-animation-class');
+
+      selectInputWrapper.classList.add('open-bottom-animation-class');
+    }
+  }, true);
+
+  document.addEventListener('input', event => {
+    if (event.target.classList.contains('select-input')) {
+      if (event.target.classList.contains('country-select-input')) {
+        const selectInputChoices = document.querySelector('.select-input-choices.country-select-input');
+        selectInputChoices.innerHTML = "";
+
+        if (event.target.value.length) {
+          countryEachInputChoices.forEach(choice => {
+            if (choice.innerHTML.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())) {
+              selectInputChoices.appendChild(choice);
+              while (choice.previousElementSibling && choice.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()) < choice.previousElementSibling.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()))
+                selectInputChoices.insertBefore(choice, choice.previousElementSibling);
+            }
+          });
+        } else {
+          countryEachInputChoices.forEach(choice => {
+            selectInputChoices.appendChild(choice);
+          });
+        }
+      } else if (event.target.classList.contains('gender-select-input')) {
+        const selectInputChoices = document.querySelector('.select-input-choices.gender-select-input');
+        selectInputChoices.innerHTML = "";
+
+        if (event.target.value.length) {
+          genderEachInputChoices.forEach(choice => {
+            if (choice.innerHTML.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())) {
+              selectInputChoices.appendChild(choice);
+              while (choice.previousElementSibling && choice.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()) < choice.previousElementSibling.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()))
+                selectInputChoices.insertBefore(choice, choice.previousElementSibling);
+            }
+          });
+        } else {
+          genderEachInputChoices.forEach(choice => {
+            selectInputChoices.appendChild(choice);
+          });
+        }
+      }
+    }
+  }, true);
 }

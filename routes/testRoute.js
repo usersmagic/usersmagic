@@ -14,6 +14,7 @@ const userIndexPostController = require('../controllers/test/user/index/post');
 const userSavePostController = require('../controllers/test/user/save/post');
 const userSubmitPostController = require('../controllers/test/user/submit/post');
 const companyPhotoPostController = require('../controllers/test/company/photo/post');
+const companyFilterPostController = require('../controllers/test/company/filter/post');
 
 router.get(
   '/user',
@@ -46,6 +47,11 @@ router.post(
     upload.single('file'),
     isLoggedInCompany,
     companyPhotoPostController
+);
+router.post(
+  '/company/filter',
+    isLoggedInCompany,
+    companyFilterPostController
 );
 
 module.exports = router;

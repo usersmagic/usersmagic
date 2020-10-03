@@ -6,6 +6,34 @@ block main
   span.display-none#other-text #{__('Diğer')}
   span.display-none#character-left-text= __('karakter kaldı')
   span.display-none#your-answer-text= __('Cevabınız')
+  span.display-none#filter-accepted-answer-text= __('Kabul Edilen Cevaplar')
+  input.display-none#filters-json(type="text" value=JSON.stringify(questions))
+  .choose-filters-wrapper
+    .choose-filters-inner-wrapper
+      .choose-filters-title-wrapper
+        span.choose-filters-title= __('Filtre Seçin')
+        i.fas.fa-times.close-filters-button
+      .choose-filters-input-wrapper
+        input.search-filter-input(type="text" autofocus placeholder=__('Ara'))
+        span.choose-filters-found-number #{questions.length} #{__('Filtre Bulundu')}
+      .choose-filters-each-filter-wrapper 
+        each question in questions
+          .each-choose-filter(id=question._id.toString())
+            span.each-choose-filter-name= question.name
+    .choose-filters-options-wrapper
+      .choose-filters-title-wrapper
+        span.choose-filters-title= __('Seçenekleri Belirleyin')
+        i.fas.fa-times.close-filters-button
+      span.filter-info= __('Seçtiğiniz seçeneklerden en az birini işaretleyen kullanıcılar bu filtreden geçebilir. Eğer birden fazla seçeneğin zorunlu olmasını istiyosanız aynı filtreyi farklı seçeneklerle birden çok kez eklemelisiniz.')
+      .choose-all-button-wrapper
+        .choice-checked
+          i.fas.fa-check
+        span= __('Hepsi')
+      .choose-filters-each-option-wrapper
+      .choose-filters-buttons-wrapper
+        span.options-go-back-button= __('Geri')
+        .filter-add-button
+          span Ekle
   .all-content-inner-wrapper
     span.content-title#campaign-info-title #{__('Kampanya Bilgilerini Girin')}
     span.content-title#campaign-question-title #{__('Kampanya Sorularını Ekleyin')}
@@ -17,7 +45,7 @@ block main
           input.display-none#photo-select-input(type="file")
           image.campaign-photo(src="" alt="usersmagic")
           i.fas.fa-image#campaign-no-photo-icon
-        span.input-info#image-span(style="text-align: center;") #{__('Kampanyanız için bir fotoğraf seçin.')}
+        span.input-info#image-span(style="text-align: center; margin-left: 0px") #{__('Kampanyanız için bir fotoğraf seçin.')}
       .campaign-info-right-wrapper
         input.name-input(type="text" placeholder=__('Kampanya İsmi'))
         span.input-info #{__('Kampanyanızın içeriğini kullanıcılara belli edecek bir isim seçin.')}
@@ -25,6 +53,28 @@ block main
         span.input-info #{__('Kampanyaya katılmadan önce kullanıcıların okuyacağı basit bir açıklama yazın.')}
         textarea.information-input(type="text" placeholder=__('Kampanya Bilgilendirmesi'))
         span.input-info #{__('Kullanıcıların kampanyaya katıldıktan sonra okuyacakları detaylı bir açıklama yazın.')}
+        .campaign-info-filter-wrapper
+          .select-input-outer-wrapper.country-select-input
+            .select-input-wrapper.country-select-input
+              input.select-input.country-select-input(type="text" placeholder=__('Ülke') autocomplete="none")
+              .select-input-choices.country-select-input
+                span.each-input-choice.country-each-input-choice(id="tr")= __('Türkiye')
+                span.each-input-choice.country-each-input-choice(id="us")= __('Amerika Birleşik Devletleri')
+                span.each-input-choice.country-each-input-choice(id="de")= __('Almanya')
+                span.each-input-choice.country-each-input-choice(id="uk")= __('İngiltere')
+                span.each-input-choice.country-each-input-choice(id="ru")= __('Rusya')
+                span.each-input-choice.country-each-input-choice(id="ua")= __('Ukrayna')
+          .select-input-outer-wrapper.gender-select-input
+            .select-input-wrapper.gender-select-input
+              input.select-input.gender-select-input(type="text" placeholder=__('Cinsiyet') autocomplete="none")
+              .select-input-choices.gender-select-input
+                span.each-input-choice.gender-each-input-choice(id="both")= __('Her İkisi de')
+                span.each-input-choice.gender-each-input-choice(id="kadın")= __('Kadın')
+                span.each-input-choice.gender-each-input-choice(id="erkek")= __('Erkek')
+          .birth-year-input-wrapper
+            input.each-input.min-birth-year-input(type="number" placeholder=__('En Küçük Doğum Yılı'))
+            input.each-input.max-birth-year-input(type="number" placeholder=__('En Büyük Doğum Yılı'))
+        span.input-info #{__('Kampanyanıza katılabilecek kullanıcıları filtreleyin')}
         .continue-button
           span #{__('Devam Et')}
     .campaign-question-wrapper
@@ -65,7 +115,7 @@ block main
             span= __('Ekle')
         .written-question-create-wrapper
           span.each-input-title= __('Maximum Karakter Sayısı')
-          input.each-input.character-count-input(type="number" pattern="[0-9]" placeholder=__('Maximum Karakter Sayısı') value=0)
+          input.each-input.character-count-input(type="number" placeholder=__('Maximum Karakter Sayısı') value=0)
           .create-question-button
             span= __('Ekle')
         .range-question-create-wrapper
@@ -73,4 +123,11 @@ block main
         .campaign-questions-wrapper
           span.no-question-text #{__('Eklediğiniz sorular burada görünür.')}
     .campaign-filter-wrapper
-    
+      .continue-button
+        span #{__('Devam Et')}
+      span.filter-info= __('Kampanyanız için bir hedef kitlesi oluşturun. Sadece eklediğiniz bütün filtrelere uyan kullanıcılar kampanyanıza katılabilir. Aynı filtreyi farklı seçeneklerle birden fazla kez ekleyebilirsiniz.')
+      .add-filters-button
+        i.fas.fa-plus-circle
+        span= __('Filtre Ekle')
+      .added-filters-wrapper
+        span.added-filters-text= __('Hiçbir filtre eklemediniz')

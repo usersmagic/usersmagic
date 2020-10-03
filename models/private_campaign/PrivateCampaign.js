@@ -27,6 +27,22 @@ const PrivateCampaignSchema = new Schema({
     type: Number,
     required: true
   },
+  country: {
+    type: Array,
+    required: true
+  },
+  gender: {
+    type: String,
+    required: true
+  },
+  min_birth_year: {
+    type: Number,
+    required: true
+  },
+  max_birth_year: {
+    type: Number,
+    required: true
+  },
   time_limit: {
     type: Number,
     default: 7200000
@@ -40,6 +56,10 @@ const PrivateCampaignSchema = new Schema({
     default: []
   },
   accepted_submitions: {
+    type: Array,
+    default: []
+  },
+  accepted_submition_ids: {
     type: Array,
     default: []
   },
