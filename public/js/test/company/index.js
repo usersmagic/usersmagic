@@ -168,6 +168,7 @@ const createFilterOption = (option, wrapper) => {
 const createAddedFilter = (filter, answers, wrapper, text) => {
   const eachAddedFilter = document.createElement('div');
   eachAddedFilter.classList.add('each-added-filter');
+  eachAddedFilter.id = filter._id.toString();
 
   const eachAddedFilterName = document.createElement('span');
   eachAddedFilterName.classList.add('each-added-filter-name');
@@ -198,11 +199,13 @@ const createAddedFilter = (filter, answers, wrapper, text) => {
 window.onload = () => {
   const campaign = {
     name: "",
+    price: "",
     description: "",
     information: "",
+    submition_limit: null,
     photo: null,
     questions: [],
-    filter: {},
+    filter: [],
     gender: "",
     country: "",
     min_birth_year: 0,
@@ -222,20 +225,25 @@ window.onload = () => {
   const campaignInfoTitle = document.getElementById('campaign-info-title');
   const campaignQuestionTitle = document.getElementById('campaign-question-title');
   const campaignFilterTitle = document.getElementById('campaign-filter-title');
-  const campaignPaymentTitle = document.getElementById('campaign-payment-title');
+  // const campaignPaymentTitle = document.getElementById('campaign-payment-title');
+  const campaignSendTitle = document.getElementById('campaign-send-title');
 
   const campaignInfoWrapper = document.querySelector('.campaign-info-wrapper');
   const campaignQuestionWrapper = document.querySelector('.campaign-question-wrapper');
 
   const nameInput = document.querySelector('.name-input');
+  const priceInput = document.querySelector('.price-input');
   const descriptionInput = document.querySelector('.description-input');
   const informationInput = document.querySelector('.information-input');
+  const campaignLimitInput = document.querySelector('.campaign-limit-input');
   const minBirthYearInput = document.querySelector('.min-birth-year-input');
   const maxBirthYearInput = document.querySelector('.max-birth-year-input');
 
   nameInput.oninput = () => campaign.name = (nameInput.value.length ? nameInput.value : null);
+  priceInput.oninput = () => campaign.price = (priceInput.value.length ? priceInput.value : null);
   descriptionInput.oninput = () => campaign.description = (descriptionInput.value.length ? descriptionInput.value : null);
   informationInput.oninput = () => campaign.information = (informationInput.value.length ? informationInput.value : null);
+  campaignLimitInput.oninput = () => campaign.submition_limit = (campaignLimitInput.value.length ? campaignLimitInput.value : null);
   minBirthYearInput.oninput = () => campaign.min_birth_year = minBirthYearInput.value;
   maxBirthYearInput.oninput = () => campaign.max_birth_year = maxBirthYearInput.value;
 
@@ -336,14 +344,38 @@ window.onload = () => {
         campaignQuestionWrapper.style.display = "none";
         campaignFilterWrapper.style.display = "flex";
       } else if (campaignProgressCount == 2) {
-        campaignFilterTitle.style.display = "none";
-        campaignPaymentTitle.style.display = "block";
-        campaignProgressCount++;
+        // campaignFilterTitle.style.display = "none";
+        // // campaignPaymentTitle.style.display = "block";
+        // campaignSendTitle.style.display = "block";
+        // campaignProgressCount++;
 
+        (Array.from(addedFiltersWrapper.childNodes)).forEach(filter => {
+          if (filter.classList.contains('each-added-filter') && filter.childNodes[2] && filter.childNodes[2].childNodes[1]) {
+            const newFilter = {or: []};
+            (filter.childNodes[2].childNodes[1].innerHTML.split(',').map(each => each.trim())).forEach(option => {
+              const newFilterOption = {};
+              newFilterOption[filter.id] = option;
+              newFilter.or.push(newFilterOption);
+            });
+            campaign.filter.push(newFilter);
+          }
+        });
 
-      } else {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/test/company");
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(campaign));
 
-      }
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState == 4 && xhr.responseText) {
+            if (xhr.status == 500) {
+              alert("An unknown error occured, please try again later.");
+            } else {
+              window.location = "/campaigns/company";
+            }
+          };
+        };
+      };
     }
 
     if (event.target.classList.contains('each-input-choice')) {

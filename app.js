@@ -22,7 +22,7 @@ if (cluster.isMaster) {
 
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
-    cluster.fork(); // Create a New Worker, If Worker is Dead
+    cluster.fork();
   });
 } else {
   const app = express();
@@ -93,4 +93,3 @@ if (cluster.isMaster) {
     console.log(`Server is on port ${PORT} as Worker ${cluster.worker.id} running @ process ${cluster.worker.process.pid}`);
   });
 }
-

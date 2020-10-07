@@ -233,5 +233,10 @@
 	"Kadın": "Kadın",
 	"Erkek": "Erkek",
 	"En Küçük Doğum Yılı": "En Küçük Doğum Yılı",
-	"En Büyük Doğum Yılı": "En Büyük Doğum Yılı"
+	"En Büyük Doğum Yılı": "En Büyük Doğum Yılı",
+	"Kampanyanızın Gözden Geçirin ve Gönderin": "Kampanyanızın Gözden Geçirin ve Gönderin",
+	"Kampanyanızın duracağı limiti belirleyin.": "Kampanyanızın duracağı limiti belirleyin.",
+	"Kampanyanız, onaylanan başvuru sayısı belirlediğiniz limite ulaşınca otomatik olarak duracak. Kampanyanızı istediğiniz zaman durdurabilir ve başlatabilirsiniz.": "Kampanyanız, onaylanan başvuru sayısı belirlediğiniz limite ulaşınca otomatik olarak duracak. Kampanyanızı istediğiniz zaman durdurabilir ve başlatabilirsiniz.",
+	"Kampanya Fiyatı": "Kampanya Fiyatı",
+	"Katılan kullanıcı başına ödeyeceğiniz fiyatı girin. Fiyat Türk kullanıcılar için ₺, Amerika için $ ve diğer ülkeler için € cinsinden geçerli olur.": "Katılan kullanıcı başına ödeyeceğiniz fiyatı girin. Fiyat Türk kullanıcılar için ₺, Amerika için $ ve diğer ülkeler için € cinsinden geçerli olur."
 }

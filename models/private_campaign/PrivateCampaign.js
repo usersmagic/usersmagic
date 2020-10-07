@@ -11,9 +11,13 @@ const PrivateCampaignSchema = new Schema({
     type: String,
     required: true
   },
-  approved: {
-    type: Boolean,
-    default: false
+  status: {
+    type: String,
+    default: "waiting"
+  },
+  reject_message: {
+    type: String,
+    default: null
   },
   description: {
     type: String,
@@ -33,13 +37,17 @@ const PrivateCampaignSchema = new Schema({
   },
   gender: {
     type: String,
-    required: true
+    default: null
   },
   min_birth_year: {
     type: Number,
-    required: true
+    default: null
   },
   max_birth_year: {
+    type: Number,
+    default: null
+  },
+  submition_limit: {
     type: Number,
     required: true
   },
@@ -64,8 +72,8 @@ const PrivateCampaignSchema = new Schema({
     default: []
   },
   filter: {
-    type: Object,
-    default: {}
+    type: Array,
+    default: []
   }
 });
 

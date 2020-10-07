@@ -38,7 +38,8 @@ block main
     span.content-title#campaign-info-title #{__('Kampanya Bilgilerini Girin')}
     span.content-title#campaign-question-title #{__('Kampanya Sorularını Ekleyin')}
     span.content-title#campaign-filter-title #{__('Kampanyanızı Göndereceğiniz Kullanıcıları Filtreleyin')}
-    span.content-title#campaign-payment-title #{__('Kampanyanızın Ödeme Seçeneklerini Belirleyin')}
+    //- span.content-title#campaign-payment-title #{__('Kampanyanızın Ödeme Seçeneklerini Belirleyin')}
+    //- span.content-title#campaign-send-title #{__('Kampanyanızın Gözden Geçirin ve Gönderin')}
     .campaign-info-wrapper
       .campaign-info-left-wrapper
         label.photo-wrapper
@@ -47,36 +48,41 @@ block main
           i.fas.fa-image#campaign-no-photo-icon
         span.input-info#image-span(style="text-align: center; margin-left: 0px") #{__('Kampanyanız için bir fotoğraf seçin.')}
       .campaign-info-right-wrapper
-        input.name-input(type="text" placeholder=__('Kampanya İsmi'))
-        span.input-info #{__('Kampanyanızın içeriğini kullanıcılara belli edecek bir isim seçin.')}
-        input.description-input(type="text" placeholder=__('Kampanya Açıklaması'))
-        span.input-info #{__('Kampanyaya katılmadan önce kullanıcıların okuyacağı basit bir açıklama yazın.')}
-        textarea.information-input(type="text" placeholder=__('Kampanya Bilgilendirmesi'))
-        span.input-info #{__('Kullanıcıların kampanyaya katıldıktan sonra okuyacakları detaylı bir açıklama yazın.')}
-        .campaign-info-filter-wrapper
-          .select-input-outer-wrapper.country-select-input
-            .select-input-wrapper.country-select-input
-              input.select-input.country-select-input(type="text" placeholder=__('Ülke') autocomplete="none")
-              .select-input-choices.country-select-input
-                span.each-input-choice.country-each-input-choice(id="tr")= __('Türkiye')
-                span.each-input-choice.country-each-input-choice(id="us")= __('Amerika Birleşik Devletleri')
-                span.each-input-choice.country-each-input-choice(id="de")= __('Almanya')
-                span.each-input-choice.country-each-input-choice(id="uk")= __('İngiltere')
-                span.each-input-choice.country-each-input-choice(id="ru")= __('Rusya')
-                span.each-input-choice.country-each-input-choice(id="ua")= __('Ukrayna')
-          .select-input-outer-wrapper.gender-select-input
-            .select-input-wrapper.gender-select-input
-              input.select-input.gender-select-input(type="text" placeholder=__('Cinsiyet') autocomplete="none")
-              .select-input-choices.gender-select-input
-                span.each-input-choice.gender-each-input-choice(id="both")= __('Her İkisi de')
-                span.each-input-choice.gender-each-input-choice(id="kadın")= __('Kadın')
-                span.each-input-choice.gender-each-input-choice(id="erkek")= __('Erkek')
-          .birth-year-input-wrapper
-            input.each-input.min-birth-year-input(type="number" placeholder=__('En Küçük Doğum Yılı'))
-            input.each-input.max-birth-year-input(type="number" placeholder=__('En Büyük Doğum Yılı'))
-        span.input-info #{__('Kampanyanıza katılabilecek kullanıcıları filtreleyin')}
-        .continue-button
-          span #{__('Devam Et')}
+        .campaign-info-right-inner-wrapper
+          input.name-input(type="text" placeholder=__('Kampanya İsmi'))
+          span.input-info #{__('Kampanyanızın içeriğini kullanıcılara belli edecek bir isim seçin.')}
+          input.price-input(type="number" placeholder=__('Kampanya Fiyatı'))
+          span.input-info #{__('Katılan kullanıcı başına ödeyeceğiniz fiyatı girin. Fiyat Türk kullanıcılar için ₺, Amerika için $ ve diğer ülkeler için € cinsinden geçerli olur.')}
+          input.description-input(type="text" placeholder=__('Kampanya Açıklaması'))
+          span.input-info #{__('Kampanyaya katılmadan önce kullanıcıların okuyacağı basit bir açıklama yazın.')}
+          textarea.information-input(type="text" placeholder=__('Kampanya Bilgilendirmesi'))
+          span.input-info #{__('Kullanıcıların kampanyaya katıldıktan sonra okuyacakları detaylı bir açıklama yazın.')}
+          input.each-input.campaign-limit-input(type="number" placeholder=__('Kampanyanızın duracağı limiti belirleyin.'))
+          span.input-info= __('Kampanyanız, onaylanan başvuru sayısı belirlediğiniz limite ulaşınca otomatik olarak duracak. Kampanyanızı istediğiniz zaman durdurabilir ve başlatabilirsiniz.')
+          .campaign-info-filter-wrapper
+            .select-input-outer-wrapper.country-select-input
+              .select-input-wrapper.country-select-input
+                input.select-input.country-select-input(type="text" placeholder=__('Ülke') autocomplete="none")
+                .select-input-choices.country-select-input
+                  span.each-input-choice.country-each-input-choice(id="tr")= __('Türkiye')
+                  span.each-input-choice.country-each-input-choice(id="us")= __('Amerika Birleşik Devletleri')
+                  span.each-input-choice.country-each-input-choice(id="de")= __('Almanya')
+                  span.each-input-choice.country-each-input-choice(id="uk")= __('İngiltere')
+                  span.each-input-choice.country-each-input-choice(id="ru")= __('Rusya')
+                  span.each-input-choice.country-each-input-choice(id="ua")= __('Ukrayna')
+            .select-input-outer-wrapper.gender-select-input
+              .select-input-wrapper.gender-select-input
+                input.select-input.gender-select-input(type="text" placeholder=__('Cinsiyet') autocomplete="none")
+                .select-input-choices.gender-select-input
+                  span.each-input-choice.gender-each-input-choice(id="both")= __('Her İkisi de')
+                  span.each-input-choice.gender-each-input-choice(id="kadın")= __('Kadın')
+                  span.each-input-choice.gender-each-input-choice(id="erkek")= __('Erkek')
+            .birth-year-input-wrapper
+              input.each-input.min-birth-year-input(type="number" placeholder=__('En Küçük Doğum Yılı'))
+              input.each-input.max-birth-year-input(type="number" placeholder=__('En Büyük Doğum Yılı'))
+          span.input-info #{__('Kampanyanıza katılabilecek kullanıcıları filtreleyin')}
+          .continue-button
+            span #{__('Devam Et')}
     .campaign-question-wrapper
       .campaign-question-create-wrapper
         span.each-input-title #{__('Soru Metnini Yazın')}:
@@ -131,3 +137,4 @@ block main
         span= __('Filtre Ekle')
       .added-filters-wrapper
         span.added-filters-text= __('Hiçbir filtre eklemediniz')
+    //- .campaign-send-wrapper
