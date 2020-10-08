@@ -1,0 +1,11 @@
+extends ../../partials/adminHeader
+block main
+  .all-content-header
+    .title-wrapper
+      span.title= campaign.name
+      span.subtitle Bu sayfadan bu kampanyanın bilgilerini, sorularını ve kitlesini görebilir, eğer uygunsa kampanyayı onaylayabilir veya bir sebep göstererek reddedebilirsiniz.
+  form.new-form-wrapper(action="/admin/private_campaigns/details?id=" + campaign._id.toString() method="POST")
+    .form-inner-wrapper
+      input.form-input(type="text" placeholder="Red sebebini girin")
+      button.send-button Reddet
+      a.send-button(href="/admin/private_campaigns/details/approve?id=" + campaign._id.toString()) Kabul Et

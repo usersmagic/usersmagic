@@ -5,12 +5,12 @@ const PrivateCampaign = require('../../../../models/private_campaign/PrivateCamp
 const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !req.body || !req.body.reject_message.length)
+  if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
   PrivateCampaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-    status: "unapproved",
-    reject_message: req.body.reject_message
+    status: "approved",
+    reject_message: null
   }}, {}, (err, campaign) => {
     if (err) return res.redirect('/admin');
 
@@ -33,20 +33,24 @@ module.exports = (req, res) => {
       if (filter.or) {
         newFilter.$or = [];
         filter.or.forEach(subfilter => {
-          newFilter.$or.push(subfilter);
+          const newSubfilter = {};
+          newSubfilter["information." + Object.keys(subfilter)[0]] = Object.values(subfilter)[0]
+          newFilter.$or.push(newSubfilter);
         });
       } else if (filter.and) {
         newFilter.$and = [];
         filter.and.forEach(subfilter => {
-          newFilter.$and.push(subfilter);
+          const newSubfilter = {};
+          newSubfilter["information." + Object.keys(subfilter)[0]] = Object.values(subfilter)[0]
+          newFilter.$and.push(newSubfilter);
         });
       }
       filters.push(newFilter);
-    })
+    });
 
     User.find({$and: filters}, (err, users) => {
       if (err) return res.redirect('/admin');
-
+      
       async.times(
         users.length,
         (time, next) => {

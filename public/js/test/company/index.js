@@ -415,7 +415,7 @@ window.onload = () => {
         }, 500);
       }
 
-      const newId = Math.random().toString(36).substr(2, 9);
+      const newId = (Math.random().toString(36).substr(2, 9) + Math.random().toString(36).substr(2, 9));
       question._id = newId;
       questionIdOrder.push(newId);
       question.text = questionTextInput.value;

@@ -26,6 +26,9 @@ const questionsDetailsGetController = require('../controllers/admin/questions/de
 const questionsDeleteGetController = require('../controllers/admin/questions/delete/get');
 const updateGetController = require('../controllers/admin/update/get');
 const informationGetController = require('../controllers/admin/information/get');
+const privateCampaignsIndexGetController = require('../controllers/admin/private_campaigns/index/get');
+const privateCampaignsDetailsGetController = require('../controllers/admin/private_campaigns/details/get');
+const privateCampaignsDetailsApproveGetController = require('../controllers/admin/private_campaigns/details/approve');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -35,6 +38,7 @@ const campaignsVersionPostController = require('../controllers/admin/campaigns/v
 const submitionsRejectPostController = require('../controllers/admin/submitions/reject/post');
 const questionsIndexPostController = require('../controllers/admin/questions/index/post');
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
+const privateCampaignsDetailsPostController = require('../controllers/admin/private_campaigns/details/post');
 
 router.get(
   '/',
@@ -134,6 +138,21 @@ router.get(
   '/information',
     isAdmin,
     informationGetController
+);
+router.get(
+  '/private_campaigns',
+    isAdmin,
+    privateCampaignsIndexGetController
+);
+router.get(
+  '/private_campaigns/details',
+    isAdmin,
+    privateCampaignsDetailsGetController
+);
+router.get(
+  '/private_campaigns/details/approve',
+    isAdmin,
+    privateCampaignsDetailsApproveGetController
 );
 
 router.post(

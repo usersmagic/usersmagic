@@ -10,6 +10,8 @@ block main
                 img.campaign-photo(src=campaign.photo alt=campaign.name)
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
+                if campaign.is_private_campaign
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
                 span.campaign-description= campaign.error ? campaign.error : campaign.description
                 .campaign-price-wrapper
                   if campaign.is_free
@@ -17,7 +19,7 @@ block main
                   else
                     span.campaign-price-text #{__('Kazanacağın')}:
                     span.campaign-price #{campaign.price}#{currency}
-                a.campaign-join-button(href="/test/user?id=" + campaign._id.toString())
+                a.campaign-join-button(href="/test/user?id=" + campaign._id.toString() + (campaign.is_private_campaign ? "&is_private_campaign=true" : ""))
                   span.campaign-join-text #{__('Devam Et')}
         else if campaign.status == "waiting"
           .campaign-outer-wrapper
@@ -26,6 +28,8 @@ block main
                 img.campaign-photo(src=campaign.photo alt=campaign.name)
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
+                if campaign.is_private_campaign
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
                 span.campaign-description= campaign.description
                 .campaign-price-wrapper
                   span.campaign-price-text #{__('Kazanacağın')}:
@@ -38,6 +42,8 @@ block main
                 img.campaign-photo(src=campaign.photo alt=campaign.name)
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
+                if campaign.is_private_campaign
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
                 span.campaign-description= campaign.description
                 .campaign-price-wrapper
                   span.campaign-price-text #{__('Kazanacağın')}:
@@ -50,11 +56,13 @@ block main
                 img.campaign-photo(src=campaign.photo alt=campaign.name)
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
+                if campaign.is_private_campaign
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
                 span.campaign-error= campaign.error
                 .campaign-price-wrapper
                   span.campaign-price-text #{__('Kazanacağın')}:
                   span.campaign-price #{campaign.price}#{currency}
-                a.campaign-join-button(href="/test/user?id=" + campaign._id.toString())
+                a.campaign-join-button(href="/test/user?id=" + campaign._id.toString() + (campaign.is_private_campaign ? "&is_private_campaign=true" : ""))
                   span.campaign-join-text #{__('Yeniden Doldur')}
     .empty-space
   else

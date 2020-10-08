@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PrivateCampaignSchema = new Schema({
+  creator: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -32,7 +36,7 @@ const PrivateCampaignSchema = new Schema({
     required: true
   },
   country: {
-    type: Array,
+    type: String,
     required: true
   },
   gender: {

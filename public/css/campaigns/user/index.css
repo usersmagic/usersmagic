@@ -65,7 +65,13 @@ body {
   color: rgb(30, 30, 30);
   font-weight: 700;
   font-size: 125%;
+  margin-bottom: 5px;
+}
+.campaign-time-limit {
+  color: rgb(240, 84, 79);
+  font-size: 80%;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 .campaign-description {
   color: rgb(30, 30, 30);

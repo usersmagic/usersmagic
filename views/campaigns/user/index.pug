@@ -9,6 +9,8 @@ block main
               img.campaign-photo(src=campaign.photo alt=campaign.name)
             .campaign-info-wrapper
               span.campaign-name= campaign.name
+              if campaign.is_private_campaign
+                span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
               span.campaign-description= campaign.description
               .campaign-price-wrapper
                 if campaign.is_free || !campaign.price
@@ -16,7 +18,7 @@ block main
                 else
                   span.campaign-price-text #{__('Kazanacağın')}:
                   span.campaign-price #{campaign.price}#{currency}
-              a.campaign-join-button(href="/campaigns/user/join?id=" + campaign._id.toString())
+              a.campaign-join-button(href="/campaigns/user/join?id=" + campaign._id.toString() + (campaign.is_private_campaign ? "&is_private_campaign=true" : ""))
                 span.campaign-join-text #{__('Katıl')}
     .empty-space
   else
