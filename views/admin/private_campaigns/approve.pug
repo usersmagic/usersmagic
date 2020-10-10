@@ -1,0 +1,15 @@
+extends ../../partials/adminHeader
+block main
+  .all-content-header
+    .title-wrapper
+      span.title Özel Kampanyalar Onay Sayfası
+      span.subtitle Bu sayfadan markalar tarafından yeni oluşturulmuş kampanyaları görebilirsiniz. Onaylamak veya reddetmek için bir kampanyanını üzerine tıklayın.
+  .all-content-inner-wrapper
+    .campaigns-wrapper
+      each campaign in campaigns 
+        a.each-campaign(href="/admin/private_campaigns/details?id=" + campaign._id.toString())
+          .campaign-photo-wrapper
+            img.each-campaign-photo(src=campaign.photo)
+          span.each-campaign-name= campaign.name
+          span.each-campaign-description (#{campaign.company})
+

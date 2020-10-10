@@ -6,8 +6,7 @@ const PrivateCampaign = require('../../../../models/private_campaign/PrivateCamp
 
 module.exports = (req, res) => {
   PrivateCampaign.find({
-    status: {$ne: "waiting"},
-    submitions: {$ne: []}
+    status: "waiting"
   }, (err, campaigns) => {
     if (err) return res.redirect('/admin');
 
@@ -26,8 +25,8 @@ module.exports = (req, res) => {
       (err, campaigns) => {
         if (err) return res.redirect('/admin');
         
-        return res.render('admin/private_campaigns', {
-          page: 'admin/private_campaigns',
+        return res.render('admin/private_campaigns/approve', {
+          page: 'admin/private_campaigns/approve',
           title: 'Özel Kampanyalar',
           includes: {
             external: ['css', 'admin_general_css', 'fontawesome']

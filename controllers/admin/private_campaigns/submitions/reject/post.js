@@ -1,33 +1,27 @@
 const mongoose = require('mongoose');
 
-const User = require('../../../../models/user/User');
-const Campaign = require('../../../../models/campaign/Campaign');
+const PrivateCampaign = require('../../../../../models/private_campaign/PrivateCampaign');
+const User = require('../../../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !req.query.user)
+  if (!req.query || !req.query.id || !req.query.user || !req.body || !req.body.reason)
     return res.redirect('/admin');
 
-  if (!req.body)
-    req.body = {};
-
-  Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+  PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
     if (err || !campaign) return res.redirect('/admin');
 
-    const submitions = campaign.submitions.filter(sub => !sub.user_id || sub.user_id.toString() != req.query.user);
+    const submitions = campaign.submitions.filter(sub => sub.user_id.toString() != req.query.user);
 
     if (submitions.length == campaign.submitions.length)
       return res.redirect('/admin');
     
-    Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+    PrivateCampaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
       submitions
     }}, {}, err => {
       if (err) return res.redirect('/admin');
 
       User.findById(mongoose.Types.ObjectId(req.query.user), (err, user) => {
         if (err || !user) return res.redirect('/admin');
-
-        if (!req.body.reason || !req.body.reason.length)
-          req.body.reason = "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz.";
 
         const campaign_status = user.campaign_status;
         campaign_status[req.query.id] = "unapproved";
@@ -42,7 +36,7 @@ module.exports = (req, res) => {
         }, {}, (err, user) => {
           if (err || !user) return res.redirect('/admin');
 
-          return res.redirect('/admin/submitions?id=' + req.query.id + '&version=1');
+          return res.redirect('/admin/private_campaigns/submitions?id=' + req.query.id);
         });
       });
     });

@@ -27,8 +27,11 @@ const questionsDeleteGetController = require('../controllers/admin/questions/del
 const updateGetController = require('../controllers/admin/update/get');
 const informationGetController = require('../controllers/admin/information/get');
 const privateCampaignsIndexGetController = require('../controllers/admin/private_campaigns/index/get');
+const privateCampaignsApproveGetController = require('../controllers/admin/private_campaigns/approve/get');
 const privateCampaignsDetailsGetController = require('../controllers/admin/private_campaigns/details/get');
 const privateCampaignsDetailsApproveGetController = require('../controllers/admin/private_campaigns/details/approve');
+const privateCampaignsSubmitionsIndexGetController = require('../controllers/admin/private_campaigns/submitions/index/get');
+const privateCampaignsSubmitionsApproveGetController = require('../controllers/admin/private_campaigns/submitions/approve/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -39,6 +42,7 @@ const submitionsRejectPostController = require('../controllers/admin/submitions/
 const questionsIndexPostController = require('../controllers/admin/questions/index/post');
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
 const privateCampaignsDetailsPostController = require('../controllers/admin/private_campaigns/details/post');
+const privateCampaignsSubmitionsRejectPostController = require('../controllers/admin/private_campaigns/submitions/reject/post');
 
 router.get(
   '/',
@@ -154,6 +158,21 @@ router.get(
     isAdmin,
     privateCampaignsDetailsApproveGetController
 );
+router.get(
+  '/private_campaigns/submitions',
+    isAdmin,
+    privateCampaignsSubmitionsIndexGetController
+);
+router.get(
+  '/private_campaigns/submitions/approve',
+    isAdmin,
+    privateCampaignsSubmitionsApproveGetController
+);
+router.get(
+  '/private_campaigns/approve',
+    isAdmin,
+    privateCampaignsApproveGetController
+);
 
 router.post(
   '/login',
@@ -195,6 +214,11 @@ router.post(
   '/questions/details',
     isAdmin,
     questionsDetailsPostController
+);
+router.post(
+  '/private_campaigns/submitions/reject',
+    isAdmin,
+    privateCampaignsSubmitionsRejectPostController
 );
 
 module.exports = router;
