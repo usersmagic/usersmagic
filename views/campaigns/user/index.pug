@@ -2,7 +2,7 @@ extends ./../../partials/header
 block main
   if campaigns.length
     .all-content-inner-wrapper
-      each campaign in campaigns
+      each campaign, i in campaigns
         .campaign-outer-wrapper
           .campaign-wrapper
             .campaign-photo-wrapper
