@@ -60,16 +60,20 @@ module.exports = (req, res) => {
               PrivateCampaign.findOne({
                 _id: mongoose.Types.ObjectId(user.private_campaigns[time]),
                 submition_limit: {$gt: 0}
-              }, (err, campaign) => next(err, {
-                _id: campaign._id,
-                name: campaign.name,
-                photo: campaign.photo,
-                description: campaign.description,
-                price: campaign.price,
-                is_free: false,
-                is_private_campaign: true,
-                time_limit: Math.round(campaign.time_limit / 1000 / 60 / 60)
-              }));
+              }, (err, campaign) => {
+                if (err) return next(err);
+                if (!campaign) return next(null);
+                return next(null, {
+                  _id: campaign._id,
+                  name: campaign.name,
+                  photo: campaign.photo,
+                  description: campaign.description,
+                  price: campaign.price,
+                  is_free: false,
+                  is_private_campaign: true,
+                  time_limit: Math.round(campaign.time_limit / 1000 / 60 / 60)
+                });
+              });
             },
             (err, private_campaigns) => {
               if (err) return res.redirect('/');
