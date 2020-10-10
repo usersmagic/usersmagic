@@ -84,7 +84,7 @@ module.exports = (req, res) => {
                 includes: {
                   external: ['css', 'js', 'fontawesome']
                 },
-                campaigns: campaigns.concat(private_campaigns.filter(campaign => campaign._id)),
+                campaigns: campaigns.concat(private_campaigns.filter(campaign => campaign && campaign._id)),
                 code: user._id.toString(),
                 currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
                 current_page: "campaigns"
