@@ -1,6 +1,6 @@
 extends ./../../partials/header
 block main
-  if campaigns.length
+  if campaigns.length || commercial
     if commercial
       .commercial-outer-wrapper-responsive
         a.commercial-inner-wrapper(href=commercial.url target="_blanck")
