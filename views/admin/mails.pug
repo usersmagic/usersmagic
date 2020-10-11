@@ -1,0 +1,31 @@
+extends ../partials/adminHeader
+block main
+  .all-content-header
+    .title-wrapper
+      span.title E-Postalar
+      span.subtitle Bu sayfadan eklediğiniz e-postaları görebilir, silebilir, yeniden gönderebilir veya yeni e-postalar oluşturabilirsiniz.
+    .new-campaign-button
+      span +
+  .all-content-inner-wrapper
+    .campaigns-wrapper
+      each mail in mails 
+        .each-campaign
+          span.each-campaign-name= mail.option_name
+          span.each-campaign-description #{mail.sended_users.length} gönderilmiş kullanıcı
+          a.campaign-delete-button(href="/admin/mails/send?id=" + mail._id.toString() onclick=`return confirm('Bu maili yeni ${mail.limit} kullanıcıya göndermek istediğinize emin misiniz?')`)
+            i.fas.fa-paper-plane
+  form.new-form-wrapper(action="/admin/mails" method="POST")
+    .form-inner-wrapper
+      span.form-title Yeni Bir E-Posta Ekle
+      span.form-subtitle E-Posta Seçenek İsmi: *
+      span.form-info E-Postanın kayıtlı olduğu seçeneğin ismi
+      input.form-input(type="text" placeholder="Seçenek" name="option_name" required)
+      span.form-subtitle E-Posta Limiti: *
+      span.form-info Her seferde gönderilecek e-posta limiti
+      input.form-input(type="number" placeholder="limit" name="limit" required)
+      span.form-subtitle E-Posta Filtresi: (Yoksa boş bırakın)
+      span.form-info E-Postanın gönderileceği kullanıcıları filtreleyin. Geçerli bir Usersmagic Query String yazmalısınız.
+      input.form-input(type="text" placeholder="ör: gender: erkek, birth_year: $gte: 1920" name="filter_string")
+      .buttons-wrapper
+        .back-button Geri
+        button.form-button Oluştur

@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     if (err) return res.redirect('/admin');
 
     const filterOptions = mail.filter_string.split(',').map(each => {
-      const name =  each.trim().split(':')[0].trim();
+      const name = each.trim().split(':')[0].trim();
       const value = each.trim().split(':')[1].trim();
 
       if (each.trim().split(':').length < 3)
@@ -31,12 +31,15 @@ module.exports = (req, res) => {
     ]}, (err, users) => {
       if (err) return res.redirect('/admin');
 
-      users = users.filter((user, i) => i < mail.limit)
+      users = users.filter((user, i) => i < mail.limit);
+
+      if (!users.length)
+        return res.redirect('/admin/mails');
 
       sendMail({
-        emailList: users.map(user => user._id.toString())
+        emailList: users.map(user => user.email)
       }, mail.option_name, err => {
-        if (err) return res.redirect('/admin');
+        if (err) return res.redirect('/admin')
 
         Mail.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
           sended_users: mail.sended_users.concat(users.map(user => user._id.toString()))
