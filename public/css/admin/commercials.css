@@ -1,0 +1,213 @@
+.admin-all-content {
+  display: flex;
+  flex-direction: column;
+}
+.display-none {
+  display: none;
+}
+
+.all-content-header {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(236, 236, 236);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 150%;
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.subtitle {
+  font-size: 100%;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+}
+.new-campaign-button {
+  padding: 10px 50px;
+  background-color: rgb(248, 248, 248);
+  border: 2px solid rgb(236, 236, 236);
+  color: rgb(30, 30, 30);
+  font-size: 200%;
+  font-weight: 700;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.all-content-inner-wrapper {
+  flex: 7;
+  padding: 0px 20px;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.campaigns-wrapper {
+  width: 100%;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.each-campaign {
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  margin-top: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+}
+.campaign-photo-wrapper {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+.each-campaign-photo {
+  width: 100%;
+  height: auto;
+}
+.each-campaign-name {
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  margin-left: 10px;
+}
+.each-campaign-description {
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  font-weight: 300;
+  margin-left: 10px;
+}
+.campaign-applications-button {
+  margin-left: auto;
+  text-decoration: none;
+  color: rgba(112, 112, 112, 0.5);
+}
+.campaign-delete-button {
+  margin-left: auto;
+  text-decoration: none;
+  color: rgba(112, 112, 112, 0.5);
+}
+.campaign-delete-button:hover, .campaign-applications-button:hover {
+  color: rgb(30, 30, 30);
+}
+
+.new-form-wrapper {
+  flex: 7;
+  display: none;
+  padding: 0px 20px;
+  overflow: scroll;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.form-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: fit-content;
+  padding-bottom: 100px;
+  width: 100%;
+}
+.form-title {
+  font-size: 125%;
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  margin: 15px 0px;
+}
+.form-subtitle {
+  font-size: 100%;
+  color: rgb(30, 30, 30);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.form-info {
+  font-size: 100%;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.form-input {
+  border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: rgb(30, 30, 30);
+}
+.form-textarea {
+  border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: rgb(30, 30, 30);
+  height: 100px;
+  width: 100%;
+}
+.input-line {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.input-line span {
+  margin-left: 10px;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+}
+.date-input-wrapper {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  width: 300px;
+}
+.small-date-input {
+  flex: 1;
+  border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0px;
+  padding: 10px;
+  border-radius: 10px;
+  color: rgb(30, 30, 30);
+  margin-right: 10px;
+}
+.big-date-input {
+  flex: 2;
+  border: 2px solid rgb(236, 236, 236);
+  box-shadow: 0px;
+  padding: 10px;
+  border-radius: 10px;
+  color: rgb(30, 30, 30);
+}
+.buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.back-button {
+  align-self: flex-end;
+  border: 2px solid rgb(236, 236, 236);
+  background-color: rgb(255, 255, 255);
+  padding: 15px 20px;
+  border-radius: 15px;
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 125%;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.form-button {
+  align-self: flex-end;
+  border: 2px solid rgb(236, 236, 236);
+  background-color: rgb(248, 248, 248);
+  padding: 15px 20px;
+  border-radius: 15px;
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 125%;
+  cursor: pointer;
+}
