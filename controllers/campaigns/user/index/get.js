@@ -2,6 +2,7 @@ const async = require('async');
 const mongoose = require('mongoose');
 
 const Campaign = require('../../../../models/campaign/Campaign');
+const Commercial = require('../../../../models/commercial/Commercial');
 const PrivateCampaign = require('../../../../models/private_campaign/PrivateCampaign');
 const User = require('../../../../models/user/User');
 
@@ -78,16 +79,38 @@ module.exports = (req, res) => {
             (err, private_campaigns) => {
               if (err) return res.redirect('/');
 
-              return res.render('campaigns/user/index', {
-                page: 'campaigns/user/index',
-                title: res.__('Kampanyalar'),
-                includes: {
-                  external: ['css', 'js', 'fontawesome']
-                },
-                campaigns: campaigns.concat(private_campaigns.filter(campaign => campaign && campaign._id)),
-                code: user._id.toString(),
-                currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
-                current_page: "campaigns"
+              if (!user.commercials.length)
+                return res.render('campaigns/user/index', {
+                  page: 'campaigns/user/index',
+                  title: res.__('Kampanyalar'),
+                  includes: {
+                    external: ['css', 'js', 'fontawesome']
+                  },
+                  campaigns: campaigns.filter(campaign => campaign && campaign._id).concat(private_campaigns.filter(campaign => campaign && campaign._id)),
+                  code: user._id.toString(),
+                  currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
+                  current_page: "campaigns"
+                });
+
+              Commercial.findById(mongoose.Types.ObjectId(user.commercials[user.commercials.length-1]), (err, commercial) => {
+                if (err) return res.redirect('/');
+
+                return res.render('campaigns/user/index', {
+                  page: 'campaigns/user/index',
+                  title: res.__('Kampanyalar'),
+                  includes: {
+                    external: ['css', 'js', 'fontawesome']
+                  },
+                  campaigns: campaigns.filter(campaign => campaign && campaign._id).concat(private_campaigns.filter(campaign => campaign && campaign._id)),
+                  code: user._id.toString(),
+                  currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
+                  current_page: "campaigns",
+                  commercial: commercial ? {
+                    name: commercial.name,
+                    photo: commercial.photo,
+                    url: commercial.url
+                  } : null
+                });
               });
             }
           );

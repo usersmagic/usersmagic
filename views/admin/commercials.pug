@@ -1,0 +1,40 @@
+extends ../partials/adminHeader
+block main
+  .all-content-header
+    .title-wrapper
+      span.title Reklamlar
+      span.subtitle Bu sayfadan eklediğiniz reklamları görebilir, silebilir, etkileşim oranlarını görebilir ve yeni reklamlar yaratabilirsiniz.
+    .new-campaign-button
+      span +
+  .all-content-inner-wrapper
+    .campaigns-wrapper
+      each commercial in commercials 
+        .each-campaign
+          .campaign-photo-wrapper
+            img.each-campaign-photo(src=commercial.photo)
+          span.each-campaign-name= commercial.name
+          span.each-campaign-description #{commercial.users.length} görüntüleyen kullanıcı 
+          span.each-campaign-description #{commercial.clicked_users.length} farklı kullanıcı tarafından tıklandı
+          if commercial.deleted
+            span.each-campaign-description Kampanya Silindi
+          else
+            a.campaign-delete-button(href="/admin/commercials/delete?id=" + commercial._id.toString() onclick="return confirm('Bu reklamı silmek istediğinize emin misiniz?')")
+              i.fas.fa-trash
+  form.new-form-wrapper(action="/admin/commercials" method="POST" enctype="multipart/form-data")
+    .form-inner-wrapper
+      span.form-title Yeni Bir Reklam Ekle
+      span.form-subtitle Reklam İsmi: *
+      span.form-info Reklamı tanımlarken kullanılacak bir isim.
+      input.form-input(type="text" placeholder="İsim" name="name" required)
+      span.form-subtitle Reklam Linki: *
+      span.form-info Kullanıcıların tıklayın yönlendirilecekleri link.
+      input.form-input(type="text" placeholder="URL" name="url" required)
+      span.form-subtitle Reklam Resmi: *
+      span.form-info Reklam için gösterilecek resim.
+      input.form-input(type="file" name="file" required)
+      span.form-subtitle Reklam Filtresi İsmi: (Yoksa boş bırakın)
+      span.form-info Reklamın gösterileceği kullanıcıları filtreleyin. Geçerli bir Usersmagic Query String yazmalısınız.
+      input.form-input(type="text" placeholder="ör: gender: erkek, birth_year: $gte: 1920" name="filter")
+      .buttons-wrapper
+        .back-button Geri
+        button.form-button Oluştur

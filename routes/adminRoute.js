@@ -32,6 +32,8 @@ const privateCampaignsDetailsGetController = require('../controllers/admin/priva
 const privateCampaignsDetailsApproveGetController = require('../controllers/admin/private_campaigns/details/approve');
 const privateCampaignsSubmitionsIndexGetController = require('../controllers/admin/private_campaigns/submitions/index/get');
 const privateCampaignsSubmitionsApproveGetController = require('../controllers/admin/private_campaigns/submitions/approve/get');
+const commercialsIndexGetController = require('../controllers/admin/commercials/index/get');
+const commercialsDeleteGetController = require('../controllers/admin/commercials/delete/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -43,6 +45,7 @@ const questionsIndexPostController = require('../controllers/admin/questions/ind
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
 const privateCampaignsDetailsPostController = require('../controllers/admin/private_campaigns/details/post');
 const privateCampaignsSubmitionsRejectPostController = require('../controllers/admin/private_campaigns/submitions/reject/post');
+const commercialsIndexPostController = require('../controllers/admin/commercials/index/post');
 
 router.get(
   '/',
@@ -173,6 +176,16 @@ router.get(
     isAdmin,
     privateCampaignsApproveGetController
 );
+router.get(
+  '/commercials',  
+    isAdmin,
+    commercialsIndexGetController
+);
+router.get(
+  '/commercials/delete',
+    isAdmin,
+    commercialsDeleteGetController
+);
 
 router.post(
   '/login',
@@ -219,6 +232,12 @@ router.post(
   '/private_campaigns/submitions/reject',
     isAdmin,
     privateCampaignsSubmitionsRejectPostController
+);
+router.post(
+  '/commercials',
+    upload.single('file'),
+    isAdmin,
+    commercialsIndexPostController
 );
 
 module.exports = router;

@@ -100,6 +100,10 @@ const UserSchema = new Schema({
   invitor: {
     type: String,
     default: null
+  },
+  commercials: {
+    type: Array,
+    default: []
   }
 });
 
