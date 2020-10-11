@@ -92,7 +92,7 @@ module.exports = (req, res) => {
                   current_page: "campaigns"
                 });
 
-              Commercial.findById(mongoose.Types.ObjectId(user.commercials[user.commercials.length-1]), (err, commercial) => {
+              Commercial.findById(mongoose.Types.ObjectId(user.commercials[0]), (err, commercial) => {
                 if (err) return res.redirect('/');
 
                 return res.render('campaigns/user/index', {
@@ -105,11 +105,11 @@ module.exports = (req, res) => {
                   code: user._id.toString(),
                   currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
                   current_page: "campaigns",
-                  commercial: commercial ? {
+                  commercial: (commercial ? {
                     name: commercial.name,
                     photo: commercial.photo,
                     url: commercial.url
-                  } : null
+                  } : null)
                 });
               });
             }
