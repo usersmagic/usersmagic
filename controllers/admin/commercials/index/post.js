@@ -33,10 +33,10 @@ module.exports = (req, res) => {
         const value = each.trim().split(':')[1].trim();
 
         if (each.trim().split(':').length < 3)
-          return {[name]: [value]};
+          return {[name]: value == "null" ? null : value};
         
         return {[name]: {
-          [value]: each.trim().split(':')[2].trim()
+          [value]: each.trim().split(':')[2].trim() == "null" ? null : each.trim().split(':')[2].trim()
         }}
       }) : [{birth_year: {$gte: 1920}}, {birth_year: {$lte: 2020}}];
 
