@@ -41,6 +41,14 @@ const UserSchema = new Schema({
     type: Number,
     default: null
   },
+  city: {
+    type: String,
+    default: null
+  },
+  town: {
+    type: String,
+    default: null
+  },
   information: {
     type: Object,
     default: {}
