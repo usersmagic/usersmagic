@@ -133,6 +133,24 @@ window.onload = () => {
     }
   });
 
+  if (cityInput.value && cityInput.value.length) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/profile/user/town?city=" + cityInput.value.toLocaleLowerCase().trim());
+    xhr.send();
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == xhr.DONE && xhr.responseText) {
+        if (xhr.status == 500)
+          towns = [];
+        else {
+          towns = [];
+          const newTowns = JSON.parse(xhr.responseText);
+          newTowns.forEach(town => towns.push(town));
+        }
+      };
+    };
+  }
+
   cityInput.onfocus = () => {
     if (cityInputWrapper.classList.contains('close-up-animation-class'))
       cityInputWrapper.classList.remove('close-up-animation-class');
@@ -141,6 +159,9 @@ window.onload = () => {
   }
 
   cityInput.oninput = () => {
+    townInput.value = "";
+    towns = [];
+
     if (cityInput.value) {
       cityInputChoices.innerHTML = "";
       cities.forEach(city => {
@@ -153,6 +174,23 @@ window.onload = () => {
             cityInputChoices.insertBefore(newChoice, newChoice.previousElementSibling);
         }
       });
+      if (cities.includes(cityInput.value.charAt(0).toLocaleUpperCase() + cityInput.value.slice(1).toLocaleLowerCase())) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/profile/user/town?city=" + cityInput.value.toLocaleLowerCase().trim());
+        xhr.send();
+
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState == xhr.DONE && xhr.responseText) {
+            if (xhr.status == 500)
+              towns = [];
+            else {
+              towns = [];
+              const newTowns = JSON.parse(xhr.responseText);
+              newTowns.forEach(town => towns.push(town));
+            }
+          };
+        };
+      }
     } else {
       cityInputChoices.innerHTML = "";
       cities.forEach(city => {
