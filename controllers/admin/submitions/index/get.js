@@ -26,7 +26,20 @@ module.exports = (req, res) => {
           if (!user || !user.name) return next(null);
 
           next(err, {
-            user,
+            user: {
+              _id: user._id,
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              gender: user.gender,
+              birth_year: user.birth_year,
+              payment_number: user.payment_number,
+              credit: user.credit,
+              waiting_credit: user.waiting_credit,
+              overall_credit: user.overall_credit,
+              city: user.city,
+              town: user.town
+            },
             answers: submitions[time].answers
           })
         });
