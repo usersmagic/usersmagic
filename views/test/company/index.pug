@@ -81,6 +81,8 @@ block main
               input.each-input.min-birth-year-input(type="number" placeholder=__('En Küçük Doğum Yılı'))
               input.each-input.max-birth-year-input(type="number" placeholder=__('En Büyük Doğum Yılı'))
           span.input-info #{__('Kampanyanıza katılabilecek kullanıcıları filtreleyin')}
+          input.each-input.email-list-input(type="text" placeholder=__('Kampanyanızı özel e-posta adreslerine gönderin.'))
+          span.input-info= __('Kampanyanızı göndermek istediğiniz kullanıcıların e-posta adreslerini biliyor musunuz? Sadece o e-posta adreslerine sahip kullanıcıların kampanyanıza katılabilmesi için araya boşluk koyarak e-posta listesini yazın.')
           .continue-button
             span #{__('Devam Et')}
     .campaign-question-wrapper

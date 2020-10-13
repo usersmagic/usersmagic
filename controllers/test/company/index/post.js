@@ -4,7 +4,6 @@ const Company = require('../../../../models/company/Company');
 const PrivateCampaign = require('../../../../models/private_campaign/PrivateCampaign');
 
 module.exports = (req, res) => {
-  console.log(req.body);
   if (!req.body || !req.body.name || !req.body.photo || !req.body.description || !req.body.information || !req.body.price || !req.body.country || !req.body.submition_limit || !req.body.questions || !req.body.filter)
     return res.sendStatus(500);
 
@@ -21,19 +20,18 @@ module.exports = (req, res) => {
     country: req.body.country,
     submition_limit: req.body.submition_limit,
     questions: req.body.questions,
-    filter: req.body.filter
+    filter: req.body.filter,
+    email_list: req.body.emailList && req.body.emailList.length ? req.body.emailList.split(' ') : null
   };
 
   const newPrivateCampaign = new PrivateCampaign(newPrivateCampaignData);
 
   newPrivateCampaign.save((err, campaign) => {
-    console.log(err);
     if (err) return res.sendStatus(500);
 
     Company.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.company._id), {$push: {
       campaigns: campaign._id.toString()
     }}, {}, err => {
-      console.log(err);
       if (err) return res.sendStatus(500);
 
       res.write(campaign._id.toString());

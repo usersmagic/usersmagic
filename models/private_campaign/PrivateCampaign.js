@@ -78,6 +78,10 @@ const PrivateCampaignSchema = new Schema({
   filter: {
     type: Array,
     default: []
+  },
+  email_list: {
+    type: Array,
+    default: null
   }
 });
 

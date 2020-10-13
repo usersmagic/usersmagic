@@ -28,6 +28,9 @@ module.exports = (req, res) => {
     if (campaign.country)
       filters.push({country: campaign.country});
 
+    if (campaign.email_list && campaign.email_list.length)
+      filters.push({email: {$in: campaign.email_list}});
+
     campaign.filter.forEach(filter => {
       const newFilter = {};
       if (filter.or) {

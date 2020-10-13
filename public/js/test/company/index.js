@@ -209,7 +209,8 @@ window.onload = () => {
     gender: "",
     country: "",
     min_birth_year: 0,
-    max_birth_year: 0
+    max_birth_year: 0,
+    emailList: null
   }
   let questionIdOrder = [], choiceId;
   const question = {
@@ -238,6 +239,7 @@ window.onload = () => {
   const campaignLimitInput = document.querySelector('.campaign-limit-input');
   const minBirthYearInput = document.querySelector('.min-birth-year-input');
   const maxBirthYearInput = document.querySelector('.max-birth-year-input');
+  const emailListInput = document.querySelector('.email-list-input');
 
   nameInput.oninput = () => campaign.name = (nameInput.value.length ? nameInput.value : null);
   priceInput.oninput = () => campaign.price = (priceInput.value.length ? priceInput.value : null);
@@ -246,6 +248,7 @@ window.onload = () => {
   campaignLimitInput.oninput = () => campaign.submition_limit = (campaignLimitInput.value.length ? campaignLimitInput.value : null);
   minBirthYearInput.oninput = () => campaign.min_birth_year = minBirthYearInput.value;
   maxBirthYearInput.oninput = () => campaign.max_birth_year = maxBirthYearInput.value;
+  emailListInput.oninput = () => campaign.emailList = emailListInput.value;
 
   const countryEachInputChoices = document.querySelectorAll('.country-each-input-choice');
   const genderEachInputChoices = document.querySelectorAll('.gender-each-input-choice');
