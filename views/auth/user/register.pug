@@ -8,20 +8,26 @@ block content
       a.language-text(href="/auth/user/register?lang=tr") TR
       span |
       a.language-text(href="/auth/user/register?lang=en") EN
-  form.all-wrapper(method="POST" action="/auth/user/register" + (invitor ? "?code=" + invitor : ""))
+  form.all-wrapper.register-form(method="POST" action="/auth/user/register" + (invitor ? "?code=" + invitor : ""))
     .all-inner-wrapper
       span.logo-name usersmagic
       input.each-input(type="email" placeholder=__('E-Posta') name="email" required autofocus autocomplete="off")
       input.each-input(type="password" placeholder=__('Şifre') name="password" required autocomplete="off")
       input.each-input(type="password" placeholder=__('Şifre Tekrarı') name="password_confirm" required autocomplete="off")
+      .agreement-wrapper
+        input.display-none(type="checkbox" name="agreement_approved")
+        .agreement-checkbox-wrapper
+          i.fas.fa-check
+        span
+          span.agreement-text #{__('Kutucuğu işaretleyerek Usersmagic')}
+          a.agreement-link(href="/agreement/user")  #{__('Kullanım Sözleşmesini')}
+          span.agreement-text  #{__('ve')}
+          a.agreement-link(href="/agreement/privacy")  #{__('Gizlilik Sözleşmesini')}
+          span.agreement-text  #{__('kabul ediyor, kişisel verilerin korunması ve işlenmesine ilişkin açık rıza veriyorum.')}
       if error
         span.error-text= error
       button.send-button
         span #{__('Üye Ol')}
-      span.agreement-text
-        span #{__('Kaydolarak')}
-        a(href="/agreement/user") #{__('Kullanıcı Sözleşmesini')}
-        span #{__('kabul etmiş olursunuz.')}
       .register-link-wrapper
         span.register-text #{__('Zaten üye misin')}?
         a.register-link(href=language_key ? "/auth/user/login?lang=" + language_key : "/auth/user/login") #{__('Giriş Yap')}

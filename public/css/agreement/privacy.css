@@ -20,22 +20,20 @@ body {
   width: 100vw;
   margin: 0px;
   padding: 0px;
-  height: 100vh;
+  height: 100vh !important;
   bottom: 0px;
-  min-height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  display: flex;
-  flex-direction: column;
 }
 
-.all-wrapper {
+.all-wrapper-agreement {
   display: flex;
   flex-direction: column;
   padding: 0px 20px;
   padding-bottom: 20px;
-  min-height: fit-content;
   width: 100vw;
+  height: auto;
+  min-height: fit-content;
 }
 span {
   color: rgb(24, 24, 24);

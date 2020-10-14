@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     page: 'auth/user/register',
     title: res.__('Kaydol'),
     includes: {
-      external: ['css', 'fontawesome']
+      external: ['css', 'js', 'fontawesome']
     },
     error,
     invitor: req.query && req.query.code ? req.query.code : null,

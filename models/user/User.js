@@ -6,6 +6,10 @@ const hashPassword = require('./functions/hashPassword');
 const verifyPassword = require('./functions/verifyPassword');
 
 const UserSchema = new Schema({
+  agreement_approved: {
+    type: Boolean,
+    default: false
+  },
   email: {
     type: String,
     unique: true,

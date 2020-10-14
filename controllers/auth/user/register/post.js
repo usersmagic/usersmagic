@@ -8,6 +8,11 @@ module.exports = (req, res) => {
     return res.redirect('/auth/user/register' + (req.query && req.query.code ? "?code=" + req.query.code : ""));
   }
 
+  if (!req.body.agreement_approved) {
+    req.session.error = res.__('Lütfen Kullanım Sözleşmesini Gizlilik Sözleşmesini kabul edin');
+    return res.redirect('/auth/user/register' + (req.query && req.query.code ? "?code=" + req.query.code : ""));
+  }
+
   if (req.body.password.length < 6) {
     req.session.error = res.__('Şifreniz en az 6 haneli olmalıdır');
     return res.redirect('/auth/user/register' + (req.query && req.query.code ? "?code=" + req.query.code : ""));
@@ -26,7 +31,8 @@ module.exports = (req, res) => {
   const newUserData = {
     email: req.body.email,
     password: req.body.password,
-    invitor: (req.query && req.query.code && validator.isMongoId(req.query.code)) ? req.query.code : null
+    invitor: (req.query && req.query.code && validator.isMongoId(req.query.code)) ? req.query.code : null,
+    agreement_approved: true
   };
 
   const newUser = new User(newUserData);

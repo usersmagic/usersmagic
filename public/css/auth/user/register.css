@@ -100,7 +100,42 @@
   font-size: 150%;
 }
 
+.agreement-wrapper {
+  display: flex;
+  cursor: pointer;
+  width: 25vw;
+  margin-top: 20px;
+}
+.agreement-checkbox-wrapper {
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  border-radius: 5px;
+  border: 2px solid rgb(236, 236, 236);
+  background-color: rgb(254, 254, 254);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.agreement-checkbox-wrapper i {
+  color: rgb(254, 254, 254);
+  font-size: 85%;
+}
+.agreement-link {
+  color: rgb(240, 84, 79);
+  text-decoration: none;
+  font-weight: 600;
+}
+.agreement-link:hover {
+  text-decoration: underline;
+}
 .agreement-text {
+  color: rgb(30, 30, 30);
+  font-weight: 500;
+}
+
+/* .agreement-text {
   color: rgb(30, 30, 30);
   font-weight: 300;
   font-size: 100%;
@@ -114,7 +149,7 @@
 }
 .agreement-text a:hover {
   text-decoration: underline;
-}
+} */
 
 .register-link-wrapper {
   display: flex;
@@ -157,22 +192,22 @@
   }
 }
 @media only screen and (max-width: 900px) and (min-width: 700px) {
-  .each-input {
+  .each-input, .agreement-wrapper {
     width: 35vw;
   }
 }
 @media only screen and (max-width: 700px) and (min-width: 600px) {
-  .each-input {
+  .each-input, .agreement-wrapper {
     width: 45vw;
   }
 }
 @media only screen and (max-width: 600px) and (min-width: 450px) {
-  .each-input {
+  .each-input, .agreement-wrapper {
     width: 55vw;
   }
 }
 @media only screen and (max-width: 450px) and (min-width: 300px) {
-  .each-input {
+  .each-input, .agreement-wrapper {
     width: 80vw;
   }
 }
