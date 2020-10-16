@@ -55,6 +55,15 @@ module.exports = (req, res) => {
         (err, campaigns) => {
           if (err) return res.redirect('/');
 
+          const new_private_campaigns = [];
+
+          user.private_campaigns.forEach(campaign => {
+            if (!new_private_campaigns.includes(campaign))
+              new_private_campaigns.push(campaign);
+          });
+
+          user.private_campaigns = new_private_campaigns;
+
           async.times(
             user.private_campaigns.length,
             (time, next) => {
