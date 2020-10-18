@@ -48,7 +48,8 @@ module.exports = (req, res) => {
               version: user.campaign_versions[campaign._id.toString()],
               error: user.campaign_errors[campaign._id.toString()] || null,
               status: user.campaign_status[campaign._id.toString()],
-              last_question: user.campaign_last_question[campaign._id.toString()]
+              last_question: user.campaign_last_question[campaign._id.toString()],
+              time_limit: Math.round(campaign.time_limit / 1000 / 60 / 60)
             }));
           },
           (err, private_campaigns) => {
