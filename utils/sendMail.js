@@ -312,7 +312,7 @@ const templates = {
     <div style="
       width: 100%;
       background-color: rgb(254, 254, 254);
-      overflow-x: scroll;
+      overflow-x: scroll;2 zo
     " >
       <div style="
         width: 400px;
