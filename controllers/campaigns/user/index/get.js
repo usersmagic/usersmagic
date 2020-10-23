@@ -54,7 +54,8 @@ module.exports = (req, res) => {
         {$or: [
           {max_birth_year: null},
           {max_birth_year: {$gte: user.birth_year}}
-        ]}
+        ]},
+        {submition_limit: {$gt: 0}}
       ]}, (err, campaigns) => {
         if (err) return res.redirect('/');
 
