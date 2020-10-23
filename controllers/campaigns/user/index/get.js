@@ -44,6 +44,10 @@ module.exports = (req, res) => {
         ]},
         {country: user.country},
         {$or: [
+          {cities: user.city},
+          {cities: {$eq: null}}
+        ]},
+        {$or: [
           {gender: null},
           {gender: user.gender}
         ]},

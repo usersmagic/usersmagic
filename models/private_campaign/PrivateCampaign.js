@@ -79,6 +79,10 @@ const PrivateCampaignSchema = new Schema({
     type: Array,
     default: []
   },
+  cities: {
+    type: Array,
+    default: null
+  },
   email_list: {
     type: Array,
     default: null
