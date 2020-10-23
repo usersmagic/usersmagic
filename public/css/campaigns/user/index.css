@@ -89,7 +89,9 @@ body {
   font-size: 100%;
   margin-bottom: 20px;
   height: 55px;
+  width: 200px;
   overflow: scroll;
+  text-overflow: ellipsis;
 }
 .campaign-price-wrapper {
   display: flex;
