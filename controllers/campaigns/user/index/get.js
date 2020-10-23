@@ -24,7 +24,7 @@ module.exports = (req, res) => {
       paused: false
     }, (err, campaigns) => {
       if (err) return res.redirect('/');
-      all_campaigns = campaigns.filter(each => each._id).map(campaign => {
+      all_campaigns = campaigns.filter(each => each && each._id).map(campaign => {
         return {
           _id: campaign._id,
           name: campaign.name,
@@ -58,7 +58,7 @@ module.exports = (req, res) => {
       ]}, (err, campaigns) => {
         if (err) return res.redirect('/');
 
-        all_campaigns = all_campaigns.concat(campaigns.filter(each => each._id).map(campaign => {
+        all_campaigns = all_campaigns.concat(campaigns.filter(each => each && each._id).map(campaign => {
           return {
             _id: campaign._id,
             name: campaign.name,
@@ -95,7 +95,7 @@ module.exports = (req, res) => {
           (err, campaigns) => {
             if (err) return res.redirect('/');
 
-            all_campaigns = all_campaigns.concat(campaigns.filter(each => each._id));
+            all_campaigns = all_campaigns.concat(campaigns.filter(each => each && each._id));
 
             if (!user.commercials.length)
               return res.render('campaigns/user/index', {
