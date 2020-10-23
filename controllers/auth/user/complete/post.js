@@ -57,35 +57,6 @@ module.exports = (req, res) => {
 
     req.session.user = user;
 
-    PrivateCampaign.find({$and: [
-      {filter: {$size: 0}},
-      {$or: [
-        {email_list: null},
-        {email_list: {$size: 0}}
-      ]},
-      {country: user.country},
-      {$or: [
-        {gender: null},
-        {gender: user.gender}
-      ]},
-      {$or: [
-        {min_birth_year: null},
-        {min_birth_year: {$lte: user.birth_year}}
-      ]},
-      {$or: [
-        {max_birth_year: null},
-        {max_birth_year: {$gte: user.birth_year}}
-      ]}
-    ]}, (err, campaigns) => {
-      if (err) return res.redirect('/');
-      
-      User.findByIdAndUpdate(mongoose.Types.ObjectId(user._id), {$set: {
-        private_campaigns: campaigns.length ? campaigns.map(campaign => campaign._id.toString()) : []
-      }}, {}, err => {
-        if (err) return res.redirect('/');
-
-        return res.redirect('/campaigns/user');
-      });
-    });
+    return res.redirect('/campaigns/user');
   });
 }
