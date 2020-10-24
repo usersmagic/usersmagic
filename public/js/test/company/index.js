@@ -218,6 +218,7 @@ window.onload = () => {
     text: null,
     type: null,
     other_option: false,
+    answer_length: 1000,
     choices: []
   }
 
@@ -529,6 +530,7 @@ window.onload = () => {
       newQuestion.text = question.text;
       newQuestion.choices = question.choices;
       newQuestion.other_option = question.other_option;
+      newQuestion.answer_length = question.answer_length;
       campaign.questions.push(newQuestion);
       campaignQuestionCreateWrapper.style.display = "flex";
       campaignQuestionContentWrapper.style.display = "none";
@@ -663,6 +665,8 @@ window.onload = () => {
   characterCountInput.oninput = () => {
     if (!characterCountInput.value)
       return;
+
+    question.answer_length = parseInt(characterCountInput.value);
 
     if (parseInt(characterCountInput.value) <= 10000)
       document.getElementById(question._id).childNodes[3].innerHTML = characterCountInput.value + " " + document.getElementById(question._id).childNodes[3].innerHTML.split(' ').filter((e, i) => i != 0).join(" ");
