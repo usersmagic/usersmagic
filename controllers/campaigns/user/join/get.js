@@ -59,12 +59,15 @@ module.exports = (req, res) => {
       PrivateCampaign.findOneAndUpdate({
         $and: [
           { _id: mongoose.Types.ObjectId(req.query.id) },
-          { _id: {$in: user.private_campaigns} },
           { _id: {$nin: user.campaigns} }
         ],
         $or: [
           { gender: null },
           { gender: user.gender }
+        ],
+        $or: [
+          {cities: user.city},
+          {cities: {$eq: null}}
         ],
         max_birth_year: { $gte: user.birth_year },
         min_birth_year: { $lte: user.birth_year },
