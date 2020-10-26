@@ -228,3 +228,4 @@ module.exports = (data, template, callback) => {
   };
   transporter.sendMail(mailOptions, callback);
 };
+

@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   if (!req.query.city)
     return res.sendStatus(500);
 
-  req.query.city = req.query.city.charAt(0).toLocaleUpperCase() + req.query.city.slice(1).toLocaleLowerCase();
+  req.query.city = (req.query.city.charAt(0) == 'i' ? 'İ' : req.query.city.charAt(0).toLocaleUpperCase()) + req.query.city.slice(1).toLocaleLowerCase();
 
   if (!cities.includes(req.query.city))
     return res.sendStatus(500);
