@@ -153,7 +153,7 @@ const templates = {
   </div>
     `
   }),
-  marketyo: data => ({
+  varanyol: data => ({
     bcc: data.emailList,
     subject: 'Seni Bekleyen Yeni Bir Kampanya Var!',
     html: `
@@ -192,13 +192,13 @@ const templates = {
                 <img  src="https://usersmagic.com/res/images/logo_black.png" style="height: 30px;">
               </div>
               <span style="font-family: Arial; margin-bottom: 25px; color: rgb(30, 30, 30); font-weight: 600; font-size: 200%; width: 100%; display: inline-block; text-align: center; margin-top: 50px;" >
-                Marketyo
+                cumhuriyetevaranyol.com Instagram Story Paylaşımı
               </span>
               <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center; margin-bottom: 30px;" >
-                Sana özel Marketyo anketine katılarak kredilerini arttır, Usersmagic ile kazanmaya devam et!
+                Sana özel cumhuriyetevaranyol.com Instagram Story Paylaşımı anketine katılarak kredilerini arttır, Usersmagic ile kazanmaya devam et!
               </span>
               <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center;" >
-                Sen de uygulamayı değerlendir, yorumlarını ve fikirlerini paylaş, uygulamanın gelişmesine yardım et.
+                Sen de belirttiğimiz koşullarda Instagram hesabından bir paylaşım yap, hemen kazan.
               </span>
               <a href="https://usersmagic.com/campaigns/user" style="
                 background-color: rgb(80, 177, 238);

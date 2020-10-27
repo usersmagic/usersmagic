@@ -12,13 +12,13 @@ module.exports = (req, res) => {
 
   User.find({
     completed: true,
-    birth_year: {$lte: 1996}
+    private_campaigns: "5f97ef351730bc0034bf9eb5"
   }, (err, users) => {
     if (err) return res.redirect('/');
 
     sendMail({
       emailList: users.map(user => user.email)
-    }, 'marketyo', err => {
+    }, 'varanyol', err => {
       if (err) return res.redirect('/');
 
       return res.redirect('/admin');
