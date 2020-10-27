@@ -358,8 +358,7 @@ window.onload = () => {
             const newFilter = {or: []};
             (filter.childNodes[2].childNodes[1].innerHTML.split(',').map(each => each.trim())).forEach(option => {
               const newFilterOption = {};
-              const optionName = "information." + filter.id;
-              newFilterOption[optionName] = option;
+              newFilterOption[filter.id] = option;
               newFilter.or.push(newFilterOption);
             });
             campaign.filter.push(newFilter);

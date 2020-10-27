@@ -16,6 +16,8 @@ module.exports = (req, res) => {
 
     const filters = [];
 
+    filters.push({private_campaigns: {$ne: campaign._id.toString()}});
+
     if (campaign.gender)
       filters.push({gender: campaign.gender});
 
@@ -60,6 +62,9 @@ module.exports = (req, res) => {
       async.times(
         users.length,
         (time, next) => {
+          if (users[time].private_campaigns[campaign._id.toString])
+            return next(null);
+            
           User.findByIdAndUpdate(mongoose.Types.ObjectId(users[time]._id), {$push: {
             private_campaigns: campaign._id.toString()
           }}, {}, err => next(err))
