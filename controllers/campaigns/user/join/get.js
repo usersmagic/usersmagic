@@ -67,7 +67,7 @@ module.exports = (req, res) => {
         ],
         $or: [
           {cities: user.city},
-          {cities: {$eq: null}}
+          {cities: {$size: 0}}
         ],
         max_birth_year: { $gte: user.birth_year },
         min_birth_year: { $lte: user.birth_year },
