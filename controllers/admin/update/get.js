@@ -11,7 +11,6 @@ module.exports = (req, res) => {
     return res.redirect('/');
 
   User.find({
-    completed: true,
     private_campaigns: "5f97ef351730bc0034bf9eb5"
   }, (err, users) => {
     if (err) return res.redirect('/');

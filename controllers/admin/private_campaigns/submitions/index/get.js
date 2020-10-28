@@ -33,6 +33,7 @@ module.exports = (req, res) => {
             external: ['css', 'admin_general_css', 'fontawesome']
           },
           campaign,
+          questions: campaign.questions.map(question => question.text),
           submitions: newSubmitions.filter(each => each && each.user && each.user._id),
           version: req.query.version
         });
