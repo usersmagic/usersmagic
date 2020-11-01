@@ -8,36 +8,76 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
   
-  PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
-    if (err || !campaign) return res.redirect('/admin');
+  if (req.query.by_question) {
+    PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+      if (err || !campaign) return res.redirect('/admin');
 
-    async.times(
-      Math.min(campaign.submitions.length, 50),
-      (time, next) => {
-        User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
-          if (!user || !user.name) return next(null);
-
-          next(err, {
-            user,
-            answers: campaign.submitions[time].answers
-          })
-        });
-      },
-      (err, newSubmitions) => {
-        if (err) return res.redirect('/admin');
-
-        return res.render('admin/private_campaigns/submitions', {
-          page: 'admin/private_campaigns/submitions',
-          title: campaign.name,
-          includes: {
-            external: ['css', 'admin_general_css', 'fontawesome']
-          },
-          campaign,
-          questions: campaign.questions.map(question => question.text),
-          submitions: newSubmitions.filter(each => each && each.user && each.user._id),
-          version: req.query.version
-        });
-      }
-    );
-  });
+      if (parseInt(req.query.by_question) >= campaign.questions.length)
+        return res.redirect('/admin');
+  
+      async.times(
+        Math.min(campaign.submitions.length, 50),
+        (time, next) => {
+          User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
+            if (!user || !user.name) return next(null);
+  
+            next(err, {
+              user,
+              answer: campaign.submitions[time].answers[req.query.by_question]
+            });
+          });
+        },
+        (err, newSubmitions) => {
+          if (err) return res.redirect('/admin');
+  
+          return res.render('admin/private_campaigns/submitions', {
+            page: 'admin/private_campaigns/submitions',
+            title: campaign.name,
+            includes: {
+              external: ['css', 'admin_general_css', 'fontawesome']
+            },
+            campaign,
+            questions: campaign.questions.map(question => question.text),
+            submitions: newSubmitions.filter(each => each && each.user && each.user._id),
+            question_number: parseInt(req.query.by_question),
+            is_one_question: true,
+            version: req.query.version
+          });
+        }
+      );
+    });
+  } else {
+    PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+      if (err || !campaign) return res.redirect('/admin');
+  
+      async.times(
+        Math.min(campaign.submitions.length, 50),
+        (time, next) => {
+          User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
+            if (!user || !user.name) return next(null);
+  
+            next(err, {
+              user,
+              answers: campaign.submitions[time].answers
+            })
+          });
+        },
+        (err, newSubmitions) => {
+          if (err) return res.redirect('/admin');
+  
+          return res.render('admin/private_campaigns/submitions', {
+            page: 'admin/private_campaigns/submitions',
+            title: campaign.name,
+            includes: {
+              external: ['css', 'admin_general_css', 'fontawesome']
+            },
+            campaign,
+            questions: campaign.questions.map(question => question.text),
+            submitions: newSubmitions.filter(each => each && each.user && each.user._id),
+            version: req.query.version
+          });
+        }
+      );
+    });
+  }
 }
