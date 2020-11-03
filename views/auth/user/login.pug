@@ -11,6 +11,8 @@ block content
   form.all-wrapper(method="POST" action="/auth/user/login")
     .all-inner-wrapper
       span.logo-name usersmagic
+      .lost-password-wrapper
+        a.lost-password-link(href="/auth/user/lost_password") #{__('Şifremi Unuttum')} 
       input.each-input(type="email" placeholder=__('E-Posta') name="email" required autofocus autocomplete="off")
       input.each-input(type="password" placeholder=__('Şifre') name="password" required autocomplete="off")
       button.send-button

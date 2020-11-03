@@ -116,6 +116,14 @@ const UserSchema = new Schema({
   commercials: {
     type: Array,
     default: []
+  },
+  password_reset_code: {
+    type: String,
+    default: null
+  },
+  password_reset_last_date: {
+    type: Number,
+    default: null
   }
 });
 
