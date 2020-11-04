@@ -255,5 +255,17 @@
 	"Kampanyanızı özel e-posta adreslerine gönderin.": "Kampanyanızı özel e-posta adreslerine gönderin.",
 	"Kampanyanızı göndermek istediğiniz kullanıcıların e-posta adreslerini biliyor musunuz? Sadece o e-posta adreslerine sahip kullanıcıların kampanyanıza katılabilmesi için araya boşluk koyarak e-posta listesini yazın.": "Kampanyanızı göndermek istediğiniz kullanıcıların e-posta adreslerini biliyor musunuz? Sadece o e-posta adreslerine sahip kullanıcıların kampanyanıza katılabilmesi için araya boşluk koyarak e-posta listesini yazın.",
 	"Şifreniz en az 6 haneli olmalıdır": "Şifreniz en az 6 haneli olmalıdır",
-	"Bu e-posta adresi zaten kayıtlı, lüfen başka bir adres deneyin": "Bu e-posta adresi zaten kayıtlı, lüfen başka bir adres deneyin"
+	"Bu e-posta adresi zaten kayıtlı, lüfen başka bir adres deneyin": "Bu e-posta adresi zaten kayıtlı, lüfen başka bir adres deneyin",
+	"Şifremi Unuttum": "Şifremi Unuttum",
+	"Şifreni Değiştir": "Şifreni Değiştir",
+	"E-Posta Gönder": "E-Posta Gönder",
+	"Girdiğiniz e-posta adresi bulunamadı": "Girdiğiniz e-posta adresi bulunamadı",
+	"Girdiğiniz e-posta adresine şifre değiştirme linkiniz başarılı bir şekilde yollandı": "Girdiğiniz e-posta adresine şifre değiştirme linkiniz başarılı bir şekilde yollandı",
+	"Yeni Şifre Girin": "Yeni Şifre Girin",
+	"Şifreyi değiştir": "Şifreyi değiştir",
+	"Yeni şifreniz en az 6 haneli olmalıdır": "Yeni şifreniz en az 6 haneli olmalıdır",
+	"Lütfen yeni şifrenizi onaylayın": "Lütfen yeni şifrenizi onaylayın",
+	"Lütfen yeni şifrenizi tekrarlayın": "Lütfen yeni şifrenizi tekrarlayın",
+	"Lütfen gerekli bütün bilgileri girin": "Lütfen gerekli bütün bilgileri girin",
+	"Şifre değiştirme talebiniz 1 saati geçmiş durumda. Lütfen yeni bir şifre değiştirme talebinde bulunun": "Şifre değiştirme talebiniz 1 saati geçmiş durumda. Lütfen yeni bir şifre değiştirme talebinde bulunun"
 }

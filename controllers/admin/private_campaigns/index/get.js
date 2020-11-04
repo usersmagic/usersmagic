@@ -19,7 +19,8 @@ module.exports = (req, res) => {
             _id: campaigns[time]._id,
             name: campaigns[time].name,
             photo: campaigns[time].photo,
-            company: company.company_name
+            company: company.company_name,
+            approved: campaigns[time].accepted_submitions.length
           });
         });
       },

@@ -17,7 +17,7 @@ const PrivateCampaignSchema = new Schema({
   },
   status: {
     type: String,
-    default: "waiting"
+    default: "saved"
   },
   reject_message: {
     type: String,
@@ -25,19 +25,19 @@ const PrivateCampaignSchema = new Schema({
   },
   description: {
     type: String,
-    required: true
+    default: null
   },
   information: {
     type: String,
-    required: true
+    default: null
   },
   price: {
     type: Number,
-    required: true
+    default: null
   },
   country: {
     type: String,
-    required: true
+    default: null
   },
   gender: {
     type: String,
@@ -53,7 +53,7 @@ const PrivateCampaignSchema = new Schema({
   },
   submition_limit: {
     type: Number,
-    required: true
+    default: null
   },
   time_limit: {
     type: Number,

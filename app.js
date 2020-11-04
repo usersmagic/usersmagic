@@ -49,6 +49,7 @@ if (cluster.isMaster) {
   const historyRouteController = require('./routes/historyRoute');
   const brandRouteController = require('./routes/brandRoute');
   const agreementRouteController = require('./routes/agreementRoute');
+  const dashboardRouteController = require('./routes/dashboardRoute');
   
   app.set("views", path.join(__dirname, "views"));
   app.set("view engine", "pug");
@@ -80,6 +81,7 @@ if (cluster.isMaster) {
   app.use(i18n.init);
   
   app.use('/', indexRouteController);
+  app.use('/dashboard', dashboardRouteController);
   app.use('/admin', adminRouteController);
   app.use('/auth', authRouteController);
   app.use('/campaigns', campaignsRouteController);
