@@ -7,13 +7,15 @@ const User = require('../../../../../models/user/User');
 module.exports = (req, res) => {
   if (!req.query || !req.query.id)
     return res.redirect('/admin');
-  
+
+  if (!req.query.page)
+    req.query.page = 0;
+
+  const page = parseInt(req.query.page);
+
   if (req.query.by_question) {
     PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
       if (err || !campaign) return res.redirect('/admin');
-
-      if (parseInt(req.query.by_question) >= campaign.questions.length)
-        return res.redirect('/admin');
   
       async.times(
         Math.min(campaign.submitions.length, 50),
@@ -49,16 +51,22 @@ module.exports = (req, res) => {
   } else {
     PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
       if (err || !campaign) return res.redirect('/admin');
+
+      if (page * 50 > campaign.submitions.length)
+        return res.redirect('/admin');
+
+      if (parseInt(req.query.by_question) >= campaign.questions.length)
+        return res.redirect('/admin');
   
       async.times(
-        Math.min(campaign.submitions.length, 50),
+        Math.min((campaign.submitions.length - (page * 50)), 50),
         (time, next) => {
-          User.findById(mongoose.Types.ObjectId(campaign.submitions[time].user_id), (err, user) => {
+          User.findById(mongoose.Types.ObjectId(campaign.submitions[(page * 50) + time].user_id), (err, user) => {
             if (!user || !user.name) return next(null);
   
             next(err, {
               user,
-              answers: campaign.submitions[time].answers
+              answers: campaign.submitions[(page * 50) + time].answers
             })
           });
         },
