@@ -1,26 +1,34 @@
 const async = require('async');
 const mongoose = require('mongoose');
 
-const User = require('../../../models/user/User');
 const Campaign = require('../../../models/campaign/Campaign');
+const PrivateCampaign = require('../../../models/private_campaign/PrivateCampaign');
+const User = require('../../../models/user/User');
 
 const sendMail = require('../../../utils/sendMail');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.updates || req.query.updates != "mail")
+  if (!req.query || !req.query.updates || req.query.updates != "data")
     return res.redirect('/');
 
-  User.find({
-    private_campaigns: "5f97ef351730bc0034bf9eb5"
-  }, (err, users) => {
-    if (err) return res.redirect('/');
+  PrivateCampaign.findById(mongoose.Types.ObjectId("5f899194673ead001c9ed252"), (err, campaign) => {
+    if (err) return res.json({error: err});
 
-    sendMail({
-      emailList: users.map(user => user.email)
-    }, 'varanyol', err => {
-      if (err) return res.redirect('/');
+    async.times(
+      campaign.accepted_submitions.length,
+      (time, next) => {
+        User.findById(mongoose.Types.ObjectId(campaign.accepted_submitions[time].user_id), (err, user) => next(err, {
+          "Ad Soyad": user.name,
+          "Doğum Yılı": user.birth_year,
+          "Cinsiyet": user.gender,
+          "Cevaplar": campaign.accepted_submitions[time].answers
+        }));
+      },
+      (err, data) => {
+        if (err) return res.json({error: err});
 
-      return res.redirect('/admin');
-    });
-  });
+        return res.json({"Kabul Edilen Cevaplar": data});
+      }
+    )
+  })
 }
