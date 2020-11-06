@@ -27,16 +27,39 @@ module.exports = (req, res) => {
         "15": {},
         "16": {}
       },
-      "30-40": [],
-      "40+": [],
-      "total": []
+      "30-40": {
+        "2": {},
+        "9": {},
+        "18": {},
+        "3": {},
+        "4": {},
+        "11": {},
+        "19": {},
+        "20": {},
+        "15": {},
+        "16": {}
+      },
+      "40+": {
+        "2": {},
+        "9": {},
+        "18": {},
+        "3": {},
+        "4": {},
+        "11": {},
+        "19": {},
+        "20": {},
+        "15": {},
+        "16": {}
+      }
     }
 
     async.times(
       campaign.accepted_submitions.length,
       (time, next) => {
+        if (!campaign.accepted_submitions[time].user_id) return next(null);
+
         User.findById(mongoose.Types.ObjectId(campaign.accepted_submitions[time].user_id), (err, user) => {
-          if (err) return next(null);
+          if (err) return next(err);
 
           let birth_year; 
           const answers = campaign.accepted_submitions[time].answers;
@@ -77,7 +100,7 @@ module.exports = (req, res) => {
       (err, data) => {
         if (err) return res.json({error: err});
 
-        return res.json({answers});
+        return res.json({answers: answers_by_age});
       }
     )
   })
