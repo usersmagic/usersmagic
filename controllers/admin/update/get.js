@@ -79,7 +79,7 @@ module.exports = (req, res) => {
           if (!answers || !answers.length || !answers[20])
             return next(null);
 
-          if (user.birth_year < 1996 && user.birth_year > 1990) {
+          if (user.birth_year <= 1996 && user.birth_year > 1990) {
             birth_year = "25-30";
           } else if (user.birth_year <= 1990 && user.birth_year > 1980) {
             birth_year = "30-40";
