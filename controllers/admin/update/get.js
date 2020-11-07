@@ -64,6 +64,9 @@ module.exports = (req, res) => {
           let birth_year; 
           const answers = campaign.accepted_submitions[time].answers;
 
+          if (!answers || !answers.length || !answers[20])
+            return next(null);
+
           if (user.birth_year < 1996 && user.birth_year > 1990) {
             birth_year = "25-30";
           } else if (user.birth_year <= 1990 && user.birth_year > 1980) {
