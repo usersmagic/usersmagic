@@ -15,19 +15,8 @@ module.exports = (req, res) => {
     if (err) return res.json({error: err});
 
     const answers_by_age = {
-      "25-": {
-        "2": {},
-        "9": {},
-        "18": {},
-        "3": {},
-        "4": {},
-        "11": {},
-        "19": {},
-        "20": {},
-        "15": {},
-        "16": {}
-      },
       "25-30": {
+        "1": {},
         "2": {},
         "9": {},
         "18": {},
@@ -37,9 +26,11 @@ module.exports = (req, res) => {
         "19": {},
         "20": {},
         "15": {},
-        "16": {}
+        "16": {},
+        "17": {}
       },
       "30-40": {
+        "1": {},
         "2": {},
         "9": {},
         "18": {},
@@ -49,9 +40,11 @@ module.exports = (req, res) => {
         "19": {},
         "20": {},
         "15": {},
-        "16": {}
+        "16": {},
+        "17": {}
       },
       "40+": {
+        "1": {},
         "2": {},
         "9": {},
         "18": {},
@@ -61,7 +54,8 @@ module.exports = (req, res) => {
         "19": {},
         "20": {},
         "15": {},
-        "16": {}
+        "16": {},
+        "17": {}
       }
     }
 
@@ -89,6 +83,7 @@ module.exports = (req, res) => {
             birth_year = "25-";
           }
 
+          answers_by_age[birth_year]["1"][answers[1]] = answers_by_age[birth_year]["1"][answers[1]] ? answers_by_age[birth_year]["1"][answers[1]]+1 : 1;
           answers_by_age[birth_year]["2"][answers[2]] = answers_by_age[birth_year]["2"][answers[2]] ? answers_by_age[birth_year]["2"][answers[2]]+1 : 1;
           answers_by_age[birth_year]["9"][answers[9]] = answers_by_age[birth_year]["9"][answers[9]] ? answers_by_age[birth_year]["9"][answers[9]]+1 : 1;
           answers_by_age[birth_year]["18"][answers[18]] = answers_by_age[birth_year]["18"][answers[18]] ? answers_by_age[birth_year]["18"][answers[18]]+1 : 1;
@@ -113,6 +108,9 @@ module.exports = (req, res) => {
 
           if (Number.isInteger(answers[16].trim()))
             answers_by_age[birth_year]["16"][answers[16].trim()] = answers_by_age[birth_year]["16"][answers[16].trim()] ? answers_by_age[birth_year]["16"][answers[16].trim()]+1 : 1;
+
+          if (Number.isInteger(answers[17].trim()))
+            answers_by_age[birth_year]["17"][answers[16].trim()] = answers_by_age[birth_year]["16"][answers[16].trim()] ? answers_by_age[birth_year]["16"][answers[16].trim()]+1 : 1;
 
           return next(null);
         });
