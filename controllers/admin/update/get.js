@@ -15,6 +15,18 @@ module.exports = (req, res) => {
     if (err) return res.json({error: err});
 
     const answers_by_age = {
+      "25-": {
+        "2": {},
+        "9": {},
+        "18": {},
+        "3": {},
+        "4": {},
+        "11": {},
+        "19": {},
+        "20": {},
+        "15": {},
+        "16": {}
+      },
       "25-30": {
         "2": {},
         "9": {},
@@ -73,6 +85,8 @@ module.exports = (req, res) => {
             birth_year = "30-40";
           } else if (user.birth_year <= 1980) {
             birth_year = "40+";
+          } else {
+            birth_year = "25-";
           }
 
           answers_by_age[birth_year]["2"][answers[2]] = answers_by_age[birth_year]["2"][answers[2]] ? answers_by_age[birth_year]["2"][answers[2]]+1 : 1;
