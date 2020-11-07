@@ -79,17 +79,17 @@ module.exports = (req, res) => {
           answers_by_age[birth_year]["4"][answers[4]] = answers_by_age[birth_year]["4"][answers[4]] ? answers_by_age[birth_year]["4"][answers[4]]+1 : 1;
           answers_by_age[birth_year]["11"][answers[11]] = answers_by_age[birth_year]["11"][answers[11]] ? answers_by_age[birth_year]["11"][answers[11]]+1 : 1;
 
-          answers[19].split(" ").forEach(word => {
+          answers[19].split(/(\s*,?\s*)+/).forEach(word => {
             if (word.trim().length)
               answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()]+1 : 1;
           });
 
-          answers[20].split(" ").forEach(word => {
+          answers[20].split(/(\s*,?\s*)+/).forEach(word => {
             if (word.trim().length)
               answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()]+1 : 1;
           });
 
-          answers[15].split(" ").forEach(word => {
+          answers[15].split(/(\s*,?\s*)+/).forEach(word => {
             if (word.trim().length)
               answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()]+1 : 1;
           });
