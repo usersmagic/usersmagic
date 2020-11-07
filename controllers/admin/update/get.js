@@ -106,11 +106,13 @@ module.exports = (req, res) => {
               answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()]+1 : 1;
           });
 
+          answers[17].split(' ').forEach(word => {
+            if (word.trim().length)
+              answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()]+1 : 1;
+          });
+
           if (Number.isInteger(answers[16].trim()))
             answers_by_age[birth_year]["16"][answers[16].trim()] = answers_by_age[birth_year]["16"][answers[16].trim()] ? answers_by_age[birth_year]["16"][answers[16].trim()]+1 : 1;
-
-          if (Number.isInteger(answers[17].trim()))
-            answers_by_age[birth_year]["17"][answers[16].trim()] = answers_by_age[birth_year]["16"][answers[16].trim()] ? answers_by_age[birth_year]["16"][answers[16].trim()]+1 : 1;
 
           return next(null);
         });
