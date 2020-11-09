@@ -15,7 +15,22 @@ module.exports = (req, res) => {
       includes: {
         external: ['css', 'js', 'admin_general_css', 'fontawesome']
       },
-      campaign
+      campaign: {
+        _id: campaign._id,
+        version_number: campaign.version_number,
+        ended: campaign.ended,
+        name: campaign.name,
+        photo: campaign.photo,
+        description: campaign.description,
+        information: campaign.information,
+        price: campaign.price,
+        questions: campaign.questions,
+        countries: campaign.countries,
+        gender: campaign.gender,
+        min_birth_year: campaign.min_birth_year,
+        max_birth_year: campaign.max_birth_year,
+        accepted_submitions: campaign.accepted_submitions.length
+      }
     });
   });
 }

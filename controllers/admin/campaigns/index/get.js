@@ -23,7 +23,24 @@ module.exports = (req, res) => {
         includes: {
           external: ['css', 'js', 'admin_general_css', 'fontawesome']
         },
-        campaigns,
+        campaigns: campaigns.map(camp => {
+          return {
+            _id: camp._id,
+            version_number: camp.version_number,
+            ended: camp.ended,
+            name: camp.name,
+            photo: camp.photo,
+            description: camp.description,
+            information: camp.information,
+            price: camp.price,
+            questions: camp.questions,
+            countries: camp.countries,
+            gender: camp.gender,
+            min_birth_year: camp.min_birth_year,
+            max_birth_year: camp.max_birth_year,
+            accepted_submitions: camp.accepted_submitions.length
+          }
+        }),
         questions,
         type_names
       });
