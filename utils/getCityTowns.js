@@ -2,12 +2,19 @@ const towns = [{"il_id":"1","name":"ALADAĞ"}, {"il_id":"1","name":"CEYHAN"}, {"
 
 const cities = ['adana', 'adıyaman', 'afyonkarahisar', 'ağrı', 'amasya', 'ankara', 'antalya', 'artvin', 'aydın', 'balıkesir', 'bilecik', 'bingöl', 'bitlis', 'bolu', 'burdur', 'bursa', 'çanakkale', 'çankırı', 'çorum', 'denizli', 'diyarbakır', 'edirne', 'elazığ', 'erzincan', 'erzurum', 'eskişehir', 'gaziantep', 'giresun', 'gümüşhane', 'hakkari', 'hatay', 'ısparta', 'mersin', 'istanbul', 'izmir', 'kars', 'kastamonu', 'kayseri', 'kırklareli', 'kırşehir', 'kocaeli', 'konya', 'kütahya', 'malatya', 'manisa', 'kahramanmaraş', 'mardin', 'muğla', 'muş', 'nevşehir', 'niğde', 'ordu', 'rize', 'sakarya', 'samsun', 'siirt', 'sinop', 'sivas', 'tekirdağ', 'tokat', 'trabzon', 'tunceli', 'şanlıurfa', 'uşak', 'van', 'yozgat', 'zonguldak', 'aksaray', 'bayburt', 'karaman', 'kırıkkale', 'batman', 'şırnak', 'bartın', 'ardahan', 'ığdır', 'yalova', 'karabük', 'kilis', 'osmaniye', 'düzce'];
 
+const toLocaleLowerCaseTr = (str) => {
+  for (let i = 0; i < str.length; i++)
+    str[i] = str[i] == 'İ' ? str[i] = 'i' : str[i];
+
+  return str.toLocaleLowerCase();
+}
+
 module.exports = (city) => {
   const towns_array = [];
 
   towns.forEach(town => {
     if (town.il_id == cities.indexOf(city)+1)
-      towns_array.push(town.name.charAt(0) + town.name.slice(1).split('I').join('ı').toLocaleLowerCase());
+      towns_array.push(town.name.charAt(0) + toLocaleLowerCaseTr(town.name.slice(1).split('I').join('ı')));
   });
 
   return towns_array;
