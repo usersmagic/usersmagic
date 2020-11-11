@@ -4,7 +4,7 @@ const cities = ['adana', 'adıyaman', 'afyonkarahisar', 'ağrı', 'amasya', 'ank
 
 const toLocaleLowerCaseTr = (str) => {
   for (let i = 0; i < str.length; i++)
-    str[i] = str[i] == 'İ' ? str[i] = 'i' : str[i];
+    str[i] = (str[i] == 'İ' ? 'i' : str[i]);
 
   return str.toLocaleLowerCase();
 }
