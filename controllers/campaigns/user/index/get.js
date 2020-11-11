@@ -37,6 +37,9 @@ module.exports = (req, res) => {
       });
 
       PrivateCampaign.find({$and: [
+        {
+          _id: {$nin: user.joined_private_campaigns}
+        },
         {filter: {$size: 0}},
         {$or: [
           {email_list: null},
@@ -45,7 +48,8 @@ module.exports = (req, res) => {
         {country: user.country},
         {$or: [
           {cities: user.city},
-          {cities: {$eq: null}}
+          {cities: {$eq: null}},
+          {cities: {$size: 0}}
         ]},
         {$or: [
           {gender: null},

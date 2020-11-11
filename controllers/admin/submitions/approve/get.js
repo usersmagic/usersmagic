@@ -21,9 +21,6 @@ module.exports = (req, res) => {
       Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
         $set: {
           submitions
-        },
-        $push: {
-          accepted_submitions: user._id.toString()
         }
       }, {}, err => {
         if (err) return res.redirect('/admin');

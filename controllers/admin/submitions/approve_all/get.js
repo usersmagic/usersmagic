@@ -12,7 +12,6 @@ module.exports = (req, res) => {
     if (err) return res.redirect('/admin');
 
     let submitions = campaign.submitions;
-    let accepted_submitions = campaign.accepted_submitions;
 
     async.times(
       Math.min(campaign.submitions.length, 30),
@@ -25,7 +24,6 @@ module.exports = (req, res) => {
         const user_id = campaign.submitions[time].user_id;
 
         submitions = submitions.filter(sub => (sub.user_id && sub.user_id.toString() != user_id));
-        accepted_submitions.push(user_id);
 
         User.findById(mongoose.Types.ObjectId(user_id), (err, user) => {
           if (err) return next(err);
@@ -53,8 +51,7 @@ module.exports = (req, res) => {
         if (err) return res.redirect('/admin');
 
         Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-          submitions,
-          accepted_submitions
+          submitions
         }}, {}, err => {
           if (err) return res.redirect('/admin');
 

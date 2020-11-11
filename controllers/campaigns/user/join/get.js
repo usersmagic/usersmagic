@@ -75,6 +75,7 @@ module.exports = (req, res) => {
       }, {$inc: {
         submition_limit: -1
       }}, {}, (err, campaign) => {
+        if (err) console.log(err);
         if (err || !campaign) return res.redirect('/campaigns/user');
 
         const campaign_status = user.campaign_status || {};
@@ -101,19 +102,21 @@ module.exports = (req, res) => {
           if (err) return res.redirect('/campaigns/user');
 
           const currDate = new Date();
-          currDate.setSeconds(currDate.getSeconds() + (campaign.time_limit / 1000))
+          console.log(currDate);
+          currDate.setSeconds(currDate.getSeconds() + (campaign.time_limit / 1000));
+          console.log(currDate);
 
           const job = new CronJob(currDate, () => {
             delete campaign_status[req.query.id];
             delete campaign_versions[req.query.id];
             delete campaign_last_question[req.query.id];
 
-            const campaignStatusQuery = "campaign_status." + req.query.id;
+            const campaignStatusQuery = "campaign_status." + campaign._id.toString();
             
-            User.findOne({$and: [
+            User.findOneAndUpdate({$and: [
               {_id: mongoose.Types.ObjectId(req.session.user._id)},
               {joined_private_campaigns: campaign._id.toString()},
-              {campaignStatusQuery: "saved"}
+              {[campaignStatusQuery]: "saved"}
             ]}, {
               $pull: {
                 joined_private_campaigns: campaign._id.toString()
