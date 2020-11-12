@@ -11,9 +11,6 @@ module.exports = (req, res) => {
       if (err || !user) return res.sendStatus(500);
   
       const information = user.information || {};
-      const campaign_last_question = user.campaign_last_question;
-  
-      campaign_last_question[req.body.id] = (req.body.question || -1) + 1;
   
       Object.keys(req.body.answers).forEach((id, time) => {
         if (Object.values(req.body.answers)[time] && Object.values(req.body.answers)[time].length)
@@ -22,7 +19,7 @@ module.exports = (req, res) => {
   
       User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
         information,
-        campaign_last_question
+        ["campaign_last_question." + req.body.id]: (req.body.question || -1) + 1
       }}, (err, user) => {
         if (err || !user) return res.sendStatus(500);
   

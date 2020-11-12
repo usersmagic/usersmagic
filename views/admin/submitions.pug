@@ -6,7 +6,7 @@ block main
       span.subtitle Bu sayfadan bu kampanyaya gelen başvuruları görebilir, onay verebilir veya reddebilirsiniz. Eğer reddederseniz bir sebep yazmalısınız.
   .all-content-inner-wrapper
     .submitions-wrapper
-      a.approve-all-button(href=`/admin/submitions/approve_all?id=${campaign._id.toString()}`) Sayfadaki Başvuruların Hepsini Onayla
+      a.approve-all-button(href=`/admin/submitions/approve_all?campaign=${campaign._id.toString()}&id_list=${submitions.map(sub => sub._id.toString()).join("%2C")}`) Sayfadaki Başvuruların Hepsini Onayla
       each submition in submitions
         .each-submition-wrapper
           span.submition-title Bilgiler:
@@ -21,7 +21,7 @@ block main
           each answer, i in submition.answers
             span.each-answer #{i+1}. #{questions[i]}
             span.each-answer #{Array.isArray(answer) ? answer.join(' / ') : answer}
-          form.reject-form(action=`/admin/submitions/reject?id=${campaign._id.toString()}&user=${submition.user._id.toString()}` method="POST")
+          form.reject-form(action=`/admin/submitions/reject?id=${submition._id.toString()}` method="POST")
             input.each-input(type="text" placeholder="Red Sebebi" name="reason")
             button.reject-button Reddet
-            a.approve-button(href=`/admin/submitions/approve?id=${campaign._id.toString()}&user=${submition.user._id.toString()}`) Onayla
+            a.approve-button(href=`/admin/submitions/approve?id=${submition._id.toString()}`) Onayla

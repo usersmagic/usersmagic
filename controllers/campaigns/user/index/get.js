@@ -12,18 +12,19 @@ module.exports = (req, res) => {
 
     let all_campaigns = [];
 
-    Campaign.find({
-      _id: {$nin: user.campaigns},
-      $or: [
+    Campaign.find({$and: [
+      {_id: {$nin: user.campaigns}},
+      {$or: [
         { gender: "both" },
         { gender: user.gender }
-      ],
-      max_birth_year: { $gte: user.birth_year },
-      min_birth_year: { $lte: user.birth_year },
-      countries: user.country,
-      paused: false
-    }, (err, campaigns) => {
+      ]},
+      {max_birth_year: { $gte: user.birth_year }},
+      {min_birth_year: { $lte: user.birth_year }},
+      {countries: user.country},
+      {paused: false}
+    ]}, (err, campaigns) => {
       if (err) return res.redirect('/');
+
       all_campaigns = campaigns.filter(each => each && each._id).map(campaign => {
         return {
           _id: campaign._id,

@@ -1,62 +1,53 @@
 const async = require('async');
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const Campaign = require('../../../../models/campaign/Campaign');
 const User = require('../../../../models/user/User');
+const Submition = require('../../../../models/submition/Submition');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id)
+  if (!req.query || !req.query.id_list || !req.query.campaign)
     return res.redirect('/admin');
 
-  Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
-    if (err) return res.redirect('/admin');
+  const ids = req.query.id_list.split(',');
 
-    let submitions = campaign.submitions;
+  if (!ids.length || ids.filter(id => !id || !validator.isMongoId(id)).length)
+    return res.redirect('/admin');
 
+  Campaign.findById(mongoose.Types.ObjectId(req.query.campaign), (err, campaign) => {
     async.times(
-      Math.min(campaign.submitions.length, 30),
+      ids.length,
       (time, next) => {
-        if (!campaign.submitions[time].user_id) {
-          submitions = submitions.filter((sub, i) => i != time);
-          return next(null);
-        }
-
-        const user_id = campaign.submitions[time].user_id;
-
-        submitions = submitions.filter(sub => (sub.user_id && sub.user_id.toString() != user_id));
-
-        User.findById(mongoose.Types.ObjectId(user_id), (err, user) => {
-          if (err) return next(err);
-          if (!user) return next(null);
-    
-          const campaign_status = user.campaign_status;
-          campaign_status[req.query.id] = "approved";
-
-          User.findByIdAndUpdate(mongoose.Types.ObjectId(user_id), {
-            $set: { campaign_status },
-            $inc: {
-              credit: user.paid_campaigns.includes(req.query.id) ? 0 : campaign.price
-            },
-            $push: {
-              paid_campaigns: req.query.id.toString()
-            }
-          }, {}, err => {
-            if (err) return next(err);
-    
-            return next(null);
+        Submition.findById(ids[time], (err, submition) => {
+          if (err) return next();
+          if (submition.campaign_id != campaign._id.toString()) return next();
+  
+          User.findById(mongoose.Types.ObjectId(submition.user_id), (err, user) => {
+            if (err || !user) return next();
+            
+            User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
+              $set: {
+                ["campaign_status." + submition.campaign_id]: "approved"
+              },
+              $inc: {
+                credit: user.paid_campaigns.includes(submition.campaign_id.toString()) ? 0 : campaign.price
+              },
+              $push: {
+                paid_campaigns: submition.campaign_id.toString()
+              }
+            }, {}, err => {
+              if (err) return next();
+      
+              Submition.findByIdAndDelete(ids[time], () => {
+                return next();
+              });
+            });
           });
         });
       },
-      err => {
-        if (err) return res.redirect('/admin');
-
-        Campaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-          submitions
-        }}, {}, err => {
-          if (err) return res.redirect('/admin');
-
-          return res.redirect('/admin/submitions?id=' + req.query.id + '&version=1.0');
-        });
+      () => {
+        return res.redirect(`/admin/submitions?id=${req.query.campaign}&version=1.0`);
       }
     );
   });
