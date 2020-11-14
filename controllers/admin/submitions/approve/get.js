@@ -19,7 +19,8 @@ module.exports = (req, res) => {
   
         User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
           $set: {
-            ["campaign_status." + submition.campaign_id]: "approved"
+            ["campaign_status." + submition.campaign_id]: "approved",
+            ["campaign_approve_date." + submition.campaign_id]: (new Date).getTime()
           },
           $inc: {
             credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price

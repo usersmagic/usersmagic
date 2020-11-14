@@ -93,6 +93,10 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
+  campaign_approve_date: {
+    type: Object,
+    default: {}
+  },
   payment_number: {
     type: String,
     default: null
