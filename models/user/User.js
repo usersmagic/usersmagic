@@ -61,6 +61,10 @@ const UserSchema = new Schema({
     type: Array,
     default: []
   },
+  submitions_updated: {
+    type: Boolean,
+    default: false
+  },
 
 
   private_campaigns: {
