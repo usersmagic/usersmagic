@@ -3,127 +3,105 @@ const mongoose = require('mongoose');
 
 const Campaign = require('../../../models/campaign/Campaign');
 const PrivateCampaign = require('../../../models/private_campaign/PrivateCampaign');
+const Submition = require('../../../models/submition/Submition');
 const User = require('../../../models/user/User');
 
 const sendMail = require('../../../utils/sendMail');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.updates || req.query.updates != "marketyo")
+  if (!req.query || !req.query.updates || req.query.updates != "submition")
     return res.redirect('/');
 
-  PrivateCampaign.findById(mongoose.Types.ObjectId("5f930e84c083c0002d0bddd5"), (err, campaign) => {
-    if (err) return res.json({error: err});
-
-    const answers_by_age = {
-      "25-30": {
-        "1": {},
-        "2": {},
-        "9": {},
-        "18": {},
-        "3": {},
-        "4": {},
-        "11": {},
-        "19": {},
-        "20": {},
-        "15": {},
-        "16": {},
-        "17": {}
-      },
-      "30-40": {
-        "1": {},
-        "2": {},
-        "9": {},
-        "18": {},
-        "3": {},
-        "4": {},
-        "11": {},
-        "19": {},
-        "20": {},
-        "15": {},
-        "16": {},
-        "17": {}
-      },
-      "40+": {
-        "1": {},
-        "2": {},
-        "9": {},
-        "18": {},
-        "3": {},
-        "4": {},
-        "11": {},
-        "19": {},
-        "20": {},
-        "15": {},
-        "16": {},
-        "17": {}
-      }
-    }
+  User.findOne({
+    email: "ygurlek22@my.uaa.k12.tr"
+  }, (err, user) => {
+    if (err || !user) return res.redirect('/');
 
     async.times(
-      campaign.accepted_submitions.length,
+      user.campaigns.length,
       (time, next) => {
-        if (!campaign.accepted_submitions[time].user_id) return next(null);
+        Campaign.findById(mongoose.Types.ObjectId(user.campaigns[time]), (err, campaign) => {
+          if (err || !campaign) return next(err);
 
-        User.findById(mongoose.Types.ObjectId(campaign.accepted_submitions[time].user_id), (err, user) => {
-          if (err) return next(err);
+          const answers = {};
 
-          let birth_year; 
-          const answers = campaign.accepted_submitions[time].answers;
-
-          if (!answers || !answers.length || !answers[20])
-            return next(null);
-
-          if (user.birth_year <= 1996 && user.birth_year > 1990) {
-            birth_year = "25-30";
-          } else if (user.birth_year <= 1990 && user.birth_year > 1980) {
-            birth_year = "30-40";
-          } else if (user.birth_year <= 1980) {
-            birth_year = "40+";
-          } else {
-            birth_year = "25-";
-          }
-
-          answers_by_age[birth_year]["1"][answers[1]] = answers_by_age[birth_year]["1"][answers[1]] ? answers_by_age[birth_year]["1"][answers[1]]+1 : 1;
-          answers_by_age[birth_year]["2"][answers[2]] = answers_by_age[birth_year]["2"][answers[2]] ? answers_by_age[birth_year]["2"][answers[2]]+1 : 1;
-          answers_by_age[birth_year]["9"][answers[9]] = answers_by_age[birth_year]["9"][answers[9]] ? answers_by_age[birth_year]["9"][answers[9]]+1 : 1;
-          answers_by_age[birth_year]["18"][answers[18]] = answers_by_age[birth_year]["18"][answers[18]] ? answers_by_age[birth_year]["18"][answers[18]]+1 : 1;
-          answers_by_age[birth_year]["3"][answers[3]] = answers_by_age[birth_year]["3"][answers[3]] ? answers_by_age[birth_year]["3"][answers[3]]+1 : 1;
-          answers_by_age[birth_year]["4"][answers[4]] = answers_by_age[birth_year]["4"][answers[4]] ? answers_by_age[birth_year]["4"][answers[4]]+1 : 1;
-          answers_by_age[birth_year]["11"][answers[11]] = answers_by_age[birth_year]["11"][answers[11]] ? answers_by_age[birth_year]["11"][answers[11]]+1 : 1;
-
-          answers[19].split(' ').forEach(word => {
-            if (word.trim().length)
-              answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["19"][word.toLocaleLowerCase().trim()]+1 : 1;
+          campaign.questions.forEach(question => {
+            answers[question.toString()] = user.information[question.toString()] || "";
           });
 
-          answers[20].split(' ').forEach(word => {
-            if (word.trim().length)
-              answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["20"][word.toLocaleLowerCase().trim()]+1 : 1;
+          return next(null, {
+            user_id: user._id.toString(),
+            campaign_id: campaign._id.toString(),
+            created_at: (new Date()).getTime(),
+            ended_at: (new Date()).getTime(),
+            answers,
+            status: user.campaign_status[campaign._id.toString()],
+            reject_message: user.campaign_errors[campaign._id.toString()],
+            last_question: user.campaign_last_question[campaign._id.toString()],
+            is_private_campaign: false
           });
-
-          answers[15].split(' ').forEach(word => {
-            if (word.trim().length)
-              answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["15"][word.toLocaleLowerCase().trim()]+1 : 1;
-          });
-
-          answers[17].split(' ').forEach(word => {
-            if (word.trim().length)
-              answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["17"][word.toLocaleLowerCase().trim()]+1 : 1;
-          });
-
-          answers[16].split(' ').forEach(word => {
-            if (word.trim().length)
-              answers_by_age[birth_year]["16"][word.toLocaleLowerCase().trim()] = answers_by_age[birth_year]["16"][word.toLocaleLowerCase().trim()] ? answers_by_age[birth_year]["16"][word.toLocaleLowerCase().trim()]+1 : 1;
-          });
-
-          return next(null);
         });
-      },
-      (err, data) => {
-        if (err) return res.json({error: err});
+      }, (err, submitions) => {
+        if (err) return res.redirect('/');
 
-        return res.json({answers: answers_by_age});
+        async.times(
+          user.joined_private_campaigns.length,
+          (time, next) => {
+            PrivateCampaign.findById(mongoose.Types.ObjectId(user.joined_private_campaigns[time]), (err, campaign) => {
+              if (err || !campaign) return next(err);
+
+              const answers = {};
+
+              campaign.questions.forEach(question => {
+                answers[question._id.toString()] = user.private_campaign_informations[question._id.toString()] || "";
+              });
+      
+              return next(null, {
+                user_id: user._id.toString(),
+                campaign_id: campaign._id.toString(),
+                created_at: (new Date()).getTime(),
+                ended_at: (new Date()).getTime(),
+                answers,
+                status: user.campaign_status[campaign._id.toString()] == "saved" ? "timeout" : user.campaign_status[campaign._id.toString()],
+                reject_message: user.campaign_errors[campaign._id.toString()],
+                last_question: user.campaign_last_question[campaign._id.toString()],
+                is_private_campaign: true
+              })
+            });
+          },
+          (err, private_submitions) => {
+            if (err) return res.redirect('/');
+
+            const new_submitions = submitions.concat(private_submitions);
+
+            async.times(
+              new_submitions.length,
+              (time, next) => {
+                const newSubmitionData = new_submitions[time];
+    
+                const newSubmition = new Submition(newSubmitionData);
+    
+                newSubmition.save((err, submition) => next(err, submition ? submition._id.toString() : null));
+              },
+              (err, submition_ids) => {
+                if (err) return res.redirect('/');
+    
+                User.findByIdAndUpdate(mongoose.Types.ObjectId(user._id), {$set: {
+                  submitions: submition_ids
+                }}, {}, err => {
+                  if (err) return res.redirect('/');
+    
+                  return res.redirect('/admin');
+                });
+              }
+            );
+
+          }
+        );
+
       }
-    )
-  })
+    );
+
+
+  });
 }

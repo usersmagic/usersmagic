@@ -4,6 +4,7 @@ const validator = require('validator');
 
 const Campaign = require('../../../../models/campaign/Campaign');
 const PrivateCampaign = require('../../../../models/private_campaign/PrivateCampaign');
+const Submition = require('../../../../models/submition/Submition');
 const User = require('../../../../models/user/User');
 const Question = require('../../../../models/question/Question');
 
@@ -11,14 +12,45 @@ module.exports = (req, res) => {
   if (!req.query || !req.query.id || !validator.isMongoId(req.query.id))
     return res.redirect('/campaigns/user');
 
-  User.findById(mongoose.Types.ObjectId(req.session.user._id), (err, user) => {
-    if (err || !user) return res.redirect('/campaigns/user');
+  Submition.findById(mongoose.Types.ObjectId(req.query.id), (err, submition) => {
+    if (err) return res.redirect('/campaigns/user');
 
-    if (!req.query.is_private_campaign) {
-      Campaign.findOne({ $and: [
-        { _id: mongoose.Types.ObjectId(req.query.id) },
-        { _id: { $in: user.campaigns } }
+    if (submition.user_id != req.session.user._id.toString())
+      return res.redirect('/campaigns/user');
+
+    if (submition.is_private_campaign) {
+      PrivateCampaign.findOne({$and: [
+        {_id: mongoose.Types.ObjectId(submition.campaign_id)},
+        {user_id_list: submition.user_id}
       ]}, (err, campaign) => {
+        if (err || !campaign) return res.redirect('/campaigns/user');
+
+        return res.render('test/user/index', {
+          page: 'test/user/index',
+          title: campaign.name,
+          includes: {
+            external: ['css', 'js', 'fontawesome']
+          }, 
+          campaign: {
+            _id: submition._id.toString(),
+            is_private_campaign: true,
+            name: campaign.name,
+            photo: campaign.photo,
+            information: campaign.information,
+            price: campaign.price,
+            error: submition.reject_message,
+            last_question: submition.last_question
+          },
+          questions: campaign.questions.map(each => {
+            const questionWrapper = {};
+            questionWrapper.question = each;
+            questionWrapper.answer = submition.answers[question._id.toString()] || "";
+            return questionWrapper;
+          })
+        });
+      });
+    } else {
+      Campaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
         if (err) return res.redirect('/campaigns/user');
   
         async.times(
@@ -29,7 +61,7 @@ module.exports = (req, res) => {
   
               return next(null, {
                 question,
-                answer: user.information[question._id.toString()] || null
+                answer: submition.answers[question._id.toString()] || ""
               });
             });
           },
@@ -43,51 +75,18 @@ module.exports = (req, res) => {
                 external: ['css', 'js', 'fontawesome']
               },
               campaign: {
-                _id: campaign._id,
+                _id: submition._id.toString(),
                 name: campaign.name,
                 photo: campaign.photo,
                 information: campaign.information,
                 price: campaign.price,
-                error: user.campaign_errors[campaign._id.toString()],
-                version: user.campaign_versions[campaign._id.toString()],
-                last_question: user.campaign_last_question[campaign._id.toString()]
+                error: submition.reject_message,
+                last_question: submition.last_question
               },
               questions
             });
           }
         );
-      });
-    } else {
-      PrivateCampaign.findOne({$and: [
-        {_id: mongoose.Types.ObjectId(req.query.id)},
-        {_id: {$in: user.joined_private_campaigns}}
-      ]}, (err, campaign) => {
-        if (err || !campaign) return res.redirect('/campaigns/user');
-
-        return res.render('test/user/index', {
-          page: 'test/user/index',
-          title: campaign.name,
-          includes: {
-            external: ['css', 'js', 'fontawesome']
-          },
-          campaign: {
-            _id: campaign._id,
-            is_private_campaign: true,
-            name: campaign.name,
-            photo: campaign.photo,
-            information: campaign.information,
-            price: campaign.price,
-            error: user.campaign_errors[campaign._id.toString()],
-            version: user.campaign_versions[campaign._id.toString()],
-            last_question: user.campaign_last_question[campaign._id.toString()]
-          },
-          questions: campaign.questions.map(each => {
-            const questionWrapper = {};
-            questionWrapper.question = each;
-            questionWrapper.answer = user.private_campaign_informations[each._id] || null;
-            return questionWrapper;
-          })
-        });
       });
     }
   });

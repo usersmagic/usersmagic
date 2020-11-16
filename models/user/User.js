@@ -57,6 +57,12 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
+  paid_campaigns: {
+    type: Array,
+    default: []
+  },
+
+
   private_campaigns: {
     type: Array,
     default: []
@@ -70,10 +76,6 @@ const UserSchema = new Schema({
     default: {}
   },
   campaigns: {
-    type: Array,
-    default: []
-  },
-  paid_campaigns: {
     type: Array,
     default: []
   },
@@ -97,6 +99,8 @@ const UserSchema = new Schema({
     type: Object,
     default: {}
   },
+
+  
   payment_number: {
     type: String,
     default: null

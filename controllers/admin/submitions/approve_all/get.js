@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const Campaign = require('../../../../models/campaign/Campaign');
-const User = require('../../../../models/user/User');
 const Submition = require('../../../../models/submition/Submition');
+const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
   if (!req.query || !req.query.id_list || !req.query.campaign)
@@ -16,38 +16,51 @@ module.exports = (req, res) => {
     return res.redirect('/admin');
 
   Campaign.findById(mongoose.Types.ObjectId(req.query.campaign), (err, campaign) => {
+    if (err) return res.redirect('/admin');
+
     async.times(
       ids.length,
       (time, next) => {
-        Submition.findById(ids[time], (err, submition) => {
-          if (err) return next();
-          if (submition.campaign_id != campaign._id.toString()) return next();
-  
+        Submition.findById(mongoose.Types.ObjectId(ids[time]), (err, submition) => {
+          if (err) return next(err);
+
           User.findById(mongoose.Types.ObjectId(submition.user_id), (err, user) => {
-            if (err || !user) return next();
-            
+            if (err) return next(err);
+
+            const information = user.information;
+    
+            Object.keys(submition.answers).forEach((id, index) => {
+              information[id] = Object.values(submition.answers)[index];
+            });
+      
             User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
               $set: {
-                ["campaign_status." + submition.campaign_id]: "approved",
-                ["campaign_approve_date." + submition.campaign_id]: (new Date).getTime()
+                information
               },
               $inc: {
-                credit: user.paid_campaigns.includes(submition.campaign_id.toString()) ? 0 : campaign.price
+                credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price
               },
               $push: {
-                paid_campaigns: submition.campaign_id.toString()
+                paid_campaigns: submition.campaign_id
               }
-            }, {}, err => {
-              if (err) return next();
-      
-              Submition.findByIdAndDelete(ids[time], () => {
-                return next();
+            }, {}, (err, user) => {
+              if (err || !user) return next(err || true)
+    
+              Submition.findByIdAndUpdate(mongoose.Types.ObjectId(ids[time]), {$set: {
+                status: "approved",
+                ended_at: (new Date()).getTime()
+              }}, {}, err => {
+                if (err) return next(err);
+    
+                return next(null);
               });
             });
-          });
+          });  
         });
       },
-      () => {
+      err => {
+        if (err) return res.redirect('/admin');
+        
         return res.redirect(`/admin/submitions?id=${req.query.campaign}&version=1.0`);
       }
     );

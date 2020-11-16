@@ -15,7 +15,7 @@ block main
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
                 if campaign.is_private_campaign
-                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}s
                 span.campaign-description= campaign.description
                 .campaign-price-wrapper
                   if campaign.is_free || !campaign.price
@@ -39,7 +39,7 @@ block main
               .campaign-info-wrapper
                 span.campaign-name= campaign.name
                 if campaign.is_private_campaign
-                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}h
+                  span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}s
                 span.campaign-description= campaign.description
                 .campaign-price-wrapper
                   if campaign.is_free || !campaign.price

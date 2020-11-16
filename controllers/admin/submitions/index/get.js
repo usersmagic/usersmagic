@@ -7,11 +7,14 @@ const User = require('../../../../models/user/User');
 const Submition = require('../../../../models/submition/Submition');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !req.query.version)
+  if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
   Submition
-    .find({ campaign_id: req.query.id })
+    .find({
+      campaign_id: req.query.id,
+      status: "waiting"
+    })
     .limit(100)
     .sort({ created_at: 1 })
     .then(submitions => {
@@ -44,7 +47,7 @@ module.exports = (req, res) => {
                       city: user.city,
                       town: user.town
                     },
-                    answers: submitions[time].answers
+                    answers: Object.values(submitions[time].answers)
                   })
                 });
               },

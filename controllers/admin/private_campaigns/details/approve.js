@@ -58,23 +58,14 @@ module.exports = (req, res) => {
 
     User.find({$and: filters}, (err, users) => {
       if (err) return res.redirect('/admin');
-      
-      async.times(
-        users.length,
-        (time, next) => {
-          if (users[time].private_campaigns[campaign._id.toString])
-            return next(null);
-            
-          User.findByIdAndUpdate(mongoose.Types.ObjectId(users[time]._id), {$push: {
-            private_campaigns: campaign._id.toString()
-          }}, {}, err => next(err))
-        },
-        err => {
-          if (err) return res.redirect('/admin');
 
-          return res.redirect('/admin/private_campaigns');
-        }
-      )
+      PrivateCampaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+        user_id_list: users.map(user => user._id.toString())
+      }}, {}, err => {
+        if (err) return res.redirect('/admin');
+
+        return res.redirect('/admin/private_campaigns');
+      });
     });
   });
 }

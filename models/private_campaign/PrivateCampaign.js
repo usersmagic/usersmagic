@@ -63,6 +63,10 @@ const PrivateCampaignSchema = new Schema({
     type: Array,
     default: []
   },
+  user_id_list: {
+    type: Array,
+    default: []
+  },
   submitions: {
     type: Array,
     default: []

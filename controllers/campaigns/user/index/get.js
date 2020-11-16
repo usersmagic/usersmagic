@@ -38,33 +38,8 @@ module.exports = (req, res) => {
       });
 
       PrivateCampaign.find({$and: [
-        {
-          _id: {$nin: user.joined_private_campaigns}
-        },
-        {filter: {$size: 0}},
-        {$or: [
-          {email_list: null},
-          {email_list: {$size: 0}}
-        ]},
-        {country: user.country},
-        {$or: [
-          {cities: user.city},
-          {cities: {$eq: null}},
-          {cities: {$size: 0}}
-        ]},
-        {$or: [
-          {gender: null},
-          {gender: user.gender}
-        ]},
-        {$or: [
-          {min_birth_year: null},
-          {min_birth_year: {$lte: user.birth_year}}
-        ]},
-        {$or: [
-          {max_birth_year: null},
-          {max_birth_year: {$gte: user.birth_year}}
-        ]},
-        {submition_limit: {$gt: 0}}
+        {user_id_list: user._id.toString()},
+        {_id: {$nin: user.campaigns}}
       ]}, (err, campaigns) => {
         if (err) return res.redirect('/');
 
@@ -75,73 +50,45 @@ module.exports = (req, res) => {
             photo: campaign.photo,
             description: campaign.description,
             price: campaign.price,
-            is_free: false,
+            is_free: campaign.is_free,
             is_private_campaign: true,
             time_limit: Math.round(campaign.time_limit / 1000 / 60 / 60)
           }
         }));
 
-        async.times(
-          user.private_campaigns.length,
-          (time, next) => {
-            PrivateCampaign.findOne({
-              _id: mongoose.Types.ObjectId(user.private_campaigns[time]),
-              submition_limit: {$gt: 0}
-            }, (err, campaign) => {
-              if (err) return next(err);
-              if (!campaign) return next(null);
-              return next(null, {
-                _id: campaign._id,
-                name: campaign.name,
-                photo: campaign.photo,
-                description: campaign.description,
-                price: campaign.price,
-                is_free: false,
-                is_private_campaign: true,
-                time_limit: Math.round(campaign.time_limit / 1000 / 60 / 60)
-              });
-            });
-          },
-          (err, campaigns) => {
-            if (err) return res.redirect('/');
+        if (!user.commercials.length)
+          return res.render('campaigns/user/index', {
+            page: 'campaigns/user/index',
+            title: res.__('Kampanyalar'),
+            includes: {
+              external: ['css', 'js', 'fontawesome']
+            },
+            campaigns: all_campaigns,
+            code: user._id.toString(),
+            currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
+            current_page: "campaigns"
+          });
 
-            all_campaigns = all_campaigns.concat(campaigns.filter(each => each && each._id));
+        Commercial.findById(mongoose.Types.ObjectId(user.commercials[0]), (err, commercial) => {
+          if (err) return res.redirect('/');
 
-            if (!user.commercials.length)
-              return res.render('campaigns/user/index', {
-                page: 'campaigns/user/index',
-                title: res.__('Kampanyalar'),
-                includes: {
-                  external: ['css', 'js', 'fontawesome']
-                },
-                campaigns: all_campaigns,
-                code: user._id.toString(),
-                currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
-                current_page: "campaigns"
-              });
-
-            Commercial.findById(mongoose.Types.ObjectId(user.commercials[0]), (err, commercial) => {
-              if (err) return res.redirect('/');
-
-              return res.render('campaigns/user/index', {
-                page: 'campaigns/user/index',
-                title: res.__('Kampanyalar'),
-                includes: {
-                  external: ['css', 'js', 'fontawesome']
-                },
-                campaigns: all_campaigns,
-                code: user._id.toString(),
-                currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
-                current_page: "campaigns",
-                commercial: (commercial ? {
-                  name: commercial.name,
-                  photo: commercial.photo,
-                  url: commercial.url
-                } : null)
-              });
-            });
-          }
-        );
+          return res.render('campaigns/user/index', {
+            page: 'campaigns/user/index',
+            title: res.__('Kampanyalar'),
+            includes: {
+              external: ['css', 'js', 'fontawesome']
+            },
+            campaigns: all_campaigns,
+            code: user._id.toString(),
+            currency: user.country == "tr" ? "₺" : (user.country == "us" ? "$" : "€"),
+            current_page: "campaigns",
+            commercial: (commercial ? {
+              name: commercial.name,
+              photo: commercial.photo,
+              url: commercial.url
+            } : null)
+          });
+        });
       });
     });
   });

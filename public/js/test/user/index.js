@@ -1,6 +1,6 @@
 let sendingAnswers = false;
 
-const saveAnswers = (id, is_private_campaign, answers, question) => {
+const saveAnswers = (id, answers, question) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '/test/user/save');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -8,8 +8,7 @@ const saveAnswers = (id, is_private_campaign, answers, question) => {
   xhr.send(JSON.stringify({
     answers,
     question,
-    id,
-    is_private_campaign
+    id
   }));
   
   xhr.onreadystatechange = () => {
@@ -22,13 +21,13 @@ const saveAnswers = (id, is_private_campaign, answers, question) => {
   }
 }
 
-const sendAnswers = (id, is_private_campaign, callback) => {
+const sendAnswers = (id, callback) => {
   if (sendingAnswers) return;
   sendingAnswers = true;
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '/test/user/submit');
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhr.send(JSON.stringify({ id, is_private_campaign }));
+  xhr.send(JSON.stringify({ id }));
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
       if (xhr.status != 200) return alert("An error occured, please try again.");
@@ -246,11 +245,11 @@ window.onload = () => {
   document.addEventListener('click', event => {
     if (event.target.className == 'move-on-button' || event.target.parentNode.className == 'move-on-button') {
       if (questionNumber == questions.length) {
-        sendAnswers(campaign._id.toString(), campaign.is_private_campaign, () => {
+        sendAnswers(campaign._id.toString(), () => {
           return window.location = "/history/user";
         });
       } else if (questionNumber == questions.length - 1 && answers[question._id.toString()] && answers[question._id.toString()].length) {
-        saveAnswers(campaign._id.toString(), campaign.is_private_campaign, answers, questionNumber);
+        saveAnswers(campaign._id.toString(), answers, questionNumber);
         questionNumber++;
         eachQuestionWrapper.style.display = 'none';
         startPageWrapper.style.display = 'none';
@@ -407,7 +406,7 @@ window.onload = () => {
           }
         }
       } else if (answers[question._id.toString()] && answers[question._id.toString()].length) {
-        saveAnswers(campaign._id.toString(), campaign.is_private_campaign, answers, questionNumber);
+        saveAnswers(campaign._id.toString(), answers, questionNumber);
         questionNumber++;
         question = questions[questionNumber].question;
         startPageWrapper.style.display = 'none';

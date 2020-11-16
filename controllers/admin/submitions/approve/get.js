@@ -1,3 +1,4 @@
+const async = require('async');
 const mongoose = require('mongoose');
 
 const Campaign = require('../../../../models/campaign/Campaign');
@@ -16,11 +17,16 @@ module.exports = (req, res) => {
 
       User.findById(mongoose.Types.ObjectId(submition.user_id), (err, user) => {
         if (err) return res.redirect('/admin');
+
+        const information = user.information;
+
+        Object.keys(submition.answers).forEach((id, index) => {
+          information[id] = Object.values(submition.answers)[index];
+        });
   
         User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
           $set: {
-            ["campaign_status." + submition.campaign_id]: "approved",
-            ["campaign_approve_date." + submition.campaign_id]: (new Date).getTime()
+            information
           },
           $inc: {
             credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price
@@ -31,10 +37,13 @@ module.exports = (req, res) => {
         }, {}, (err, user) => {
           if (err || !user) return res.redirect('/admin');
 
-          Submition.findByIdAndDelete(mongoose.Types.ObjectId(req.query.id), err => {
+          Submition.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+            status: "approved",
+            ended_at: (new Date()).getTime()
+          }}, {}, err => {
             if (err) return res.redirect('/admin');
 
-            return res.redirect('/admin/submitions?id=' + submition.campaign_id + '&version=1');
+            return res.redirect('/admin/submitions?id=' + submition.campaign_id);
           });
         });
       });

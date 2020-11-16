@@ -14,22 +14,21 @@ module.exports = (req, res) => {
   if (!req.body.reason || !req.body.reason.length)
     req.body.reason = "Başvurunuz spam olarak değerlendirildi. Eğer bir hata olduğunu düşünüyorsanız hello@usersmagic.com adresinden bize ulaşabilirsiniz.";
 
-  Submition.findById(mongoose.Types.ObjectId(req.query.id), (err, submition) => {
+  Submition.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
+    $set: {
+      status: "unapproved",
+      reject_message: req.body.reason,
+      ended_at: (new Date()).getTime()
+    }
+  }, {}, (err, submition) => {
     if (err) return res.redirect('/admin');
 
-    User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
-      $set: {
-        ["campaign_status." + submition.campaign_id]: "unapproved",
-        ["campaign_errors." + submition.campaign_id]: req.body.reason
-      }
-    }, {}, (err, user) => {
-      if (err || !user) return res.redirect('/admin');
+    User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {$pull: {
+      campaigns: submition.campaign_id
+    }}, {}, err => {
+      if (err) return res.redirect('/admin');
 
-      Submition.findByIdAndDelete(mongoose.Types.ObjectId(req.query.id), err => {
-        if (err) return res.redirect('/admin');
-
-        return res.redirect('/admin/submitions?id=' + submition.campaign_id + '&version=1');
-      });
+      return res.redirect('/admin/submitions?id=' + submition.campaign_id);
     });
   });
 }
