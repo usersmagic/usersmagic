@@ -20,13 +20,13 @@ module.exports = (req, res) => {
         {submitions_updated: {$exists: false}}
       ]
     })
-    .limit(10000)
+    .limit(5000)
     .then(users => {
       async.times(
         users.length,
         (time, next) => {
           const user = users[time];
-          
+
           async.times(
             user.campaigns.length,
             (time, next) => {
