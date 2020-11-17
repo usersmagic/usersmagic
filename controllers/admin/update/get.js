@@ -18,9 +18,13 @@ module.exports = (req, res) => {
       $or: [
         {submitions_updated: false},
         {submitions_updated: {$exists: false}}
+      ],
+      $nor: [
+        {campaigns: {$size: 0}},
+        {campaigns: {$exists: false}}
       ]
     })
-    .limit(5000)
+    .limit(1000)
     .then(users => {
       async.times(
         users.length,
