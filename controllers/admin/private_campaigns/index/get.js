@@ -6,8 +6,7 @@ const PrivateCampaign = require('../../../../models/private_campaign/PrivateCamp
 
 module.exports = (req, res) => {
   PrivateCampaign.find({
-    status: {$ne: "waiting"},
-    submitions: {$ne: []}
+    status: "approved"
   }, (err, campaigns) => {
     if (err) return res.redirect('/admin');
 

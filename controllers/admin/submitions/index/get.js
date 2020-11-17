@@ -15,8 +15,8 @@ module.exports = (req, res) => {
       campaign_id: req.query.id,
       status: "waiting"
     })
-    .limit(100)
     .sort({ created_at: 1 })
+    .limit(100)
     .then(submitions => {
       Campaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
         if (err || !campaign) return res.redirect('/admin');
@@ -60,7 +60,10 @@ module.exports = (req, res) => {
                   includes: {
                     external: ['css', 'admin_general_css', 'fontawesome']
                   },
-                  campaign,
+                  campaign: {
+                    _id: campaign._id.toString(),
+                    name: campaign.name
+                  },
                   questions,
                   submitions: newSubmitions.filter(each => each && each.user && each.user._id),
                   version: req.query.version

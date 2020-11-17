@@ -1,48 +1,38 @@
 const mongoose = require('mongoose');
 
 const PrivateCampaign = require('../../../../../models/private_campaign/PrivateCampaign');
+const Submition = require('../../../../../models/submition/Submition');
 const User = require('../../../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.id || !req.query.user)
+  if (!req.query || !req.query.id)
     return res.redirect('/admin');
 
-  PrivateCampaign.findById(mongoose.Types.ObjectId(req.query.id), (err, campaign) => {
+  Submition.findById(mongoose.Types.ObjectId(req.query.id), (err, submition) => {
     if (err) return res.redirect('/admin');
 
-    const acceptedSubmition = campaign.submitions.find(sub => sub.user_id.toString() == req.query.user);
-    const submitions = campaign.submitions.filter(sub => sub.user_id.toString() != req.query.user);
+    PrivateCampaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
+      if (err) return res.redirect('/admin');
 
-    User.findById(mongoose.Types.ObjectId(req.query.user), (err, user) => {
-      if (err || !user) return res.redirect('/admin');
-
-      PrivateCampaign.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {
-        $set: {
-          submitions
+      User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
+        $inc: {
+          credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price
         },
         $push: {
-          accepted_submitions: acceptedSubmition
+          paid_campaigns: submition.campaign_id
         }
       }, {}, err => {
         if (err) return res.redirect('/admin');
 
-        const campaign_status = user.campaign_status;
-        campaign_status[req.query.id] = "approved";
-        
-        User.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.user), {
-          $set: { campaign_status },
-          $inc: {
-            credit: user.paid_campaigns.includes(req.query.id) ? 0 : campaign.price
-          },
-          $push: {
-            paid_campaigns: req.query.id.toString()
-          }
-        }, {}, (err, user) => {
-          if (err || !user) return res.redirect('/admin');
+        Submition.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+          status: "approved",
+          ended_at: (new Date()).getTime()
+        }}, {}, err => {
+          if (err) return res.redirect('/admin');
 
-          return res.redirect('/admin/private_campaigns/submitions?id=' + req.query.id);
+          return res.redirect('/admin/private_campaigns/submitions?id=' + submition.campaign_id);
         });
       });
     });
-  })
+  });
 }
