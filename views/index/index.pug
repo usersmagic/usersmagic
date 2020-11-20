@@ -1,26 +1,116 @@
 extends ./../partials/head
 block content
   .all-wrapper
-    .brand-wrapper
-      //- a.brand-text(href=language_key ? "/brand?lang=" + language_key : "/brand") #{__('Marka Sayfası')}
-      a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-        i.fas.fa-home
-      .language-change-wrapper
-        a.language-text(href="/?lang=tr") TR
-        span |
-        a.language-text(href="/?lang=en") EN
-    .all-inner-wrapper
-      span.logo-name usersmagic
-      span.logo-subtitle #{__('Test Etmenin En Karlı Yolu')}
-      a.register-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
-        span #{__('Hemen Başla')}
-      .login-wrapper
-        span.login-text #{__('Zaten üye misin?')}
-        a.login-link(href=language_key ? "/auth/user/login?lang=" + language_key : "/auth/user/login") #{__('Giriş Yap')}
-      //- .buttons-wrapper
-      //-   a.company-button(href=language_key ? "/auth/company/register?lang=" + language_key : "/auth/company/register")
-      //-     span #{__('Şirket')}
-      //-   a.tester-button(href=language_key ? "/auth/user/register?lang=" + language_key : "/auth/user/register")
-      //-     span #{__('Tester')}
-    .bottom-wrapper
-      span.copyright-text Copyright 2020 - Loy Yazılım
+    .landing-all-header
+      a.landing-header-logo-wrapper(href="/")
+        img.landing-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
+        span.landing-header-logo-text usersmagic
+      .landing-header-buttons-wrapper
+        a.landing-header-tester-button(href="/auth/user/register") Tester Olmak İstiyorum
+        .landing-header-start-button Bize Ulaşın
+    .landing-all-content
+      .landing-all-content-inner-wrapper
+        .landing-start-page-wrapper
+          span.landing-start-page-title= __('Hedef kitlenize ulaşın')
+          span.landing-start-page-subtitle= __('Kullanıcı ve veri odaklı  kararlar alarak ürününüzü ve pazarlama stratejinizi geliştirin.')
+          span.landing-start-button
+            span= __('Başlayın')
+        .landing-second-page-wrapper
+          .second-page-brand-wrapper
+            img.each-brand(src="/res/images/logos/clay.png" alt="usersmagic clay")
+            img.each-brand(src="/res/images/logos/varan.png" alt="usersmagic varan")
+            img.each-brand(src="/res/images/logos/nike.png" alt="usersmagic nike")
+            img.each-brand(src="/res/images/logos/teknosa.png" alt="usersmagic teknosa")
+            img.each-brand(src="/res/images/logos/marketyo.png" alt="usersmagic marketyo")
+          .second-page-content-wrapper
+            .second-page-animation-wrapper
+              img.second-page-animation(src="/res/images/landing_user_animation.png" alt="usersmagic")
+            .second-page-inner-content-wrapper
+              span.second-page-content-subtitle= __('HEDEFINIZE ULAŞMAK IÇIN')
+              span.second-page-content-title= __('Kullanıcınızı anlamaya ve dinlemeye ihtiyacınız var')
+              span.second-page-content-text= __('Bazı kitle ve ürünlerimizde Coversion Rate’imiz neden düşük, İstanbul’da yaşayan beyaz yakalı yeni mezunlar ürünümüz hakkında ne düşünüyor, kullanıcımız gerçekten ne istiyor gibi soruları cevaplamak için Usersmagic var.')
+              .second-page-down-button
+                span Nasıl mı?
+                i.fas.fa-arrow-down
+        .how-to-content-wrapper
+          span.how-to-title= __('Bunu nasıl yapıyoruz?')
+          .how-to-inner-content-wrapper
+            .how-to-each-wrapper
+              img.how-to-each-icon(src="/res/images/how_to/one.png" alt="usersmagic")
+              span.how-to-each-title= __('Detaylı segmentasyon')
+              span.how-to-each-text= __('Lokasyon, şehir, meslek, ilgi alanları, alışkanlıkları, kullandığı uygulamalar ve ürünler gibi bilgilere göre detaylı filtreleme ile istediğiniz profili ve kitleyi belirleyin.')
+            .how-to-each-wrapper(style="margin: 0px 60px")
+              img.how-to-each-icon(src="/res/images/how_to/two.png" alt="usersmagic")
+              span.how-to-each-title= __('Kullanıcı deneyimi incelemesi')
+              span.how-to-each-text= __('Belirlediğiniz kitle uygulamanızı indirir veya websitenize girer, belirlenen görevi gerçekleştirir ve yaşadığı deneyime göre soruları cevaplar. Bu cevaplar ile kullanıcının deneyimini ölçer ve anlar, düşüncelerine ulaşırsınız. Açık uçlu cevaplar ile kalitatif, çoktan seçmeli cevaplar ile NPS, CSAT gibi kuantitatif verilere erişebilirsiniz.')
+            .how-to-each-wrapper
+              img.how-to-each-icon(src="/res/images/how_to/three.png" alt="usersmagic")
+              span.how-to-each-title= __('Veri bazlı içgörü')
+              span.how-to-each-text= __('Sunduğumuz analiz ile kullanıcının hissettiklerini,  kararlarını ve hareketlerini nedenleri ile birlikte öğrenirsiniz. Bu bilgiler  ürününüzü geliştirmenizi, yeni pazarlara ve kitlelere açılmanızı ve hedeflediğiniz metriklere ulaşmanızı sağlar.')
+        .growth-content-wrapper
+          .growth-title-wrapper
+            span.growth-title= __('Sizinle büyüyen,')
+            span.growth-title= __('hızla gelişen')
+            span.growth-subtitle= __('Her geçen gün artmaya devam ediyor.')
+          .growth-content-inner-wrapper
+            .each-growth-wrapper
+              img.each-growth-icon(src="/res/images/how_to/one.png" alt="usersmagic")
+              .each-growth-inner-wrapper
+                span.each-growth-title 67.000+
+                span.each-growth-text Tester
+            .each-growth-wrapper
+              img.each-growth-icon(src="/res/images/how_to/two.png" alt="usersmagic")
+              .each-growth-inner-wrapper
+                span.each-growth-title 4
+                span.each-growth-text= __('Ülke')
+            .each-growth-wrapper
+              img.each-growth-icon(src="/res/images/how_to/four.png" alt="usersmagic")
+              .each-growth-inner-wrapper
+                span.each-growth-title 37+
+                span.each-growth-text= __('Müşteri')
+            .each-growth-wrapper
+              img.each-growth-icon(src="/res/images/how_to/three.png" alt="usersmagic")
+              .each-growth-inner-wrapper
+                span.each-growth-title 92
+                span.each-growth-text= __('Çalışma')
+        .contact-content-wrapper
+          .contact-left-wrapper
+            span.contact-title= __('Bize Ulaşın')
+            span.contact-subtitle= __('Usersmagic’ten nasıl faydalanabileceğinizi öğrenmek, bilgi almak ve bizimle çalışmak için bize ulaşın')
+          .contact-right-wrapper
+            .each-input-line
+              input.each-landing-input#name-input(type="text" placeholder="Adınız" autocomplete="none" style="margin-right: 15px")
+              input.each-landing-input#surname-input(type="text" placeholder="Soyadınız" autocomplete="none" style="margin-left: 15px")
+            .each-input-line
+              input.each-landing-input#email-input(type="text" placeholder="Email" autocomplete="none" style="margin-right: 15px")
+              input.each-landing-input#company-name-input(type="text" placeholder="Şirket Adı" autocomplete="none" style="margin-left: 15px")
+            textarea.each-landing-input#details-input(type="text" rows="5" placeholder="Detay (Opsiyonel)" autocomplete="none")
+            .contact-send-line
+              .contact-send-button
+                span Gönder
+              span.contact-error-message#general-error-span= __('Bir hata oluştu, lütfen daha sonra tekrar deneyin.')
+              span.contact-error-message#already-registered-error-span= __('Bu e-posta adresi ile zaten bir kayıt alınmış.')
+              span.contact-error-message#missing-information-error-span= __('Lütfen gerekli tüm bilgileri doldurun.')
+              span.contact-error-message#finished-span= __('Kaydınız alındı, ekibimiz en kısa zamanda size ulaşacak. Teşekkürler.')
+        .footer-wrapper
+          .footer-top-wrapper
+            .each-footer-wrapper
+              span.each-footer-title= __('Tester Olmak İstiyorum')
+              a.each-footer-text(href="/auth/user/register")= __('Kaydol')
+              a.each-footer-text(href="/auth/user/login")= __('Giriş Yap')
+            .each-footer-wrapper
+              span.each-footer-title= __('Hakkında')
+              a.each-footer-text(href="/agreement/privacy")= __('Gizlilik Sözleşmesi')
+              a.each-footer-text(href="/agreement/user")= __('Kullanım Sözleşmesi')
+            .each-footer-wrapper
+              span.each-footer-title= __('Bize Ulaşın')
+              span.each-footer-text web: usersmagic.com
+              span.each-footer-text email: hello@usersmagic.com
+              span.each-footer-text instagram: usersmagic_tr
+          .footer-bottom-wrapper
+            a.footer-header-logo-wrapper(href="/")
+              img.footer-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
+              span.footer-header-logo-text usersmagic
+            .copyright-wrapper
+              span Copyright 2020
+              span Loy Yazılım - Yunus Gürlek 

@@ -1,168 +1,576 @@
 .all-wrapper {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.landing-all-header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  top: 0px;
+  background-color: transparent;
+  border: none;
+  padding: 0px 150px;
+  z-index: 10;
+}
+
+.landing-header-logo-wrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.landing-header-logo {
+  height: 30px;
+  margin-right: 10px;
+}
+.landing-header-logo-text {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+}
+
+.landing-header-buttons-wrapper {
+  display: flex;
+  align-items: center;
+}
+.landing-header-tester-button {
+  color: rgb(30, 30, 30);
+  text-decoration: none;
+  margin-right: 30px;
+  font-weight: 700;
+}
+.landing-header-tester-button:hover, .landing-header-start-button:hover {
+  text-decoration: underline;
+}
+.landing-header-start-button {
+  /* color: rgb(140, 48, 245); */
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.landing-all-content {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+}
+.landing-all-content-inner-wrapper {
+  width: 100%;
+  height: fit-content;
+  min-height: fit-content;
+}
+
+.landing-start-page-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 60px;
+  background: linear-gradient(rgb(217, 232, 239), rgb(234, 242, 245));
+}
+.landing-start-page-title {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 460%;
+  width: 500px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.landing-start-page-subtitle {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 150%;
+  width: 500px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.landing-start-button {
+  background-color: rgb(30, 30, 30);
+  padding: 20px 60px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.landing-start-button span {
+  color: rgb(254, 254, 254);
+  font-weight: 500;
+  font-size: 150%;
+}
+
+.landing-second-page-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(254, 254, 254);
+}
+
+.second-page-brand-wrapper {
+  margin-top: 10px;
+  padding: 40px 60px;
+  border-top: 1px solid rgb(236, 236, 236);
+  border-bottom: 1px solid rgb(236, 236, 236);
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-.all-inner-wrapper {
+.each-brand {
+  margin: 0px 40px;
+}
+
+.second-page-content-wrapper {
+  flex: 1;
+  width: 100vw;
+  display: flex;
+  padding: 0px 150px;
+}
+
+.second-page-animation-wrapper {
+  background-color: rgb(213, 250, 252);
+  border-radius: 100%;
+  min-width: 30vw;
+  width: 30vw;
+  height: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+.second-page-animation {
+  max-height: calc(30vw + 100px);
+}
+
+.second-page-inner-content-wrapper {
+  margin-left: 150px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+.second-page-content-subtitle {
+  font-size: 90%;
+  color: rgb(46, 197, 206);
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.second-page-content-title {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 300%;
+  margin-bottom: 40px;
+}
+.second-page-content-text {
+  font-weight: 300;
+  color: rgb(30, 30, 30);
+  font-size: 125%;
+  margin-bottom: 40px;
+}
+.second-page-down-button {
+  color: rgb(140, 48, 245);
+  opacity: 0.4;
+  cursor: pointer;
+  align-self: flex-start;
+}
+.second-page-down-button:hover {
+  opacity: 1;
+}
+.second-page-down-button span {
+  font-weight: 600;
+  font-size: 125%;
+}
+.second-page-down-button i {
+  margin-left: 10px;
+  opacity: 1 !important;
+}
+
+.how-to-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 150px;
+  background-color: rgb(254, 254, 254);
+  padding-bottom: 150px;
+}
+.how-to-title {
+  font-weight: 600;
+  color: rgb(30, 30, 30);
+  font-size: 300%;
+  margin-bottom: 40px;
+}
+.how-to-inner-content-wrapper {
+  display: flex;
+}
+.how-to-each-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
-
-.brand-wrapper {
-  padding: 0px 20px;
-  padding-top: 20px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.main-page-button {
-  color: rgb(30, 30, 30);
-  font-size: 100%;
-}
-.brand-text {
-  color: rgb(30, 30, 30);
-  font-weight: 600;
-  font-size: 75%;
-  text-decoration: none;
-}
-.language-change-wrapper span {
-  color: rgb(30, 30, 30);
-  font-weight: 600;
-  margin: 0px 5px;
-  font-size: 75%;
-} 
-.language-text {
-  color: rgb(30, 30, 30);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 75%;
-}
-.language-text:hover {
-  text-decoration: underline;
-}
-
-.logo-name {
-  color: rgb(30, 30, 30);
-  font-weight: 800;
-  font-size: 200%;
-  margin-bottom: 5px;
-}
-.logo-subtitle {
-  font-weight: 500;
-  font-size: 150%;
-  color: rgb(30, 30, 30);
-  text-align: center;
-}
-
-.register-button {
-  height: 60px;
-  padding: 0px 40px;
-  background-color: rgb(240, 84, 79);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  border-radius: 30px;
-  box-shadow: 0 0 20px rgba(240, 84, 79, 0.5);
-  cursor: pointer;
-}
-.register-button:hover {
-  box-shadow: 0 0 23px rgba(240, 84, 79, 0.6);
-}
-.register-button span {
-  color: rgb(254, 254, 254);
-  font-weight: 700;
-  font-size: 150%;
-}
-
-.buttons-wrapper {
-  display: none;
-  align-items: center;
-  height: 60px;
-  margin-top: 40px;
-  margin-bottom: 30px;
-}
-.company-button {
-  height: 50px;
-  width: 125px;
-  background-color: rgb(80, 177, 238);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-radius: 30px;
-  box-shadow: 0 0 20px rgba(80, 177, 238, 0.5);
-  cursor: pointer;
-  margin-right: 15px;
-}
-.company-button:hover {
-  box-shadow: 0 0 23px rgba(80, 177, 238, 0.6);
-}
-.company-button span {
-  color: rgb(254, 254, 254);
-  font-weight: 700;
-  font-size: 125%;
-}
-.tester-button {
-  height: 50px;
-  width: 125px;
-  background-color: rgb(240, 84, 79);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-radius: 30px;
-  box-shadow: 0 0 20px rgba(240, 84, 79, 0.5);
-  cursor: pointer;
-  margin-left: 15px;
-}
-.tester-button:hover {
-  box-shadow: 0 0 23px rgba(240, 84, 79, 0.6);
-}
-.tester-button span {
-  color: rgb(254, 254, 254);
-  font-weight: 700;
-  font-size: 125%;
-}
-
-.login-wrapper {
-  display: flex;
-  align-items: center;
-}
-.login-text {
-  color: rgb(30, 30, 30);
-  font-weight: 500;
-  font-size: 100%;
-}
-.login-link {
-  color: rgb(80, 177, 238);
-  font-weight: 700;
-  font-size: 100%;
-  margin-left: 5px;
-  text-decoration: none;
-}
-.login-link:hover {
-  text-decoration: underline;
-}
-
-.bottom-wrapper {
-  display: flex;
-  justify-content: flex-end;
+.how-to-each-icon {
   margin-bottom: 20px;
-  min-height: fit-content;
-  width: 100%;
 }
-.copyright-text {
-  margin-right: 20px;
+.how-to-each-title {
+  color: rgb(30, 30, 30);
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 150%;
+}
+.how-to-each-text {
   color: rgb(30, 30, 30);
   font-weight: 300;
-  font-size: 75%;
+  font-size: 125%;
+}
+
+.growth-content-wrapper {
+  background-color: rgb(254, 254, 254);
+  padding: 60px 150px;
+  display: flex;
+  align-items: center;
+}
+.growth-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.growth-title {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  font-size: 250%;
+  margin-bottom: 15px;
+}
+.growth-subtitle {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 125%;
+}
+.growth-content-inner-wrapper {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 50px;
+}
+.each-growth-wrapper {
+  display: flex;
+  align-items: center;
+}
+.each-growth-icon {
+  width: 25px;
+  margin-right: 20px;
+}
+.each-growth-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.each-growth-title {
+  color: rgb(30, 30, 30);
+  font-weight: 600;
+  font-size: 150%;
+  margin-bottom: 10px;
+}
+.each-growth-text {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 125%;
+}
+
+.contact-content-wrapper {
+  background-color: rgb(46, 197, 206);
+  padding: 150px;
+  display: flex;
+}
+.contact-left-wrapper {
+  flex: 1;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.contact-title {
+  color: rgb(254, 254, 254);
+  font-weight: 700;
+  font-size: 250%;
+  margin-bottom: 30px;
+}
+.contact-subtitle {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  line-height: 30px;
+  font-size: 125%;
+}
+.contact-right-wrapper {
+  flex: 1;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.each-input-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.each-landing-input {
+  flex: 1;
+  background-color: rgb(254, 254, 254);
+  padding: 20px;
+  border-radius: 10px;
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  font-weight: 300;
+  border: none;
+  outline: none;
+}
+.contact-send-line {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.contact-send-button {
+  padding: 15px 50px;
+  background-color: rgb(30, 30, 30);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.contact-send-button span {
+  color: rgb(254, 254, 254);
+  font-weight: 400;
+  font-size: 125%;
+}
+.contact-error-message {
+  margin-left: 40px;
+  font-weight: 600;
+  color: rgb(30, 30, 30);
+  text-align: right;
+  display: none;
+}
+
+.footer-wrapper {
+  padding: 60px 150px;
+  background-color: rgb(254, 254, 254);
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  border-top: 1px solid rgb(236, 236, 236);
+}
+.footer-top-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.each-footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 60px;
+}
+.each-footer-wrapper a:hover {
+  text-decoration: underline;
+}
+.each-footer-title {
+  font-weight: 600;
+  font-size: 100%;
+  color: rgb(30, 30, 30);
+  margin-bottom: 15px;
+  text-align: right;
+}
+.each-footer-text {
+  text-decoration: none;
+  font-weight: 300;
+  color: rgb(30, 30, 30);
+  font-size: 100%;
+  margin-bottom: 10px;
+  text-align: right;
+}
+.footer-bottom-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 50px;
+}
+.footer-header-logo-wrapper {
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+}
+.footer-header-logo {
+  height: 30px;
+  margin-right: 10px;
+}
+.footer-header-logo-text {
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+}
+.copyright-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.copyright-wrapper span {
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+  font-size: 85%;
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 1000px) {
+  .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
+    padding: 0px 100px;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 100px;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 60px 100px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 100px;
+  }
+  .how-to-each-text {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 900px) {
+  .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
+    padding: 0px 100px;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 100px;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 60px 100px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 100px;
+  }
+  .how-to-each-text {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+  .second-page-content-title, .how-to-title {
+    font-size: 250%;
+  }
+  .contact-title {
+    font-size: 225%;
+  }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 800px) {
+  .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
+    padding: 0px 50px;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 50px;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 50px 50px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 50px;
+  }
+  .how-to-each-text, .contact-subtitle {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+  .second-page-content-title, .how-to-title {
+    font-size: 250%;
+  }
+  .contact-title {
+    font-size: 225%;
+  }
+  .growth-title {
+    font-size: 200%;
+    margin-bottom: 10px;
+  }
+  .each-brand {
+    margin: 0px 20px;
+  }
+  .each-footer-text, .each-footer-title {
+    font-size: 90%;
+  }
+  .copyright-wrapper span {
+    font-size: 75%;
+  }
+}
+
+@media only screen and (max-width: 700px) and (min-width: 300px) {
+  .second-page-content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .second-page-animation-wrapper {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 0px !important;
+    height: auto;
+  }
+  .growth-content-wrapper {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .growth-content-inner-wrapper {
+    margin-top: 50px;
+    width: 100%;
+    grid-column-gap: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 600px) {
+  .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
+    padding: 0px 50px;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 50px;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 50px 50px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 50px;
+  }
+  .how-to-each-text, .contact-subtitle {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+  .second-page-content-title, .how-to-title {
+    font-size: 200%;
+  }
+  .second-page-content-text, .second-page-down-button {
+    font-size: 100%;
+  }
+  .second-page-content-subtitle {
+    font-size: 80%;
+  }
+  .contact-title {
+    font-size: 225%;
+  }
+  .growth-title {
+    font-size: 200%;
+    margin-bottom: 10px;
+  }
+  .each-brand {
+    margin: 0px 20px;
+  }
+  .each-footer-text, .each-footer-title {
+    font-size: 90%;
+  }
+  .copyright-wrapper span {
+    font-size: 75%;
+  }
 }
