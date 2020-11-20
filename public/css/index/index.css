@@ -416,6 +416,77 @@
   margin-top: 10px;
 }
 
+@media only screen and (max-width: 700px) and (min-width: 300px) {
+  .second-page-content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .second-page-animation-wrapper {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 0px !important;
+    height: auto;
+  }
+  .second-page-down-button {
+    margin-left: auto;
+  }
+  .growth-content-wrapper {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .growth-content-inner-wrapper {
+    margin-top: 50px;
+    width: 100%;
+    grid-column-gap: auto;
+    padding-right: 0px;
+  }
+  .how-to-content-wrapper {
+    padding-top: 20px !important;
+  }
+  .how-to-inner-content-wrapper {
+    flex-direction: column;
+  }
+  .how-to-each-wrapper {
+    flex: initial;
+    width: 75vw;
+  }
+  .how-to-second-each-wrapper {
+    margin: 50px 0px !important;
+    margin-left: auto !important;
+    align-items: flex-end;
+  }
+  .how-to-second-each-wrapper span {
+    text-align: right;
+  }
+  .growth-title-wrapper {
+    width: 100%;
+  }
+  .growth-subtitle {
+    margin-left: auto;
+  }
+  .each-growth-wrapper-right {
+    justify-content: flex-end;
+  }
+  .each-growth-wrapper-right span {
+    text-align: right;
+  }
+  .contact-content-wrapper {
+    flex-direction: column;
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+  .contact-left-wrapper {
+    margin-right: 0px;
+    margin-bottom: 30px;
+  }
+  .contact-right-wrapper {
+    margin-left: 0px;
+  }
+}
+
 @media only screen and (max-width: 1100px) and (min-width: 1000px) {
   .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
     padding: 0px 100px;
@@ -504,31 +575,6 @@
   }
 }
 
-@media only screen and (max-width: 700px) and (min-width: 300px) {
-  .second-page-content-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-  .second-page-animation-wrapper {
-    margin-top: 50px;
-    margin-bottom: 30px;
-  }
-  .second-page-inner-content-wrapper {
-    margin-left: 0px !important;
-    height: auto;
-  }
-  .growth-content-wrapper {
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-start;
-  }
-  .growth-content-inner-wrapper {
-    margin-top: 50px;
-    width: 100%;
-    grid-column-gap: auto;
-  }
-}
-
 @media only screen and (max-width: 800px) and (min-width: 600px) {
   .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
     padding: 0px 50px;
@@ -564,13 +610,200 @@
     font-size: 200%;
     margin-bottom: 10px;
   }
+  .growth-subtitle {
+    font-size: 125%;
+  }
   .each-brand {
-    margin: 0px 20px;
+    margin: 0px 10px;
   }
   .each-footer-text, .each-footer-title {
     font-size: 90%;
   }
   .copyright-wrapper span {
     font-size: 75%;
+  }
+}
+
+@media only screen and (max-width: 600px) and (min-width: 500px) {
+  .landing-start-page-title {
+    font-size: 300%;
+    width: 350px;
+    margin-bottom: 20px;
+  }
+  .landing-start-page-subtitle {
+    font-size: 125%;
+    margin-bottom: 20px;
+  }
+  .landing-start-button span {
+    font-size: 125%;
+  }
+  .landing-header-tester-button {
+    margin-right: 20px;
+  }
+  .landing-all-header, .second-page-content-wrapper, .how-to-content-wrapper {
+    padding: 0px 20px;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 20px;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 20px 20px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 20px;
+  }
+  .how-to-each-text, .contact-subtitle {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+  .second-page-content-title, .how-to-title {
+    font-size: 200%;
+  }
+  .second-page-content-text, .second-page-down-button {
+    font-size: 100%;
+  }
+  .second-page-content-subtitle {
+    font-size: 80%;
+  }
+  .contact-title {
+    font-size: 225%;
+  }
+  .growth-title {
+    font-size: 200%;
+    margin-bottom: 10px;
+  }
+  .growth-subtitle {
+    font-size: 100%;
+    margin-top: 20px;
+  }
+  .second-page-brand-wrapper {
+    padding: 30px 20px;
+  }
+  .each-brand {
+    margin: 0px 10px;
+    width: 60px;
+    height: auto;
+    align-self: center;
+  }
+  .each-footer-text, .each-footer-title {
+    font-size: 90%;
+  }
+  .copyright-wrapper span {
+    font-size: 75%;
+  }
+  .each-footer-wrapper {
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) and (min-width: 300px) {
+  .landing-start-page-title {
+    font-size: 200%;
+    width: 275px;
+    margin-bottom: 20px;
+  }
+  .landing-start-page-subtitle {
+    font-size: 100%;
+    width: 275px;
+    margin-bottom: 20px;
+  }
+  .landing-start-button span {
+    font-size: 125%;
+  }
+  .landing-header-tester-button {
+    margin-right: 10px;
+  }
+  .landing-all-header, .second-page-content-wrapper {
+    padding: 0px 20px;
+  }
+  .landing-second-page-wrapper {
+    height: auto;
+    min-height: fit-content;
+  }
+  .second-page-down-button {
+    margin-bottom: 20px;
+  }
+  .second-page-content-text {
+    margin-bottom: 20px;
+  }
+  .landing-header-logo-text, .footer-header-logo-text {
+    display: none;
+  }
+  .landing-header-tester-button, .landing-header-start-button {
+    font-size: 75%;
+  }
+  .how-to-content-wrapper, .contact-content-wrapper {
+    padding: 20px;
+  }
+  .each-input-line {
+    flex-direction: column;
+    margin-bottom: 0px;
+  }
+  .each-input-line input {
+    width: 100%;
+    flex: initial;
+    margin: 0px !important;
+    margin-bottom: 20px !important;
+  }
+  .growth-content-wrapper, .footer-wrapper {
+    padding: 20px 20px;
+  }
+  .second-page-inner-content-wrapper {
+    margin-left: 20px;
+  }
+  .how-to-each-text, .contact-subtitle {
+    font-size: 100%;
+  }
+  .how-to-each-title {
+    font-size: 125%
+  }
+  .second-page-content-title, .how-to-title {
+    font-size: 175%;
+  }
+  .second-page-content-title {
+    margin-bottom: 20px;
+  }
+  .second-page-content-text, .second-page-down-button {
+    font-size: 100%;
+  }
+  .second-page-content-subtitle {
+    font-size: 80%;
+  }
+  .contact-title {
+    font-size: 225%;
+  }
+  .growth-title {
+    font-size: 200%;
+    margin-bottom: 10px;
+  }
+  .growth-subtitle {
+    font-size: 100%;
+    margin-top: 20px;
+  }
+  .second-page-brand-wrapper {
+    padding: 20px 10px;
+  }
+  .each-brand {
+    margin: 0px 10px;
+    width: 40px;
+    height: auto;
+    align-self: center;
+  }
+  .each-footer-text, .each-footer-title {
+    font-size: 90%;
+  }
+  .copyright-wrapper span {
+    font-size: 75%;
+  }
+  .each-footer-wrapper {
+    margin-left: 15px;
+  }
+  .each-footer-text {
+    font-size: 75%;
+  }
+  .each-growth-title, .each-growth-text {
+    font-size: 100%;
   }
 }
