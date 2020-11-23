@@ -95,6 +95,7 @@
   padding: 20px 60px;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 .landing-start-button span {
   color: rgb(254, 254, 254);
