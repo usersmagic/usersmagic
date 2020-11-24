@@ -68,6 +68,7 @@ module.exports = (req, res) => {
                 if (!user || !user.name) return next(null);
       
                 next(err, {
+                  _id: submitions[time]._id.toString(),
                   user,
                   answers: Object.values(submitions[time].answers)
                 })
