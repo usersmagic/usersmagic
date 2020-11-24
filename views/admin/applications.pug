@@ -1,0 +1,17 @@
+extends ../partials/adminHeader
+block main
+  .all-content-header
+    .title-wrapper
+      span.title Başvurular
+      span.subtitle Bu sayfadan gelen firma başvurularını görebilir ve silebilirsiniz. Bir sayfada sadece en eski 200 başvuru görünür, daha fazla görmek için lütfen yanlış başvuruları silin.
+  .all-content-inner-wrapper
+    .applications-wrapper
+      each application in applications 
+        .each-application
+          a.application-delete-button(href="/admin/applications/delete?id=" + application._id.toString() onclick="return confirm('Bu başvuruyu silmek istediğinize emin misiniz?')")
+            i.fas.fa-trash
+          span.each-application-info Ad: #{application.name}
+          span.each-application-info Soyad: #{application.surname}
+          span.each-application-info Email: #{application.email}
+          span.each-application-info Şirket İsmi: #{application.company_name}
+          span.each-application-info Detaylar: #{application.details}

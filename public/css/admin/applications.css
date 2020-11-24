@@ -1,0 +1,69 @@
+.admin-all-content {
+  display: flex;
+  flex-direction: column;
+}
+.display-none {
+  display: none;
+}
+
+.all-content-header {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(236, 236, 236);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 150%;
+  color: rgb(30, 30, 30);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.subtitle {
+  font-size: 100%;
+  color: rgb(30, 30, 30);
+  font-weight: 300;
+}
+
+.all-content-inner-wrapper {
+  flex: 7;
+  padding: 0px 20px;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.applications-wrapper {
+  width: 100%;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.each-application {
+  background-color: rgb(254, 254, 254);
+  border: 2px solid rgb(236, 236, 236);
+  margin-top: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-bottom: 5px;
+}
+.each-application-info {
+  color: rgb(30, 30, 30);
+  margin-bottom: 10px;
+  font-size: 100%;
+  font-weight: 300;
+}
+.application-delete-button {
+  text-decoration: none;
+  margin-left: auto;
+  color: rgba(112, 112, 112, 0.5);
+}
+.application-delete-button:hover {
+  color: rgb(30, 30, 30);
+}

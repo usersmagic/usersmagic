@@ -36,6 +36,8 @@ const commercialsIndexGetController = require('../controllers/admin/commercials/
 const commercialsDeleteGetController = require('../controllers/admin/commercials/delete/get');
 const mailsIndexGetController = require('../controllers/admin/mail/index/get');
 const mailsSendGetController = require('../controllers/admin/mail/send/get');
+const applicationsIndexGetController = require('../controllers/admin/applications/index/get');
+const applicationsDeleteGetController = require('../controllers/admin/applications/delete/get');
 
 const loginPostController = require('../controllers/admin/auth/post');
 const campaignsIndexPostController = require('../controllers/admin/campaigns/index/post');
@@ -198,6 +200,16 @@ router.get(
   '/mails/send',
     isAdmin,
     mailsSendGetController
+);
+router.get(
+  '/applications',
+    isAdmin,
+    applicationsIndexGetController
+);
+router.get(
+  '/applications/delete',
+    isAdmin,
+    applicationsDeleteGetController
 );
 
 router.post(
