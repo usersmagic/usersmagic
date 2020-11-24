@@ -6,16 +6,16 @@ module.exports = (req, res) => {
 
   User.findUser(req.body.email.trim(), req.body.password, (err, user) => {
     if (err || !user)
-      return res.redirect('/auth/user/login');
+      return res.redirect('/auth/user/login' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
 
     req.session.user = user;
 
     if (!user.completed)
-      return res.redirect('/auth/user/complete');
+      return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
 
     if (req.session.redirect)
       return res.redirect(req.session.redirect);
     else
-      return res.redirect('/campaigns/user');
+      return res.redirect('/campaigns/user' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   });
 }

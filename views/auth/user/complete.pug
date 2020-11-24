@@ -8,7 +8,7 @@ block content
       a.language-text(href="/auth/user/complete?lang=tr") TR
       span |
       a.language-text(href="/auth/user/complete?lang=en") EN
-  form.all-wrapper(method="POST" action="/auth/user/complete")
+  form.all-wrapper(method="POST" action="/auth/user/complete" + (language_key ? ("?lang=" + language_key) : ""))
     .all-inner-wrapper
       span.logo-name usersmagic
       input.each-input(type="text" placeholder=__('Ad Soyad') name="name" required autofocus autocomplete="off")

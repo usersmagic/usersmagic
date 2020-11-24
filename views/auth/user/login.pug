@@ -8,11 +8,11 @@ block content
       a.language-text(href="/auth/user/login?lang=tr") TR
       span |
       a.language-text(href="/auth/user/login?lang=en") EN
-  form.all-wrapper(method="POST" action="/auth/user/login")
+  form.all-wrapper(method="POST" action="/auth/user/login" + (language_key ? ("?lang=" + language_key) : ""))
     .all-inner-wrapper
       span.logo-name usersmagic
       .lost-password-wrapper
-        a.lost-password-link(href="/auth/user/lost_password") #{__('Şifremi Unuttum')} 
+        a.lost-password-link(href="/auth/user/lost_password" + (language_key ? ("?lang=" + language_key) : "")) #{__('Şifremi Unuttum')} 
       input.each-input(type="email" placeholder=__('E-Posta') name="email" required autofocus autocomplete="off")
       input.each-input(type="password" placeholder=__('Şifre') name="password" required autocomplete="off")
       button.send-button

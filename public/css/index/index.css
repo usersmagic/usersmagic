@@ -52,6 +52,16 @@
   color: rgb(30, 30, 30);
   font-weight: 700;
   cursor: pointer;
+  margin-right: 30px;
+}
+
+.change-language-button {
+  text-decoration: none;
+  color: rgb(30, 30, 30);
+  font-weight: 600; 
+}
+.change-language-button:hover {
+  text-decoration: underline;
 }
 
 .landing-all-content {

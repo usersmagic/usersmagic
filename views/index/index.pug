@@ -2,18 +2,20 @@ extends ./../partials/head
 block content
   .all-wrapper
     .landing-all-header
-      a.landing-header-logo-wrapper(href="/")
+      a.landing-header-logo-wrapper(href=language_key ? `/?lang=${language_key}` : '/')
         img.landing-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
         span.landing-header-logo-text usersmagic
       .landing-header-buttons-wrapper
-        a.landing-header-tester-button(href="/auth/user/register")= __("Tester Olmak İstiyorum")
+        a.landing-header-tester-button(href=language_key ? `/auth/user/register?lang=${language_key}` : '/auth/user/register')= __("Tester Olmak İstiyorum")
         .landing-header-start-button= __("Bize Ulaşın")
+        a.change-language-button(href='/?lang=' + (current_language == 'TR' ? 'en' : 'tr'))
+          span= (current_language == "TR" ? "EN" : "TR")
     .landing-all-content
       .landing-all-content-inner-wrapper
         .landing-start-page-wrapper
           span.landing-start-page-title= __('Hedef kitlenize ulaşın')
           span.landing-start-page-subtitle= __('Kullanıcı ve veri odaklı  kararlar alarak ürününüzü ve pazarlama stratejinizi geliştirin.')
-          a.landing-start-button(href="/auth/user/register")
+          .landing-start-button
             span= __('Başlayın')
         .landing-second-page-wrapper
           .second-page-brand-wrapper

@@ -7,34 +7,40 @@ const User = require('../../../../models/user/User');
 module.exports = (req, res) => {
   if (!req.body || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_year || !req.body.country) {
     req.session.error = res.__('Lütfen bütün bilgileri girin');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
+
+  if (req.body.gender.toLowerCase() == "male")
+    req.body.gender = "erkek";
+
+  if (req.body.gender.toLowerCase() == "female")
+    req.body.gender = "kadın";
 
   const valid_countries = ["tr", "us", "uk", "de", "ru", "ua"];
 
   if (!valid_countries.includes(req.body.country)) {
     req.session.error = res.__('Lütfen yaşadığınız ülkeyi listeden seçin, elle yazmayın');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
 
   if (!validator.isMobilePhone(req.body.phone.trim())) {
     req.session.error = res.__('Lütfen geçerli bir telefon numarası girin');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
 
   if (!validator.isNumeric(req.body.birth_year.trim(), { no_symbols: true })) {
     req.session.error = res.__('Lütfen doğduğunuz yılı girin');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
 
   if (parseInt(req.body.birth_year) < 1920 || parseInt(req.body.birth_year) > 2020) {
     req.session.error = res.__('Lütfen doğduğunuz yılı girin');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
 
   if (!['erkek', 'kadın'].includes(req.body.gender.toLowerCase().trim())) {
     req.session.error = res.__('Lütfen cinsiyetinizi Kadın ya da Erkek olarak belirtin');
-    return res.redirect('/auth/user/complete');
+    return res.redirect('/auth/user/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
 
   User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
