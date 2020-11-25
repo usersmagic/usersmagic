@@ -32,6 +32,7 @@ const privateCampaignsDetailsGetController = require('../controllers/admin/priva
 const privateCampaignsDetailsApproveGetController = require('../controllers/admin/private_campaigns/details/approve');
 const privateCampaignsSubmitionsIndexGetController = require('../controllers/admin/private_campaigns/submitions/index/get');
 const privateCampaignsSubmitionsApproveGetController = require('../controllers/admin/private_campaigns/submitions/approve/get');
+const privatecampaignsSubmitionsCSVGetController = require('../controllers/admin/private_campaigns/submitions/csv/get');
 const commercialsIndexGetController = require('../controllers/admin/commercials/index/get');
 const commercialsDeleteGetController = require('../controllers/admin/commercials/delete/get');
 const mailsIndexGetController = require('../controllers/admin/mail/index/get');
@@ -180,6 +181,11 @@ router.get(
   '/private_campaigns/approve',
     isAdmin,
     privateCampaignsApproveGetController
+);
+router.get(
+  '/private_campaigns/csv',
+    isAdmin,
+    privatecampaignsSubmitionsCSVGetController
 );
 router.get(
   '/commercials',  
