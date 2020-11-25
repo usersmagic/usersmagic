@@ -35,7 +35,7 @@ module.exports = (req, res) => {
 
             let data = "";
 
-            data += 'Name,' + 'Given Name,' + 'Additional Name,' + 'Family Name,' + 'Yomi Name,' + 'Given Name Yomi,' + 'Additional Name Yomi,' + 'Family Name Yomi,' + 'Name Prefix,' + 'Name Suffix,' + 'Initials,' + 'Nickname,' + 'Short Name,' + 'Maiden Name,' + 'Birthday,' + 'Gender,' + 'Location,' + 'Billing Information,' + 'Directory Server,' + 'Mileage,' + 'Occupation,' + 'Hobby,' + 'Sensitivity,' + 'Priority,' + 'Subject,' + 'Notes,' + 'Language,' + 'Photo,' + 'Group Membership,' + 'Phone 1 - Type,' + 'Phone 1 - Valu' + '\n';
+            data += 'Name,' + 'Given Name,' + 'Additional Name,' + 'Family Name,' + 'Yomi Name,' + 'Given Name Yomi,' + 'Additional Name Yomi,' + 'Family Name Yomi,' + 'Name Prefix,' + 'Name Suffix,' + 'Initials,' + 'Nickname,' + 'Short Name,' + 'Maiden Name,' + 'Birthday,' + 'Gender,' + 'Location,' + 'Billing Information,' + 'Directory Server,' + 'Mileage,' + 'Occupation,' + 'Hobby,' + 'Sensitivity,' + 'Priority,' + 'Subject,' + 'Notes,' + 'Language,' + 'Photo,' + 'Group Membership,' + 'Phone 1 - Type,' + 'Phone 1 - Value' + '\n';
 
             phone_numbers.forEach((phone, time) => {
               data += 'user_' + (time + 1) + ' ' + campaign.name + ',';

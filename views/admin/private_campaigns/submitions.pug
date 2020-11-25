@@ -22,7 +22,7 @@ block main
             each answer, i in submition.answers
               span.each-answer #{i+1}. #{questions[i]}
               span.each-answer #{Array.isArray(answer) ? answer.join(' / ') : answer}
-          form.reject-form(action=`/admin/private_campaigns/submitions/reject?id=${submition._id.toString()}}` method="POST")
+          form.reject-form(action=`/admin/private_campaigns/submitions/reject?id=${submition._id.toString()}` method="POST")
             input.each-input(type="text" placeholder="Red Sebebi" name="reason")
             button.reject-button Reddet
-            a.approve-button(href=`/admin/private_campaigns/submitions/approve?id=${submition._id.toString()}}`) Onayla
+            a.approve-button(href=`/admin/private_campaigns/submitions/approve?id=${submition._id.toString()}`) Onayla
