@@ -14,23 +14,27 @@ module.exports = (req, res) => {
     PrivateCampaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
       if (err) return res.redirect('/admin');
 
-      User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
-        $inc: {
-          credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price
-        },
-        $push: {
-          paid_campaigns: submition.campaign_id
-        }
-      }, {}, err => {
-        if (err) return res.redirect('/admin');
+      User.findById(mongoose.Types.ObjectId(submition.user_id), (err, user) => {
+        if (err || !user) return res.redirect('/admin');
 
-        Submition.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
-          status: "approved",
-          ended_at: (new Date()).getTime()
-        }}, {}, err => {
+        User.findByIdAndUpdate(mongoose.Types.ObjectId(submition.user_id), {
+          $inc: {
+            credit: user.paid_campaigns.includes(submition.campaign_id) ? 0 : campaign.price
+          },
+          $push: {
+            paid_campaigns: submition.campaign_id
+          }
+        }, {}, err => {
           if (err) return res.redirect('/admin');
-
-          return res.redirect('/admin/private_campaigns/submitions?id=' + submition.campaign_id);
+  
+          Submition.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
+            status: "approved",
+            ended_at: (new Date()).getTime()
+          }}, {}, err => {
+            if (err) return res.redirect('/admin');
+  
+            return res.redirect('/admin/private_campaigns/submitions?id=' + submition.campaign_id);
+          });
         });
       });
     });
