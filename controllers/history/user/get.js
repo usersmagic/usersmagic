@@ -22,38 +22,46 @@ module.exports = (req, res) => {
           submitions.length,
           (time, next) => {
             const submition = submitions[time];
-            
+
             if (submition.is_private_campaign) {
-              PrivateCampaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => next(err, {
-                _id: submition._id.toString(),
-                is_private_campaign: true,
-                campaign: {
-                  name: campaign.name,
-                  photo: campaign.photo,
-                  description: campaign.description,
-                  price: campaign.price,
-                  is_free: campaign.is_free
-                },
-                error: submition.reject_message,
-                status: submition.status,
-                last_question: submition.last_question,
-                will_terminate_at: submition.will_terminate_at
-              }));
+              PrivateCampaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
+                if (err || !campaign) return next(err || true);
+
+                return next(null, {
+                  _id: submition._id.toString(),
+                  is_private_campaign: true,
+                  campaign: {
+                    name: campaign.name,
+                    photo: campaign.photo,
+                    description: campaign.description,
+                    price: campaign.price,
+                    is_free: false
+                  },
+                  error: submition.reject_message,
+                  status: submition.status,
+                  last_question: submition.last_question,
+                  will_terminate_at: submition.will_terminate_at
+                });
+              });
             } else {
-              Campaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => next(err, {
-                _id: submition._id.toString(),
-                is_private_campaign: false,
-                campaign: {
-                  name: campaign.name,
-                  photo: campaign.photo,
-                  description: campaign.description,
-                  price: campaign.price,
-                  is_free: campaign.is_free
-                },
-                error: submition.reject_message,
-                status: submition.status,
-                last_question: submition.last_question
-              }));
+              Campaign.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
+                if (err || !campaign) return next(err || true);
+
+                return next(null, {
+                  _id: submition._id.toString(),
+                  is_private_campaign: false,
+                  campaign: {
+                    name: campaign.name,
+                    photo: campaign.photo,
+                    description: campaign.description,
+                    price: campaign.price,
+                    is_free: campaign.is_free
+                  },
+                  error: submition.reject_message,
+                  status: submition.status,
+                  last_question: submition.last_question
+                });
+              });
             }
           },
           (err, submitions) => {
