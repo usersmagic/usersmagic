@@ -45,7 +45,7 @@ const HeatMapSchema = new Schema({
   },
   os: {
     type: String,
-    default: nullo
+    default: null
   },
   plugins: {
     type: Array,
