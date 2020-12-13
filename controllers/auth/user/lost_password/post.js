@@ -11,7 +11,7 @@ const generateRandomNumber = length => {
 
 module.exports = (req, res) => {
   if (!req.body || !req.body.email)
-    return res.redirect('/admin');
+    return res.redirect('/auth/user/lost_password');
 
   User.findOneAndUpdate({
     email: req.body.email

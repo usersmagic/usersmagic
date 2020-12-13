@@ -42,6 +42,7 @@ if (cluster.isMaster) {
   
   const indexRouteController = require('./routes/indexRoute');
   const adminRouteController = require('./routes/adminRoute');
+  const apiRouteController = require('./routes/apiRoute');
   const authRouteController = require('./routes/authRoute');
   const campaignsRouteController = require('./routes/campaignsRoute');
   const profileRouteController = require('./routes/profileRoute');
@@ -83,6 +84,7 @@ if (cluster.isMaster) {
   app.use('/', indexRouteController);
   app.use('/dashboard', dashboardRouteController);
   app.use('/admin', adminRouteController);
+  app.use('/api', apiRouteController);
   app.use('/auth', authRouteController);
   app.use('/campaigns', campaignsRouteController);
   app.use('/profile', profileRouteController);

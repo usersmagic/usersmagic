@@ -90,6 +90,14 @@ const PrivateCampaignSchema = new Schema({
   email_list: {
     type: Array,
     default: null
+  },
+  test_url: {
+    type: String,
+    default: null
+  },
+  test_time_limit: {
+    type: Number,
+    default: 3600000
   }
 });
 
