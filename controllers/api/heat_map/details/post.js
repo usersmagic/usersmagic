@@ -5,8 +5,6 @@ const HeatMap = require('../../../../models/heat_map/HeatMap');
 const Test = require('../../../../models/test/Test');
 
 module.exports = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  
   if (!req.body || !req.body.test_id || !validator.isMongoId(req.body.test_id))
     return res.status(400).json({ error: "bad request" });
 

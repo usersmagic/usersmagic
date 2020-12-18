@@ -4,8 +4,6 @@ const validator = require('validator');
 const Test = require('../../../../models/test/Test');
 
 module.exports = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  
   if (!req.query || !req.query.id || !validator.isMongoId(req.query.id))
     return res.status(400).json({ error: "bad request" });
 

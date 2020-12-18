@@ -80,6 +80,13 @@ if (cluster.isMaster) {
   app.use(cookieParser());
 
   app.use(i18n.init);
+
+  app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
   
   app.use('/', indexRouteController);
   app.use('/dashboard', dashboardRouteController);
