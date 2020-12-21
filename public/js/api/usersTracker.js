@@ -17,10 +17,10 @@ var startTime = new Date().getTime();
 const mouseTracker = new MouseTracker(user_ID, window.location.href, startTime, heatMapID);
 
 var firstTime = getCookie("userMagic_firstTime") //this is set for data effieceny, browser information will be sent only one time
-if (firstTime == ""){
-	activateBrowserInfo()
-	setSessionCookie("userMagic_firstTime", "true")
-}
+//if (firstTime == ""){
+//	activateBrowserInfo()
+//	setSessionCookie("userMagic_firstTime", "true")
+//}
 // var heatmapID = getCookie("userMagic_heatmapID")
 //
 // if (heatmapID == ""){ //check if I have a heatmapID for the user

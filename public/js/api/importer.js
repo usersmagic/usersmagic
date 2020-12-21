@@ -4,8 +4,10 @@ var userID = getCookie("userMagic_id")
 var loc = window.location.href
 //if users comes from usersMagic, import this for only one time
 if (loc.includes("usersmagic_id")) $("head").append("<script src='https://usersmagic.com/js/api/browserInfo.js'></script>")
-$("head").append("<script src='https://usersmagic.com/js/api/usersTracker.js'></script>")
 
+setTimeout( function(){
+	$("head").append("<script src='https://usersmagic.com/js/api/usersTracker.js'></script>")
+}, 5000);
 
 
 function getCookie(cname) {
