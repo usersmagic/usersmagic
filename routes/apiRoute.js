@@ -10,18 +10,18 @@ const heatMapDetailsPostController = require('../controllers/api/heat_map/detail
 
 router.get(
   '/heat_map/details',
-    isApiAuthenticated,
+    // isApiAuthenticated,
     heatMapDetailsGetController
 );
 router.get(
   '/test/details',
-    isApiAuthenticated,
+    // isApiAuthenticated,
     testDetailsGetController
 );
 
 router.post(
   '/heat_map/details',
-    isApiAuthenticated,
+    // isApiAuthenticated,
     heatMapDetailsPostController
 );
 

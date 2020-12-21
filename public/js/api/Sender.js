@@ -13,11 +13,11 @@ function sendData(user,heatMapID,time,clickedObjects,positions,location,mouseSta
       "scrolled" : scrolledInfo
   };
 
-  data = JSON.stringify(data)
-  //console.log(data)
-  formData.append("data", data)
+  data = JSON.stringify(data);
+
   xhttp.open("POST", "https://usersmagic.com/api/heat_map/details", false);
-  xhttp.send(formData)
+  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.send(data);
   var response = JSON.parse(xhttp.responseText);
   var heatMapID = response.heat_map_id
   var completed = response.completed
@@ -46,9 +46,9 @@ function sendBrowserInfo(user, browser, detailedBrowser, os, mobile, plugins, co
   };
   data = JSON.stringify(data)
 
-  formData.append("data",data)
-  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details")
-  xhttp.send(formData)
+  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details");
+  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.send(data)
 }
 
 // function getHeatMapIDFromUsersMagic(user_ID){

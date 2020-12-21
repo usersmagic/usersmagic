@@ -46,7 +46,7 @@ window.onload = () => {
   const townInputChoices = document.querySelector('.town-input-choices');
 
   document.addEventListener('click', event => {
-    if (event.target.className == 'get-credit-button' || event.target.parentNode.className == 'get-credit-button') {
+    if (event.target.className == 'get-credit-button' || event.target.parentNode.className == 'get-credit-button') {
       if (user.payment_number)
         return window.location = "/profile/user/payment";
 
@@ -75,14 +75,14 @@ window.onload = () => {
         document.querySelector('.invite-copy-button-text').innerHTML = 'Linki Kopyala';
         document.querySelector('.invite-copy-button').style.cursor = 'pointer';
       }, 1000);
-    } else if (event.target.className != 'invite-wrapper' && event.target.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.parentNode.className != 'invite-wrapper') {
+    } else if (event.target.className != 'invite-wrapper' && event.target.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.className != 'invite-wrapper' && event.target.parentNode.parentNode.parentNode.className != 'invite-wrapper') {
       document.querySelector('.invite-wrapper').style.display = 'none';
     }
 
     if (event.target.classList.contains('send-city-outer-wrapper')) {
       document.querySelector('.send-city-outer-wrapper').style.display = "none";
     }
-    if (event.target.classList.contains('send-city-close-button') || event.target.parentNode.classList.contains('send-city-close-button')) {
+    if (event.target.classList.contains('send-city-close-button') || event.target.parentNode.classList.contains('send-city-close-button')) {
       document.querySelector('.send-city-outer-wrapper').style.display = "none";
     }
 
@@ -109,7 +109,7 @@ window.onload = () => {
       setTimeout(() => {
         cityInputChoices.scrollTo(0, 0);
       }, 500);
-    } else if (cityInputWrapper.classList.contains('open-bottom-animation-class') && !cityInputWrapper.classList.contains('close-up-animation-class') && (event.target.className != 'city-input-choices' && event.target.className != 'city-input-wrapper' && event.target.className != 'city-input-outer-wrapper' && event.target.className != 'city-input')) {
+    } else if (cityInputWrapper.classList.contains('open-bottom-animation-class') && !cityInputWrapper.classList.contains('close-up-animation-class') && (event.target.className != 'city-input-choices' && event.target.className != 'city-input-wrapper' && event.target.className != 'city-input-outer-wrapper' && event.target.className != 'city-input')) {
       cityInputWrapper.classList.remove('open-bottom-animation-class');
       cityInputWrapper.classList.add('close-up-animation-class');
       setTimeout(() => {
@@ -124,7 +124,7 @@ window.onload = () => {
       setTimeout(() => {
         townInputChoices.scrollTo(0, 0);
       }, 500);
-    } else if (townInputWrapper.classList.contains('open-bottom-animation-class') && !townInputWrapper.classList.contains('close-up-animation-class') && (event.target.className != 'town-input-choices' && event.target.className != 'town-input-wrapper' && event.target.className != 'town-input-outer-wrapper' && event.target.className != 'town-input')) {
+    } else if (townInputWrapper.classList.contains('open-bottom-animation-class') && !townInputWrapper.classList.contains('close-up-animation-class') && (event.target.className != 'town-input-choices' && event.target.className != 'town-input-wrapper' && event.target.className != 'town-input-outer-wrapper' && event.target.className != 'town-input')) {
       townInputWrapper.classList.remove('open-bottom-animation-class');
       townInputWrapper.classList.add('close-up-animation-class');
       setTimeout(() => {
@@ -158,7 +158,7 @@ window.onload = () => {
     cityInputWrapper.classList.add('open-bottom-animation-class');
   }
 
-  cityInput.oninput = () => {
+  cityInput.oninput = () => {
     townInput.value = "";
     towns = [];
 
@@ -224,7 +224,7 @@ window.onload = () => {
     townInputWrapper.classList.add('open-bottom-animation-class');
   }
 
-  townInput.oninput = () => {
+  townInput.oninput = () => {
     if (towns.length) {
       if (townInput.value) {
         townInputChoices.innerHTML = "";
