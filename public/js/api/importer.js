@@ -7,7 +7,7 @@ if (loc.includes("usersmagic_id")) $("head").append("<script src='https://usersm
 
 setTimeout( function(){
 	$("head").append("<script src='https://usersmagic.com/js/api/usersTracker.js'></script>")
-}, 5000);
+}, 1000);
 
 
 function getCookie(cname) {

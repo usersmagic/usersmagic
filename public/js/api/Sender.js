@@ -16,7 +16,7 @@ function sendData(user,heatMapID,time,clickedObjects,positions,location,mouseSta
   data = JSON.stringify(data)
   //console.log(data)
   formData.append("data", data)
-  xhttp.open("POST", "https://usersmagic.com/api/heat_map/user_details", false);
+  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details", false);
   xhttp.send(formData)
   var response = JSON.parse(xhttp.responseText);
   var heatMapID = response.heat_map_id
@@ -24,9 +24,11 @@ function sendData(user,heatMapID,time,clickedObjects,positions,location,mouseSta
 
   setSessionCookie("usersMagic_heat_map_id", heatMapID);
 
-  if (completed) { //if test is completed delete, usersmagicID in cookies
+  if(completed){ //if test is completed delete, usersmagicID in cookies
     setSessionCookie("userMagic_id", "");
   }
+
+
 }
 
 function sendBrowserInfo(user, browser, detailedBrowser, os, mobile, plugins, coordinates){
@@ -45,7 +47,7 @@ function sendBrowserInfo(user, browser, detailedBrowser, os, mobile, plugins, co
   data = JSON.stringify(data)
 
   formData.append("data",data)
-  xhttp.open("POST", "https://usersmagic.com/api/heat_map/browser_details")
+  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details")
   xhttp.send(formData)
 }
 
