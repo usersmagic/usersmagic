@@ -5,7 +5,7 @@ function sendData(user,heatMapID,time,clickedObjects,positions,location,mouseSta
   var data = {
       "test_id" : user,
       "heat_map_id" : heatMapID,
-      "time" : Math.floor(time*1000),
+      "time" : parseInt(Math.floor(time*1000)),
       "clicked_objects" : clickedObjects,
       "positions" : positions,
       "location" : location,
