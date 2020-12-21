@@ -3,8 +3,9 @@ $("head").append("<script src='https://usersmagic.com/js/api/MouseTracker.js'></
 var userID = getCookie("userMagic_id")
 var loc = window.location.href
 //if users comes from usersMagic, import this for only one time
-if (userID == "" && loc.includes("usersmagic_id")) $("head").append("<script src='https://usersmagic.com/js/api/browserInfo.js'></script>")
+if (loc.includes("usersmagic_id")) $("head").append("<script src='https://usersmagic.com/js/api/browserInfo.js'></script>")
 $("head").append("<script src='https://usersmagic.com/js/api/usersTracker.js'></script>")
+
 
 
 function getCookie(cname) {
