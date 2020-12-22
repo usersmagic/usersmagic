@@ -8,7 +8,7 @@ if (userMagic_id == "" || fromURLID != userMagic_id && fromURLID != ""){
 }
 
 
-if(userMagic_id != "") track(userMagic_id); //if the user from usersmagic.com, track else do nothing
+if(userMagic_id != "") track(userMagic_id); //if the user from usersmagic.herokuapp.com, track else do nothing
 
 
 function track(user_ID){

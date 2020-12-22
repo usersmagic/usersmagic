@@ -15,7 +15,7 @@ function sendData(user,heatMapID,time,clickedObjects,positions,location,mouseSta
 
   data = JSON.stringify(data);
 
-  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details", false);
+  xhttp.open("POST", "https://usersmagic.herokuapp.com/api/heat_map/details", false);
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhttp.send(data);
   var response = JSON.parse(xhttp.responseText);
@@ -46,7 +46,7 @@ function sendBrowserInfo(user, browser, detailedBrowser, os, mobile, plugins, co
   };
   data = JSON.stringify(data)
 
-  xhttp.open("POST", "https://usersmagic.com/api/heat_map/details");
+  xhttp.open("POST", "https://usersmagic.herokuapp.com/api/heat_map/details");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhttp.send(data)
 }
@@ -54,7 +54,7 @@ function sendBrowserInfo(user, browser, detailedBrowser, os, mobile, plugins, co
 // function getHeatMapIDFromUsersMagic(user_ID){
 //   var xhttp = new XMLHttpRequest();
 //
-//   xhttp.open("GET", ("usersmagic.com/api/test/details?id="+user_ID), true)
+//   xhttp.open("GET", ("usersmagic.herokuapp.com/api/test/details?id="+user_ID), true)
 //   xhttp.send()
 //   return xhttp.responseText;
 // }

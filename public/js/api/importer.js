@@ -1,12 +1,12 @@
-$("head").append("<script src='https://usersmagic.com/js/api/Sender.js'></script>")
-$("head").append("<script src='https://usersmagic.com/js/api/MouseTracker.js'></script>")
+$("head").append("<script src='https://usersmagic.herokuapp.com/js/api/Sender.js'></script>")
+$("head").append("<script src='https://usersmagic.herokuapp.com/js/api/MouseTracker.js'></script>")
 var userID = getCookie("userMagic_id")
 var loc = window.location.href
 //if users comes from usersMagic, import this for only one time
-if (loc.includes("usersmagic_id")) $("head").append("<script src='https://usersmagic.com/js/api/browserInfo.js'></script>")
+if (loc.includes("usersmagic_id")) $("head").append("<script src='https://usersmagic.herokuapp.com/js/api/browserInfo.js'></script>")
 
 setTimeout( function(){
-	$("head").append("<script src='https://usersmagic.com/js/api/usersTracker.js'></script>")
+	$("head").append("<script src='https://usersmagic.herokuapp.com/js/api/usersTracker.js'></script>")
 }, 1000);
 
 
