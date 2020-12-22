@@ -15,7 +15,6 @@
   "dependencies": {
     "async": "^3.2.0",
     "aws-sdk": "^2.709.0",
-    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cluster": "^0.7.7",
     "connect-mongo": "^3.2.0",
@@ -38,5 +37,8 @@
     "pug": "^2.0.3",
     "serve-favicon": "^2.5.0",
     "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "bcrypt": "^3.0.0"
   }
 }
