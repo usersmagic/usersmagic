@@ -8,11 +8,14 @@ module.exports = (req, res) => {
   if (!req.body || !req.body.test_id || !validator.isMongoId(req.body.test_id))
     return res.status(400).json({ error: "bad request" });
 
+  if (req.body.heat_map_id && req.body.heat_map_id.length && !validator.isMongoId(req.body.heat_map_id))
+    return res.status(400).json({ error: "bad request" });
+
   Test.findById(mongoose.Types.ObjectId(req.body.test_id), (err, test) => {
     if (err) return res.status(500).json({ error: "unknown" });
     if (!test) return res.status(404).json({ error: "not found" });
 
-    if (req.body.heat_map_id) {
+    if (req.body.heat_map_id && req.body.heat_map_id.length) {
       HeatMap.findById(mongoose.Types.ObjectId(req.body.heat_map_id), (err, heat_map) => {
         if (err) return res.status(500).json({ error: "unknown" });
         if (!heat_map) return res.status(404).json({ error: "not found" });
