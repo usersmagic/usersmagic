@@ -29,6 +29,7 @@ module.exports = (req, res) => {
       code: user.password_reset_code
     }, 'change_password', err => {
       if (err) {
+        console.log(err);
         req.session.error = "unknown";
         return res.redirect('/auth/user/lost_password');
       }

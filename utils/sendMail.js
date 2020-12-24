@@ -154,7 +154,7 @@ const templates = {
     `
   }),
   change_password: data => ({
-    bcc: data.email,
+    to: data.email,
     subject: 'Şifre Değiştirme Talebi',
     html: `
       <div style="width: 100%; padding: 20px; " >
