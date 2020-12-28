@@ -30,8 +30,8 @@ module.exports = (req, res) => {
     if (campaign.country)
       filters.push({country: campaign.country});
 
-    if ((!campaign.email_list || !campaign.email_list.length) && (!campaign.filter || !campaign.filter.length))
-      return res.redirect('/admin/private_campaigns');
+    if (campaign.cities)
+      filters.push({city: campaign.cities});
 
     if (campaign.email_list && campaign.email_list.length)
       filters.push({email: {$in: campaign.email_list}});
