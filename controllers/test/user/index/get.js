@@ -44,7 +44,7 @@ module.exports = (req, res) => {
           questions: campaign.questions.map(each => {
             const questionWrapper = {};
             questionWrapper.question = each;
-            questionWrapper.answer = submition.answers[question._id.toString()] || "";
+            questionWrapper.answer = submition.answers[each._id.toString()] || "";
             return questionWrapper;
           })
         });
