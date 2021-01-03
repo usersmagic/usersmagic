@@ -13,6 +13,7 @@ module.exports = (req, res) => {
     Question.findByIdAndUpdate(mongoose.Types.ObjectId(req.query.id), {$set: {
       name: req.body.name,
       description: req.body.description,
+      countries: req.body.countries.split(',').map(each => each.toLowerCase()),
       text: req.body.text,
       answer_length: req.body.answer_length || question.answer_length,
       choices: req.body.choices.split('/').map(each => each.trim()) || question.choices,

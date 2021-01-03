@@ -8,6 +8,7 @@ module.exports = (req, res) => {
 
   const newQuestionData = {
     name: req.body.name,
+    countries: req.body.countries.split(',').map(each => each.toLowerCase()),
     description: req.body.description,
     text: req.body.text,
     type: req.body.type,

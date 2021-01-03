@@ -10,6 +10,9 @@ block main
       span.form-subtitle Soru İsmi: *
       span.form-info Soruyu ileride bulmanızı kolaylaştıracak tanımlayıcı bir isim girin. Bu isim sadece admin tarafında görünür ve kullanıcılar tarafından görünmez.
       input.form-input(type="text" value=question.name placeholder="ör: Hobi, En Sevilen Dizi Sorusu" name="name" required)
+      span.form-subtitle Sorunun Filtre Olarak Geçerli Olacağı Ülkeler: *
+      span.form-info Sorunun filtelemede kullanılabileceğ ülkelerin listesi. "TR", "US", "UK", "DE" veya "RU" değerlerinden birini yazın. Birden fazla ülke yazmak için araya virgül koyun. Boşluk ya da başka bir noktalama işareti kullanmayın.
+      input.form-input(type="text" placeholder="ör: TR,US" value=question.countries.map(each => each.toUpperCase()).join(',') name="countries" required)
       span.form-subtitle Soru Açıklaması: *
       span.form-info Sorunun amacını anlamanızı kolaylaştıracak bir açıklama girin. Bu açıklama sadece admin tarafında görünür ve kullanıcılar tarafından görünmez.
       input.form-input(type="text" value=question.description placeholder="ör: Kullanıcıların en sevdikleri dizi ismi" name="description" required)
