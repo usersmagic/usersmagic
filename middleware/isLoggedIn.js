@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
       
       req.session.user = user;
 
-      if ((req.originalUrl.indexOf('?') > -1 ? req.originalUrl.substr(0, req.originalUrl.indexOf('?')) : req.originalUrl) != '/auth/user/complete' && !user.completed)
+      if ((req.originalUrl.indexOf('?') > -1 ? req.originalUrl.substr(0, req.originalUrl.indexOf('?')) : req.originalUrl) != '/auth/complete' && !user.completed)
         return res.redirect('/auth/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
 
       next();
