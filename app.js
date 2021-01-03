@@ -48,9 +48,7 @@ if (cluster.isMaster) {
   const profileRouteController = require('./routes/profileRoute');
   const testRouteController = require('./routes/testRoute');
   const historyRouteController = require('./routes/historyRoute');
-  const brandRouteController = require('./routes/brandRoute');
   const agreementRouteController = require('./routes/agreementRoute');
-  const dashboardRouteController = require('./routes/dashboardRoute');
   
   app.set("views", path.join(__dirname, "views"));
   app.set("view engine", "pug");
@@ -89,7 +87,6 @@ if (cluster.isMaster) {
   });
   
   app.use('/', indexRouteController);
-  app.use('/dashboard', dashboardRouteController);
   app.use('/admin', adminRouteController);
   app.use('/api', apiRouteController);
   app.use('/auth', authRouteController);
@@ -97,7 +94,6 @@ if (cluster.isMaster) {
   app.use('/profile', profileRouteController);
   app.use('/test', testRouteController);
   app.use('/history', historyRouteController);
-  // app.use('/brand', brandRouteController);
   app.use('/agreement', agreementRouteController);
   
   server.listen(PORT, () => {

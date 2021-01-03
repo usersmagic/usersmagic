@@ -1,0 +1,55 @@
+extends ../partials/head
+block content
+  //- - console.log(campaign)
+  input.display-none#campaign-json(type="text" value=JSON.stringify(campaign))
+  input.display-none#questions-json(type="text" value=JSON.stringify(questions))
+  span.display-none#character-left-text= __('karakter kaldı')
+  span.display-none#continue-text= __('Devam')
+  span.display-none#end-text= __('Bitir')
+  span.display-none#send-text= __('Gönder')
+  .all-wrapper
+    a.go-back-link(href="/history")
+      i.fas.fa-chevron-left
+      span Ana Sayfaya Dön
+    .main-content-wrapper
+      .start-page-wrapper
+        .start-page-left-side
+          .campaign-photo-wrapper
+            img.campaign-photo(src=campaign.photo alt=campaign.name)
+        .start-page-right-side
+          span.campaign-name= campaign.name
+          if campaign.error
+            span.campaign-error= campaign.error
+          span.campaign-info= campaign.information
+          span.campaign-version #{__('Versiyon')}: #{campaign.version}.0.0
+      .each-question-wrapper
+        span.each-question-text
+        .question-short-answer-input-wrapper
+          input.question-short-answer-input(type="text" placeholder=__('Cevabınız'))
+          span.question-short-left-character-text
+        .question-long-answer-input-wrapper
+          textarea.question-long-answer-input(placeholder=__('Cevabınız'))
+          span.question-long-left-character-text
+        .question-radio-answer-wrapper
+        .question-checked-answer-wrapper
+        .question-range-answer-wrapper
+        .question-image-answer-wrapper
+        .other-option-wrapper-radio
+          .choice-radio
+            .choice-inner-radio
+          input.other-option-input-radio(type="text" placeholder=__('Diğer'))
+        .other-option-wrapper-checked
+          .choice-checked.other-option-choice-checked#other-option-choice-checked
+            i.fas.fa-check
+          input.other-option-input-checked(type="text" placeholder=__('Diğer'))
+      .end-page-wrapper
+        span.campaign-name #{__('Cevaplarınız')}:
+        .end-page-questions-wrapper
+    .navigation-bar-wrapper
+      .go-back-button
+        span #{__('Geri')}
+      .progress-bar
+        .progress-bar-full
+        .progress-bar-empty
+      .move-on-button
+        span #{__('Başla')}

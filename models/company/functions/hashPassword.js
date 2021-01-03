@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-module.exports = function(next) {
+module.exports = function (next) {
   let user = this;
 
   if (user.isModified("password")) {

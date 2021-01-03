@@ -4,27 +4,26 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 const isLocationComplete = require('../middleware/isLocationComplete');
-const isLoggedInCompany = require('../middleware/isLoggedInCompany');
 
-const userIndexGetController = require('../controllers/campaigns/user/index/get');
-const userJoinGetController = require('../controllers/campaigns/user/join/get');
-const companyIndexGetController = require('../controllers/campaigns/company/index/get');
+const userGetController = require('../controllers/campaigns/user/get');
+const indexGetController = require('../controllers/campaigns/index/get');
+const joinGetController = require('../controllers/campaigns/join/get');
 
+router.get(
+  '/',
+    isLoggedIn,
+    indexGetController
+);
+router.get(
+  '/join',
+    isLoggedIn,
+    isLocationComplete,
+    joinGetController
+);
 router.get(
   '/user',
     isLoggedIn,
-    userIndexGetController
-);
-router.get(
-  '/user/join',
-    isLoggedIn,
-    isLocationComplete,
-    userJoinGetController
-);
-router.get(
-  '/company',
-    isLoggedInCompany,
-    companyIndexGetController
+    userGetController
 );
 
 module.exports = router;

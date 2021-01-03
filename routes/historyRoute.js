@@ -3,12 +3,12 @@ const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-const userIndexGetController = require('../controllers/history/user/get');
+const indexGetController = require('../controllers/history/get');
 
 router.get(
-  '/user',
+  '/',
     isLoggedIn,
-    userIndexGetController
+    indexGetController
 );
 
 module.exports = router;

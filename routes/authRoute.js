@@ -2,27 +2,19 @@ const express = require('express');
 const router = express.Router();
 
 const isLoggedIn = require('../middleware/isLoggedIn');
-const isLoggedInCompany = require('../middleware/isLoggedInCompany');
 
 const loginGetController = require('../controllers/auth/login/get');
 const registerGetController = require('../controllers/auth/register/get');
-const userLoginGetController = require('../controllers/auth/user/login/get');
-const userRegisterGetController = require('../controllers/auth/user/register/get');
-const userCompleteGetController = require('../controllers/auth/user/complete/get');
-const userLostPasswordGetController = require('../controllers/auth/user/lost_password/get');
-const userChangePasswordGetController = require('../controllers/auth/user/change_password/get');
-const companyLoginGetController = require('../controllers/auth/company/login/get');
-const companyRegisterGetController = require('../controllers/auth/company/register/get');
-const companyCompleteGetController = require('../controllers/auth/company/complete/get');
+const completeGetController = require('../controllers/auth/complete/get');
+const lostPasswordGetController = require('../controllers/auth/lost_password/get');
+const changePasswordGetController = require('../controllers/auth/change_password/get');
+const userGetController = require('../controllers/auth/user/get');
 
-const userLoginPostController = require('../controllers/auth/user/login/post');
-const userRegisterPostController = require('../controllers/auth/user/register/post');
-const userCompletePostController = require('../controllers/auth/user/complete/post');
-const userLostPasswordPostController = require('../controllers/auth/user/lost_password/post');
-const userChangePasswordPostController = require('../controllers/auth/user/change_password/post');
-const companyLoginPostController = require('../controllers/auth/company/login/post');
-const companyRegisterPostController = require('../controllers/auth/company/register/post');
-const companyCompletePostController = require('../controllers/auth/company/complete/post');
+const loginPostController = require('../controllers/auth/login/post');
+const registerPostController = require('../controllers/auth/register/post');
+const completePostController = require('../controllers/auth/complete/post');
+const lostPasswordPostController = require('../controllers/auth/lost_password/post');
+const changePasswordPostController = require('../controllers/auth/change_password/post');
 
 router.get(
   '/login',
@@ -33,73 +25,43 @@ router.get(
     registerGetController
 );
 router.get(
-  '/user/login',
-    userLoginGetController
-);
-router.get(
-  '/user/register',
-    userRegisterGetController
-);
-router.get(
-  '/user/complete',
+  '/complete',
     isLoggedIn,
-    userCompleteGetController
+    completeGetController
 );
 router.get(
-  '/user/lost_password',
-    userLostPasswordGetController
+  '/lost_password',
+    lostPasswordGetController
 );
 router.get(
-  '/user/change_password',
-    userChangePasswordGetController
+  '/change_password',
+    changePasswordGetController
 );
 router.get(
-  '/company/login',
-    companyLoginGetController
-);
-router.get(
-  '/company/register',
-    companyRegisterGetController
-);
-router.get(
-  '/company/complete',
-    isLoggedInCompany,
-    companyCompleteGetController
+  '/user',
+    userGetController
 );
 
 router.post(
-  '/user/login',
-    userLoginPostController
+  '/login',
+    loginPostController
 );
 router.post(
-  '/user/register',
-    userRegisterPostController
+  '/register',
+    registerPostController
 );
 router.post(
-  '/user/complete',
+  '/complete',
     isLoggedIn,
-    userCompletePostController
+    completePostController
 );
 router.post(
-  '/user/lost_password',
-    userLostPasswordPostController
+  '/lost_password',
+    lostPasswordPostController
 );
 router.post(
-  '/user/change_password',
-    userChangePasswordPostController
-);
-router.post(
-  '/company/login',
-    companyLoginPostController
-);
-router.post(
-  '/company/register',
-    companyRegisterPostController
-);
-router.post(
-  '/company/complete',
-    isLoggedInCompany,
-    companyCompletePostController
+  '/change_password',
+    changePasswordPostController
 );
 
 module.exports = router;

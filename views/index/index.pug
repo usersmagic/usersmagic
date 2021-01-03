@@ -1,4 +1,4 @@
-extends ./../partials/head
+extends ../partials/head
 block content
   .all-wrapper
     .landing-all-header
@@ -6,7 +6,7 @@ block content
         img.landing-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
         span.landing-header-logo-text usersmagic
       .landing-header-buttons-wrapper
-        a.landing-header-tester-button(href=language_key ? `/auth/user/register?lang=${language_key}` : '/auth/user/register')= __("Tester Olmak İstiyorum")
+        a.landing-header-tester-button(href=language_key ? `/auth/register?lang=${language_key}` : '/auth/register')= __("Tester Olmak İstiyorum")
         .landing-header-start-button= __("Bize Ulaşın")
         a.change-language-button(href='/?lang=' + (current_language == 'TR' ? 'en' : 'tr'))
           span= (current_language == "TR" ? "EN" : "TR")
@@ -98,8 +98,8 @@ block content
           .footer-top-wrapper
             .each-footer-wrapper
               span.each-footer-title= __('Tester Olmak İstiyorum')
-              a.each-footer-text(href="/auth/user/register")= __('Kaydol')
-              a.each-footer-text(href="/auth/user/login")= __('Giriş Yap')
+              a.each-footer-text(href="/auth/register")= __('Kaydol')
+              a.each-footer-text(href="/auth/login")= __('Giriş Yap')
             .each-footer-wrapper
               span.each-footer-title= __('Hakkında')
               a.each-footer-text(href="/agreement/privacy")= __('Gizlilik Sözleşmesi')

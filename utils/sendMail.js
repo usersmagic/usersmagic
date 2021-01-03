@@ -1,15 +1,10 @@
 const nodemailer = require('nodemailer');
 const path = require('path');
-const dotenv = require('dotenv');
 
 const htmlToText = require('nodemailer-html-to-text').htmlToText;
 
-dotenv.config({ path: path.join(__dirname, ".env") });
-
-const {
-  MAIL_USER_NAME,
-  MAIL_PASSWORD
-} = process.env;
+const MAIL_USER_NAME = process.env.MAIL_USER_NAME || 'usersmagic@gmail.com';
+const MAIL_PASSWORD = process.env.MAIL_PASSWORD || 'usersmagicLOY123';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',

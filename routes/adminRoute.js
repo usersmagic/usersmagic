@@ -33,10 +33,6 @@ const privateCampaignsDetailsApproveGetController = require('../controllers/admi
 const privateCampaignsSubmitionsIndexGetController = require('../controllers/admin/private_campaigns/submitions/index/get');
 const privateCampaignsSubmitionsApproveGetController = require('../controllers/admin/private_campaigns/submitions/approve/get');
 const privatecampaignsSubmitionsCSVGetController = require('../controllers/admin/private_campaigns/submitions/csv/get');
-const commercialsIndexGetController = require('../controllers/admin/commercials/index/get');
-const commercialsDeleteGetController = require('../controllers/admin/commercials/delete/get');
-const mailsIndexGetController = require('../controllers/admin/mail/index/get');
-const mailsSendGetController = require('../controllers/admin/mail/send/get');
 const applicationsIndexGetController = require('../controllers/admin/applications/index/get');
 const applicationsDeleteGetController = require('../controllers/admin/applications/delete/get');
 
@@ -50,8 +46,6 @@ const questionsIndexPostController = require('../controllers/admin/questions/ind
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
 const privateCampaignsDetailsPostController = require('../controllers/admin/private_campaigns/details/post');
 const privateCampaignsSubmitionsRejectPostController = require('../controllers/admin/private_campaigns/submitions/reject/post');
-const commercialsIndexPostController = require('../controllers/admin/commercials/index/post');
-const mailsIndexPostController = require('../controllers/admin/mail/index/post');
 
 router.get(
   '/',
@@ -188,26 +182,6 @@ router.get(
     privatecampaignsSubmitionsCSVGetController
 );
 router.get(
-  '/commercials',  
-    isAdmin,
-    commercialsIndexGetController
-);
-router.get(
-  '/commercials/delete',
-    isAdmin,
-    commercialsDeleteGetController
-);
-router.get(
-  '/mails',
-    isAdmin,
-    mailsIndexGetController
-);
-router.get(
-  '/mails/send',
-    isAdmin,
-    mailsSendGetController
-);
-router.get(
   '/applications',
     isAdmin,
     applicationsIndexGetController
@@ -263,17 +237,6 @@ router.post(
   '/private_campaigns/submitions/reject',
     isAdmin,
     privateCampaignsSubmitionsRejectPostController
-);
-router.post(
-  '/commercials',
-    upload.single('file'),
-    isAdmin,
-    commercialsIndexPostController
-);
-router.post(
-  '/mails',
-    isAdmin,
-    mailsIndexPostController
 );
 
 module.exports = router;

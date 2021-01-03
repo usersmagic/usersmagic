@@ -18,18 +18,18 @@ block content
         span #{__('için')}
         span.invite-title-bold 2#{currency}
         span #{__('kazan')}!
-      span.invite-message https://usersmagic.com/auth/user/register?code=#{code}
+      span.invite-message https://usersmagic.com/auth/register?code=#{code}
       .invite-copy-button
         span.invite-copy-button-text #{__('Linki Kopyala')}
       span.invite-close-text #{__('Kapat')}
       //- span.invite-info #{__('Sahte hesapların önüne geçebilmek için Usersmagic, sizin kodunuz ile kaydolan bir kullanıcı bakiyesinden para çekme işlemi gerçekleştirene kadar hesabınıza 2')}#{currency} #{__('yatırmaz. Fakat merak etmeyin, para çekme işleminin gerçekleştirilmesi için herhangi bir son kullanım tarihi bulunmamaktadır! Eğer bakiyenizde bir hata olduğunu düşünürseniz temsilcilerimiz ile iletişime geçmekten çekinmeyin')}.
     .all-header
       .all-header-menu-wrapper
-        a.each-header-menu(href="/history/user" class=(current_page == "history" ? "selected" : ""))
+        a.each-header-menu(href="/history" class=(current_page == "history" ? "selected" : ""))
           i.fas.fa-tasks
-        a.each-header-menu(href="/campaigns/user" class=(current_page == "campaigns" ? "selected" : ""))
+        a.each-header-menu(href="/campaigns" class=(current_page == "campaigns" ? "selected" : ""))
           i.fas.fa-home
-        a.each-header-menu(href="/profile/user" class=(current_page == "profile" ? "selected" : ""))
+        a.each-header-menu(href="/profile" class=(current_page == "profile" ? "selected" : ""))
           i.fas.fa-user
     .all-content
       block main

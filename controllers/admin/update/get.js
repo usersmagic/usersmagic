@@ -4,95 +4,85 @@ const mongoose = require('mongoose');
 const Campaign = require('../../../models/campaign/Campaign');
 const PrivateCampaign = require('../../../models/private_campaign/PrivateCampaign');
 const Submition = require('../../../models/submition/Submition');
+const Test = require('../../../models/test/Test');
 const User = require('../../../models/user/User');
 const Question = require('../../../models/question/Question');
 
 const sendMail = require('../../../utils/sendMail');
 
 module.exports = (req, res) => {
-  if (!req.query || !req.query.updates || req.query.updates != "nike")
-    return res.redirect('/');
+  // if (!req.query || !req.query.updates || req.query.updates != "save")
+  //   return res.redirect('/admin');
 
-  Campaign.findById(mongoose.Types.ObjectId("5f5910d71f0d730016419119"), (err, campaign) => {
-    if (err || !campaign) return res.redirect('/admin');
+  // Question.find({
+  // }, (err, questions) => {
+  //   if (err) return res.redirect('/admin');
 
-    async.times(
-      campaign.questions.length,
-      (time, next) => {
-        Question.findById(mongoose.Types.ObjectId(campaign.questions[time]), (err, question) => next(err || !question, question ? question.name : null))
-      },
-      (err, questions) => {
-        if (err) return res.redirect('/admin');
+  //   return res.status(200).json({questions});
+  // });
 
-        User
-          .find({$and: [
-            {"information.5f4f51cfa437ae001612ae4e": {$exists: true}},
-            {"information.5f4f936715b56c001686663d": {$exists: true}},
-            {"information.5f4f949015b56c0016866640": {$exists: true}},
-            {"information.5f4f961715b56c0016866642": {$exists: true}},
-            {"information.5f4f9b6e15b56c0016866643": {$exists: true}},
-            {"information.5f4f9c9015b56c0016866645": {$exists: true}},
-            {"information.5f4f9d2915b56c0016866646": {$exists: true}},
-            {"information.5f4f9d7a15b56c0016866647": {$exists: true}},
-            {"information.5f4fa0cb15b56c0016866649": {$exists: true}},
-            {"information.5f4fa17d15b56c001686664a": {$exists: true}},
-            {"information.5f4fa31415b56c001686664b": {$exists: true}},
-            {"information.5f4fa38115b56c001686664c": {$exists: true}},
-            {"information.5f4fa44315b56c001686664d": {$exists: true}},
-            {"information.5f4fa5d315b56c001686664e": {$exists: true}},
-            {"information.5f4fa64f15b56c0016866650": {$exists: true}},
-            {"information.5f4fa6a815b56c0016866651": {$exists: true}},
-            {"information.5f4fa76e15b56c0016866652": {$exists: true}},
-            {"information.5f4faa6d15b56c0016866653": {$exists: true}},
-            {"information.5f4fab4c15b56c0016866654": {$exists: true}},
-            {"information.5f4fb9e015b56c0016866655": {$exists: true}},
-            {"information.5f4fba3215b56c0016866656": {$exists: true}},
-            {"information.5f4fba8c15b56c0016866657": {$exists: true}},
-            {"information.5f74c3442b4e90001c72b747": {$exists: true}},
-            {"information.5f74c3442b4e90001c72b747": {$neq: "Lisanslı sporcu değilim"}}
-          ]})
-          .limit(10)
-          .then(users => {
-            return res.json({
-              users: users.map(user => {
-                return {
-                  name: user.name,
-                  phone: user.phone,
-                  email: user.email,
-                  gender: user.gender,
-                  birth_year: user.birth_year,
-                  city: user.city,
-                  town: user.town,
-                  [questions[0]]: user["information.5f4f51cfa437ae001612ae4e"],
-                  [questions[1]]: user["information.5f4f936715b56c001686663d"],
-                  [questions[2]]: user["information.5f4f949015b56c0016866640"],
-                  [questions[3]]: user["information.5f4f961715b56c0016866642"],
-                  [questions[4]]: user["information.5f4f9b6e15b56c0016866643"],
-                  [questions[5]]: user["information.5f4f9c9015b56c0016866645"],
-                  [questions[6]]: user["information.5f4f9d2915b56c0016866646"],
-                  [questions[7]]: user["information.5f4f9d7a15b56c0016866647"],
-                  [questions[8]]: user["information.5f4fa0cb15b56c0016866649"],
-                  [questions[9]]: user["information.5f4fa17d15b56c001686664a"],
-                  [questions[10]]: user["information.5f4fa31415b56c001686664b"],
-                  [questions[11]]: user["information.5f4fa38115b56c001686664c"],
-                  [questions[12]]: user["information.5f4fa44315b56c001686664d"],
-                  [questions[13]]: user["information.5f4fa5d315b56c001686664e"],
-                  [questions[14]]: user["information.5f4fa64f15b56c0016866650"],
-                  [questions[15]]: user["information.5f4fa6a815b56c0016866651"],
-                  [questions[16]]: user["information.5f4fa76e15b56c0016866652"],
-                  [questions[17]]: user["information.5f4faa6d15b56c0016866653"],
-                  [questions[18]]: user["information.5f4fab4c15b56c0016866654"],
-                  [questions[19]]: user["information.5f4fb9e015b56c0016866655"],
-                  [questions[20]]: user["information.5f4fba3215b56c0016866656"],
-                  [questions[21]]: user["information.5f4fba8c15b56c0016866657"]
-                };
-              })
-            });
-          })
-          .catch(err => {
-            return res.redirect('/admin');
-          });
-      }
-    );
-  });
+  // let data = "";
+
+  // data += 'Ad Soyad,' + 'Cinsiyet,' + 'Doğum Yılı,' + 'Şehir,' + 'İlçe,' +
+  //   'Sosyal medyada günlük ortalama kaç saat geçiriyorsun?,' +
+  //   'Onsuz yapamam dediğin 3 internet platformunu seç,' +
+  //   'En çok hangi sosyal medya platformlarında zamanını geçiriyorsun?,' +
+  //   'Sosyal medyada sık karşılaştığın markalardan alışveriş yapma ihtimalin artıyor mu?,' +
+  //   'Aşağıdaki platformlardan hangilerini biliyorsun?,' +
+  //   'Aşağıdaki platformlardan hangilerine abonesin?,' +
+  //   'Yeni yılda aşağıdaki platformlardan hangilerine üye olmak istiyorsun?,' +
+  //   '2020 boyunca aşağıdaki online market hizmetlerinden hangilerini kullandın?,' +
+  //   'Aşağıdaki seçeneklerden online market hizmetlerini kullanma sebeplerini seç:,' +
+  //   'Aşağıdaki faktörlerden hangileri seni bir markaya daha sadık yapıyor? (2 tanesini seç),' +
+  //   'Bir ürünü satın almadan önce çeşitli platformlarda o ürün hakkında başkalarının görüşlerini araştırıyor musun?,' +
+  //   'Markalar senin ilgini daha kolay çekebilmek için özellikle ne yapmalı? (3 tanesini seç),' + 
+  //   'Alışverişlerini en çok etkileyen 3 reklam tipi hangisi? (3 tanesini seç),' +
+  //   'Aşağıdaki kategorilerden hangilerinde kendi paranı harcıyorsun?,' +
+  //   'Aşağıdaki kategorilerden hangilerinde ailenin harcamaları üzerinde önemli bir etkin var?,' +
+  //   'Kendin için harcadığın parayı nasıl kazanıyorsun?,' +
+  //   '2021 yılından beklentilerini 3 kelime ile anlat. \n';
+
+    
+  // Submition.find({
+  //   "campaign_id": ["5fea006a7c4d8464ff527400", "5fea01f9a4dc2765861eae9d", "5fea032c1a4a9065da2ee8e1", "5fea034ba250db65e6538c52",
+  //   "5fea0378ef543265f21ec87e" , "5fea037f41fe1665f8e96042" , "5fea03853611266606a771ac", "5fea038b0c1bef6614e87822"],
+  //   "status": "approved"
+  // }, (err, submitions) => {
+  //   if (err) return res.json({ error: err });
+
+  //   async.times(
+  //     submitions.length,
+  //     (time, next) => {
+  //       let eachInfo = '';
+
+  //       User.findById(mongoose.Types.ObjectId(submitions[time].user_id), (err, user) => {
+  //         if (err || !user) return next(err || !user);
+
+  //         eachInfo += (user.name + ',');
+  //         eachInfo += (user.gender + ',');
+  //         eachInfo += (user.birth_year + ',');
+  //         eachInfo += (user.city + ',');
+  //         eachInfo += (user.town + ',');
+
+  //         Object.values(submitions[time].answers).forEach((each, i) => {
+  //           if (i != 16)
+  //             eachInfo += (Array.isArray(each) ? each.join(' / ') : each.split('\n').join(''));
+  //           if (i != 16 && i != 17)
+  //             eachInfo += ','
+  //         });
+
+  //         eachInfo += '\n';
+
+  //         return next(null, eachInfo);
+  //       });
+  //     },
+  //     (err, info) => {
+  //       if (err) return res.json({ err });
+
+  //       data += info;
+
+  //       return res.status(200).csv([[data]]);
+  //     }
+  //   )
+  // });
 }

@@ -1,3 +1,18 @@
 module.exports = (req, res) => {
-  return res.redirect('/auth/user/register' + (req.query.code ? '?code=' + req.query.code : '') + (req.query.lang ? '?lang=' + req.query.lang : ''));
+  let error = null;
+  if (req.session && req.session.error) {
+    error = req.session.error;
+    req.session.destroy();
+  }
+  
+  return res.render('auth/register', {
+    page: 'auth/register',
+    title: res.__('Kaydol'),
+    includes: {
+      external: ['css', 'js', 'fontawesome']
+    },
+    error,
+    invitor: req.query && req.query.code ? req.query.code : null,
+    language_key: req.query.lang ? req.query.lang : null
+  });
 }

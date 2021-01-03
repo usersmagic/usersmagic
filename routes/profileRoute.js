@@ -5,45 +5,51 @@ const router = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 const isLocationComplete = require('../middleware/isLocationComplete');
 
-const userIndexGetController = require('../controllers/profile/user/index/get');
-const userPaymentGetController = require('../controllers/profile/user/payment/get');
-const userLogoutGetController = require('../controllers/profile/user/logout/get');
-const userTownGetController = require('../controllers/profile/user/town/get');
+const indexGetController = require('../controllers/profile/index/get');
+const userGetController = require('../controllers/profile/user/get');
+const paymentGetController = require('../controllers/profile/payment/get');
+const logoutGetController = require('../controllers/profile/logout/get');
+const townGetController = require('../controllers/profile/town/get');
 
-const userIndexPostController = require('../controllers/profile/user/index/post');
-const userPaymentPostController = require('../controllers/profile/user/payment/post');
+const indexPostController = require('../controllers/profile/index/post');
+const paymentPostController = require('../controllers/profile/payment/post');
 
+router.get(
+  '/',
+    isLoggedIn,
+    indexGetController
+);
 router.get(
   '/user',
     isLoggedIn,
-    userIndexGetController
+    userGetController
 );
 router.get(
-  '/user/payment',
+  '/payment',
     isLoggedIn,
     isLocationComplete,
-    userPaymentGetController
+    paymentGetController
 );
 router.get(
-  '/user/logout',
+  '/logout',
     isLoggedIn,
-    userLogoutGetController
+    logoutGetController
 );
 router.get(
-  '/user/town',
+  '/town',
     isLoggedIn,
-    userTownGetController
+    townGetController
 );
 
 router.post(
-  '/user',
+  '/',
     isLoggedIn,
-    userIndexPostController
+    indexPostController
 );
 router.post(
-  '/user/payment',
+  '/payment',
     isLoggedIn,
-    userPaymentPostController
+    paymentPostController
 );
 
 module.exports = router;
