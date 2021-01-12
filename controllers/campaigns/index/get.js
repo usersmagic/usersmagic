@@ -28,8 +28,9 @@ module.exports = (req, res) => {
                 _id: target._id,
                 is_private_campaign: true,
                 name: project.name,
-                time_limit: target.ti1me_limit,
+                time_limit: target.time_limit,
                 description: project.description,
+                image: project.image,
                 price: target.price
               });
             });
