@@ -24,7 +24,7 @@ module.exports = (req, res) => {
             user_id: user._id,
             target_id: target._id,
             question_number: project.questions ? project.questions.length : null,
-            is_private_campaign: false
+            is_private_campaign: true
           }, (err, submition) => {
             if (err) return res.redirect('/campaigns');
   

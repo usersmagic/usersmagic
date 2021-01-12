@@ -35,6 +35,14 @@ const TargetSchema = new Schema({
     // List of ids from User model. The users in this list have already joined the project, they cannot join one more time
     type: Array,
     default: []
+  },
+  price: {
+    type: Number,
+    default: null
+  },
+  time_limit: {
+    type: Number,
+    default: null
   }
 });
 
@@ -47,8 +55,8 @@ TargetSchema.statics.findPossibleTargetGroupsForUser = function (user_id, callba
   const Target = this;
 
   Target.find({$and: [
-    {users_list: user_id},
-    {joined_users_list: {$ne: user_id}} 
+    {users_list: user_id.toString()},
+    {joined_users_list: {$ne: user_id.toString()}} 
   ]}, (err, targets) => {
     if (err) return callback(err);
 
@@ -108,8 +116,9 @@ TargetSchema.statics.joinTarget = function (id, user_id, callback) {
   const Target = this;
 
   Target.findOne({$and: [
+    {_id: mongoose.Types.ObjectId(id.toString())},
     {users_list: user_id.toString()},
-    {$ne: {joined_users_list: user_id.toString()}} 
+    {joined_users_list: {$ne: user_id.toString()}} 
   ]}, (err, target) => {
     if (err || !target) return callback('document_not_found');
 
@@ -118,6 +127,7 @@ TargetSchema.statics.joinTarget = function (id, user_id, callback) {
       $push: { joined_users_list: user_id.toString() },
       $inc: { submition_limit: -1 }
     }, {}, (err, target) => {
+      console.log(err, target);
       if (err) return callback(err);
 
       return callback(null, target);

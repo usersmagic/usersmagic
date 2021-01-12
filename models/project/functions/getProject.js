@@ -17,9 +17,10 @@ module.exports = (project, options, callback) => {
 
   return callback(null, {
     _id: project._id.toString(),
-    is_project: 'true',
+    is_private_campaign: true,
     type: project.type,
     status: project.status,
+    country: project.country,
     created_at: timezone ? moment(project.created_at).tz(timezone).format('DD[.]MM[.]YYYY[, ]HH[:]mm') : project.created_at,
     name: project.name,
     description: project.description,
