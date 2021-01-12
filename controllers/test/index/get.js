@@ -57,7 +57,7 @@ module.exports = (req, res) => {
             _id: submition._id.toString(),
             is_private_campaign: true,
             name: project.name,
-            photo: project.photo,
+            photo: project.image,
             information: project.welcome_screen.details,
             price: project.price,
             error: submition.reject_message,
@@ -99,7 +99,7 @@ module.exports = (req, res) => {
               campaign: {
                 _id: submition._id.toString(),
                 name: campaign.name,
-                photo: campaign.photo,
+                photo: campaign.image,
                 information: campaign.information,
                 price: campaign.price,
                 error: submition.reject_message,
