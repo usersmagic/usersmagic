@@ -20,10 +20,10 @@ block main
             span.each-answer #{Array.isArray(submition.answer) ? submition.answer.join(' / ') : submition.answer}
           else
             span.submition-title Cevaplar:
-            each answer, i in submition.answers
+            each key, i in Object.keys(submition.answers)
               span.each-answer #{i+1}. #{questions[i]}
-              span.each-answer #{Array.isArray(answer) ? answer.join(' / ') : answer}
-          form.reject-form(action=`/admin/private_campaigns/submitions/reject?id=${submition._id.toString()}` method="POST")
+              span.each-answer #{Array.isArray(submition.answers[key]) ? submition.answers[key].join(' / ') : submition.answers[key]}
+          form.reject-form(action=`/admin/projects/submitions/reject?id=${submition._id.toString()}` method="POST")
             input.each-input(type="text" placeholder="Red Sebebi" name="reason")
             button.reject-button Reddet
-            a.approve-button(href=`/admin/private_campaigns/submitions/approve?id=${submition._id.toString()}`) Onayla
+            a.approve-button(href=`/admin/projects/submitions/approve?id=${submition._id.toString()}`) Onayla

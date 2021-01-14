@@ -1,5 +1,6 @@
 extends ../partials/adminHeader
 block main
+  - console.log(campaigns[0])
   .all-content-header
     .title-wrapper
       span.title Özel Kampanyalar
@@ -7,10 +8,7 @@ block main
   .all-content-inner-wrapper
     .campaigns-wrapper
       each campaign in campaigns 
-        a.each-campaign(href="/admin/private_campaigns/submitions?id=" + campaign._id.toString())
-          .campaign-photo-wrapper
-            img.each-campaign-photo(src=campaign.photo)
+        a.each-campaign(href="/admin/projects/submitions?id=" + campaign.project_id.toString())
           span.each-campaign-name= campaign.name
-          span.each-campaign-description (#{campaign.company})
-          span.each-campaign-description #{campaign.approved} onaylanmış başvuru
-
+          //- span.each-campaign-description (#{campaign.company})
+          //- span.each-campaign-description #{campaign.approved} onaylanmış başvuru
