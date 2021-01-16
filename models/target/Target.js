@@ -35,6 +35,14 @@ const TargetSchema = new Schema({
     // List of ids from User model. The users in this list have already joined the project, they cannot join one more time
     type: Array,
     default: []
+  },
+  price: {
+    type: Number,
+    default: null
+  },
+  time_limit: {
+    type: Number,
+    default: null
   }
 });
 
@@ -47,8 +55,9 @@ TargetSchema.statics.findPossibleTargetGroupsForUser = function (user_id, callba
   const Target = this;
 
   Target.find({$and: [
-    {users_list: user_id},
-    {joined_users_list: {$ne: user_id}} 
+    {users_list: user_id.toString()},
+    {joined_users_list: {$ne: user_id.toString()}},
+    {submition_limit: {$gt: 0}}
   ]}, (err, targets) => {
     if (err) return callback(err);
 
@@ -108,8 +117,10 @@ TargetSchema.statics.joinTarget = function (id, user_id, callback) {
   const Target = this;
 
   Target.findOne({$and: [
+    {_id: mongoose.Types.ObjectId(id.toString())},
     {users_list: user_id.toString()},
-    {$ne: {joined_users_list: user_id.toString()}} 
+    {joined_users_list: {$ne: user_id.toString()}},
+    {submition_limit: {$gt: 0}}
   ]}, (err, target) => {
     if (err || !target) return callback('document_not_found');
 
@@ -118,10 +129,43 @@ TargetSchema.statics.joinTarget = function (id, user_id, callback) {
       $push: { joined_users_list: user_id.toString() },
       $inc: { submition_limit: -1 }
     }, {}, (err, target) => {
+      console.log(err, target);
       if (err) return callback(err);
 
       return callback(null, target);
     });
+  });
+}
+
+TargetSchema.statics.findByFields = function (fields, options, callback) {
+  // Find a target with given fields or an error if it exists.
+  // Returns error if '_id' or 'creator' field is not a mongodb object id
+
+  const Target = this;
+
+  const fieldKeys = Object.keys(fields);
+  const fieldValues = Object.values(fields);
+
+  if (!fieldKeys.length)
+    return callback('bad_request');
+
+  const filters = [];
+
+  fieldKeys.forEach((key, iterator) => {
+    if (key == '_id' || key == 'project_id') {
+      if (!fieldValues[iterator] || !validator.isMongoId(fieldValues[iterator].toString()))
+        return callback('bad_request');
+
+      filters.push({[key]: mongoose.Types.ObjectId(fieldValues[iterator])});
+    } else {
+      filters.push({[key]: fieldValues[iterator]});
+    }
+  });
+
+  Target.find({$and: filters}, (err, targets) => {
+    if (err) return callback(err);
+
+    return callback(null, targets);
   });
 }
 

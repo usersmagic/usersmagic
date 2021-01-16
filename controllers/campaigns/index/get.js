@@ -19,7 +19,23 @@ module.exports = (req, res) => {
 
         async.timesSeries(
           targets.length,
-          (time, next) => Project.findOneByFields({_id: targets[time].project_id}, {}, (err, project) => next(err, project)),
+          (time, next) => {
+            const target = targets[time];
+            
+            Project.findOneByFields({_id: target.project_id}, {}, (err, project) => {
+              if (err) return next(err);
+
+              return next(null, {
+                _id: target._id,
+                is_private_campaign: true,
+                name: project.name,
+                time_limit: target.time_limit,
+                description: project.description,
+                image: project.image,
+                price: target.price
+              });
+            });
+          },
           (err, projects) => {
             if (err) return res.redirect('/');
 

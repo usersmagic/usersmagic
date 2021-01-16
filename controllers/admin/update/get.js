@@ -11,78 +11,60 @@ const Question = require('../../../models/question/Question');
 const sendMail = require('../../../utils/sendMail');
 
 module.exports = (req, res) => {
-  // if (!req.query || !req.query.updates || req.query.updates != "save")
-  //   return res.redirect('/admin');
+  if (!req.query || !req.query.updates || req.query.updates != "servvis")
+    return res.redirect('/admin');
 
-  // Question.find({
-  // }, (err, questions) => {
-  //   if (err) return res.redirect('/admin');
-
-  //   return res.status(200).json({questions});
-  // });
-
-  // let data = "";
-
-  // data += 'Ad Soyad,' + 'Cinsiyet,' + 'Doğum Yılı,' + 'Şehir,' + 'İlçe,' +
-  //   'Sosyal medyada günlük ortalama kaç saat geçiriyorsun?,' +
-  //   'Onsuz yapamam dediğin 3 internet platformunu seç,' +
-  //   'En çok hangi sosyal medya platformlarında zamanını geçiriyorsun?,' +
-  //   'Sosyal medyada sık karşılaştığın markalardan alışveriş yapma ihtimalin artıyor mu?,' +
-  //   'Aşağıdaki platformlardan hangilerini biliyorsun?,' +
-  //   'Aşağıdaki platformlardan hangilerine abonesin?,' +
-  //   'Yeni yılda aşağıdaki platformlardan hangilerine üye olmak istiyorsun?,' +
-  //   '2020 boyunca aşağıdaki online market hizmetlerinden hangilerini kullandın?,' +
-  //   'Aşağıdaki seçeneklerden online market hizmetlerini kullanma sebeplerini seç:,' +
-  //   'Aşağıdaki faktörlerden hangileri seni bir markaya daha sadık yapıyor? (2 tanesini seç),' +
-  //   'Bir ürünü satın almadan önce çeşitli platformlarda o ürün hakkında başkalarının görüşlerini araştırıyor musun?,' +
-  //   'Markalar senin ilgini daha kolay çekebilmek için özellikle ne yapmalı? (3 tanesini seç),' + 
-  //   'Alışverişlerini en çok etkileyen 3 reklam tipi hangisi? (3 tanesini seç),' +
-  //   'Aşağıdaki kategorilerden hangilerinde kendi paranı harcıyorsun?,' +
-  //   'Aşağıdaki kategorilerden hangilerinde ailenin harcamaları üzerinde önemli bir etkin var?,' +
-  //   'Kendin için harcadığın parayı nasıl kazanıyorsun?,' +
-  //   '2021 yılından beklentilerini 3 kelime ile anlat. \n';
-
-    
-  // Submition.find({
-  //   "campaign_id": ["5fea006a7c4d8464ff527400", "5fea01f9a4dc2765861eae9d", "5fea032c1a4a9065da2ee8e1", "5fea034ba250db65e6538c52",
-  //   "5fea0378ef543265f21ec87e" , "5fea037f41fe1665f8e96042" , "5fea03853611266606a771ac", "5fea038b0c1bef6614e87822"],
-  //   "status": "approved"
-  // }, (err, submitions) => {
+  // User.find({$and: [
+  //   {birth_year: {$gte: 1981}},
+  //   {birth_year: {$lte: 1996}}
+  // ]}, (err, users) => {
   //   if (err) return res.json({ error: err });
 
-  //   async.times(
-  //     submitions.length,
-  //     (time, next) => {
-  //       let eachInfo = '';
+  //   console.log(users.map(user => user.email).concat("ygurlek22@my.uaa.k12.tr"));
 
-  //       User.findById(mongoose.Types.ObjectId(submitions[time].user_id), (err, user) => {
-  //         if (err || !user) return next(err || !user);
+  //   sendMail({
+  //     emailList: users.map(user => user.email).concat("ygurlek22@my.uaa.k12.tr")
+  //   }, 'new_campaigns', err => {
+  //     if (err) return res.json({ error: err });
 
-  //         eachInfo += (user.name + ',');
-  //         eachInfo += (user.gender + ',');
-  //         eachInfo += (user.birth_year + ',');
-  //         eachInfo += (user.city + ',');
-  //         eachInfo += (user.town + ',');
-
-  //         Object.values(submitions[time].answers).forEach((each, i) => {
-  //           if (i != 16)
-  //             eachInfo += (Array.isArray(each) ? each.join(' / ') : each.split('\n').join(''));
-  //           if (i != 16 && i != 17)
-  //             eachInfo += ','
-  //         });
-
-  //         eachInfo += '\n';
-
-  //         return next(null, eachInfo);
-  //       });
-  //     },
-  //     (err, info) => {
-  //       if (err) return res.json({ err });
-
-  //       data += info;
-
-  //       return res.status(200).csv([[data]]);
-  //     }
-  //   )
+  //     return res.json({ success: true });
+  //   });
   // });
+
+  Submition.find({$and: [
+    {"target_id": "5ffdc24976f8b23144ca4c69"},
+    {"status": "waiting"},
+    {"user_id": {$ne: "5f00dfbf6c33210016ada5cc"}}
+  ],
+  }, (err, submitions) => {
+    if (err) return res.json({ error: err });
+
+    async.timesSeries(
+      submitions.length,
+      (time, next) => {
+        const submition = submitions[time];
+
+        User.findById(mongoose.Types.ObjectId(submition.user_id), (err, user) => {
+          if (err) return next(err);
+
+          return next(null, {
+            answers: submition.answers,
+            user: {
+              _id: user._id,
+              name: user.name,
+              gender: user.gender,
+              birth_year: user.birth_year,
+              city: user.city,
+              town: user.town
+            }
+          });
+        });
+      },
+      (err, data) => {
+        if (err) return res.json({ error: err});
+
+        return res.json(data);
+      }
+    );
+  });
 }

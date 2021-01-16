@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const Schema = mongoose.Schema;
 
@@ -21,48 +22,60 @@ const CompanySchema = new Schema({
     required: true,
     minlength: 6
   },
+  country: {
+    // Alpha 2 country code of the company
+    type: String,
+    default: null,
+    length: 2
+  },
+  company_name: {
+    // Name of the account company
+    type: String,
+    default: null,
+    maxlenght: 1000
+  },
+  phone_number: {
+    // Phone number of the company
+    type: String,
+    default: null
+  },
   profile_photo: {
     // Profile photo of company
     type: String,
     default: '/res/images/default/company.png'
+  },
+  account_holder_name: {
+    // Name of the account holder
+    type: String,
+    default: null,
+    maxlenght: 1000
+  },
+  timezone: {
+    // Timezone of the account
+    type: String,
+    default: null
   }
 });
 
 CompanySchema.pre('save', hashPassword);
 
-CompanySchema.statics.createCompany = function (data, callback) {
+CompanySchema.statics.findCompanyById = function (id, callback) {
+  // Finds and returns the document with the given id, or an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()))
+    return callback('bad_request');
+
   const Company = this;
 
-  verifyNewCompanyData(data, (err, newCompanyData) => {
-    if (err) return callback(err);
+  Company.findById(mongoose.Types.ObjectId(id.toString()), (err, company) => {
+    if (err || !company) return callback('document_not_found');
 
-    const newCompany = new Company(newCompanyData);
+    getCompany(company, (err, company) => {
+      if (err) return callback(err);
 
-    newCompany.save((err, company) => {
-      if (err && err.code == 11000) return callback('email_duplication');
-      if (err) return callback('unknown_error');
-
-      callback(null, getCompany(company));
+      return callback(null, company);
     });
   });
 }
-
-CompanySchema.statics.findCompany = function (data, callback) {
-  let Company = this;
-
-  if (!data || !data.email || !data.password) return callback('bad_request')
-
-  Company.findOne({
-    email: data.email.trim()
-  }, (err, company) => {
-    if (err || !company) return callback('document_not_found');
-
-    verifyPassword(data.password, company.password, res => {
-      if (res) return callback(null, getCompany(company));
-      
-      return callback('password_verification');
-    });
-  });
-};
 
 module.exports = mongoose.model('Company', CompanySchema);

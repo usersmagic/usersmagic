@@ -26,13 +26,9 @@ const questionsDetailsGetController = require('../controllers/admin/questions/de
 const questionsDeleteGetController = require('../controllers/admin/questions/delete/get');
 const updateGetController = require('../controllers/admin/update/get');
 const informationGetController = require('../controllers/admin/information/get');
-const privateCampaignsIndexGetController = require('../controllers/admin/private_campaigns/index/get');
-const privateCampaignsApproveGetController = require('../controllers/admin/private_campaigns/approve/get');
-const privateCampaignsDetailsGetController = require('../controllers/admin/private_campaigns/details/get');
-const privateCampaignsDetailsApproveGetController = require('../controllers/admin/private_campaigns/details/approve');
-const privateCampaignsSubmitionsIndexGetController = require('../controllers/admin/private_campaigns/submitions/index/get');
-const privateCampaignsSubmitionsApproveGetController = require('../controllers/admin/private_campaigns/submitions/approve/get');
-const privatecampaignsSubmitionsCSVGetController = require('../controllers/admin/private_campaigns/submitions/csv/get');
+const projectsIndexGetController = require('../controllers/admin/projects/index/get');
+const projectsSubmitionsIndexGetController = require('../controllers/admin/projects/submitions/index/get');
+const projectsSubmitionsApproveGetController = require('../controllers/admin/projects/submitions/approve/get');
 const applicationsIndexGetController = require('../controllers/admin/applications/index/get');
 const applicationsDeleteGetController = require('../controllers/admin/applications/delete/get');
 
@@ -44,8 +40,7 @@ const campaignsVersionPostController = require('../controllers/admin/campaigns/v
 const submitionsRejectPostController = require('../controllers/admin/submitions/reject/post');
 const questionsIndexPostController = require('../controllers/admin/questions/index/post');
 const questionsDetailsPostController = require('../controllers/admin/questions/details/post');
-const privateCampaignsDetailsPostController = require('../controllers/admin/private_campaigns/details/post');
-const privateCampaignsSubmitionsRejectPostController = require('../controllers/admin/private_campaigns/submitions/reject/post');
+const projectsSubmitionsRejectPostController = require('../controllers/admin/projects/submitions/reject/post');
 
 router.get(
   '/',
@@ -147,39 +142,19 @@ router.get(
     informationGetController
 );
 router.get(
-  '/private_campaigns',
+  '/projects',
     isAdmin,
-    privateCampaignsIndexGetController
+    projectsIndexGetController
 );
 router.get(
-  '/private_campaigns/details',
+  '/projects/submitions',
     isAdmin,
-    privateCampaignsDetailsGetController
+    projectsSubmitionsIndexGetController
 );
 router.get(
-  '/private_campaigns/details/approve',
+  '/projects/submitions/approve',
     isAdmin,
-    privateCampaignsDetailsApproveGetController
-);
-router.get(
-  '/private_campaigns/submitions',
-    isAdmin,
-    privateCampaignsSubmitionsIndexGetController
-);
-router.get(
-  '/private_campaigns/submitions/approve',
-    isAdmin,
-    privateCampaignsSubmitionsApproveGetController
-);
-router.get(
-  '/private_campaigns/approve',
-    isAdmin,
-    privateCampaignsApproveGetController
-);
-router.get(
-  '/private_campaigns/csv',
-    isAdmin,
-    privatecampaignsSubmitionsCSVGetController
+    projectsSubmitionsApproveGetController
 );
 router.get(
   '/applications',
@@ -234,9 +209,9 @@ router.post(
     questionsDetailsPostController
 );
 router.post(
-  '/private_campaigns/submitions/reject',
+  '/projects/submitions/reject',
     isAdmin,
-    privateCampaignsSubmitionsRejectPostController
+    projectsSubmitionsRejectPostController
 );
 
 module.exports = router;

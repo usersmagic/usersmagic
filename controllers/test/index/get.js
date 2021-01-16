@@ -6,6 +6,33 @@ const Project = require('../../../models/project/Project');
 const Submition = require('../../../models/submition/Submition');
 const Question = require('../../../models/question/Question');
 
+const changeQuestionToOldQuestions = (question) => {
+  const newQuestion = {
+    _id: question._id,
+    text: question.text,
+    answer_length: question.answer_length || 1000
+  }
+  if (question.type == 'yes_no') {
+    newQuestion.type = 'radio';
+    newQuestion.choices = ['Evet', 'Hayır'];
+    newQuestion.other_option = false;
+  } else if (question.type == 'multiple_choice') {
+    newQuestion.type = (question.subtype == 'single' ? 'radio' : 'checked');
+    newQuestion.choices = question.choices;
+    newQuestion.other_option = false;
+  } else if (question.type == 'opinion_scale') {
+    newQuestion.type = 'range';
+    newQuestion.min_value = question.range.min;
+    newQuestion.max_value = question.range.max;
+    newQuestion.min_explanation = question.labels.left;
+    newQuestion.max_explanation = question.labels.right;
+  } else if (question.type == 'open_answer') {
+    newQuestion.type = 'long_text';
+  }
+
+  return newQuestion;
+}
+
 module.exports = (req, res) => {
   const user = req.session.user;
 
@@ -22,7 +49,7 @@ module.exports = (req, res) => {
   
         return res.render('test/index', {
           page: 'test/index',
-          title: campaign.name,
+          title: project.name,
           includes: {
             external: ['css', 'js', 'fontawesome']
           }, 
@@ -30,15 +57,15 @@ module.exports = (req, res) => {
             _id: submition._id.toString(),
             is_private_campaign: true,
             name: project.name,
-            photo: project.photo,
-            information: project.information,
+            photo: project.image,
+            information: project.welcome_screen.details,
             price: project.price,
             error: submition.reject_message,
             last_question: submition.last_question
           },
           questions: project.questions.map(each => {
             const questionWrapper = {};
-            questionWrapper.question = each;
+            questionWrapper.question = changeQuestionToOldQuestions(each);
             questionWrapper.answer = submition.answers[each._id.toString()] || '';
             return questionWrapper;
           })
@@ -72,7 +99,7 @@ module.exports = (req, res) => {
               campaign: {
                 _id: submition._id.toString(),
                 name: campaign.name,
-                photo: campaign.photo,
+                photo: campaign.image,
                 information: campaign.information,
                 price: campaign.price,
                 error: submition.reject_message,
