@@ -4,14 +4,9 @@ const User = require('../../../models/user/User');
 
 module.exports = (req, res) => {
   const query = (req.query && req.query.code ? "?code=" + req.query.code : "") + (req.query && req.query.lang ? ((req.query.code ? "&" : "?") + "lang=" + req.query.lang) : "")
-  
+
   if (!req.body || !req.body.email || !req.body.password || !req.body.password_confirm) {
     req.session.error = res.__('Lütfen bütün bilgileri girin');
-    return res.redirect('/auth/register' + query);
-  }
-
-  if (!req.body.agreement_approved) {
-    req.session.error = res.__('Lütfen Kullanım Sözleşmesini Gizlilik Sözleşmesini kabul edin');
     return res.redirect('/auth/register' + query);
   }
 

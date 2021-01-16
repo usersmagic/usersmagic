@@ -16,12 +16,14 @@ module.exports = (req, res) => {
       Target.findPossibleTargetGroupsForUser(user._id, (err, targets) => {
         if (err) return res.redirect('/');
 
+
         async.timesSeries(
           targets.length,
           (time, next) => Project.findOneByFields({_id: targets[time].project_id}, {}, (err, project) => next(err, project)),
           (err, projects) => {
             if (err) return res.redirect('/');
 
+            console.log("projects: "+projects);
             return res.render('campaigns/index', {
               page: 'campaigns/index',
               title: res.__('Kampanyalar'),

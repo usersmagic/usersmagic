@@ -42,7 +42,7 @@ body {
   font-weight: 600;
   margin: 0px 5px;
   font-size: 75%;
-} 
+}
 .language-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
@@ -52,8 +52,18 @@ body {
 .language-text:hover {
   text-decoration: underline;
 }
+.country-codes-wrapper{
+  width: 100%;
+}
+.country-codes{
+  heigth: 25vw;
+  width: 20%;
+}
 
-
+.general-input-with-border[name='phone']{
+  position: relative;
+  width: 80%;
+}
 .logo-name {
   color: rgb(30, 30, 30);
   font-weight: 800;
@@ -61,6 +71,15 @@ body {
   margin-bottom: 15px;
 }
 
+.input-choices-birthyear{
+  overflow:scroll;
+  height: 100px;
+  width: 100%;
+}
+
+.each-input-birthyear{
+  cursor: pointer;
+}
 .each-input {
   background-color: rgb(254, 254, 254);
   border: 2px solid rgb(236, 236, 236);
@@ -76,7 +95,8 @@ body {
 
 .select-input-outer-wrapper {
   height: 55px;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 15px;
   overflow: visible;
   z-index: 2;
 }
@@ -84,22 +104,24 @@ body {
   height: 55px;
   background-color: rgb(254, 254, 254);
   border: 2px solid rgb(236, 236, 236);
-  border-radius: 30px;
-  width: 25vw;
+  border-radius: 5px;
+  width: 30vw;
   overflow: hidden;
   z-index: 2;
 }
 .select-input {
-  background-color: rgb(254, 254, 254);
-  box-shadow: 0px;
-  color: rgb(30, 30, 30);
-  font-size: 100%;
-  width: 100%;
-  outline: none;
-  border: none;
-  padding: 0px 20px;
   height: 55px;
-  border-radius: 30px;
+  min-height: 55px;
+  width: 100%;
+  padding: 0px 22px;
+  color: rgb(78, 75, 102);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(151, 151, 151, 0.3);
+  border-radius: 5px;
+  outline-color: rgba(46, 197, 206, 0.6);
+  outline-width: 0.5px;
+  margin-bottom: 20px;
 }
 .select-input-choices {
   height: 140px;

@@ -1,7 +1,7 @@
 extends ./head
 block content
   .all-wrapper
-    .invite-button
+    //-.invite-button
       if (currency == '₺')
         i.fas.fa-lira-sign.lira-sign
       else if (currency == "$")
@@ -9,7 +9,7 @@ block content
       else
         i.fas.fa-euro-sign.lira-sign
       span.invite-text #{__('Tanıdıklarını davet et, para kazan!')}
-    .invite-wrapper
+    //-.invite-wrapper
       span.invite-title
         span #{__('Arkadaşlarını aşağıdaki')}
         span.invite-title-bold #{__('sana özel')}
@@ -25,11 +25,13 @@ block content
       //- span.invite-info #{__('Sahte hesapların önüne geçebilmek için Usersmagic, sizin kodunuz ile kaydolan bir kullanıcı bakiyesinden para çekme işlemi gerçekleştirene kadar hesabınıza 2')}#{currency} #{__('yatırmaz. Fakat merak etmeyin, para çekme işleminin gerçekleştirilmesi için herhangi bir son kullanım tarihi bulunmamaktadır! Eğer bakiyenizde bir hata olduğunu düşünürseniz temsilcilerimiz ile iletişime geçmekten çekinmeyin')}.
     .all-header
       .all-header-menu-wrapper
-        a.each-header-menu(href="/history" class=(current_page == "history" ? "selected" : ""))
-          i.fas.fa-tasks
-        a.each-header-menu(href="/campaigns" class=(current_page == "campaigns" ? "selected" : ""))
-          i.fas.fa-home
-        a.each-header-menu(href="/profile" class=(current_page == "profile" ? "selected" : ""))
-          i.fas.fa-user
+        .header-user-logo
+          img(src="/res/images/isolated-layout 1.png" alt="usersmagic tester" class="usersmagic_logo")
+        a.icons-home(href="/history" class=(current_page == "history" ? "selected" : ""))
+          img(src="/res/images/Home.png" alt="user profile home")
+        a.icons-folder(href="/campaigns" class=(current_page == "campaigns" ? "selected" : ""))
+          img(src="/res/images/weixin-cards-offers.png" alt="user profile folder")
+        a.icons-settings(href="/profile" class=(current_page == "profile" ? "selected" : ""))
+          img(src="/res/images/Setting 2.png" alt="user profile settings")
     .all-content
       block main

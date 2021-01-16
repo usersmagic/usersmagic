@@ -1,17 +1,17 @@
 extends ../partials/head
 block content
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
   .brand-wrapper
-    //- a.brand-text(href="/brand") #{__('Marka Sayfası')}
     a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-      i.fas.fa-home
+      img(src="/res/images/usersmagic_logo1.png" alt="usersmagic tester" class="usersmagic_logo")
     .language-change-wrapper
       a.language-text(href="/auth/complete?lang=tr") TR
       span |
       a.language-text(href="/auth/complete?lang=en") EN
   form.all-wrapper(method="POST" action="/auth/complete" + (language_key ? ("?lang=" + language_key) : ""))
     .all-inner-wrapper
-      span.logo-name usersmagic
-      input.each-input(type="text" placeholder=__('Ad Soyad') name="name" required autofocus autocomplete="off")
+      //-span.logo-name usersmagic
+      input.general-input-with-border(type="text" placeholder=__('Ad Soyad') name="name" required autofocus autocomplete="off")
       input.display-none#country-input(type="text" name="country")
       .select-input-outer-wrapper
         .select-input-wrapper
@@ -23,12 +23,20 @@ block content
             span.each-input-choice(id="uk")= __('İngiltere')
             span.each-input-choice(id="ru")= __('Rusya')
             span.each-input-choice(id="ua")= __('Ukrayna')
-      input.each-input(type="phone" placeholder=__('Telefon Numarası') name="phone" required autocomplete="off")
-      input.each-input(type="text" placeholder=__('Cinsiyet') name="gender" required autocomplete="off")
-      input.each-input(type="number" placeholder=__('Doğum Yılı') name="birth_year" required autocomplete="off")
+      .country-codes-wrapper
+        select.country-codes(id="country-codes" name="phone_code")
+        input.general-input-with-border(type="tel" pattern="[0-9]{10}" placeholder=__('Telefon Numarası') name="phone" required autocomplete="off")
+      select.general-input-with-border(placeholder=__('Cinsiyet') name="gender")
+        option(value = "" disable selected hidden) #{__('Gender')}
+        option(value = "Female") #{__('Female')}
+        option(value = "Male") #{__('Male')} 
+        option(value = "Other") #{__('Other')}
+        option(value = "Prefer not to say") #{__('Prefer not to say')}
+      input.general-input-with-border(type="number" placeholder=__('Doğum Yılı') name="birth_year" required autocomplete="off" min="1920" max="2010")
+      .input-choices-birthyear(name="birthyear")
       if error
         span.error-text= error
-      button.send-button
+      button.general-seablue-button
         span #{__('Hesabını Tamamla')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım

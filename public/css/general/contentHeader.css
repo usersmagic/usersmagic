@@ -1,0 +1,79 @@
+.all-content-header-wrapper {
+  height: 100px;
+  min-height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px;
+  border-bottom: 1px solid rgba(196, 196, 196, 1);
+}
+
+.header-user-logo {
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  left: 22px;
+  top: 28px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 30px;
+}
+.header-user-logo img {
+  height: 100%;
+}
+
+.icons-home{
+  position: absolute;
+  left: 30px;
+  width: 24px;
+  height: 24px;
+  top: 130px;
+}
+
+.icons-folder{
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 30px;
+  top: 191px;
+}
+
+.icons-settings{
+  position:absolute;
+  width: 22px;
+  height: 19px;
+  top: 252px;
+  left: 32px;
+}
+
+.general-settings-button {
+  margin-top: auto;
+  color: rgba(196, 196, 196, 0.8);
+  font-size: 22px;
+}
+.general-settings-button:hover {
+  color: rgba(196, 196, 196, 1);
+}
+
+.header-each-step-text {
+  color: rgba(78, 75, 102, 1);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.header-each-step-text:hover {
+  text-decoration: underline;
+}
+.header-each-step-arrow {
+  margin: 0px 15px;
+  color: rgba(78, 75, 102, 1);
+}
+
+.all-content-inner-wrapper {
+  display: flex;
+  height: calc(100vh - 100px);
+  max-height: calc(100vh - 100px);
+}

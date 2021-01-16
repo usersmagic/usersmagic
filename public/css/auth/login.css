@@ -37,7 +37,7 @@
   font-weight: 600;
   margin: 0px 5px;
   font-size: 75%;
-} 
+}
 .language-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
@@ -48,12 +48,6 @@
   text-decoration: underline;
 }
 
-.logo-name {
-  color: rgb(30, 30, 30);
-  font-weight: 800;
-  font-size: 200%;
-  margin-bottom: 15px;
-}
 .lost-password-wrapper {
   width: 25vw;
   margin-top: 5px;
@@ -106,6 +100,19 @@
   font-size: 150%;
 }
 
+.form-title {
+  color: rgb(78, 75, 102);
+  font-weight: 600;
+  font-size: 36px;
+  margin-top: 60px;
+}
+.form-subtitle {
+  color: rgb(78, 75, 102);
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+
 .register-link-wrapper {
   display: flex;
   align-items: center;
@@ -143,12 +150,12 @@
 
 @media only screen and (max-width: 1100px) and (min-width: 900px) {
   .each-input, .lost-password-wrapper {
-    width: 30vw;
+    width: 0vw;
   }
 }
 @media only screen and (max-width: 900px) and (min-width: 700px) {
   .each-input, .lost-password-wrapper {
-    width: 35vw;
+    width: 0vw;
   }
 }
 @media only screen and (max-width: 700px) and (min-width: 600px) {

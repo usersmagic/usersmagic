@@ -14,13 +14,6 @@
   align-items: center;
 }
 
-.logo-name {
-  color: rgb(30, 30, 30);
-  font-weight: 800;
-  font-size: 200%;
-  margin-bottom: 15px;
-}
-
 .brand-wrapper {
   padding: 0px 20px;
   padding-top: 20px;
@@ -44,7 +37,7 @@
   font-weight: 600;
   margin: 0px 5px;
   font-size: 75%;
-} 
+}
 .language-text {
   color: rgb(30, 30, 30);
   font-weight: 600;
@@ -100,11 +93,11 @@
   font-size: 150%;
 }
 
-.agreement-wrapper {
+.agreement-wrapper-register {
   display: flex;
   cursor: pointer;
-  width: 25vw;
-  margin-top: 20px;
+  width: 50vw;
+  margin-top: 0px;
 }
 .agreement-checkbox-wrapper {
   width: 25px;
@@ -150,6 +143,18 @@
 .agreement-text a:hover {
   text-decoration: underline;
 } */
+.form-title {
+  color: rgb(78, 75, 102);
+  font-weight: 600;
+  font-size: 36px;
+  margin-top: 60px;
+}
+.form-subtitle {
+  color: rgb(78, 75, 102);
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 50px;
+}
 
 .register-link-wrapper {
   display: flex;

@@ -1,0 +1,14 @@
+.general-logo-wrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.general-logo-wrapper img {
+  height: 37.4px;
+}
+.general-logo-wrapper span {
+  margin-left: 15px;
+  color: rgb(3, 16, 73);
+  font-size: 125%;
+  font-weight: 600;
+}

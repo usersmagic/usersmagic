@@ -4,10 +4,11 @@ const validator = require('validator');
 const User = require('../../../models/user/User');
 
 module.exports = (req, res) => {
-  if (!req.body || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_year || !req.body.country) {
+  if (!req.body || !req.body.name || !req.body.phone || !req.body.gender || !req.body.birth_year || !req.body.country || !req.body.phone_code) {
     req.session.error = res.__('Lütfen bütün bilgileri girin');
     return res.redirect('/auth/complete' + ((req.query && req.query.lang) ? '?lang=' + req.query.lang : ''));
   }
+
 
   if (req.body.gender.toLowerCase() == "male")
     req.body.gender = "erkek";
@@ -44,7 +45,7 @@ module.exports = (req, res) => {
 
   User.findByIdAndUpdate(mongoose.Types.ObjectId(req.session.user._id), {$set: {
     name: req.body.name.trim(),
-    phone: req.body.phone.trim(),
+    phone: req.body.phone_code.trim() +""+ req.body.phone.trim(),
     gender: req.body.gender.toLowerCase().trim(),
     birth_year: parseInt(req.body.birth_year.trim()),
     country: req.body.country,
