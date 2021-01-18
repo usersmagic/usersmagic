@@ -7,7 +7,7 @@ block content
         span.landing-header-logo-text usersmagic
       .landing-header-buttons-wrapper
         a.landing-header-tester-button(href=language_key ? `/auth/register?lang=${language_key}` : '/auth/register')= __("Tester Olmak İstiyorum")
-        .landing-header-start-button= __("Bize Ulaşın")
+        a.landing-header-start-button(href="https://www.notion.so/4dc920a0096f400cbd74b976780a7526?v=0e2376c9d31b4ddd87b8f38e1462379a" target="_blank")= __("Bize Ulaşın")
         a.change-language-button(href='/?lang=' + (current_language == 'TR' ? 'en' : 'tr'))
           span= (current_language == "TR" ? "EN" : "TR")
     .landing-all-content
@@ -15,7 +15,7 @@ block content
         .landing-start-page-wrapper
           span.landing-start-page-title= __('Hedef kitlenize ulaşın')
           span.landing-start-page-subtitle= __('Kullanıcı ve veri odaklı  kararlar alarak ürününüzü ve pazarlama stratejinizi geliştirin.')
-          .landing-start-button
+          a.landing-start-button(href="https://app.usersmagic.com" target="_blank")
             span= __('Başlayın')
         .landing-second-page-wrapper
           .second-page-brand-wrapper
@@ -75,25 +75,25 @@ block content
               .each-growth-inner-wrapper
                 span.each-growth-title 92
                 span.each-growth-text= __('Çalışma')
-        .contact-content-wrapper
-          .contact-left-wrapper
-            span.contact-title= __('Bize Ulaşın')
-            span.contact-subtitle= __('Usersmagic’ten nasıl faydalanabileceğinizi öğrenmek, bilgi almak ve bizimle çalışmak için bize ulaşın')
-          .contact-right-wrapper
-            .each-input-line
-              input.each-landing-input#name-input(type="text" placeholder=__("Adınız") autocomplete="none" style="margin-right: 15px")
-              input.each-landing-input#surname-input(type="text" placeholder=__("Soyadınız") autocomplete="none" style="margin-left: 15px")
-            .each-input-line
-              input.each-landing-input#email-input(type="text" placeholder=__("Email") autocomplete="none" style="margin-right: 15px")
-              input.each-landing-input#company-name-input(type="text" placeholder=__("Şirket Adı") autocomplete="none" style="margin-left: 15px")
-            textarea.each-landing-input#details-input(type="text" rows="5" placeholder=__("Detay (Opsiyonel)") autocomplete="none")
-            .contact-send-line
-              .contact-send-button
-                span= __("Gönder")
-              span.contact-error-message#general-error-span= __('Bir hata oluştu, lütfen daha sonra tekrar deneyin.')
-              span.contact-error-message#already-registered-error-span= __('Bu e-posta adresi ile zaten bir kayıt alınmış.')
-              span.contact-error-message#missing-information-error-span= __('Lütfen gerekli tüm bilgileri doldurun.')
-              span.contact-error-message#finished-span= __('Kaydınız alındı, ekibimiz en kısa zamanda size ulaşacak. Teşekkürler.')
+        //- .contact-content-wrapper
+        //-   .contact-left-wrapper
+        //-     span.contact-title= __('Bize Ulaşın')
+        //-     span.contact-subtitle= __('Usersmagic’ten nasıl faydalanabileceğinizi öğrenmek, bilgi almak ve bizimle çalışmak için bize ulaşın')
+        //-   .contact-right-wrapper
+        //-     .each-input-line
+        //-       input.each-landing-input#name-input(type="text" placeholder=__("Adınız") autocomplete="none" style="margin-right: 15px")
+        //-       input.each-landing-input#surname-input(type="text" placeholder=__("Soyadınız") autocomplete="none" style="margin-left: 15px")
+        //-     .each-input-line
+        //-       input.each-landing-input#email-input(type="text" placeholder=__("Email") autocomplete="none" style="margin-right: 15px")
+        //-       input.each-landing-input#company-name-input(type="text" placeholder=__("Şirket Adı") autocomplete="none" style="margin-left: 15px")
+        //-     textarea.each-landing-input#details-input(type="text" rows="5" placeholder=__("Detay (Opsiyonel)") autocomplete="none")
+        //-     .contact-send-line
+        //-       .contact-send-button
+        //-         span= __("Gönder")
+        //-       span.contact-error-message#general-error-span= __('Bir hata oluştu, lütfen daha sonra tekrar deneyin.')
+        //-       span.contact-error-message#already-registered-error-span= __('Bu e-posta adresi ile zaten bir kayıt alınmış.')
+        //-       span.contact-error-message#missing-information-error-span= __('Lütfen gerekli tüm bilgileri doldurun.')
+        //-       span.contact-error-message#finished-span= __('Kaydınız alındı, ekibimiz en kısa zamanda size ulaşacak. Teşekkürler.')
         .footer-wrapper
           .footer-top-wrapper
             .each-footer-wrapper

@@ -41,11 +41,11 @@ window.onload = () => {
   }
 
   document.addEventListener('click', event => {
-    if (event.target.classList.contains('landing-start-button') || (event.target.parentNode && event.target.parentNode.classList.contains('landing-start-button')) || event.target.classList.contains('second-page-down-button') || (event.target.parentNode && event.target.parentNode.classList.contains('second-page-down-button')))
-      smoothScroll(window.innerHeight - 70, landingAllContent);
+    // if (event.target.classList.contains('landing-start-button') || (event.target.parentNode && event.target.parentNode.classList.contains('landing-start-button')) || event.target.classList.contains('second-page-down-button') || (event.target.parentNode && event.target.parentNode.classList.contains('second-page-down-button')))
+    //   smoothScroll(window.innerHeight - 70, landingAllContent);
 
-    if (event.target.classList.contains('landing-header-start-button'))
-      document.querySelector('.contact-content-wrapper').scrollIntoView();
+    // if (event.target.classList.contains('landing-header-start-button'))
+    //   document.querySelector('.contact-content-wrapper').scrollIntoView();
 
     if (event.target.classList.contains('contact-send-button') || event.target.parentNode.classList.contains('contact-send-button')) {
       generalErrorSpan.style.display = "none";
