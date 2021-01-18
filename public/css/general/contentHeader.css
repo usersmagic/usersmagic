@@ -24,31 +24,6 @@
 .header-user-logo img {
   height: 100%;
 }
-
-.icons-home{
-  position: absolute;
-  left: 30px;
-  width: 24px;
-  height: 24px;
-  top: 130px;
-}
-
-.icons-folder{
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  left: 30px;
-  top: 191px;
-}
-
-.icons-settings{
-  position:absolute;
-  width: 22px;
-  height: 19px;
-  top: 252px;
-  left: 32px;
-}
-
 .general-settings-button {
   margin-top: auto;
   color: rgba(196, 196, 196, 0.8);

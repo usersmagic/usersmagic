@@ -53,7 +53,7 @@ body {
   border: 2px solid rgb(236, 236, 236);
   box-shadow: 0 0 20px rgba(30, 30, 30, 0.1);
   width: 96px;
-  height: 1500px;
+  height: 150000px;
   display: flex;
   flex-direction: column;
   min-height: fit-content;
@@ -79,6 +79,30 @@ body {
 .selected {
   color: rgb(240, 84, 79) !important;
 }
+.icons-home{
+  position: absolute;
+  left: 30px;
+  width: 24px;
+  height: 24px;
+  top: 130px;
+}
+
+.icons-folder{
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 30px;
+  top: 191px;
+}
+
+.icons-settings{
+  position:absolute;
+  width: 22px;
+  height: 19px;
+  top: 252px;
+  left: 32px;
+}
+
 
 .invite-button {
   background-color: rgb(254, 254, 254);

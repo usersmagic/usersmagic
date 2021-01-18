@@ -12,7 +12,7 @@ body {
 }
 .no-campaign-text {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,8 +36,10 @@ body {
   margin-right: calc(33vw - 20px);
 }
 .campaign-outer-wrapper {
+  position: relative;
   padding: 20px;
-  height: 100%;
+  top: 246px;
+  height: 50%;
 }
 .campaign-wrapper {
   background-color: rgb(254, 254, 254);
@@ -49,6 +51,48 @@ body {
   display: flex;
   align-items: center;
   padding: 20px;
+}
+.total-price-of-tests{
+  position: absolute;
+  left: 15.64%;
+  right: 64%;
+  top: 13.75%;
+  bottom: 72%;
+  width: 30vw;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 10px;
+
+/* identical to box height, or 417% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+
+  color: #4E4B66;
+}
+.test_title{
+  position: absolute;
+  left: 15.64%;
+  right: 60.13%;
+  top: 1.88%;
+  bottom: 76.38%;
+  width: 100%;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 50px;
+
+  /* or 208% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+
+  color: #4E4B66;
+
 }
 
 .campaign-photo-wrapper {
