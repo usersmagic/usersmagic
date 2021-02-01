@@ -1,42 +1,45 @@
 extends ../partials/head
 block content
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  input.display-none#countries(type="text" value=JSON.stringify(countries.map(country => {return { alpha2_code: country.alpha2_code, phone_code: country.phone_code }})))
+  input.display-none#genders(type="text" value=JSON.stringify(genders))
   .brand-wrapper
     a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-      img(src="/res/images/usersmagic_logo1.png" alt="usersmagic tester" class="usersmagic_logo")
+      img(src="/res/images/logo.png" alt="usersmagic tester")
     .language-change-wrapper
       a.language-text(href="/auth/complete?lang=tr") TR
       span |
       a.language-text(href="/auth/complete?lang=en") EN
-  form.all-wrapper(method="POST" action="/auth/complete" + (language_key ? ("?lang=" + language_key) : ""))
+  form.all-wrapper.complete-form
     .all-inner-wrapper
-      //-span.logo-name usersmagic
-      input.general-input-with-border(type="text" placeholder=__('Ad Soyad') name="name" required autofocus autocomplete="off")
-      input.display-none#country-input(type="text" name="country")
-      .select-input-outer-wrapper
-        .select-input-wrapper
-          input.select-input(type="text" placeholder=__('Yaşadığın Ülke') autocomplete="none")
-          .select-input-choices
-            span.each-input-choice(id="tr")= __('Türkiye')
-            span.each-input-choice(id="us")= __('Amerika Birleşik Devletleri')
-            span.each-input-choice(id="de")= __('Almanya')
-            span.each-input-choice(id="uk")= __('İngiltere')
-            span.each-input-choice(id="ru")= __('Rusya')
-            span.each-input-choice(id="ua")= __('Ukrayna')
-      .country-codes-wrapper
-        select.country-codes(id="country-codes" name="phone_code")
-        input.general-input-with-border(type="tel" pattern="[0-9]{10}" placeholder=__('Telefon Numarası') name="phone" required autocomplete="off")
-      select.general-input-with-border(placeholder=__('Cinsiyet') name="gender")
-        option(value = "" disable selected hidden) #{__('Gender')}
-        option(value = "Female") #{__('Female')}
-        option(value = "Male") #{__('Male')} 
-        option(value = "Other") #{__('Other')}
-        option(value = "Prefer not to say") #{__('Prefer not to say')}
-      input.general-input-with-border(type="number" placeholder=__('Doğum Yılı') name="birth_year" required autocomplete="off" min="1920" max="2010")
-      .input-choices-birthyear(name="birthyear")
-      if error
-        span.error-text= error
+      span.logo-name usersmagic
+      input.general-input-with-border#name-input(type="text" placeholder=__('Full Name') autofocus autocomplete="off")
+      .general-drop-down-list-outer-wrapper(style="z-index: 5;")
+        .general-drop-down-list-wrapper(style="z-index: 5;")
+          input.general-drop-down-list-input#country-visible-input(type="text" autocomplete="none" placeholder=__('Country'))
+          input.general-drop-down-list-input-not-visible#country-input(type="text")
+          input.general-drop-down-list-items-json(type="text" value=JSON.stringify(countries.map(country => { return {name: __(country.name), id: country.alpha2_code} })))
+          .general-drop-down-choices-wrapper
+            each country in countries
+              span.general-drop-down-list-each-item(id=country.alpha2_code)= __(country.name)
+      label.phone-code-input-wrapper
+        span.phone-code#phone-code +0
+        input.phone-code-input#phone-input(type="text" placeholder=__('Phone Number'))
+      .general-drop-down-list-outer-wrapper(style="z-index: 4;")
+        .general-drop-down-list-wrapper(style="z-index: 4;")
+          input.general-drop-down-list-input#gender-visible-input(type="text" autocomplete="none" placeholder=__('Gender'))
+          input.general-drop-down-list-input-not-visible#gender-input(type="text")
+          input.general-drop-down-list-items-json(type="text" value=JSON.stringify(genders.map(gender => { return {name: __(gender.name), id: gender.id} })))
+          .general-drop-down-choices-wrapper
+            each gender in genders
+              span.general-drop-down-list-each-item(id=gender.id)= __(gender.name)
+      input.general-input-with-border#birth-year-input(type="number" placeholder=__('Birth Year') autocomplete="off" min="1920" max="2020")
       button.general-seablue-button
-        span #{__('Hesabını Tamamla')}
+        span #{__('Continue')}
+      span.error-text#bad-request-error #{__('Please write your name, phone number, birth year and choose your country and gender')}
+      span.error-text#country-error #{__('The country you wrote is not recognized. Please choose one from the list')}
+      span.error-text#gender-error #{__('The gender you wrote is not recognized. Please choose one from the list')}
+      span.error-text#phone-error #{__('The phone number you wrote is not valid')}
+      span.error-text#network-error #{__('Please check your internet connection and try again')}
+      span.error-text#unknown-error #{__('An unknown error occured, please try again later')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım

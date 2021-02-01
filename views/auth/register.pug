@@ -3,7 +3,7 @@ block content
   input.display-none#invitor-code(value=(code ? code : 1) type="text")
   .brand-wrapper
     a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-      i.fas.fa-home
+      img(src="/res/images/logo.png" alt="usersmagic tester")
     .language-change-wrapper
       a.language-text(href="/auth/register?lang=tr") TR
       span |
@@ -11,9 +11,9 @@ block content
   form.all-wrapper.register-form
     .all-inner-wrapper
       span.logo-name usersmagic
-      input.general-input#email-input(type="email" placeholder=__('E-Mail') autofocus autocomplete="off")
-      input.general-input#password-input(type="password" placeholder=__('Password') autocomplete="off")
-      input.general-input#confirm-password-input(type="password" placeholder=__('Confirm Password') autocomplete="off")
+      input.general-input-with-border#email-input(type="email" placeholder=__('E-Mail') autofocus autocomplete="off")
+      input.general-input-with-border#password-input(type="password" placeholder=__('Password') autocomplete="off")
+      input.general-input-with-border#confirm-password-input(type="password" placeholder=__('Confirm Password') autocomplete="off")
       .agreement-wrapper
         input.display-none#approve-agrement-input(type="checkbox")
         .agreement-checkbox-wrapper

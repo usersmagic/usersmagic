@@ -47,5 +47,22 @@
 	"Not a member?": "Not a member?",
 	"Please write your email and password": "Please write your email and password",
 	"This account does not exist": "This account does not exist",
-	"Your password is wrong": "Your password is wrong"
+	"Your password is wrong": "Your password is wrong",
+	"Complete Your Account": "Complete Your Account",
+	"Full Name": "Full Name",
+	"Country": "Country",
+	"United States": "United States",
+	"Turkey": "Turkey",
+	"Phone Number": "Phone Number",
+	"Gender": "Gender",
+	"Female": "Female",
+	"Male": "Male",
+	"Other": "Other",
+	"Prefer not to say": "Prefer not to say",
+	"Birth Year": "Birth Year",
+	"Continue": "Continue",
+	"Please write your name, phone number, birth year and choose your country and gender": "Please write your name, phone number, birth year and choose your country and gender",
+	"The country you wrote is not recognized. Please choose one from the list": "The country you wrote is not recognized. Please choose one from the list",
+	"The gender you wrote is not recognized. Please choose one from the list": "The gender you wrote is not recognized. Please choose one from the list",
+	"The phone number you wrote is not valid": "The phone number you wrote is not valid"
 }

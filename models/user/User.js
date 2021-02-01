@@ -226,7 +226,7 @@ UserSchema.statics.createUser = function (data, callback) {
 };
 
 UserSchema.statics.completeUser = function (id, data, callback) {
-  // Update required fields of the user, set complete field as true
+  // Update required fields of the user with given id, set completed field as true
   // Return an error if it exists
 
   const allowedGenderValues = ['male', 'female', 'other', 'not_specified'];
@@ -237,8 +237,10 @@ UserSchema.statics.completeUser = function (id, data, callback) {
   if (!data.name || typeof data.name != 'string')
     return callback('bad_request');
 
+  data.phone = (data.phone ? data.phone.split(' ').join('') : null);
+
   if (!data.phone || !validator.isMobilePhone(data.phone.toString()))
-    return callback('bad_request');
+    return callback('phone_validation');
 
   if (!data.gender || !allowedGenderValues.includes(data.gender))
     return callback('bad_request');
@@ -248,16 +250,30 @@ UserSchema.statics.completeUser = function (id, data, callback) {
 
   const User = this;
 
-  User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
-    name: data.name,
-    phone: data.phone,
-    gender: data.gender,
-    birth_year: parseInt(data.birth_year)
-  }}, (err, user) => {
-    if (err) return callback('database_error');
-    if (!user) return callback('document_not_found');
+  Country.getCountryWithAlpha2Code(data.country, (err, country) => {
+    if (err || !country)
+      return callback('bad_request');
 
-    return callback(null);
+    User.findById(mongoose.Types.ObjectId(id.toString()), (err, user) => {
+      if (err || !user) return callback('document_not_found');
+  
+      if (user.completed)
+        return callback('already_authenticated');
+      
+      User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+        name: data.name,
+        country: country.alpha2_code,
+        phone: data.phone,
+        gender: data.gender,
+        birth_year: parseInt(data.birth_year),
+        completed: true
+      }}, (err, user) => {
+        if (err) return callback('database_error');
+        if (!user) return callback('document_not_found');
+      
+        return callback(null);
+      });
+    });
   });
 };
 

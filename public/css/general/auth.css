@@ -11,6 +11,9 @@
   color: rgb(20, 20, 43);
   font-size: 16px;
 }
+.main-page-button img {
+  height: 40px;
+}
 .brand-text {
   color: rgb(78, 75, 102);
   font-weight: 600;

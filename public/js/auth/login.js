@@ -16,8 +16,8 @@ window.onload = () => {
     networkError.style.display =
     unknownError.style.display = 'none';
 
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('password-input').value;
+    const email = document.getElementById('email-input').value.trim();
+    const password = document.getElementById('password-input').value.trim();
 
     if (!email || !email.length || !password || !password.length)
       return badRequestError.style.display = 'block';

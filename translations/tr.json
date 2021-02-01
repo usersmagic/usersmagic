@@ -47,5 +47,22 @@
 	"Reset Password": "Şifremi Unuttum",
 	"Please write your email and password": "Lütfen e-posta ve şifrenizi yazın",
 	"This account does not exist": "Hesap bulunamadı",
-	"Your password is wrong": "Lütfen şifrenizi kontrol edin"
+	"Your password is wrong": "Lütfen şifrenizi kontrol edin",
+	"Complete Your Account": "Hesabınızı Tamamlayın",
+	"Full Name": "Ad Soyad",
+	"Country": "Yaşadığın Ülke",
+	"United States": "Amerika Birleşik Devletleri",
+	"Turkey": "Türkiye",
+	"Female": "Kadın",
+	"Male": "Erkek",
+	"Other": "Diğer",
+	"Prefer not to say": "Söylemeyi tercih etmiyorum",
+	"Birth Year": "Doğum Yılı",
+	"Continue": "Devam Et",
+	"Gender": "Cinsiyet",
+	"Phone Number": "Telefon Numarası",
+	"Please write your name, phone number, birth year and choose your country and gender": "Lütfen isminizi, telefon numaranızı, doğum tarihinizi yazın ve ülkenizi ve cinsiyetinizi belirtin",
+	"The country you wrote is not recognized. Please choose one from the list": "Yazdığınız ülke bulunamadı. Lütfen listeden bir tane seçin",
+	"The gender you wrote is not recognized. Please choose one from the list": "Yazdığınız cinsiyet bulunamadı. Lütfen listeden bir tane seçin",
+	"The phone number you wrote is not valid": "Lütfen geçerli bir telefon numarası yazın"
 }

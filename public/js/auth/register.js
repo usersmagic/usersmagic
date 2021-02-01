@@ -24,9 +24,9 @@ window.onload = () => {
     networkError.style.display =
     unknownError.style.display = 'none';
 
-    const email = document.getElementById('email-input').value;
-    const password = document.getElementById('password-input').value;
-    const confirmPassword = document.getElementById('confirm-password-input').value;
+    const email = document.getElementById('email-input').value.trim();
+    const password = document.getElementById('password-input').value.trim();
+    const confirmPassword = document.getElementById('confirm-password-input').value.trim();
     const agreementApproved = agreementWrapper.childNodes[0].checked;
     const code = document.getElementById('invitor-code').value;
 

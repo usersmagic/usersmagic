@@ -1,105 +1,72 @@
 window.onload = () => {
-  const selectInput = document.querySelector('.select-input');
-  const selectInputWrapper = document.querySelector('.select-input-wrapper');
+  listenDropDownListInputs(document); // Listen for drop down items
+
+  const completeForm = document.querySelector('.complete-form');
+  const countries = JSON.parse(document.getElementById('countries').value);
+  const genders = JSON.parse(document.getElementById('genders').value);
   const countryInput = document.getElementById('country-input');
-  const selectInputChoices = document.querySelector('.select-input-choices');
-  const inputChoices = document.querySelectorAll('.each-input-choice');
 
-  selectInput.onfocus = () => {
-    if (selectInputWrapper.classList.contains('close-up-animation-class'))
-      selectInputWrapper.classList.remove('close-up-animation-class');
-
-    selectInputWrapper.classList.add('open-bottom-animation-class');
-  }
-
-  selectInput.oninput = () => {
-    if (selectInput.value) {
-      selectInputChoices.innerHTML = "";
-      inputChoices.forEach(choice => {
-        if (choice.innerHTML.toLocaleLowerCase().includes(selectInput.value.toLocaleLowerCase())) {
-          selectInputChoices.appendChild(choice);
-          while (choice.previousElementSibling && choice.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()) < choice.previousElementSibling.innerHTML.toLocaleLowerCase().indexOf(selectInput.value.toLocaleLowerCase()))
-            selectInputChoices.insertBefore(choice, choice.previousElementSibling);
-        }
-      });
-    } else {
-      selectInputChoices.innerHTML = "";
-      inputChoices.forEach(choice => {
-        selectInputChoices.appendChild(choice);
-      });
-    }
-  }
-
-  document.addEventListener('click', event => {
-    if (event.target.className == 'each-input-choice') {
-      selectInput.value = event.target.innerHTML;
-      countryInput.value = event.target.id;
-      selectInputWrapper.classList.remove('open-bottom-animation-class');
-      selectInputWrapper.classList.add('close-up-animation-class');
+  document.addEventListener('focusout', event => {
+    if (event.target.id == 'country-visible-input')
       setTimeout(() => {
-        selectInputChoices.scrollTo(0, 0);
-      }, 500);
-    }
-    else if (!selectInputWrapper.classList.contains('close-up-animation-class') && (event.target.className != 'select-input-choices' && event.target.className != 'select-input-wrapper' && event.target.className != 'select-input-outer-wrapper' && event.target.className != 'select-input')) {
-      selectInputWrapper.classList.remove('open-bottom-animation-class');
-      selectInputWrapper.classList.add('close-up-animation-class');
-      setTimeout(() => {
-        selectInputChoices.scrollTo(0, 0);
-      }, 500);
-    }
+        document.querySelector('.phone-code').innerHTML = '+' + (countries.find(country => country.alpha2_code == countryInput.value) ? countries.find(country => country.alpha2_code == countryInput.value).phone_code : '0');
+      }, 100);
   });
 
-  const birth_year_section = ".input-choices-birthyear"
-  //list birty_years from start to finish
-  const start = 1920;
-  const finish = 2010;
+  const badRequestError = document.getElementById('bad-request-error');
+  const countryError = document.getElementById('country-error');
+  const genderError = document.getElementById('gender-error');
+  const phoneError = document.getElementById('phone-error');
+  const networkError = document.getElementById('network-error');
+  const unknownError = document.getElementById('unknown-error');
 
-  var list = ""
+  completeForm.onsubmit = event => {
+    event.preventDefault();
 
-  for(var i = finish; i >= start; i--){
-    list += "<li class='each-input-birthyear' id='"+i+"'>"+i+"</li>";
-  }
+    badRequestError.style.display =
+    countryError.style.display =
+    genderError.style.display =
+    phoneError.style.display =
+    networkError.style.display =
+    unknownError.style.display = 'none';
 
-  $(birth_year_section).html(list)
-  $(birth_year_section).hide()
-  var clicked = false;
-  $(".general-input-with-border[name='birth_year']").click(function(){
-    if (!clicked) {
-      $(birth_year_section).show(500);
-      clicked = true;
-    }
-    else{
-      clicked = false;
-      $(birth_year_section).hide(500);
-    }
-  })
+    const name = document.getElementById('name-input').value.trim();
+    const country = document.getElementById('country-input').value.trim();
+    const phoneCode = document.getElementById('phone-code').innerHTML.trim();
+    const phone = document.getElementById('phone-input').value.trim();
+    const gender = document.getElementById('gender-input').value.trim();
+    const birthYear = document.getElementById('birth-year-input').value.trim();
 
-  $(".each-input-birthyear").click(function(){
-    var clicked_value = this.id
-    $(".general-input-with-border[name='birth_year']").val(clicked_value)
-    $(birth_year_section).hide()
-  })
+    if (!name || !name.length || !country || !country.length || !phoneCode || !phoneCode.length || !phone || !phone.length || !gender || !gender.length || !birthYear || !birthYear.length)
+      return badRequestError.style.display = 'block';
 
-  $.getJSON("/js/country_codes.json", function(data){
-    data.forEach(item => {
-      $(".country-codes").append("<option value="+item['dial_code']+"> "+item['name']+" ("+item['dial_code']+")</option>")
+    if (!countries.find(each => each.alpha2_code == country))
+      return countryError.style.display = 'block';
+
+    if (!genders.find(each => each.id == gender))
+      return genderError.style.display = 'block';
+
+    serverRequest('/auth/complete', 'POST', {
+      name,
+      country,
+      phone: (phoneCode + ' ' + phone).trim(),
+      gender,
+      birth_year: birthYear
+    }, res => {
+      if (!res.success) {
+        if (res.error == 'bad_request')
+          return badRequestError.style.display = 'block';
+        else if (res.error == 'phone_validation')
+          return phoneError.style.display = 'block';
+        else if (res.error == 'network_error')
+          return networkError.style.display = 'block';
+        else if (res.error == 'already_authenticated')
+          return window.location = '/campaigns';
+        else
+          return unknownError.style.display = 'block';
+      } else {
+        return window.location = '/campaigns';
+      }
     });
-  var last_item;
-  var country;
-
-  $(".country-codes").on('change', function(){
-    if(last_item != null && country != null){
-      country.text = last_item
-    }
-
-    var value = $(this).val()
-    var country_code = document.getElementById('country-codes')
-    country = country_code.options[country_code.selectedIndex]
-    last_item = country_code.options[country_code.selectedIndex].text
-    country.text = value
-  })
-  })
-
-
-
+  }
 }
