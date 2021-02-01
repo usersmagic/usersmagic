@@ -1,18 +1,15 @@
+// Get /auth/register page
+
 module.exports = (req, res) => {
-  let error = null;
-  if (req.session && req.session.error) {
-    error = req.session.error;
-    req.session.destroy();
-  }
-  
   return res.render('auth/register', {
     page: 'auth/register',
-    title: res.__('Kaydol'),
+    title: res.__('Register'),
     includes: {
-      external: ['css', 'js', 'fontawesome']
+      external: {
+        css: ['page', 'general', 'inputs', 'buttons', 'auth', 'fontawesome'],
+        js: ['page', 'serverRequest']
+      }
     },
-    error,
-    invitor: req.query && req.query.code ? req.query.code : null,
-    language_key: req.query.lang ? req.query.lang : null
+    code: req.query && req.query.code ? req.query.code : null
   });
 }

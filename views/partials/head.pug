@@ -3,36 +3,53 @@ doctype html
 html(lang="tr")
   head
     meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0")
-    meta(name="description" content=__('Usersmagic, hedef kitlene test ettirmenin en kolay yolu. Usersmagic ile hedef kitlenize ulaşın, ürününüzün kullanıcı kitlesini genişletin, sosyal medya kanalları üzerinden ürününüzün reklamını yapın. Usersmagic\'i kullanmaya başlamak için sitedeki formu doldurun, temsilcilerimiz bir hafta içinde size ulaşsın.'))
+    meta(name="description" content=__('Usersmagic, the easiest way of making money by testing web platforms and apps. By using Usersmagic, you can earn money fast and easy. All of the data you have shared with us is secured by our user agreement. Why don\'t you start using Usersmagic now?'))
     title Usersmagic | #{title}
-    if includes && includes.external
-      if includes.external.indexOf('fontawesome') > -1
-        link(rel="stylesheet",
-            href="https://use.fontawesome.com/releases/v5.2.0/css/all.css",
-            integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ",
-            crossorigin="anonymous")
-      if includes.external.indexOf('js') > -1 
-        script(src=`/js/${page}.js`)
-      if includes.external.indexOf('css') > -1 
-        link(rel="stylesheet", href=`/css/${page}.css`)
-      if includes.external.indexOf('admin_general_css') > -1
-        link(rel="stylesheet", href='/css/admin/general.css')
     link(href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900" rel="stylesheet")
-    link(rel="stylesheet", href=`/css/general.css`)
-    link(rel="stylesheet", href=`/css/general/admin.css`)
-    link(rel="stylesheet", href=`/css/general/buttons.css`)
-    link(rel="stylesheet", href=`/css/general/confirm.css`)
-    link(rel="stylesheet", href=`/css/general/contentHeader.css`)
-    //-link(rel="stylesheet", href=`/css/general/general.css`)
-    link(rel="stylesheet", href=`/css/general/header.css`)
-    link(rel="stylesheet", href=`/css/general/inputs.css`)
-    link(rel="stylesheet", href=`/css/general/logo.css`)
     script(async src="https://www.googletagmanager.com/gtag/js?id=UA-169940277-1")
     script.
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-169940277-1');
+    if includes && includes.external
+      if includes.external.css
+        if includes.external.css.includes('page')
+          link(rel='stylesheet' href=`/css/${page}.css`)
+        if includes.external.css.includes('admin')
+          link(rel='stylesheet' href='/css/general/admin.css')
+        if includes.external.css.includes('general')
+          link(rel='stylesheet' href='/css/general/general.css')
+        if includes.external.css.includes('header')
+          link(rel='stylesheet' href='/css/general/header.css')
+        if includes.external.css.includes('contentHeader')
+          link(rel='stylesheet' href='/css/general/contentHeader.css')
+        if includes.external.css.includes('logo')
+          link(rel='stylesheet' href='/css/general/logo.css')
+        if includes.external.css.includes('inputs')
+          link(rel='stylesheet' href='/css/general/inputs.css')
+        if includes.external.css.includes('buttons')
+          link(rel='stylesheet' href='/css/general/buttons.css')
+        if includes.external.css.includes('confirm')
+          link(rel='stylesheet' href='/css/general/confirm.css')
+        if includes.external.css.includes('auth')
+          link(rel='stylesheet' href='/css/general/auth.css')
+        if includes.external.css.includes('fontawesome')
+          link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css' integrity='sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ', crossorigin='anonymous')
+      if includes.external.js
+        if includes.external.js.includes('page')
+          script(src=`/js/${page}.js`)
+        if includes.external.js.includes('duplicateElement')
+          script(src='/js/functions/duplicateElement.js')
+        if includes.external.js.includes('dragAndDrop')
+          script(src='/js/functions/dragAndDrop.js')
+        if includes.external.js.includes('buttonListeners')
+          script(src='/js/functions/buttonListeners.js')
+        if includes.external.js.includes('confirm')
+          script(src='/js/functions/confirmFunction.js')
+        if includes.external.js.includes('inputListeners')
+          script(src='/js/functions/inputListeners.js')
+        if includes.external.js.includes('serverRequest')
+          script(src='/js/functions/serverRequest.js')
   body
     block content

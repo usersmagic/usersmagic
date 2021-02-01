@@ -1,6 +1,6 @@
 .general-seablue-button {
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   background-color: rgba(46, 197, 206, 1);
   padding: 12px 0px;
   display: flex;
@@ -34,7 +34,7 @@ button.status_button{
   font-weight: bolder;
   height: 34px;
   width: 108px;
-  border-radius = 5px;
+  border-radius: 5px;
 }
 
 button{

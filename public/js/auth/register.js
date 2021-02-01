@@ -1,77 +1,78 @@
 window.onload = () => {
-  $("#email-error").hide()
-  $("#password-length-error").hide()
-  $("#password-confirmation-error").hide()
-
   const registerForm = document.querySelector('.register-form');
   const agreementWrapper = document.querySelector('.agreement-wrapper');
   const agreementCheckboxWrapper = document.querySelector('.agreement-checkbox-wrapper');
 
+  const badRequestError = document.getElementById('bad-request-error');
+  const agreementError = document.getElementById('agreement-error');
+  const validEmailError = document.getElementById('valid-email-error');
+  const duplicatedEmailError = document.getElementById('duplicated-email-error');
+  const passwordLengthError = document.getElementById('password-length-error');
+  const passwordConfirmError = document.getElementById('password-confirm-error');
+  const networkError = document.getElementById('network-error');
+  const unknownError = document.getElementById('unknown-error');
+
   registerForm.onsubmit = event => {
-    $(".error-text").hide()
     event.preventDefault();
-    // if (!agreementWrapper.childNodes[0].checked) {
-    //   agreementCheckboxWrapper.style.borderColor = "rgb(240, 84, 79)";
-    //   setTimeout(() => {
-    //     agreementCheckboxWrapper.style.borderColor = "rgb(236, 236, 236)";
-    //   }, 500);
-    // } else {
-      var email = $("input[name='email']").val()
-      var password = $("input[name='password']").val()
-      var confirm_password = $("input[name='password_confirm']").val()
-      var is_there_an_error = false;
 
-      if(!is_valid_email(email)){
-        $("#email-error").show()
-        is_there_an_error = true;
+    badRequestError.style.display =
+    agreementError.style.display =
+    validEmailError.style.display =
+    duplicatedEmailError.style.display =
+    passwordLengthError.style.display =
+    passwordConfirmError.style.display = 
+    networkError.style.display =
+    unknownError.style.display = 'none';
+
+    const email = document.getElementById('email-input').value;
+    const password = document.getElementById('password-input').value;
+    const confirmPassword = document.getElementById('confirm-password-input').value;
+    const agreementApproved = agreementWrapper.childNodes[0].checked;
+    const code = document.getElementById('invitor-code').value;
+
+    if (!email || !email.length || !password || !password.length || !confirmPassword || !confirmPassword.length)
+      return badRequestError.style.display = 'block';
+
+    if (!agreementApproved)
+      return agreementError.style.display = 'block';
+
+    if (password.length < 6)
+      return passwordLengthError.style.display = 'block';
+
+    if (password != confirmPassword)
+      return passwordConfirmError.style.display = 'block';
+
+    serverRequest('/auth/register', 'POST', {
+      email,
+      password,
+      code: (code ? code : null)
+    }, res => {
+      if (!res.success) {
+        if (res.error == 'email_validation')
+          return validEmailError.style.display = 'block';
+        else if (res.error == 'email_duplication')
+          return duplicatedEmailError.style.display = 'block';
+        else if (res.error == 'network_error')
+          return networkError.style.display = 'block';
+        else
+          return unknownError.style.display = 'block';
+      } else {
+        return window.location = '/campaigns';
       }
-
-      if(!is_valid_password(password)){
-        $("#password-length-error").show()
-        is_there_an_error = true;
-      }
-
-      if(!does_password_match(password, confirm_password)){
-        $("#password-confirmation-error").show()
-        is_there_an_error = true;
-      }
-
-      if(!is_there_an_error) registerForm.submit();
-    //}
+    });
   }
 
   document.addEventListener('click', event => {
     if (event.target.classList.contains('agreement-wrapper') || event.target.parentNode.classList.contains('agreement-wrapper') || event.target.parentNode.parentNode.classList.contains('agreement-wrapper')) {
       if (agreementWrapper.childNodes[0].checked) {
         agreementWrapper.childNodes[0].checked = false;
-        agreementCheckboxWrapper.style.backgroundColor = "rgb(254, 254, 254)";
+        agreementCheckboxWrapper.style.backgroundColor = 'rgb(254, 254, 254)';
+        agreementCheckboxWrapper.style.borderColor = 'rgba(151, 151, 151, 0.3)';
       } else {
         agreementWrapper.childNodes[0].checked = true;
-        agreementCheckboxWrapper.style.backgroundColor = "rgb(240, 84, 79)";
+        agreementCheckboxWrapper.style.backgroundColor = 'rgb(46, 197, 206)';
+        agreementCheckboxWrapper.style.borderColor = 'transparent';
       }
     }
-  })
-}
-
-function is_valid_email(email){
-  if(!email.includes('@')) return false;
-  email = email.split('@')
-  prefix = email[0]
-  suffix = email[1]
-
-  if(prefix == '' || suffix == '') return false;
-
-  return true;
-}
-
-function is_valid_password(password){
-  var pass_length = password.length;
-
-  if (pass_length < 6) return false;
-  else return true;
-}
-
-function does_password_match(password, confirm_password){
-  if(password != confirm_password) return false;
-  else return true;
+  });
 }

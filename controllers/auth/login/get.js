@@ -1,10 +1,12 @@
 module.exports = (req, res) => {
   return res.render('auth/login', {
     page: 'auth/login',
-    title: res.__('Giriş Yap'),
+    title: res.__('Login'),
     includes: {
-      external: ['css', 'fontawesome']
-    },
-    language_key: req.query.lang ? req.query.lang : null
+      external: {
+        css: ['page', 'general', 'inputs', 'buttons', 'auth', 'fontawesome'],
+        js: ['page', 'serverRequest']
+      }
+    }
   });
 }

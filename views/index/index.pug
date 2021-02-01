@@ -6,17 +6,17 @@ block content
         img.landing-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
         span.landing-header-logo-text usersmagic
       .landing-header-buttons-wrapper
-        a.landing-header-tester-button(href=language_key ? `/auth/register?lang=${language_key}` : '/auth/register')= __("Tester Olmak İstiyorum")
-        a.landing-header-start-button(href="https://www.notion.so/4dc920a0096f400cbd74b976780a7526?v=0e2376c9d31b4ddd87b8f38e1462379a" target="_blank")= __("Bize Ulaşın")
+        a.landing-header-tester-button(href=language_key ? `/auth/register?lang=${language_key}` : '/auth/register')= __("Become a Tester")
+        a.landing-header-start-button(href="https://www.notion.so/4dc920a0096f400cbd74b976780a7526?v=0e2376c9d31b4ddd87b8f38e1462379a" target="_blank")= __("Try Usersmagic")
         a.change-language-button(href='/?lang=' + (current_language == 'TR' ? 'en' : 'tr'))
           span= (current_language == "TR" ? "EN" : "TR")
     .landing-all-content
       .landing-all-content-inner-wrapper
         .landing-start-page-wrapper
-          span.landing-start-page-title= __('Hedef kitlenize ulaşın')
-          span.landing-start-page-subtitle= __('Kullanıcı ve veri odaklı  kararlar alarak ürününüzü ve pazarlama stratejinizi geliştirin.')
+          span.landing-start-page-title= __('Reach your target customers')
+          span.landing-start-page-subtitle= __('Improve your product and marketing strategy with user and data-driven decision making.')
           a.landing-start-button(href="https://app.usersmagic.com" target="_blank")
-            span= __('Başlayın')
+            span= __('Start Now')
         .landing-second-page-wrapper
           .second-page-brand-wrapper
             img.each-brand(src="/res/images/logos/clay.png" alt="usersmagic clay")
@@ -28,32 +28,32 @@ block content
             .second-page-animation-wrapper
               img.second-page-animation(src="/res/images/landing_user_animation.png" alt="usersmagic")
             .second-page-inner-content-wrapper
-              span.second-page-content-subtitle= __('HEDEFINIZE ULAŞMAK IÇIN')
-              span.second-page-content-title= __('Kullanıcınızı anlamaya ve dinlemeye ihtiyacınız var')
-              span.second-page-content-text= __('Bazı kitle ve ürünlerimizde Coversion Rate’imiz neden düşük, İstanbul’da yaşayan beyaz yakalı yeni mezunlar ürünümüz hakkında ne düşünüyor, kullanıcımız gerçekten ne istiyor gibi soruları cevaplamak için Usersmagic var.')
+              span.second-page-content-subtitle= __('TO REACH YOUR GOALS')
+              span.second-page-content-title= __('You need to listen to and understand your customers')
+              span.second-page-content-text= __('Why are our conversion rates lower than expected for certain products and segments, what do Gen-Z think about our product, what do new grads in New York need? Usersmagic allows you to find the responses to your questions so that you can understand your customers from all segments and improve your product or service.')
               .second-page-down-button
-                span= __('Nasıl mı?')
+                span= __('How?')
                 i.fas.fa-arrow-down
         .how-to-content-wrapper
-          span.how-to-title= __('Bunu nasıl yapıyoruz?')
+          span.how-to-title= __('How do we do it?')
           .how-to-inner-content-wrapper
             .how-to-each-wrapper
               img.how-to-each-icon(src="/res/images/how_to/one.png" alt="usersmagic")
-              span.how-to-each-title= __('Detaylı segmentasyon')
-              span.how-to-each-text= __('Lokasyon, şehir, meslek, ilgi alanları, alışkanlıkları, kullandığı uygulamalar ve ürünler gibi bilgilere göre detaylı filtreleme ile istediğiniz profili ve kitleyi belirleyin.')
+              span.how-to-each-title= __('Detailed Segmentation')
+              span.how-to-each-text= __('Filter your target by location, gender, job, education, hobbies, and products they already use. You can choose your exact target segment from our extensive and detailed user-database.')
             .how-to-each-wrapper.how-to-second-each-wrapper(style="margin: 0px 60px")
               img.how-to-each-icon(src="/res/images/how_to/two.png" alt="usersmagic")
-              span.how-to-each-title= __('Kullanıcı deneyimi incelemesi')
-              span.how-to-each-text= __('Belirlediğiniz kitle uygulamanızı indirir veya websitenize girer, belirlenen görevi gerçekleştirir ve yaşadığı deneyime göre soruları cevaplar. Bu cevaplar ile kullanıcının deneyimini ölçer ve anlar, düşüncelerine ulaşırsınız. Açık uçlu cevaplar ile kalitatif, çoktan seçmeli cevaplar ile NPS, CSAT gibi kuantitatif verilere erişebilirsiniz.')
+              span.how-to-each-title= __('User Experience Analysis')
+              span.how-to-each-text= __('Your target audience downloads your app or enters your website, completes your task, and completes the survey according to their experience. We analyze quantitative data, such as Net Promoter Score, Customer Satisfaction Score, and qualitative data, so that you not only measure but also understand their experience, feelings, and thoughts.')
             .how-to-each-wrapper
               img.how-to-each-icon(src="/res/images/how_to/three.png" alt="usersmagic")
-              span.how-to-each-title= __('Veri bazlı içgörü')
-              span.how-to-each-text= __('Sunduğumuz analiz ile kullanıcının hissettiklerini,  kararlarını ve hareketlerini nedenleri ile birlikte öğrenirsiniz. Bu bilgiler  ürününüzü geliştirmenizi, yeni pazarlara ve kitlelere açılmanızı ve hedeflediğiniz metriklere ulaşmanızı sağlar.')
+              span.how-to-each-title= __('Data-based Insights')
+              span.how-to-each-text= __('Understand the reasoning behind how your user feels, decides, and acts through our thorough analysis. The insights we provide allow you to improve your product, enter new markets and segments, and reach your goal metrics.')
         .growth-content-wrapper
           .growth-title-wrapper
-            span.growth-title= __('Sizinle büyüyen,')
-            span.growth-title= __('hızla gelişen')
-            span.growth-subtitle= __('Her geçen gün artmaya devam ediyor.')
+            span.growth-title= __('Growing every day')
+            span.growth-title= __('Growing every day 2')
+            span.growth-subtitle= __('Usersmagic gets the job done for UX researchers, Product Managers, and Founders across the world.')
           .growth-content-inner-wrapper
             .each-growth-wrapper
               img.each-growth-icon(src="/res/images/how_to/one.png" alt="usersmagic")
@@ -64,17 +64,17 @@ block content
               img.each-growth-icon(src="/res/images/how_to/two.png" alt="usersmagic")
               .each-growth-inner-wrapper
                 span.each-growth-title 4
-                span.each-growth-text= __('Ülke')
+                span.each-growth-text= __('Countries')
             .each-growth-wrapper
               img.each-growth-icon(src="/res/images/how_to/four.png" alt="usersmagic")
               .each-growth-inner-wrapper
                 span.each-growth-title 37+
-                span.each-growth-text= __('Müşteri')
+                span.each-growth-text= __('Clients')
             .each-growth-wrapper.each-growth-wrapper-right
               img.each-growth-icon(src="/res/images/how_to/three.png" alt="usersmagic")
               .each-growth-inner-wrapper
                 span.each-growth-title 92
-                span.each-growth-text= __('Çalışma')
+                span.each-growth-text= __('Cases')
         //- .contact-content-wrapper
         //-   .contact-left-wrapper
         //-     span.contact-title= __('Bize Ulaşın')
@@ -97,15 +97,15 @@ block content
         .footer-wrapper
           .footer-top-wrapper
             .each-footer-wrapper
-              span.each-footer-title= __('Tester Olmak İstiyorum')
-              a.each-footer-text(href="/auth/register")= __('Kaydol')
-              a.each-footer-text(href="/auth/login")= __('Giriş Yap')
+              span.each-footer-title= __('Become a Tester')
+              a.each-footer-text(href="/auth/register")= __('Register')
+              a.each-footer-text(href="/auth/login")= __('Login')
             .each-footer-wrapper
-              span.each-footer-title= __('Hakkında')
-              a.each-footer-text(href="/agreement/privacy")= __('Gizlilik Sözleşmesi')
-              a.each-footer-text(href="/agreement/user")= __('Kullanım Sözleşmesi')
+              span.each-footer-title= __('About')
+              a.each-footer-text(href="/agreement/privacy")= __('Privacy Statement')
+              a.each-footer-text(href="/agreement/user")= __('User Agreement')
             .each-footer-wrapper
-              span.each-footer-title= __('Bize Ulaşın')
+              span.each-footer-title= __('Try Usersmagic')
               span.each-footer-text email:
               span.each-footer-text hello@usersmagic.com
           .footer-bottom-wrapper

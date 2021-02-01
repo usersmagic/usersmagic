@@ -1,42 +1,41 @@
 extends ../partials/head
 block content
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+  input.display-none#invitor-code(value=(code ? code : 1) type="text")
   .brand-wrapper
-    //- a.brand-text(href="/brand") #{__('Marka Sayfası')}
     a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-      img(src="/res/images/usersmagic_logo1.png" alt="usersmagic tester" class="usersmagic_logo")
-      //-i.fas.fa-home
+      i.fas.fa-home
     .language-change-wrapper
       a.language-text(href="/auth/register?lang=tr") TR
       span |
       a.language-text(href="/auth/register?lang=en") EN
-  form.all-wrapper.register-form(method="POST" action="/auth/register" + (invitor ? "?code=" + invitor : "") + (language_key ? ((invitor ? "&" : "?") + "lang=" + language_key) : ""))
+  form.all-wrapper.register-form
     .all-inner-wrapper
-      span.form-title #{__('Welcome!')}
-      br
-      span.form-subtitle #{__('Create your free account')}
-      span.general-input-title #{__('Email')}
-      input.general-input-with-border(type="email" placeholder=__('name@email.com') name="email" required autofocus autocomplete="off")
-      span.general-input-title #{__('Password')}
-      input.general-input-with-border(type="password" placeholder=__('******') name="password" required autocomplete="off")
-      span.general-input-title #{__('Password Confirmation')}
-      input.general-input-with-border(type="password" placeholder=__('******') name="password_confirm" required autocomplete="off")
-      if error
-        span.error-text=error
-      span(class='error-text' id='email-error') #{__('Invalid E-mail address')}
-      span(class='error-text' id='password-length-error') #{__('The password should have at least 6 characters')}
-      span(class='error-text' id='password-confirmation-error') #{__('Password missmatch!')}
+      span.logo-name usersmagic
+      input.general-input#email-input(type="email" placeholder=__('E-Mail') autofocus autocomplete="off")
+      input.general-input#password-input(type="password" placeholder=__('Password') autocomplete="off")
+      input.general-input#confirm-password-input(type="password" placeholder=__('Confirm Password') autocomplete="off")
+      .agreement-wrapper
+        input.display-none#approve-agrement-input(type="checkbox")
+        .agreement-checkbox-wrapper
+          i.fas.fa-check
+        span
+          span.agreement-text #{__('By clicking the box, you accept')}
+          a.agreement-link(href="/agreement/user")  #{__('User Agreement')}
+          span.agreement-text  #{__('and')}
+          a.agreement-link(href="/agreement/privacy")  #{__('Privacy Statement')}
+          span.agreement-text  #{__('for using Usersmagic and give your permission for protection and usage of your informations.')}
       button.general-seablue-button
-        span #{__('Üye Ol')}
-      .agreement-wrapper-register
-        span.agreement-text #{__('By signing up, I agree to')}
-          a.agreement-link(href="/agreement/user")  #{__('Kullanım Sözleşmesini')}
-          span.agreement-text  #{__('ve')}
-          a.agreement-link(href="/agreement/privacy")  #{__('Gizlilik Sözleşmesini')}
-        //-span.agreement-text  #{__('kabul ediyor, kişisel verilerin korunması ve işlenmesine ilişkin açık rıza veriyorum.')}
-      br
-      .register-link-wrapper
-        span.register-text #{__('Zaten üye misin')}?
-        a.register-link(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Giriş Yap')}
+        span #{__('Register')}
+      .change-page-wrapper
+        span.change-page-text #{__('Already a member?')}
+        a.change-page(href=language_key ? "/auth/login?lang=" + language_key : "/auth/login") #{__('Login')}
+      span.error-text#bad-request-error #{__('Please write your email, password and confirm your password')}
+      span.error-text#agreement-error #{__('Please accept the User Agreement and Privacy Statement')}
+      span.error-text#valid-email-error #{__('Your email address is not valid')}
+      span.error-text#duplicated-email-error #{__('This email is already on use')}
+      span.error-text#password-length-error #{__('Your password should be at least 6 digits')}
+      span.error-text#password-confirm-error #{__('Please confirm your password')}
+      span.error-text#network-error #{__('Please check your internet connection and try again')}
+      span.error-text#unknown-error #{__('An unknown error occured, please try again later')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım

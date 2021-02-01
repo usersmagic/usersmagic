@@ -3,11 +3,11 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font-family: 'Poppins', 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', 'Open Sans', 'Helvetica Neue', sans-serif;;
 }
 html {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0px;
   padding: 0px;
   overflow: hidden;
@@ -17,28 +17,26 @@ html {
 body {
   margin: 0px;
   padding: 0px;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .display-none {
   display: none;
 }
+.empty-space {
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  display: none;
+}
 
-span {
+/* span {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
   white-space: nowrap;
 }
-
-.general-beta-text {
-  margin-left: auto;
-  color: rgba(78, 75, 102, 1);
-  font-weight: 300;
-  font-size: 14px;
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
-}
+ */

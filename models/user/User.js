@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const Schema = mongoose.Schema;
+const Country = require('../country/Country');
 
 const getUser = require('./functions/getUser');
 const hashPassword = require('./functions/hashPassword');
 const verifyPassword = require('./functions/verifyPassword');
+
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   email: {
@@ -39,17 +41,20 @@ const UserSchema = new Schema({
   name: {
     // Name of the user, required while completing account
     type: String,
-    default: null
+    default: null,
+    maxlength: 1000
   },
   phone: {
     // Phone of the user, required while completing acount
     type: String,
-    default: null
+    default: null,
+    maxlength: 1000
   },
   gender: {
-    // Gender of the user, required while completing acount. Possible values: [erkek, kadın]
+    // Gender of the user, required while completing acount. Possible values: [male, female, other, not_specified]
     type: String,
-    default: null
+    default: null,
+    maxlength: 1000
   },
   birth_year: {
     // Birth year of the user, required while completing acount
@@ -136,19 +141,33 @@ UserSchema.statics.findUser = function (email, password, callback) {
 
   let User = this;
 
-  User.findOne({email}).then(user => { 
+  User.findOne({ email: email.trim() }).then(user => { 
     if (!user)
       return callback('document_not_found');
 
-    verifyPassword(password, user.password, res => {
+    verifyPassword(password.trim(), user.password, res => {
       if (!res)
         return callback('password_verification');
 
-      getUser(user, (err, user) => {
-        if (err) return callback(err);
+      if (user.gender && (user.gender == 'erkek' || user.gender == 'kadın')) {
+        User.findByIdAndUpdate(mongoose.Types.ObjectId(user._id.toString()), {$set: {
+          gender: user.gender == 'erkek' ? 'male' : 'female'
+        }}, {new: true}, (err, user) => {
+          if (err) callback('database_error');
 
-        return callback(null, user);
-      });
+          getUser(user, (err, user) => {
+            if (err) return callback(err);
+    
+            return callback(null, user);
+          });
+        });
+      } else {
+        getUser(user, (err, user) => {
+          if (err) return callback(err);
+  
+          return callback(null, user);
+        });
+      }
     });
   });
 };
@@ -167,7 +186,119 @@ UserSchema.statics.getUserById = function (id, callback) {
 
     return callback(null, user);
   });
-}
+};
 
+UserSchema.statics.createUser = function (data, callback) {
+  // Create a new User document with the given data, returns the user document or an error if it exists
+
+  if (!data || typeof data != 'object' || !data.email || !data.password || typeof data.email != 'string' || typeof data.password != 'string')
+    return callback('bad_request');
+
+  if (!validator.isEmail(data.email))
+    return callback('email_validation');
+
+  if (data.password.length < 6)
+    return callback('password_length');
+
+  const User = this;
+
+  const newUserData = {
+    email: data.email,
+    password: data.password,
+    invitor: data.code && validator.isMongoId(data.code.toString()) ? data.code.toString() : null,
+    agreement_approved: true
+  };
+
+  const newUser = new User(newUserData);
+
+  newUser.save((err, user) => {
+    if (err && err.code == 11000) 
+      return callback('email_duplication');
+    if (err)
+      return callback('database_error');
+
+    getUser(user, (err, user) => {
+      if (err) return callback(err);
+
+      return callback(null, user);
+    });
+  });
+};
+
+UserSchema.statics.completeUser = function (id, data, callback) {
+  // Update required fields of the user, set complete field as true
+  // Return an error if it exists
+
+  const allowedGenderValues = ['male', 'female', 'other', 'not_specified'];
+
+  if (!data || typeof data != 'object' || !id || !validator.isMongoId(id.toString()))
+    return callback('bad_request');
+
+  if (!data.name || typeof data.name != 'string')
+    return callback('bad_request');
+
+  if (!data.phone || !validator.isMobilePhone(data.phone.toString()))
+    return callback('bad_request');
+
+  if (!data.gender || !allowedGenderValues.includes(data.gender))
+    return callback('bad_request');
+
+  if (!data.birth_year || isNaN(parseInt(data.birth_year)) || parseInt(data.birth_year) < 1920 || parseInt(data.birth_year) > 2020)
+    return callback('bad_request');
+
+  const User = this;
+
+  User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+    name: data.name,
+    phone: data.phone,
+    gender: data.gender,
+    birth_year: parseInt(data.birth_year)
+  }}, (err, user) => {
+    if (err) return callback('database_error');
+    if (!user) return callback('document_not_found');
+
+    return callback(null);
+  });
+};
+
+UserSchema.statics.updateUser = function (id, data, callback) {
+  // Find and update the user document with id, update only all fields are valid. Not given fields are not updated
+  // Return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()) || !data || typeof data != 'string')
+    return callback('bad_request');
+
+  const User = this;
+
+  User.findById(mongoose.Types.ObjectId(id.toString()), (err, user) => {
+    if (err || !user) return callback('document_not_found');
+
+    if (data.city && data.town) {
+      Country.validateCityAndTown(user.country, data, res => {
+        if (!res) return callback('bad_request');
+
+        User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+          name: (data.name && typeof data.name == 'string' ? data.name : user.name),
+          phone: (data.phone && validator.isMobilePhone(data.phone.toString()) ? data.phone : user.phone),
+          city: data.city,
+          town: data.town 
+        }}, err => {
+          if (err) return callback('database_error');
+  
+          return callback(null);
+        });
+      })
+    } else {
+      User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+        name: (data.name && typeof data.name == 'string' ? data.name : user.name),
+        phone: (data.phone && validator.isMobilePhone(data.phone.toString()) ? data.phone : user.phone)   
+      }}, err => {
+        if (err) return callback('database_error');
+
+        return callback(null);
+      });
+    }
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);

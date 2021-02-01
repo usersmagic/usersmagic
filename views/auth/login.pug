@@ -1,25 +1,28 @@
 extends ../partials/head
 block content
   .brand-wrapper
-    //- a.brand-text(href="/brand") #{__('Marka Sayfası')}
     a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
-      img(src="/res/images/usersmagic_logo1.png" alt="usersmagic tester" class="usersmagic_logo")
+      i.fas.fa-home
     .language-change-wrapper
       a.language-text(href="/auth/login?lang=tr") TR
       span |
       a.language-text(href="/auth/login?lang=en") EN
-  form.all-wrapper(method="POST" action="/auth/login" + (language_key ? ("?lang=" + language_key) : ""))
+  form.all-wrapper.login-form(method="POST" action="/auth/login" + (language_key ? ("?lang=" + language_key) : ""))
     .all-inner-wrapper
-      span.form-title #{__('Welcome!')}
-      br
-      input.general-input-with-border(type="email" placeholder=__('email@email.com') name="email" required autofocus autocomplete="off")
-      input.general-input-with-border(type="password" placeholder=__('******') name="password" required autocomplete="off")
+      span.logo-name usersmagic
       .lost-password-wrapper
-        a.lost-password-link(href="/auth/lost_password" + (language_key ? ("?lang=" + language_key) : "")) #{__('Şifremi Unuttum')} 
+        a.lost-password-link(href="/auth/lost_password" + (language_key ? ("?lang=" + language_key) : "")) #{__('Reset Password')} 
+      input.general-input#email-input(type="email" placeholder=__('E-Mail') autofocus autocomplete="off")
+      input.general-input#password-input(type="password" placeholder=__('Password') autocomplete="off")
       button.general-seablue-button
-        span #{__('Giriş Yap')}
-      .register-link-wrapper
-        span.register-text #{__('Üye değil misin?')}
-        a.register-link(href=language_key ? "/auth/register?lang=" + language_key : "/auth/register") #{__('Üye Ol')}
+        span #{__('Login')}
+      .change-page-wrapper
+        span.change-page-text #{__('Not a member?')}
+        a.change-page(href=language_key ? "/auth/register?lang=" + language_key : "/auth/register") #{__('Register')}
+      span.error-text#bad-request-error #{__('Please write your email and password')}
+      span.error-text#not-found-error #{__('This account does not exist')}
+      span.error-text#wrong-password-error #{__('Your password is wrong')}
+      span.error-text#network-error #{__('Please check your internet connection and try again')}
+      span.error-text#unknown-error #{__('An unknown error occured, please try again later')}
     .bottom-wrapper
       span.copyright-text Copyright 2020 - Loy Yazılım
