@@ -1,0 +1,137 @@
+.all-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.usersmagic-card-wrapper {
+  width: 374px;
+  height: 238px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.usersmagic-card-background {
+  width: 374px;
+  height: 238px;
+  border-radius: 15px;
+  background: linear-gradient(to right, rgb(19, 167, 170), rgb(3, 17, 73));
+}
+.usersmagic-card-layer {
+  width: 374px;
+  height: 238px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: -238px;
+}
+.card-each-layer-line {
+  height: 79.33px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.card-each-triangle-bottom {
+  width: 79.33px;
+  height: 79.33px;
+  background: linear-gradient(to left top, rgba(122, 49, 49, 0.3), rgba(122, 49, 49, 0.25), transparent 50%);
+}
+.card-each-triangle {
+  width: 79.33px;
+  height: 79.33px;
+  background: linear-gradient(to left bottom, rgba(122, 49, 49, 0.5), rgba(122, 49, 49, 0.25), transparent 50%);
+}
+.usersmagic-card-content {
+  width: 374px;
+  height: 238px;
+  border-radius: 15px;
+  margin-top: -238px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+.card-credit-amount {
+  font-size: 36px;
+  color: rgb(254, 254, 254);
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: -5px;
+}
+.card-bottom-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.card-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(254, 254, 254);
+  display: flex;
+  flex-direction: column;
+}
+.card-logo {
+  display: flex;
+  align-items: center;
+}
+.card-logo img {
+  height: 26px;
+  margin-right: 5px;
+}
+.card-logo span {
+  font-size: 14px;
+  color: rgb(254, 254, 254);
+  font-weight: 600;
+}
+
+
+.all-content-inner-wrapper {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.each-amount-title {
+  color: rgb(78, 75, 102);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.payment-number-input {
+  margin-bottom: 0px !important;
+  margin-top: 10px !important;
+}
+
+@media only screen and (max-width: 400px) and (min-width: 300px) {
+  .usersmagic-card-wrapper, .usersmagic-card-background, .usersmagic-card-layer, .usersmagic-card-content {
+    width: 261.8px;
+    height: 166.6px;
+  }
+  .usersmagic-card-layer, .usersmagic-card-content {
+    margin-top: -166px;
+  }
+  .card-credit-amount {
+    font-size: 24px;
+  }
+  .card-each-layer-line {
+    height: 55.53px;
+  }
+  .card-each-triangle-bottom, .card-each-triangle {
+    height: 55.53px;
+    width: 55.53px;
+  }
+  .card-logo img {
+    height: 20px;
+  }
+  .card-logo span, .card-number {
+    font-size: 12px;
+  }
+  .each-amount-title {
+    font-size: 16px;
+  }
+}

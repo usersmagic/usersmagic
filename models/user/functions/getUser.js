@@ -17,6 +17,8 @@ module.exports = (user, callback) => {
     payment_number: user.payment_number,
     credit: user.credit,
     waiting_credit: user.waiting_credit,
-    overall_credit: user.overall_credit
+    overall_credit: user.overall_credit,
+    country: user.country,
+    on_waitlist: user.on_waitlist
   });
 }

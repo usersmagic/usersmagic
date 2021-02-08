@@ -1,5 +1,8 @@
+const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
+
+const Project = require('../project/Project');
 
 const getFilters = require('./functions/getFilters');
 
@@ -46,8 +49,8 @@ const TargetSchema = new Schema({
   }
 });
 
-TargetSchema.statics.findPossibleTargetGroupsForUser = function (user_id, callback) {
-  // Finds the projects that the user with the given id can join, returns projects or an error if there is an error
+TargetSchema.statics.getProjectsUserCanJoin = function (user_id, callback) {
+  // Find Targets that the user with the given id can join, find and return their projects or an error if there is an error
 
   if (!user_id || !validator.isMongoId(user_id.toString()))
     return callback('bad_request');
@@ -61,9 +64,27 @@ TargetSchema.statics.findPossibleTargetGroupsForUser = function (user_id, callba
   ]}, (err, targets) => {
     if (err) return callback(err);
 
-    return callback(null, targets);
+    async.timesSeries(
+      targets.length,
+      (time, next) => {
+        Project.findProjectById(targets[time].project_id, (err, project) => {
+          if (err) return next('database_error');
+
+          project.price = targets[time].price;
+          project.country = targets[time].country; // The country the user will be paid for
+          project.time_limit = targets[time].time_limit;
+
+          return next(null, project);
+        });
+      },
+      (err, projects) => {
+        if (err) return callback(err);
+
+        return callback(null, projects);
+      }
+    );
   });
-}
+};
 
 TargetSchema.statics.getFiltersForUser = function (id, callback) {
   // Changes the filters of the Target with the given id to be used as a search query, returns an object of filters with $and key or an error if it exists
@@ -84,7 +105,7 @@ TargetSchema.statics.getFiltersForUser = function (id, callback) {
       return callback(null, filters);
     });
   });
-}
+};
 
 TargetSchema.statics.leaveTarget = function (id, user_id, callback) {
   // Pulls the user_id from joined_users_list, pushes it from users_list and increase submition_limit by one. Returns the target object
@@ -104,7 +125,7 @@ TargetSchema.statics.leaveTarget = function (id, user_id, callback) {
 
     return callback(null, target);
   });
-}
+};
 
 TargetSchema.statics.joinTarget = function (id, user_id, callback) {
   // Check if the given user_id can join the Target with the given id
@@ -135,7 +156,7 @@ TargetSchema.statics.joinTarget = function (id, user_id, callback) {
       return callback(null, target);
     });
   });
-}
+};
 
 TargetSchema.statics.findByFields = function (fields, options, callback) {
   // Find a target with given fields or an error if it exists.
@@ -167,6 +188,6 @@ TargetSchema.statics.findByFields = function (fields, options, callback) {
 
     return callback(null, targets);
   });
-}
+};
 
 module.exports = mongoose.model('Target', TargetSchema);

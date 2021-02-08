@@ -1,61 +1,33 @@
-extends ../partials/header
-block main
-  input.display-none#user-object(type="text" value=JSON.stringify(user))
-  input.display-none#city-array(type="text" value=JSON.stringify(cities))
-  form.payment-number-wrapper(action="/profile/payment" method="POST")
-    span.payment-title Papara Numarası
-    span.payment-subtitle Lütfen ödemenizi yapabilmemiz için bir Papara hesap numarası girin. Girdiğiniz bu numarayı daha sonra değiştiremezsiniz. Eğer herhangi bir sorunuz olursa temsilcilerimiz ile konuşabilirsiniz.
-    input.each-input(type="text" placeholder="Papara Numarası" name="payment_number")
-    button.payment-send-button
-      span Gönder
-    span.close-payment-button Vazgeç
-  if city_error
-    .send-city-outer-wrapper
-      .send-city-wrapper
-        span.send-city-title Son Bir Adım!
-        span.send-city-text Para kazanmaya başlaman için son bir adım kaldı! Sana en iyi hizmeti verebilmek için hangi şehirde ve ilçede yaşadığını öğrenmeye ihtiyacımız var. Bilgilerini eklemek için profilinde şehir ve ilçeni yazıp düzenle butonuna tıklaman yeterli.
-        .send-city-close-button
-          span Anladım
-  form.all-content-inner-wrapper(action="/profile" method="POST")
-    img.content-logo(src="/res/images/logo_black.png" alt="usersmagic")
-    span.user-name= user.name
-    span.user-info #{user.email}, #{user.birth_year}
-    span.credit-info Toplam Bakiye: #{user.overall_credit}₺ Bekleyen Bakiye: #{user.waiting_credit}₺
-    span.credit-wrapper
-      span.credit-text Bakiye:
-      span
-        span.credit #{user.credit}
-        span.currency #{currency}
-    if payment_error
-      span.payment-error= payment_error
-    .get-credit-button
-      span.get-credit-button-text Para Çek
-    if user.payment_number
-      span.user-payment-number Papara Numarası: #{user.payment_number}
-    a.logout-button(href="/profile/logout") Çıkış Yap
-    input.each-input(type="text" placeholder="Ad Soyad" value=user.name name="name" required autocomplete="off")
-    input.each-input(type="text" placeholder="Telefon Numarası" value=user.phone name="phone" required autocomplete="off")
-    .city-input-outer-wrapper
-      .city-input-wrapper
-        input.city-input(type="text" value=user.city placeholder=__('Yaşadığın Şehir') autocomplete="none" name="city")
-        .city-input-choices
-          each city in cities
-            .each-city-input-choice= city
-    .town-input-outer-wrapper
-      .town-input-wrapper
-        input.town-input(type="text" value=user.town placeholder=__('Yaşadığın İlçe') autocomplete="none" name="town")
-        .town-input-choices
-          span.no-town Hiçbir ilçe bulunamadı, lütfen önce ilinizi seçin
-    button.send-button
-      span Düzenle
-    span.user-info
-      span Kullanım haklarınız ve veri güvenliğiniz ile ilgili sorularınız için Gizlik Sözleşmemizi ve Kullanıcı Sözleşmemizi okuyabilirsiniz:
-      a(href="/agreement/privacy") Gizlilik Sözleşmesi
-      span /
-      a(href="/agreement/user") Kullanıcı Sözleşmesi
-    span.user-info
-      span Eğer sunduğumuz servisler ile ilgili herhangi bir sorunuz olursa bize
-      a hello@usersmagic.com
-      span e-posta adresinden erişebilirsiniz. Size bir hafta içinde geri dönüş yapacağız.
-    .empty-space
-    script(src="/js/dynamic_headers/mobile_place_fixer.js")
+extends ../partials/head
+block content
+  input.display-none#countries(type="text" value=JSON.stringify(countries))
+  .all-wrapper
+    .navigation-bar-wrapper
+      img.navigation-bar-logo(src="/res/images/logo.png" alt="usersmagic tester")
+      a.navigation-bar-button(href="/campaigns")
+        i.fas.fa-home
+      a.navigation-bar-button(href="/wallet")
+        i.far.fa-credit-card
+      a.navigation-bar-button.selected-navigation-bar-button(href="/profile")
+        i.fas.fa-cog
+    .all-content-wrapper
+      .all-content-inner-wrapper
+        span.general-input-title Email
+        span.general-input-with-border-no-change= user.email
+        span.general-input-title Full Name
+        input.general-input-with-border(type="text" placeholder="Full Name" value=user.name)
+        //- span.general-input-title Country of Residence
+        //- .general-drop-down-list-outer-wrapper(style="z-index: 5;")
+        //-   .general-drop-down-list-wrapper(style="z-index: 5;")
+        //-     input.general-drop-down-list-input#country-visible-input(type="text" autocomplete="none" placeholder=__('Country') value=__(country.name))
+        //-     input.general-drop-down-list-input-not-visible#country-input(type="text" value=user.country)
+        //-     input.general-drop-down-list-items-json(type="text" value=JSON.stringify(countries.map(country => { return {name: __(country.name), id: country.alpha2_code} })))
+        //-     .general-drop-down-choices-wrapper
+        //-       each country in countries
+        //-         span.general-drop-down-list-each-item(id=country.alpha2_code)= __(country.name)
+        span.general-input-title Phone Number
+        label.phone-code-input-wrapper
+          span.phone-code#phone-code +#{country.phone_code}
+          input.phone-code-input#phone-input(type="text" placeholder=__('Phone Number') value=user.phone.substr((1 + (country.phone_code).toString().length), user.phone.length))
+        .general-seablue-button
+          span Update

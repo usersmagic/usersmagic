@@ -1,9 +1,7 @@
-const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
 const getProject = require('./functions/getProject');
-const validateQuestions = require('./functions/validateQuestions');
 
 const Schema = mongoose.Schema;
 
@@ -68,125 +66,24 @@ const ProjectSchema = new Schema({
   }
 });
 
-ProjectSchema.statics.createProject = function (data, callback) {
-  // Creates a new document under the model Project, returns the created project or an error if there is
+ProjectSchema.statics.findProjectById = function (id, callback) {
+  // Find the project with the given id and return it after formatting, or an error if it exists
 
-  if (!data || !data.creator || !validator.isMongoId(data.creator.toString()) || !data.country)
+  if (!id || !validator.isMongoId(id.toString()))
     return callback('bad_request');
-
+  
   const Project = this;
-  const maxProjectLimit = 100; // The maximum project limit allowed per company
-  const allowedProjectTypes = ['survey']; // For now only surveys are present
 
-  Project.find({
-    creator: mongoose.Types.ObjectId(data.creator)
-  }, (err, projects) => {
-    if (err) return callback('unknown_error');
-
-    if (projects.length >= maxProjectLimit)
-      return callback('too_many_documents');
-
-    const newProjectData = {
-      creator: data.creator,
-      type: data.type || null,
-      name: data.name,
-      description: data.description,
-      country: data.country,
-      status: 'saved',
-      image: data.image || null
-    };
-
-    if (!newProjectData.type || !allowedProjectTypes.includes(newProjectData.type) || !newProjectData.name || !newProjectData.name.length || !newProjectData.description || !newProjectData.description.length || !data.image || !data.image.length)
-      return callback('bad_request');
-
-    const newProject = new Project(newProjectData);
-
-    newProject.save((err, project) => {
+  Project.findById(mongoose.Types.ObjectId(id.toString()), (err, project) => {
+    if (err || !project)
+      return callback('document_not_found');
+  
+    getProject(project, (err, project) => {
       if (err) return callback(err);
 
-      getProject(project, {}, (err, project) => {
-        if (err) return callback(err);
-
-        return callback(null, project);
-      });
+      return callback(null, project);
     });
   });
-}
-
-ProjectSchema.statics.findOneByFields = function (fields, options, callback) {
-  // Returns a project with given fields or an error if it exists.
-  // Returns error if '_id' or 'creator' field is not a mongodb object id
-
-  const Project = this;
-
-  const fieldKeys = Object.keys(fields);
-  const fieldValues = Object.values(fields);
-
-  if (!fieldKeys.length)
-    return callback('bad_request');
-
-  const filters = [];
-
-  fieldKeys.forEach((key, iterator) => {
-    if (key == '_id' || key == 'creator') {
-      if (!fieldValues[iterator] || !validator.isMongoId(fieldValues[iterator].toString()))
-        return callback('bad_request');
-
-      filters.push({[key]: mongoose.Types.ObjectId(fieldValues[iterator].toString())});
-    } else {
-      filters.push({[key]: fieldValues[iterator]});
-    }
-  });
-
-  Project.findOne({$and: filters}, (err, project) => {
-    if (err) return callback(err);
-
-    getProject(project, options, (err, project) => {
-      if (err) return callback(err);
-
-      return callback(null, project)
-    });
-  });
-}
-
-ProjectSchema.statics.findByFields = function (fields, options, callback) {
-  // Find a project with given fields or an error if it exists.
-  // Returns error if '_id' or 'creator' field is not a mongodb object id
-
-  const Project = this;
-
-  const fieldKeys = Object.keys(fields);
-  const fieldValues = Object.values(fields);
-
-  if (!fieldKeys.length)
-    return callback('bad_request');
-
-  const filters = [];
-
-  fieldKeys.forEach((key, iterator) => {
-    if (key == '_id' || key == 'creator') {
-      if (!fieldValues[iterator] || !validator.isMongoId(fieldValues[iterator].toString()))
-        return callback('bad_request');
-
-      filters.push({[key]: mongoose.Types.ObjectId(fieldValues[iterator])});
-    } else {
-      filters.push({[key]: fieldValues[iterator]});
-    }
-  });
-
-  Project.find({$and: filters}, (err, projects) => {
-    if (err) return callback(err);
-
-    async.times(
-      projects.length,
-      (time, next) => getProject(projects[time], options, (err, project) => next(err, project)),
-      (err, projects) => {
-        if (err) return callback(err);
-
-        return callback(null, projects);
-      }
-    );
-  });
-}
+};
 
 module.exports = mongoose.model('Project', ProjectSchema);

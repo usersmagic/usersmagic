@@ -1,82 +1,44 @@
-extends ../partials/header
-block main
-  div.status_buttons
-    button.status_button(id="new") #{__('New')}
-    button.status_button(id="complete") #{__('Complete')}
-    button.status_button(id="in_review") #{__('In Review')}
-  if submitions.length
-    .all-content-inner-wrapper
-      each submition in submitions
-        if submition.status == "saved"
-          .saved
-            .campaign-outer-wrapper
-              .campaign-wrapper
-                .campaign-photo-wrapper
-                  img.campaign-photo(src=submition.campaign.image alt=submition.campaign.name)
-                .campaign-info-wrapper
-                  span.campaign-name= submition.campaign.name
-                  if submition.is_private_campaign && submition.will_terminate_at && submition.will_terminate_at > ((new Date).getTime())
-                    span.campaign-time-limit #{__('Kalan Süre')}: #{Math.floor((submition.will_terminate_at - ((new Date).getTime())) / 1000 / 60 / 60)}s #{Math.round((submition.will_terminate_at - ((new Date).getTime())) / 1000 / 60)}dk
-                  span.campaign-description= submition.error ? submition.error : submition.campaign.description
-                  .campaign-price-wrapper
-                    if submition.campaign.is_free
-                      span.campaign-price #{__('Özel Kampanya')}
-                    else
-                      span.campaign-price-text #{__('Kazanacağın')}:
-                      span.campaign-price #{submition.campaign.price}#{currency}
-                  a.campaign-join-button(href="/test?id=" + submition._id.toString())
-                    span.campaign-join-text #{__('Devam Et')}
-        else if submition.status == "waiting"
-          .in_review
-            .campaign-outer-wrapper
-              .campaign-wrapper
-                .campaign-photo-wrapper
-                  img.campaign-photo(src=submition.campaign.image alt=submition.campaign.name)
-                .campaign-info-wrapper
-                  span.campaign-name= submition.campaign.name
-                  span.campaign-description= submition.campaign.description
-                  .campaign-price-wrapper
-                    if submition.campaign.is_free
-                      span.campaign-price #{__('Özel Kampanya')}
-                    else
-                      span.campaign-price-text #{__('Kazanacağın')}:
-                      span.campaign-price #{submition.campaign.price}#{currency}
-                  span.campaign-info-text #{__('Onay bekliyor')}...
-        else if submition.status == "approved"
-          .complete
-            .campaign-outer-wrapper
-              .campaign-wrapper
-                .campaign-photo-wrapper
-                  img.campaign-photo(src=submition.campaign.image alt=submition.campaign.name)
-                .campaign-info-wrapper
-                  span.campaign-name= submition.campaign.name
-                  span.campaign-description= submition.campaign.description
-                  .campaign-price-wrapper
-                    if submition.campaign.is_free
-                      span.campaign-price #{__('Özel Kampanya')}
-                    else
-                      span.campaign-price-text #{__('Kazanacağın')}:
-                      span.campaign-price #{submition.campaign.price}#{currency}
-                  span.campaign-info-text #{__('Cevapların onaylandı, bakiyeni profil sayfanda görebilirsin')}!
-        else if submition.status == "unapproved"
-          .campaign-outer-wrapper
-            .campaign-wrapper
-              .campaign-photo-wrapper
-                img.campaign-photo(src=submition.campaign.image alt=submition.campaign.name)
-              .campaign-info-wrapper
-                span.campaign-name= submition.campaign.name
-                span.campaign-error= submition.error
-                span.campaign-info-text #{__('Cevapların reddedildi, lütfen kampanyaya kampanyalar sayfasından yeniden katıl')}
-        else if submition.status == "timeout"
-          .campaign-outer-wrapper
-            .campaign-wrapper
-              .campaign-photo-wrapper
-                img.campaign-photo(src=submition.campaign.image alt=submition.campaign.name)
-              .campaign-info-wrapper
-                span.campaign-name= submition.campaign.name
-                span.campaign-error #{__('Kampanyayı doldurmanız gereken sürede doldurmadınız')}
-                span.campaign-info-text #{__('Cevapların reddedildi, lütfen kampanyaya kampanyalar sayfasından yeniden katıl')}  
-    .empty-space
-  else
-    span.no-campaign-text #{__('Henüz hiçbir kampanyaya katılmamışsın')}.
-  script(src="/js/dynamic_headers/dynamic_orginizer.js")
+extends ../partials/head
+block content
+  span.okey-text.display-none= __('Okey')
+  .all-wrapper
+    .navigation-bar-wrapper
+      img.navigation-bar-logo(src="/res/images/logo.png" alt="usersmagic tester")
+      a.navigation-bar-button.selected-navigation-bar-button(href="/campaigns")
+        i.fas.fa-home
+      a.navigation-bar-button(href="/wallet")
+        i.far.fa-credit-card
+      a.navigation-bar-button(href="/profile")
+        i.fas.fa-cog
+    .all-content-wrapper
+      .all-content-header-wrapper
+        .all-content-header-text-wrapper
+          span.all-content-header-title #{__('See your current campaigns')}
+          span.all-content-header-subtitle #{__('See the status of your joined campaigns and filters')}
+        .all-content-header-buttons-wrapper
+          a.each-all-content-header-button(href="/campaigns") #{__('New')}
+          a.each-all-content-header-button(href="/filters") #{__('Filters')}
+          a.each-all-content-header-button(href="/waiting") #{__('In Review')}
+          a.each-all-content-header-button.selected-all-content-header-button(href="/history") #{__('Complete')}
+      .all-content-inner-wrapper
+        if submitions && submitions.length
+          .campaigns-wrapper
+            each submition, i in submitions
+              .each-campaign-wrapper
+                .each-campaign-image-wrapper
+                  img.each-campaign-image(src=submition.campaign.image alt="usersmagic " + submition.campaign.name)
+                span.view-each-campaign-details-button #{__('View Details')}
+                span.each-campaign-title= submition.campaign.name
+                span.each-campaign-description= submition.campaign.description
+                if submition.campaign.price && !submition.campaign.is_free
+                  span.each-campaign-price #{currency}#{submition.campaign.price}
+                else
+                  span.each-campaign-private-price #{__('Özel Kampanya')}
+                if submition.status == 'approved'
+                  span.each-campaign-status-text #{__('Your Answers are Approved!')}
+                else if submition.status == 'unapproved'
+                  span.each-campaign-status-text #{__('Your Answers are Rejected')}
+                else if submition.status == 'timeout'
+                  span.each-campaign-status-text #{__('Your Submition is Timeout')}
+        else
+          span.no-campaigns-text #{__('None of your submitions are yet approved or rejected, please wait')}

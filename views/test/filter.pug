@@ -1,0 +1,116 @@
+extends ../partials/head
+block content
+  input.display-none#questions(type="text" value=JSON.stringify(questions))
+  input.display-none#submition(type="text" value=JSON.stringify(submition))
+  span.short-text-type.display-none= __('short_text')
+  span.long-text-type.display-none= __('short_text')
+  span.range-type.display-none= __('range')
+  span.radio-type.display-none= __('radio')
+  span.checked-type.display-none= __('checked')
+  span.unknown-error-title.display-none= __('An unknown error occured')
+  span.try-again-later-text.display-none= __('Please try again later. If the problem continues, contact us at hello@usersmagic.com.')
+  span.okey-text.display-none= __('Okey')
+  span.confirm-text.display-none= __('Confirm')
+  span.cancel-text.display-none= __('Cancel')
+  span.your-answer.display-none= __('Your answer')
+  span.required.display-none= __('Required')
+  span.clear-answers.display-none= __('Clear answers')
+  span.are-you-sure-title.display-none= __('Are you sure you want to continue?')
+  span.no-update-after-submit-text.display-none= __('You cannot edit or delete your answers once you submit your test. You must rejoin the campaign if your answers are rejected, so please double-check what you wrote. Thank you :)')
+  .all-wrapper
+    .welcome-page-outer-wrapper(style=(submition.last_question == -1 ? 'display: flex;' : 'display: none;'))
+      .welcome-page-wrapper
+        span.welcome-title Welcome to your new test
+        .welcome-steps-wrapper
+          .welcome-step-wrapper
+            span.welcome-step-number 1
+            span.welcome-step-text There is no right or wrong! Just be honest along the way
+          .welcome-step-wrapper
+            span.welcome-step-number 2
+            span.welcome-step-text Your answers are valuable, be as detailed as possible
+          .welcome-step-wrapper
+            span.welcome-step-number 3
+            span.welcome-step-text Your privacy is valuable! Your answers will always be anonymous
+        .welcome-button-wrapper
+          .general-seablue-button.go-instructions-button
+            span Go to instructions
+      .welcome-page-wrapper(style="display: none;")
+        span.welcome-campaign-name= campaign.name
+        span.welcome-title Instructions
+        span.welcome-campaign-instructions= campaign.information
+        .welcome-button-wrapper
+          .general-seablue-button.start-test-button
+            span Start your test
+    .finish-page-outer-wrapper(style=(submition.last_question == campaign.questions.length ? 'display: flex;' : 'display: none;'))
+      .finish-page-wrapper
+        span.finish-page-title #{__('Your Answers')}:
+        .finish-page-questions-wrapper
+          each question, i in questions
+            .finish-page-each-question-wrapper(style=(i == 0 ? 'padding-top: 0px;' : ''))
+              span.finish-page-each-question-text #{i+1}. #{question.question.text}
+              if question.question.type != 'checked'
+                span.finish-page-each-question-answer= question.answer
+              else
+                each answer in question.answer
+                  span.finish-page-each-question-answer - #{answer}
+        .finish-page-buttons-wrapper
+          .general-seablue-border-button.finish-page-back-button
+            span= __('Back')
+          .general-seablue-button.finish-page-submit-button
+            span= __('Submit')
+    .question-outer-wrapper(style=((submition.last_question != campaign.questions.length && submition.last_question != -1) ? 'display: flex;' : 'display: none;'))
+      .back-button
+        i.fas.fa-arrow-left
+      .question-wrapper
+        if submition.last_question > -1 && submition.last_question < questions.length
+          .question-progress-bar
+            .question-progress-bar-inner-line
+          .question-info-wrapper
+            span.question-type #{__(questions[submition.last_question].question.type)}
+            span.question-required #{__('Required')}
+          span.question-text= questions[submition.last_question].question.text
+          if questions[submition.last_question].question.type == 'short_text'
+            input.general-input-with-border.answer-input(type="text" placeholder=__('Your answer') value=questions[submition.last_question].answer)
+          else if questions[submition.last_question].question.type == 'long_text'
+            textarea.general-input-with-border-long.answer-input(type="text" placeholder="Your answer")= questions[submition.last_question].answer
+          else if questions[submition.last_question].question.type == 'range'
+            .each-question-opinion-outer-wrapper
+              .each-question-opinion-scale-wrapper
+                - for (let i = questions[submition.last_question].question.min_value; i <= questions[submition.last_question].question.max_value; i++)
+                  if i != questions[submition.last_question].question.min_value
+                    .each-question-empty-scale
+                  if questions[submition.last_question].answer == i
+                    span.each-question-each-scale.each-question-selected-scale= i
+                  else
+                    span.each-question-each-scale= i
+              .each-question-opinion-line
+                .each-question-opinion-line-item
+                .each-question-opinion-line-item
+                .each-question-opinion-line-item
+              .each-question-opinion-text-wrapper
+                span.each-question-opinion-text-left= questions[submition.last_question].question.min_explanation
+                span.each-question-opinion-text-middle
+                span.each-question-opinion-text-right= questions[submition.last_question].question.max_explanation
+          else if questions[submition.last_question].question.type == 'radio'
+            each choice in questions[submition.last_question].question.choices
+              .each-question-choice.each-question-choice-radio
+                if choice == questions[submition.last_question].answer
+                  .radio-choice-wrapper.selected-choice
+                    .radio-choice-icon
+                else
+                  .radio-choice-wrapper
+                    .radio-choice-icon
+                span= choice
+          else if questions[submition.last_question].question.type == 'checked'
+            each choice in questions[submition.last_question].question.choices
+              .each-question-choice.each-question-choice-checked
+                if questions[submition.last_question].answer.includes(choice)
+                  .checked-choice-wrapper.selected-choice
+                    i.checked-choice-icon.fas.fa-check
+                else
+                  .checked-choice-wrapper
+                    i.checked-choice-icon.fas.fa-check
+                span= choice
+          span.clear-question-button= __('Clear answers')
+      .next-button
+        i.fas.fa-arrow-right

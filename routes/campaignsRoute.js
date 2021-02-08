@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
+const isComplete = require('../middleware/isComplete');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const isLocationComplete = require('../middleware/isLocationComplete');
 
@@ -12,17 +13,20 @@ const joinGetController = require('../controllers/campaigns/join/get');
 router.get(
   '/',
     isLoggedIn,
+    isComplete,
     indexGetController
 );
 router.get(
   '/join',
     isLoggedIn,
-    isLocationComplete,
+    isComplete,
+    // isLocationComplete,
     joinGetController
 );
 router.get(
   '/user',
     isLoggedIn,
+    isComplete,
     userGetController
 );
 

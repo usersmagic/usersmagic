@@ -97,3 +97,12 @@
     top: 100px
   }
 }
+
+@media only screen and (max-width: 500px) and (min-width: 300px) {
+  .general-confirm-title {
+    font-size: 16px;
+  }
+  .general-confirm-text, .general-confirm-yes-button, .general-confirm-no-button {
+    font-size: 12px;
+  }
+}

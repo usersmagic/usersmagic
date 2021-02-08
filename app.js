@@ -29,7 +29,7 @@ if (cluster.isMaster) {
   const server = http.createServer(app);
   
   i18n.configure({
-    locales:['tr', 'en', 'de', 'es', 'fr'],
+    locales:['en', 'tr'],
     directory: __dirname + '/translations',
     queryParameter: 'lang',
     defaultLocale: 'en'
@@ -45,10 +45,14 @@ if (cluster.isMaster) {
   const apiRouteController = require('./routes/apiRoute');
   const authRouteController = require('./routes/authRoute');
   const campaignsRouteController = require('./routes/campaignsRoute');
+  const countriesRouteController = require('./routes/countriesRoute');
+  const filtersRouteController = require('./routes/filtersRoute');
   const profileRouteController = require('./routes/profileRoute');
   const testRouteController = require('./routes/testRoute');
   const historyRouteController = require('./routes/historyRoute');
   const agreementRouteController = require('./routes/agreementRoute');
+  const waitingRouteController = require('./routes/waitingRoute');
+  const walletRouteController = require('./routes/walletRoute');
   
   app.set("views", path.join(__dirname, "views"));
   app.set("view engine", "pug");
@@ -76,25 +80,33 @@ if (cluster.isMaster) {
   
   app.use(sessionOptions);
   app.use(cookieParser());
+  app.use((req, res, next) => {
+    req.query = (req.query && typeof req.query == 'object' ? req.query : {});
+    next();
+  });
 
   app.use(i18n.init);
 
-  app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-  });
+  // app.use((req, res, next) => {
+  //   res.append('Access-Control-Allow-Origin', ['*']);
+  //   res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  //   res.append('Access-Control-Allow-Headers', 'Content-Type');
+  //   next();
+  // });
   
   app.use('/', indexRouteController);
   app.use('/admin', adminRouteController);
   app.use('/api', apiRouteController);
   app.use('/auth', authRouteController);
   app.use('/campaigns', campaignsRouteController);
+  app.use('/countries', countriesRouteController);
+  app.use('/filters', filtersRouteController);
   app.use('/profile', profileRouteController);
   app.use('/test', testRouteController);
   app.use('/history', historyRouteController);
   app.use('/agreement', agreementRouteController);
+  app.use('/waiting', waitingRouteController);
+  app.use('/wallet', walletRouteController);
   
   server.listen(PORT, () => {
     console.log(`Server is on port ${PORT} as Worker ${cluster.worker.id} running @ process ${cluster.worker.process.pid}`);

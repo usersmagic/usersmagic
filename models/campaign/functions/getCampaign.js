@@ -7,13 +7,9 @@ module.exports = (campaign, callback) => {
   return callback(null, {
     _id: campaign._id.toString(),
     name: campaign.name,
-    image: campaign.image,
+    image: campaign.image || campaign.photo,
     description: campaign.description,
-    welcome_screen: campaign.welcome_screen ? {
-      opening: campaign.welcome_screen.opening,
-      details: campaign.welcome_screen.details,
-      image: campaign.welcome_screen.image
-    } : {},
+    information: campaign.information,
     price: campaign.price,
     is_free: campaign.is_free,
     questions: campaign.questions

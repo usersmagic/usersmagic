@@ -1,36 +1,33 @@
-extends ../partials/header
-block main
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
-  span.user_logo_wrapper
-  div.status_buttons
-    button.status_button(id="new") #{__('New')}
-    button.status_button(id="complete") #{__('Complete')}
-    button.status_button(id="in_review") #{__('In Review')}
-  if campaigns.length
-    .all-content-inner-wrapper 
-      h4.test_title #{__('New tests are here!')}
-      input.display-none#campaign-details(value=campaigns)
-      input.display-none#currency(value=currency)
-      span.total-price-of-tests You can earn __ when you complete the following
-      each campaign, i in campaigns
-        .campaign-outer-wrapper
-         .campaign-wrapper
-           .campaign-photo-wrapper
-             img.campaign-photo(src=campaign.image alt=campaign.name)
-           .campaign-info-wrapper
-             span.campaign-name= campaign.name
-             if campaign.is_private_campaign
-               span.campaign-time-limit #{__('Zaman Sınırı')}: #{campaign.time_limit}s
-             span.campaign-description= campaign.description
-             .campaign-price-wrapper
-               if campaign.is_free || !campaign.price
-                 span.campaign-price #{__('Özel Kampanya')}
-               else
-                 span.campaign-price-text #{__('Kazanacağın')}:
-                 span.campaign-price #{campaign.price}#{currency}
-             a.campaign-join-button(href="/campaigns/join?id=" + campaign._id.toString() + (campaign.is_private_campaign ? "&is_private_campaign=true" : ""))
-               span.campaign-join-text #{__('Katıl')}
-    .empty-space
-  else
-    span.no-campaign-text #{__('Şuan katılabileceğin hiçbir kampanya görünmüyor, lütfen daha sonra tekrar kontrol et!')}
-  script(src="/js/dynamic_headers/dynamic_orginizer.js")
+extends ../partials/head
+block content
+  .all-wrapper
+    .navigation-bar-wrapper
+      img.navigation-bar-logo(src="/res/images/logo.png" alt="usersmagic tester")
+      a.navigation-bar-button.selected-navigation-bar-button(href="/campaigns")
+        i.fas.fa-home
+      a.navigation-bar-button(href="/wallet")
+        i.far.fa-credit-card
+      a.navigation-bar-button(href="/profile")
+        i.fas.fa-cog
+    .all-content-wrapper
+      .all-content-header-wrapper
+        .all-content-header-text-wrapper
+          span.all-content-header-title #{__('New test are here!')}
+          span.all-content-header-subtitle #{__('You can earn')} #{currency}#{total} #{__('when you complete the following')}
+        .all-content-header-buttons-wrapper
+          a.each-all-content-header-button.selected-all-content-header-button(href="/campaigns") #{__('New')}
+          a.each-all-content-header-button(href="/filters") #{__('Filters')}
+          a.each-all-content-header-button(href="/waiting") #{__('In Review')}
+          a.each-all-content-header-button(href="/history") #{__('Complete')}
+      .all-content-inner-wrapper
+        if on_waitlist
+          .waitlist-info-wrapper
+            span.waitlist-title #{__('You have entered the waitlist!')}
+            span.waitlist-info #{__('We will send you an email when you go out of the waitlist.')}
+            span.waitlist-info #{__('You may complete filters to higher your rank among other users.')}
+            span.waitlist-info #{__('You are not paid for most of the filters, but with each question you answer you will get closer to the top of the list.')}
+            .waitlist-button-wrapper
+              a.general-seablue-button(href="/filters")
+                span #{__('Go to Filters')}
+        else
+          .campaigns-wrapper

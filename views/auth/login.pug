@@ -10,8 +10,8 @@ block content
   form.all-wrapper.login-form(method="POST" action="/auth/login" + (language_key ? ("?lang=" + language_key) : ""))
     .all-inner-wrapper
       span.logo-name usersmagic
-      .lost-password-wrapper
-        a.lost-password-link(href="/auth/lost_password" + (language_key ? ("?lang=" + language_key) : "")) #{__('Reset Password')} 
+      //- .lost-password-wrapper
+      //-   a.lost-password-link(href="/auth/lost_password" + (language_key ? ("?lang=" + language_key) : "")) #{__('Reset Password')} 
       input.general-input-with-border#email-input(type="email" placeholder=__('E-Mail') autofocus autocomplete="off")
       input.general-input-with-border#password-input(type="password" placeholder=__('Password') autocomplete="off")
       button.general-seablue-button

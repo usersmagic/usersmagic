@@ -95,9 +95,20 @@ SubmitionSchema.statics.createSubmition = function (data, callback) {
   newSubmition.save((err, submition) => {
     if (err) return callback(err);
 
-    return callback(null, submition);
+    Submition.collection
+      .createIndex({
+        user_id: -1,
+        status: 'text',
+        created_at: -1
+      })
+      .then(() => {
+        return callback(null, submition);
+      })
+      .catch(err => {
+        return callback('indexing_error');
+      });
   });
-}
+};
 
 SubmitionSchema.statics.findOneByIdAndUser = function (id, user_id, callback) {
   // Finds and returns the submition with the given id and user_id or an error if it exists
@@ -115,7 +126,7 @@ SubmitionSchema.statics.findOneByIdAndUser = function (id, user_id, callback) {
 
     return callback(null, submition);
   });
-}
+};
 
 SubmitionSchema.statics.getSubmitionsByProjectId = function (data, callback) {
   // Finds and returns submitions with the given id or an error if it exists
@@ -154,7 +165,7 @@ SubmitionSchema.statics.getSubmitionsByProjectId = function (data, callback) {
       );
     })
     .catch(err => callback(err));
-}
+};
 
 SubmitionSchema.statics.approveSubmitionById = function (id, callback) {
   // Finds and updates status of submition with the given id as 'approved', returns an error if exists
@@ -179,7 +190,7 @@ SubmitionSchema.statics.approveSubmitionById = function (id, callback) {
       });
     });
   });
-}
+};
 
 SubmitionSchema.statics.rejectSubmitionById = function (id, data, callback) {
   // Finds and updates status of submition with the given id as 'unapproved' and sets its reject_message to the given error, returns an error if it exists
@@ -198,6 +209,81 @@ SubmitionSchema.statics.rejectSubmitionById = function (id, data, callback) {
 
     return callback(null, submition);
   });
-}
+};
+
+SubmitionSchema.statics.updateAnswers = function (id, user_id, data, callback) {
+  // Find the submition with the given id and user_id, update its answers and last_question
+  // Return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()) || !user_id || !validator.isMongoId(user_id.toString()) || !data || typeof data != 'object')
+    return callback('bad_request');
+
+  if (!data.answers || typeof data.answers != 'object' || isNaN(parseInt(data.last_question)))
+    return callback('bad_request');
+
+  const Submition = this;
+
+  Submition.findById(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+
+    if (submition.user_id != user_id.toString() || submition.status != 'saved')
+      return callback('document_validation');
+
+    if (Object.keys(submition.answers).find(key => data.answers[key] && typeof submition.answers[key] != typeof data.answers[key])) 
+      return callback('database_error');
+
+    Submition.findOneAndUpdate({
+      _id: mongoose.Types.ObjectId(id.toString()),
+      user_id: user_id.toString()
+    }, {$set: {
+      answers: data.answers,
+      last_question: parseInt(data.last_question)
+    }}, (err, submition) => {
+      if (err || !submition)
+        return callback('document_not_found');
+    
+      return callback(null);
+    });
+  });
+};
+
+SubmitionSchema.statics.submitAnswers = function (id, user_id, callback) {
+  // Find the submition with the given id and user_id, update its status as waiting if it is saved
+  // Return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()) || !user_id || !validator.isMongoId(user_id.toString()))
+    return callback('bad_request');
+
+  const Submition = this;
+
+  Submition.findById(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+
+    if (submition.user_id != user_id.toString() || submition.status != 'saved')
+      return callback('document_validation');
+
+    Submition.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+      status: 'waiting'
+    }}, err => {
+      if (err)
+        return callback('database_error');
+
+      Submition.collection
+        .createIndex({
+          user_id: -1,
+          status: 'text',
+          created_at: -1
+        })
+        .then(() => {
+          return callback(null, submition);
+        })
+        .catch(err => {
+          return callback('indexing_error');
+        });
+    });
+  });
+};
 
 module.exports = mongoose.model('Submition', SubmitionSchema);
