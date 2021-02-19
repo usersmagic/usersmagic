@@ -1,0 +1,11 @@
+extends ../partials/head
+block content
+  .all-wrapper
+    .all-inner-wrapper
+      span.completed-header-title= __('You have completed your test!')
+      span.completed-header-subtitle= __('Thank you a lot for completing this test. Remember, you can earn some money by having an account on Usersmagic and completing user tests of famous brands.')
+      a.general-seablue-button.completed-register-link(href="/auth/register") 
+        span= __('Try Usersmagic Now')
+      span.completed-header-subtitle(style="margin-bottom: 20px")= __('Would you like to create your own free test and share it with the ones you want to hear?')
+      a.general-seablue-border-button.completed-register-link(href="https://app.usersmagic.com" target="_blank")
+        span= __('Have an Account on App.Usersmagic')
