@@ -2,11 +2,10 @@ extends ../partials/head
 block content
   input.display-none#questions(type="text" value=JSON.stringify(questions))
   input.display-none#submition(type="text" value=JSON.stringify(submition))
-  span.short-text-type.display-none= __('short_text')
-  span.long-text-type.display-none= __('short_text')
-  span.range-type.display-none= __('range')
-  span.radio-type.display-none= __('radio')
-  span.checked-type.display-none= __('checked')
+  span.open-answer-type.display-none= __('open_answer')
+  span.multiple-choice-type.display-none= __('multiple_choice')
+  span.opinion-scale-type.display-none= __('opinion_scale')
+  span.yes-no-type.display-none= __('yes_no')
   span.unknown-error-title.display-none= __('An unknown error occured')
   span.try-again-later-text.display-none= __('Please try again later. If the problem continues, contact us at hello@usersmagic.com.')
   span.okey-text.display-none= __('Okey')
@@ -14,9 +13,12 @@ block content
   span.cancel-text.display-none= __('Cancel')
   span.your-answer.display-none= __('Your answer')
   span.required.display-none= __('Required')
+  span.not-required.display-none= __('Not required')
+  span.no.display-none= __('NO')
+  span.yes.display-none= __('YES')
   span.clear-answers.display-none= __('Clear answers')
   span.are-you-sure-title.display-none= __('Are you sure you want to continue?')
-  span.no-update-after-submit-text.display-none= __('You cannot edit or delete your answers once you submit your test. You must rejoin the campaign if your answers are rejected, so please double-check what you wrote. Thank you :)')
+  span.no-update-after-submit-text.display-none= __('You cannot edit or delete your answers once you submit your test. Thank you :)')
   .all-wrapper
     .welcome-page-outer-wrapper(style=(submition.last_question == -1 ? 'display: flex;' : 'display: none;'))
       .welcome-page-wrapper
@@ -37,9 +39,11 @@ block content
       .welcome-page-wrapper(style="display: none;")
         span.welcome-campaign-name= campaign.name
         span.welcome-title #{__('Instructions')}
-        span.welcome-campaign-instructions= campaign.welcome_screen.opening
+        span.welcome-campaign-instructions-opening= campaign.welcome_screen.opening
         span.welcome-campaign-instructions= campaign.welcome_screen.details
-        .welcome-campaign-instructions-image
+        if campaign.welcome_screen.image && campaign.welcome_screen.image.length
+          .welcome-campaign-instructions-image
+            img(src=campaign.welcome_screen.image alt="usersmagic " + campaign.name)
         .welcome-button-wrapper
           .general-seablue-button.start-test-button
             span #{__('Start your test')}
@@ -50,11 +54,13 @@ block content
           each question, i in questions
             .finish-page-each-question-wrapper(style=(i == 0 ? 'padding-top: 0px;' : ''))
               span.finish-page-each-question-text #{i+1}. #{question.question.text}
-              if question.question.type != 'checked'
-                span.finish-page-each-question-answer= question.answer
-              else
+              if question.question.type == 'multiple_choice' && question.question.subtype != 'multiple'
                 each answer in question.answer
                   span.finish-page-each-question-answer - #{answer}
+              else if question.question.type == 'yes_no'
+                span.finish-page-each-question-answer #{__(question.answer.toUpperCase())}
+              else
+                span.finish-page-each-question-answer= question.answer
         .finish-page-buttons-wrapper
           .general-seablue-border-button.finish-page-back-button
             span= __('Back')
@@ -69,17 +75,26 @@ block content
             .question-progress-bar-inner-line
           .question-info-wrapper
             span.question-type #{__(questions[submition.last_question].question.type)}
-            span.question-required #{__('Required')}
+            if questions[submition.last_question].question.required
+              span.question-required #{__('Required')}
+            else
+              span.question-required #{__('Not required')}
           span.question-text= questions[submition.last_question].question.text
-          if questions[submition.last_question].question.type == 'short_text'
-            input.general-input-with-border.answer-input(type="text" placeholder=__('Your answer') value=questions[submition.last_question].answer)
-          else if questions[submition.last_question].question.type == 'long_text'
+          if questions[submition.last_question].question.type == 'yes_no'
+            .each-question-yesno-buttons-wrapper
+              .each-question-no-button(class=(questions[submition.last_question].answer == "no" ? "selected-no-button" : ""))
+                i.fas.fa-times
+                span= __('NO')
+              .each-question-yes-button(class=(questions[submition.last_question].answer == "yes" ? "selected-yes-button" : ""))
+                i.fas.fa-check
+                span= __('YES')
+          else if questions[submition.last_question].question.type == 'open_answer'
             textarea.general-input-with-border-long.answer-input(type="text" placeholder="Your answer")= questions[submition.last_question].answer
-          else if questions[submition.last_question].question.type == 'range'
+          else if questions[submition.last_question].question.type == 'opinion_scale'
             .each-question-opinion-outer-wrapper
               .each-question-opinion-scale-wrapper
-                - for (let i = questions[submition.last_question].question.min_value; i <= questions[submition.last_question].question.max_value; i++)
-                  if i != questions[submition.last_question].question.min_value
+                - for (let i = questions[submition.last_question].question.range.min; i <= questions[submition.last_question].question.range.max; i++)
+                  if i != questions[submition.last_question].question.range.min
                     .each-question-empty-scale
                   if questions[submition.last_question].answer == i
                     span.each-question-each-scale.each-question-selected-scale= i
@@ -90,29 +105,30 @@ block content
                 .each-question-opinion-line-item
                 .each-question-opinion-line-item
               .each-question-opinion-text-wrapper
-                span.each-question-opinion-text-left= questions[submition.last_question].question.min_explanation
-                span.each-question-opinion-text-middle
-                span.each-question-opinion-text-right= questions[submition.last_question].question.max_explanation
-          else if questions[submition.last_question].question.type == 'radio'
-            each choice in questions[submition.last_question].question.choices
-              .each-question-choice.each-question-choice-radio
-                if choice == questions[submition.last_question].answer
-                  .radio-choice-wrapper.selected-choice
-                    .radio-choice-icon
-                else
-                  .radio-choice-wrapper
-                    .radio-choice-icon
-                span= choice
-          else if questions[submition.last_question].question.type == 'checked'
-            each choice in questions[submition.last_question].question.choices
-              .each-question-choice.each-question-choice-checked
-                if questions[submition.last_question].answer.includes(choice)
-                  .checked-choice-wrapper.selected-choice
-                    i.checked-choice-icon.fas.fa-check
-                else
-                  .checked-choice-wrapper
-                    i.checked-choice-icon.fas.fa-check
-                span= choice
+                span.each-question-opinion-text-left= questions[submition.last_question].question.labels.left
+                span.each-question-opinion-text-middle= questions[submition.last_question].question.labels.middle
+                span.each-question-opinion-text-right= questions[submition.last_question].question.labels.right
+          else if questions[submition.last_question].question.type == 'multiple_choice'
+            if questions[submition.last_question].question.subtype == 'single'
+              each choice in questions[submition.last_question].question.choices
+                .each-question-choice.each-question-choice-radio
+                  if choice == questions[submition.last_question].answer
+                    .radio-choice-wrapper.selected-choice
+                      .radio-choice-icon
+                  else
+                    .radio-choice-wrapper
+                      .radio-choice-icon
+                  span= choice
+            else if questions[submition.last_question].question.subtype == 'multiple'
+              each choice in questions[submition.last_question].question.choices
+                .each-question-choice.each-question-choice-checked
+                  if questions[submition.last_question].answer.includes(choice)
+                    .checked-choice-wrapper.selected-choice
+                      i.checked-choice-icon.fas.fa-check
+                  else
+                    .checked-choice-wrapper
+                      i.checked-choice-icon.fas.fa-check
+                  span= choice
           span.clear-question-button= __('Clear answers')
-      .next-button
+      .next-button(style=((submition.last_question > -1 && submition.last_question < questions.length && questions[submition.last_question].question.required) ? "" : "cursor: pointer"))
         i.fas.fa-arrow-right

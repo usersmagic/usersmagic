@@ -3,7 +3,9 @@ module.exports = (req, res) => {
     page: 'admin/login',
     title: 'Admin Login',
     includes: {
-      external: ["css"]
+      external: {
+        css: ['page', 'general', 'inputs', 'buttons', 'auth', 'fontawesome']
+      }
     }
   });
 };

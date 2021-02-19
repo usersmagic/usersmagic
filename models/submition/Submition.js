@@ -110,6 +110,34 @@ SubmitionSchema.statics.createSubmition = function (data, callback) {
   });
 };
 
+SubmitionSchema.statics.createURLSubmition = function (data, callback) {
+    // Creates a submition with the given data and returns it or an error if it exists
+
+    if (!data || !data.campaign_id || !validator.isMongoId(data.campaign_id.toString()) || !data.question_number || !Number.isInteger(data.question_number))
+    return callback('bad_request');
+
+  const Submition = this;
+  const timeout = 7200000;
+
+  const newSubmitionData = {
+    type: 'url',
+    campaign_id: mongoose.Types.ObjectId(data.campaign_id.toString()),
+    user_id: Math.random().toString(36).substr(2, 12), // randomly generate an id so that the user_id value validation do not fail. This will not and should not be used in any sense!
+    target_id: null,
+    is_private_campaign: true,
+    will_terminate_at: null,
+    answers: Array.from({length: data.question_number}, () => '')
+  };
+
+  const newSubmition = new Submition(newSubmitionData);
+
+  newSubmition.save((err, submition) => {
+    if (err) return callback(err);
+
+    return callback(null, submition);
+  });
+};
+
 SubmitionSchema.statics.findOneByIdAndUser = function (id, user_id, callback) {
   // Finds and returns the submition with the given id and user_id or an error if it exists
 
@@ -283,6 +311,93 @@ SubmitionSchema.statics.submitAnswers = function (id, user_id, callback) {
           return callback('indexing_error');
         });
     });
+  });
+};
+
+SubmitionSchema.statics.updateAnswersOfURLSubmition = function (id, id2, data, callback) {
+  // Find the submition with the given id, check if the cookie id and given id are equal (for authentication), update its answers and last_question
+  // Return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()) || !id2 || !validator.isMongoId(id2.toString()) || !data || typeof data != 'object')
+    return callback('bad_request');
+
+  if (!data.answers || typeof data.answers != 'object' || isNaN(parseInt(data.last_question)))
+    return callback('bad_request');
+
+  if (id.toString() != id2.toString())
+    return callback('document_validation');
+
+  const Submition = this;
+
+  Submition.findById(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+    
+    if (submition.status != 'saved')
+      return callback('document_validation');
+
+    if (Object.keys(submition.answers).find(key => data.answers[key] && typeof submition.answers[key] != typeof data.answers[key])) 
+      return callback('database_error');
+
+    Submition.findOneAndUpdate({
+      _id: mongoose.Types.ObjectId(id.toString())
+    }, {$set: {
+      answers: data.answers,
+      last_question: parseInt(data.last_question)
+    }}, (err, submition) => {
+      if (err || !submition)
+        return callback('document_not_found');
+
+      return callback(null);
+    });
+  });
+};
+
+SubmitionSchema.statics.submitAnswersofURLSubmition = function (id, id2, callback) {
+  // Find the submition with the given id, check if the cookie id and given id are equal (for authentication), update its status as waiting if it is saved
+  // Return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()) || !id2 || !validator.isMongoId(id2.toString()))
+    return callback('bad_request');
+
+  if (id.toString() != id2.toString())
+    return callback('document_validation');
+
+  const Submition = this;
+
+  Submition.findById(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+
+    if (submition.status != 'saved')
+      return callback('document_validation');
+
+    Submition.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+      status: 'waiting'
+    }}, err => {
+      if (err)
+        return callback('database_error');
+
+      return callback(null, submition);
+    });
+  });
+};
+
+SubmitionSchema.statics.deleteSubmitionById = function (id, callback) {
+  // Delete the Submition with the given id, return an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()))
+    return callback('bad_request');
+
+  const Submition = this;
+
+  Submition.findByIdAndDelete(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
+    if (err)
+      return callback('database_error');
+    if (!submition)
+      return callback('document_not_found');
+
+    return callback();
   });
 };
 
