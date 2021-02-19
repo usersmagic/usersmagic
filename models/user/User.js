@@ -7,6 +7,7 @@ const Country = require('../country/Country');
 const Project = require('../project/Project');
 const Question = require('../question/Question');
 const Submition = require('../submition/Submition');
+const Target = require('../target/Target');
 
 const getUser = require('./functions/getUser');
 const hashPassword = require('./functions/hashPassword');

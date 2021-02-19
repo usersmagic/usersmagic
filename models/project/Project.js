@@ -117,7 +117,7 @@ ProjectSchema.statics.getSubmitionByIdOfCustomURL = function (submition_id, camp
   // Get the Submition with the given submition_id, match it with its project.
   // Return an object with campaign, submition and questions field, or an error if it exists
 
-  if (!submition_id || !validator.isMongoId(submition_id) || !campaign_id || !validator.isMongoId(campaign_id))
+  if (!submition_id || !validator.isMongoId(submition_id.toString()) || !campaign_id || !validator.isMongoId(campaign_id.toString()))
     return callback('bad_request');
 
   const Project = this;

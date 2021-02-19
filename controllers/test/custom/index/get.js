@@ -33,7 +33,7 @@ module.exports = (req, res) => {
 
       req.session.custom_submition = id;
 
-      Project.getSubmitionByIdOfCustomURL(req.session.custom_submition, (err, data) => {
+      Project.getSubmitionByIdOfCustomURL(req.session.custom_submition, req.query.id, (err, data) => {
         if (err) { // If error with old saved data, delete the submition, destroy the saved data and redirect to same route
           Submition.deleteSubmitionById(req.session.custom_submition, () => {
             req.session.destroy();
