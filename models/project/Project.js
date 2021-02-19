@@ -163,6 +163,6 @@ ProjectSchema.statics.getSubmitionByIdOfCustomURL = function (submition_id, camp
         );
     });
   });
-}
+};
 
 module.exports = mongoose.model('Project', ProjectSchema);

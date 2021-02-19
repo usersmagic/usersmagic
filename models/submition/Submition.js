@@ -373,7 +373,7 @@ SubmitionSchema.statics.submitAnswersofURLSubmition = function (id, id2, callbac
       return callback('document_validation');
 
     Submition.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
-      status: 'waiting'
+      status: 'approved' // Automatically approve URL submitions
     }}, err => {
       if (err)
         return callback('database_error');
