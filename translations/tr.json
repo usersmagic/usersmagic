@@ -51,8 +51,10 @@
 	"Complete Your Account": "Hesabınızı Tamamlayın",
 	"Full Name": "Ad Soyad",
 	"Country": "Yaşadığın Ülke",
-	"United States": "Amerika Birleşik Devletleri",
+	"United States of America": "Amerika Birleşik Devletleri",
 	"Turkey": "Türkiye",
+	"Great Britain": "İngiltere",
+	"Germany": "Almanya",
 	"Female": "Kadın",
 	"Male": "Erkek",
 	"Other": "Diğer",
@@ -87,7 +89,9 @@
 	"An unknown error occured": "Bilinmeyen bir hata oluştu",
 	"Please try again later. If the problem continues, contact us at hello@usersmagic.com.": "Lütfen daha sonra tekrar deneyin. Eğer problem devam ederse bize  hello@usersmagic.com adresinden ulaşabilirsiniz.",
 	"Your PayPal number is updated!": "Papara numaran güncellendi!",
-	"Now, you may withdraw your money. If you later have a problem using the system, please feel free to contact us at hello@usersmagic.com": "Artık para çekme işlemine devam edebilirsin. Eğer ilerde sistemi kullanırken herhangi bir hata ile karşılaşırsan bize hello@usersmagic.com adresinden ulaşabilirsin.",
+	"Now, you may withdraw your money. If you later have a problem using the system, please feel free to contact us at hello@usersmagic.com.": "Artık para çekme işlemine devam edebilirsin. Eğer ilerde sistemi kullanırken herhangi bir hata ile karşılaşırsan bize hello@usersmagic.com adresinden ulaşabilirsin.",
+	"You don't have enough credit to withdraw": "Yeterli krediniz yok",
+	"You must at least have 0 credits to withdraw.": "Paranızı çekmek için en az 0 krediniz bulunmalı.",
 	"Settings": "Ayarlar",
 	"short_text": "Kısa Cevap",
 	"long_text": "Uzun Cevap",
@@ -148,5 +152,7 @@
 	"Thank you a lot for completing this test. Remember, you can earn some money by having an account on Usersmagic and completing user tests of famous brands.": "Bu testi tamamladığınız için teşekkür ederiz. Unutmayın, Usersmagic üzerinde bir hesaba sahip olursanız ünlü markalarının kullanıcı araştırma testlerini tamamlayarak para kazanabilirsiniz.",
 	"Try Usersmagic Now": "Şimdi Dene",
 	"Would you like to create your own free test and share it with the ones you want to hear?": "Kendi testinizi yaratmak ve fikrini duymak istediklerinizle paylaşmak ister misiniz?",
-	"Have an Account on App.Usersmagic": "App.Usersmagic'i Dene"
+	"Have an Account on App.Usersmagic": "App.Usersmagic'i Dene",
+	"Germany": "Germany",
+	"England": "England"
 }

@@ -1,5 +1,7 @@
 extends ../partials/head
 block content
+  input.display-none#user-json(type="text" value=JSON.stringify(user))
+  input.display-none#country-json(type="text" value=JSON.stringify(country))
   span.confirm-payment-title.display-none= __('Are you sure you want to withdraw 10 credit from your account?')
   span.confirm-payment-text.display-none= __('We will approve your credit and send the money to your PayPal account within a week.')
   span.no-payment-number-title.display-none= __('Please write your PayPal number')
@@ -9,7 +11,9 @@ block content
   span.unknown-error-title.display-none= __('An unknown error occured')
   span.try-again-later-text.display-none= __('Please try again later. If the problem continues, contact us at hello@usersmagic.com.')
   span.number-changed-title.display-none= __('Your PayPal number is updated!')
-  span.number-changed-text.display-none= __('Now, you may withdraw your money. If you later have a problem using the system, please feel free to contact us at hello@usersmagic.com')
+  span.number-changed-text.display-none= __('Now, you may withdraw your money. If you later have a problem using the system, please feel free to contact us at hello@usersmagic.com.')
+  span.not-enough-credit-title.display-none= __('You don\'t have enough credit to withdraw')
+  span.not-enough-credit-text.display-none= __('You must at least have 0 credits to withdraw.')
   span.okey-text.display-none= __('Okey')
   span.confirm-text.display-none= __('Confirm')
   span.cancel-text.display-none= __('Cancel')

@@ -8,8 +8,12 @@ module.exports = (country, callback) =>  {
     _id: country._id.toString(),
     name: country.name,
     alpha2_code: country.alpha2_code,
-    cities: country.cities,
+    cities: country.cities.sort(),
+    towns: country.towns,
     phone_code: country.phone_code,
-    currency: country.currency || '€'
+    currency: country.currency || '€',
+    min_payment_amount: country.min_payment_amount,
+    credit_per_user: country.credit_per_user,
+    completed: country.completed
   });
 }

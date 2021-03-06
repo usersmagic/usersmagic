@@ -1,4 +1,7 @@
 window.onload = () => {
+  const user = JSON.parse(document.getElementById('user-json').value);
+  const country = JSON.parse(document.getElementById('country-json').value);
+
   const paymentNumberInput = document.querySelector('.payment-number-input');
   const confirmPaymentTitle = document.querySelector('.confirm-payment-title').innerHTML;
   const confirmPaymentText = document.querySelector('.confirm-payment-text').innerHTML;
@@ -10,6 +13,8 @@ window.onload = () => {
   const numberChangedText = document.querySelector('.number-changed-text').innerHTML;
   const unknownErrorTitle = document.querySelector('.unknown-error-title').innerHTML;
   const tryAgainLaterText = document.querySelector('.try-again-later-text').innerHTML;
+  const notEnoughCreditTitle = document.querySelector('.not-enough-credit-title').innerHTML;
+  const notEnoughCreditText = document.querySelector('.not-enough-credit-text').innerHTML;
   const okeyText = document.querySelector('.okey-text').innerHTML;
   const confirmText = document.querySelector('.confirm-text').innerHTML;
   const cancelText = document.querySelector('.cancel-text').innerHTML;
@@ -17,15 +22,33 @@ window.onload = () => {
   document.addEventListener('click', event => {
     if (event.target.classList.contains('withdraw-button') || event.target.parentNode.classList.contains('withdraw-button')) {
       if (!paymentNumberInput) {
-        createConfirm({
-          title: confirmPaymentTitle,
-          text: confirmPaymentText,
-          accept: confirmText,
-          reject: cancelText
-        }, res => {
-          if (!res) return;
-
-        });
+        if (user.credit < country.min_payment_amount) {
+          createConfirm({
+            title: notEnoughCreditTitle,
+            text: notEnoughCreditText.replace('0', country.min_payment_amount.toString()),
+            reject: okeyText
+          }, res => { return });
+        } else {
+          createConfirm({
+            title: confirmPaymentTitle,
+            text: confirmPaymentText,
+            accept: confirmText,
+            reject: cancelText
+          }, res => {
+            if (!res) return;
+  
+            serverRequest('/wallet/payment?user_id=' + user._id.toString(), 'GET', {}, res => {
+              if (!res.success)
+                return createConfirm({
+                  title: unknownErrorTitle,
+                  text: tryAgainLaterText,
+                  reject: confirmText
+                }, res => { return });
+  
+              return window.location.reload();
+            });
+          }); 
+        }
       } else {
         if (paymentNumberInput.value && paymentNumberInput.value.length) {
           createConfirm({
@@ -39,7 +62,6 @@ window.onload = () => {
             serverRequest('/wallet/number', 'POST', {
               payment_number: paymentNumberInput.value.trim()
             }, res => {
-              console.log(res);
               if (!res.success) {
                 createConfirm({
                   title: unknownErrorTitle,

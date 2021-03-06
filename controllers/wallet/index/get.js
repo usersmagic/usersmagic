@@ -18,6 +18,7 @@ module.exports = (req, res) => {
           }
         }, 
         user,
+        country,
         currency: country.currency
       });
   });

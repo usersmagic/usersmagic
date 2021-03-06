@@ -44,6 +44,17 @@ const CountrySchema = new Schema({
     // The minimum amount that the users in this country can withdraw from their accont
     type: Number,
     required: true
+  },
+  credit_per_user: {
+    // The credit that should be given by Company per user, minimum one. Should be an Integer
+    type: Number,
+    required: true
+  },
+  completed: {
+    // Field showing if the country if completed or not.
+    // A developer should complete a Country, after adding if to translations folder and saving its default cities and towns
+    type: Boolean,
+    default: false
   }
 });
 
@@ -63,19 +74,28 @@ CountrySchema.statics.getCountryById = function (data, callback) {
 };
 
 CountrySchema.statics.createCountry = function (data, callback) {
-  // Create a country object and returns it or an error if it exists
+  // Create a country object and returns its id or an error if it exists
 
-  if (!data || !data.name || !data.name.length || !data.alpha2_code || data.alpha2_code.length != 2)
+  if (
+    !data ||
+    !data.name || !data.name.length ||
+    !data.alpha2_code || data.alpha2_code.length != 2 ||
+    !data.phone_code || isNaN(parseInt(data.phone_code)) ||
+    !data.currency || typeof data.currency != 'string' ||
+    !data.min_payment_amount || isNaN(parseInt(data.min_payment_amount)) ||
+    !data.credit_per_user || isNaN(parseInt(data.credit_per_user))
+  )
     return callback('bad_request');
-
-  const cities = data.citis && typeof data.cities == 'string' ? data.cities.split(' ').map(city => city.toLowerCase()) : [];
 
   const Country = this;
 
   const newCountryData = {
     name: data.name,
     alpha2_code: data.alpha2_code,
-    cities
+    phone_code: parseInt(data.phone_code),
+    currency: data.currency,
+    min_payment_amount: parseInt(data.min_payment_amount),
+    credit_per_user: parseInt(data.credit_per_user)
   };
 
   const newCountry = new Country(newCountryData);
@@ -95,24 +115,59 @@ CountrySchema.statics.createCountry = function (data, callback) {
           .createIndex({
             name: -1
           })
-          .then(() => {
-            getCountry(country, (err, country) => {
-              if (err) return callback(err);
-        
-              return callback(null, country);
-            });
-          })
-          .catch(err => {
-            return callback('indexing_error');
-          });
+          .then(() => callback(null, country._id.toString()))
+          .catch(err => callback('indexing_error'));
       })
-      .catch(err => {
-        return callback('indexing_error');
-      });
+      .catch(err => callback('indexing_error'));
   });
 };
 
+
+CountrySchema.statics.getCountriesByFilters = function (filters, callback) {
+  // Finds and returns all countries sorted by their name
+
+  const Country = this;
+
+  Country
+    .find({
+      completed: true
+    })
+    .sort({ name: -1 })
+    .then(countries => {
+      async.timesSeries(
+        countries.length,
+        (time, next) => getCountry(countries[time], (err, country) => next(err, country)),
+        (err, countries) => callback(err, countries)
+      );
+    })
+    .catch(err => {
+      return callback('database_error');
+    });
+};
+
 CountrySchema.statics.getCountries = function (callback) {
+  // Finds and returns all countries sorted by their name
+
+  const Country = this;
+
+  Country
+    .find({
+      completed: true
+    })
+    .sort({ name: 1 })
+    .then(countries => {
+      async.timesSeries(
+        countries.length,
+        (time, next) => getCountry(countries[time], (err, country) => next(err, country)),
+        (err, countries) => callback(err, countries)
+      );
+    })
+    .catch(err => {
+      return callback('database_error');
+    });
+};
+
+CountrySchema.statics.getAllCountries = function (callback) {
   // Finds and returns all countries sorted by their name
 
   const Country = this;
