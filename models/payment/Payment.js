@@ -45,16 +45,18 @@ PaymentSchema.statics.createPayment = function (data, callback) {
 
       if (user.credit < country.min_payment_amount)
         return callback('bad_request');
+      
+      const credit = country.min_payment_amount * parseInt(user.credit / country.min_payment_amount);
 
       User.findByIdAndUpdate(mongoose.Types.ObjectId(user._id.toString()), {$inc: {
-        credit: -1 * country.min_payment_amount,
-        waiting_credit: country.min_payment_amount
+        credit: -1 * credit,
+        waiting_credit: credit
       }}, err => {
         if (err) return callback(err);
 
         const newPaymentData = {
           user_id: data.user_id.toString(),
-          amount: country.min_payment_amount,
+          amount: credit,
           payment_number: user.payment_number,
           created_at: Date.now()
         };
