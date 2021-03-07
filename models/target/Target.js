@@ -116,7 +116,7 @@ TargetSchema.statics.leaveTarget = function (id, user_id, callback) {
 
   const Target = this;
 
-  Target.findByIdAndUpdate(mongoose.Types.ObjectId(target._id.toString()), {
+  Target.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {
     $push: { users_list: user_id.toString() },
     $pull: { joined_users_list: user_id.toString() },
     $inc: { submition_limit: 1 }
