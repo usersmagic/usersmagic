@@ -378,7 +378,7 @@ UserSchema.statics.findCampaignsForUser = function (user_id, callback) {
     Campaign.find({$and: [
       {_id: {$nin: user.campaigns}},
       {$or: [
-        { gender: 'both' },
+        { gender: null },
         { gender: user.gender }
       ]},
       {max_birth_year: { $gte: user.birth_year }},
@@ -417,7 +417,7 @@ UserSchema.statics.joinCampaign = function (campaign_id, user_id, callback) {
       { _id: mongoose.Types.ObjectId(campaign_id) },
       { _id: {$nin: user.campaigns} },
       {$or: [
-        { gender: 'both' },
+        { gender: null },
         { gender: user.gender }
       ]},
       {max_birth_year: { $gte: user.birth_year }},
@@ -481,6 +481,55 @@ UserSchema.statics.getSubmitionCampaignAndQuestions = function (submition_id, us
             if (err) return callback(err);
 
             Campaign.getCampaignById(campaign._id, (err, campaign) => {
+              if (err) return callback(err);
+
+              return callback(null, {
+                questions,
+                campaign,
+                submition: {
+                  _id: submition._id.toString(),
+                  last_question: submition.last_question
+                }
+              });
+            });
+          }
+        );
+    });
+  });
+};
+
+UserSchema.statics.getSubmitionProjectAndQuestions = function (submition_id, user_id, callback) {
+  // Get the Submition with given submition_id and user_id, find its campaign and questions, add answer of each question from User
+  // Return an object with campaign and questions field, or an error if it exists
+
+  if (!submition_id || !validator.isMongoId(submition_id.toString()) || !user_id || !validator.isMongoId(user_id.toString()))
+    return callback('bad_request');
+
+  Submition.findById(mongoose.Types.ObjectId(submition_id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+
+    if (submition.user_id != user_id.toString() || submition.status != 'saved')
+      return callback('document_validation');
+
+    Project.findById(mongoose.Types.ObjectId(submition.campaign_id), (err, campaign) => {
+      if (err || !campaign)
+        return callback('document_not_found');
+
+        async.timesSeries(
+          campaign.questions.length,
+          (time, next) => {
+            const question = campaign.questions[time];
+
+            return next(null, {
+              question,
+              answer: submition.answers[question._id.toString()] || (question.type == 'checked' ? [] : '')
+            });
+          },
+          (err, questions) => {
+            if (err) return callback(err);
+
+            Project.findProjectById(campaign._id, (err, campaign) => {
               if (err) return callback(err);
 
               return callback(null, {
