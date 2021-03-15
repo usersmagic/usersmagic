@@ -35,8 +35,12 @@ block content
                 else
                   span.each-campaign-private-price #{__('Özel Kampanya')}
                 if submition.status == 'saved'
-                  a.general-seablue-border-button.each-campaign-join-button(href=`/test/filter?id=${submition._id}`)
-                    span #{__('Continue')}
+                  if submition.is_private_campaign
+                    a.general-seablue-border-button.each-campaign-join-button(href=`/test/campaign?id=${submition._id}`)
+                      span #{__('Continue')}
+                  else
+                    a.general-seablue-border-button.each-campaign-join-button(href=`/test/filter?id=${submition._id}`)
+                      span #{__('Continue')}
                 else if submition.status == 'waiting'
                   span.each-campaign-status-text #{__('Waiting for Approval')}
         else
