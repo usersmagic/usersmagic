@@ -58,6 +58,7 @@ TargetSchema.statics.getProjectsUserCanJoin = function (user_id, callback) {
   const Target = this;
 
   Target.find({$and: [
+    {status: 'approved'},
     {users_list: user_id.toString()},
     {joined_users_list: {$ne: user_id.toString()}},
     {submition_limit: {$gt: 0}}
@@ -70,6 +71,7 @@ TargetSchema.statics.getProjectsUserCanJoin = function (user_id, callback) {
         Project.findProjectById(targets[time].project_id, (err, project) => {
           if (err) return next('database_error');
 
+          project._id = targets[time]._id.toString(); // The user will join the Target with its id, not the project id
           project.price = targets[time].price;
           project.country = targets[time].country; // The country the user will be paid for
           project.time_limit = targets[time].time_limit;

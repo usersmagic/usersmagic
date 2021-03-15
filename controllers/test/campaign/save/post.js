@@ -1,10 +1,9 @@
-// Post /test/submit route
-// XMLHTTP Request
+// Post /test/campaign/save route
 
-const Submition = require('../../../models/submition/Submition');
+const Submition = require('../../../../models/submition/Submition');
 
 module.exports = (req, res) => {
-  Submition.submitAnswers(req.query.id, req.session.user._id, err => {
+  Submition.updateAnswers(req.query.id, req.session.user._id, req.body, err => {
     if (err) {
       res.write(JSON.stringify({ error: err, success: false }));
       return res.end();

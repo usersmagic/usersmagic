@@ -1,11 +1,11 @@
 // Get /test/custom route. If there is no link_id on session showing the Submition it creates one
 
-const Project = require('../../../../models/project/Project');
 const Submition = require('../../../../models/submition/Submition');
+const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
   if (req.session.custom_submition) {
-    Project.getSubmitionByIdOfCustomURL(req.session.custom_submition, req.query.id, (err, data) => {
+    User.getSubmitionByIdOfCustomURL(req.session.custom_submition, req.query.id, (err, data) => {
       if (err) { // If error with old saved data, delete the submition, destroy the saved data and redirect to same route
         Submition.deleteSubmitionById(req.session.custom_submition, () => {
           req.session.destroy();
@@ -28,12 +28,12 @@ module.exports = (req, res) => {
       }
     });
   } else {
-    Project.joinProjectFromCustomURL(req.query.id, (err, id) => {
+    User.joinProjectFromCustomURL(req.query.id, (err, id) => {
       if (err) return res.redirect('/');
 
       req.session.custom_submition = id;
 
-      Project.getSubmitionByIdOfCustomURL(req.session.custom_submition, req.query.id, (err, data) => {
+      User.getSubmitionByIdOfCustomURL(req.session.custom_submition, req.query.id, (err, data) => {
         if (err) { // If error with old saved data, delete the submition, destroy the saved data and redirect to same route
           Submition.deleteSubmitionById(req.session.custom_submition, () => {
             req.session.destroy();

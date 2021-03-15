@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     Country.getCountryWithAlpha2Code(user.country, (err, country) => {
       if (err) return res.redirect('/');
 
-      const total = 0;
+      let total = 0;
 
       for (let i = 0; i < projects.length; i++)
         total += parseInt(projects[i].price);
@@ -22,8 +22,8 @@ module.exports = (req, res) => {
         title: res.__('Campaigns'),
         includes: {
           external: {
-            css: ['page', 'fontawesome', 'navigation', 'campaigns', 'general', 'buttons'],
-            js: ['page']
+            css: ['page', 'fontawesome', 'navigation', 'campaigns', 'general', 'buttons', 'confirm'],
+            js: ['page', 'confirm']
           }
         },
         campaigns: user.on_waitlist ? [] : projects,

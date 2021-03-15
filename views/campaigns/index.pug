@@ -1,5 +1,6 @@
 extends ../partials/head
 block content
+  span.okey-text.display-none= __('Okey')
   .all-wrapper
     .navigation-bar-wrapper
       img.navigation-bar-logo(src="/res/images/logo.png" alt="usersmagic tester")
@@ -31,3 +32,16 @@ block content
                 span #{__('Go to Filters')}
         else
           .campaigns-wrapper
+            each campaign, i in campaigns
+              .each-campaign-wrapper
+                .each-campaign-image-wrapper
+                  img.each-campaign-image(src=campaign.image alt="usersmagic " + campaign.name)
+                span.view-each-campaign-details-button #{__('View Details')}
+                span.each-campaign-title= campaign.name
+                span.each-campaign-description= campaign.description
+                if campaign.price && !campaign.is_free
+                  span.each-campaign-price #{currency}#{campaign.price}
+                else
+                  span.each-campaign-private-price #{__('Özel Kampanya')}
+                a.general-seablue-border-button.each-campaign-join-button(href=`/campaigns/join?id=${campaign._id}`)
+                  span #{__('Join')}

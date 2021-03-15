@@ -2,8 +2,6 @@ const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const User = require('../user/User');
-
 const approveSubmition = require('./functions/approveSubmition');
 
 const Schema = mongoose.Schema;
@@ -151,89 +149,6 @@ SubmitionSchema.statics.findOneByIdAndUser = function (id, user_id, callback) {
     user_id: mongoose.Types.ObjectId(user_id)
   }, (err, submition) => {
     if (err || !submition) return callback('document_not_found');
-
-    return callback(null, submition);
-  });
-};
-
-SubmitionSchema.statics.getSubmitionsByProjectId = function (data, callback) {
-  // Finds and returns submitions with the given id or an error if it exists
-
-  if (!data || !data.id || !validator.isMongoId(data.id.toString()))
-    return callback('bad_request');
-
-  const Submition = this;
-  const page = (data.page && !isNaN(parseInt(data.page))) ? parseInt(data.page) : 0;
-  const limit = (data.limit && !isNaN(parseInt(data.limit))) ? parseInt(data.limit) : 100;
-
-  Submition
-    .find({
-      campaign_id: data.id.toString(),
-      status: 'waiting'
-    })
-    .sort({ created_at: 1 })
-    .skip(page * limit)
-    .limit(limit)
-    .then(submitions => {
-      async.timesSeries(
-        submitions.length,
-        (time, next) => {
-          User.getUserById(submitions[time].user_id, (err, user) => {
-            if (err) return next(err);
-
-            submitions[time].user = user;
-            return next(null, submitions[time]);
-          });
-        },
-        (err, submitions) => {
-          if (err) return callback(err);
-
-          return callback(null, submitions);
-        }
-      );
-    })
-    .catch(err => callback(err));
-};
-
-SubmitionSchema.statics.approveSubmitionById = function (id, callback) {
-  // Finds and updates status of submition with the given id as 'approved', returns an error if exists
-
-  if (!id || !validator.isMongoId(id.toString()))
-    return callback('bad_request');
-
-  const Submition = this;
-
-  Submition.findById(mongoose.Types.ObjectId(id.toString()), (err, submition) => {
-    if (err) return callback('document_not_found');
-
-    approveSubmition(submition, err => {
-      if (err) return callback(err);
-
-      Submition.findByIdAndUpdate(mongoose.Types.ObjectId(id), {$set: {
-        status: 'approved'
-      }}, {new: true}, (err, submition) => {
-        if (err) return callback(err);
-
-        return callback(null, submition);
-      });
-    });
-  });
-};
-
-SubmitionSchema.statics.rejectSubmitionById = function (id, data, callback) {
-  // Finds and updates status of submition with the given id as 'unapproved' and sets its reject_message to the given error, returns an error if it exists
-
-  if (!data || !id || !validator.isMongoId(id.toString()) || !data.reason || !data.reason.length)
-    return callback('bad_request');
-
-  const Submition = this;
-
-  Submition.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
-    status: 'unapproved',
-    reject_message: data.reason,
-    ended_at: (new Date()).getTime()
-  }}, {new: true}, (err, submition) => {
-    if (err) return callback(err);
 
     return callback(null, submition);
   });

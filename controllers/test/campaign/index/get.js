@@ -1,13 +1,13 @@
-// Get /test/filter
+// Get /test/campaign
 
-const User = require('../../../models/user/User');
+const User = require('../../../../models/user/User');
 
 module.exports = (req, res) => {
-  User.getSubmitionCampaignAndQuestions(req.query.id, req.session.user._id, (err, data) => {
+  User.getSubmitionProjectAndQuestions(req.query.id, req.session.user._id, (err, data) => {
     if (err) return res.redirect('/history');
 
-    return res.render('test/filter', {
-      page: 'test/filter',
+    return res.render('test/campaign', {
+      page: 'test/campaign',
       title: data.campaign.name,
       includes: {
         external: {

@@ -5,51 +5,65 @@ const router = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 const isComplete = require('../middleware/isComplete');
 
-const indexGetController = require('../controllers/test/index/get');
-const filterGetController = require('../controllers/test/filter/get');
+const campaignIndexGetController = require('../controllers/test/campaign/index/get');
+const campaignSubmitGetController = require('../controllers/test/campaign/submit/get');
 const customIndexGetController = require('../controllers/test/custom/index/get');
-const submitGetController = require('../controllers/test/submit/get');
 const customSubmitGetController = require('../controllers/test/custom/submit/get');
+const filterIndexGetController = require('../controllers/test/filter/index/get');
+const filterSubmitGetController = require('../controllers/test/filter/submit/get');
 
-const savePostController = require('../controllers/test/save/post');
+const campaignSavePostController = require('../controllers/test/campaign/save/post');
 const customSavePostController = require('../controllers/test/custom/save/post');
+const filterSavePostController = require('../controllers/test/filter/save/post');
 
 router.get(
-  '/',
+  '/campaign',
     isLoggedIn,
     isComplete,
-    indexGetController
-);
-router.get(
-  '/filter',
-    isLoggedIn,
-    isComplete,
-    filterGetController
+    campaignIndexGetController
 );
 router.get(
   '/custom',
     customIndexGetController
 );
 router.get(
-  '/submit',
+  '/filter',
     isLoggedIn,
     isComplete,
-    submitGetController
+    filterIndexGetController
+);
+router.get(
+  '/campaign/submit',
+    isLoggedIn,
+    isComplete,
+    campaignSubmitGetController
 );
 router.get(
   '/custom/submit',
     customSubmitGetController
 );
-
-router.post(
-  '/save',
+router.get(
+  '/filter/submit',
     isLoggedIn,
     isComplete,
-    savePostController
+    filterSubmitGetController
+);
+
+router.post(
+  '/campaign/save',
+    isLoggedIn,
+    isComplete,
+    campaignSavePostController
 );
 router.post(
   '/custom/save',
     customSavePostController
+);
+router.post(
+  '/filter/save',
+    isLoggedIn,
+    isComplete,
+    filterSavePostController
 );
 
 module.exports = router;

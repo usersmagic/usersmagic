@@ -54,7 +54,6 @@
 	"United States of America": "Amerika Birleşik Devletleri",
 	"Turkey": "Türkiye",
 	"Great Britain": "İngiltere",
-	"Germany": "Almanya",
 	"Female": "Kadın",
 	"Male": "Erkek",
 	"Other": "Diğer",
@@ -153,6 +152,9 @@
 	"Try Usersmagic Now": "Şimdi Dene",
 	"Would you like to create your own free test and share it with the ones you want to hear?": "Kendi testinizi yaratmak ve fikrini duymak istediklerinizle paylaşmak ister misiniz?",
 	"Have an Account on App.Usersmagic": "App.Usersmagic'i Dene",
-	"Germany": "Germany",
-	"England": "England"
+	"Germany": "Almanya",
+	"England": "İngiltere",
+	"See your completed campaigns": "Tamamlanmış kampanyalarınız görün",
+	"See your old campaigns": "Eski ve tamamlanmış kampanyalarınızı görün",
+	"": ""
 }

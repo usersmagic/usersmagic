@@ -1,9 +1,9 @@
 let questions = [], submition, answers = {};
 let question_types = {
-  short_text: '', long_text: '', range: '', radio: '', checked: ''
+  open_answer: '', opinion_scale: '', multiple_choice: '', yes_no: ''
 };
 let yourAnswer;
-let unknownErrorTitle, tryAgainLaterText, okeyText, confirmText, cancelText, required, clearAnswers, areYouSureTitle, noUpdateAfterSubmitText;
+let unknownErrorTitle, tryAgainLaterText, okeyText, confirmText, cancelText, required, notRequired, no, yes, clearAnswers, areYouSureTitle, noUpdateAfterSubmitText;
 
 function createProgressBar(index) {
   const questionWrapper = document.querySelector('.question-wrapper');
@@ -32,7 +32,10 @@ function createQuestion(question, answer, index) {
 
   const questionRequired = document.createElement('span');
   questionRequired.classList.add('question-required');
-  questionRequired.innerHTML = required;
+  if (question.required)
+    questionRequired.innerHTML = required;
+  else
+    questionRequired.innerHTML = notRequired; 
   questionInfoWrapper.appendChild(questionRequired);
 
   questionWrapper.appendChild(questionInfoWrapper);
@@ -41,29 +44,49 @@ function createQuestion(question, answer, index) {
   questionText.classList.add('question-text');
   questionText.innerHTML = question.text;
   questionWrapper.appendChild(questionText);
-  
-  if (question.type == 'short_text') {
-    const input = document.createElement('input');
-    input.classList.add('general-input-with-border');
-    input.classList.add('answer-input'); // For DOM selection, not styling
-    input.placeholder = yourAnswer;
-    input.value = answer;
-    questionWrapper.appendChild(input);
-  } else if (question.type == 'long_text') {
+
+  if (question.type == 'yes_no') {
+    const yesnoButtonsWrapper = document.createElement('div');
+    yesnoButtonsWrapper.classList.add('each-question-yesno-buttons-wrapper');
+
+    const noButton = document.createElement('div');
+    noButton.classList.add('each-question-no-button');
+    const noI = document.createElement('i');
+    noI.classList.add('fas');
+    noI.classList.add('fa-times');
+    noButton.appendChild(noI);
+    const noSpan = document.createElement('span');
+    noSpan.innerHTML = no;
+    noButton.appendChild(noSpan);
+    yesnoButtonsWrapper.appendChild(noButton);
+
+    const yesButton = document.createElement('div');
+    yesButton.classList.add('each-question-yes-button');
+    const yesI = document.createElement('i');
+    yesI.classList.add('fas');
+    yesI.classList.add('fa-check');
+    yesButton.appendChild(yesI);
+    const yesSpan = document.createElement('span');
+    yesSpan.innerHTML = yes;
+    yesButton.appendChild(yesSpan);
+    yesnoButtonsWrapper.appendChild(yesButton);
+
+    questionWrapper.appendChild(yesnoButtonsWrapper);
+  } else if (question.type == 'open_answer') {
     const inputLong = document.createElement('textarea');
     inputLong.classList.add('general-input-with-border-long');
     inputLong.classList.add('answer-input'); // For DOM selection, not styling
     inputLong.placeholder = yourAnswer;
     inputLong.value = answer;
     questionWrapper.appendChild(inputLong);
-  } else if (question.type == 'range') {
+  } else if (question.type == 'opinion_scale') {
     const opinionOuterWrapper = document.createElement('div');
     opinionOuterWrapper.classList.add('each-question-opinion-outer-wrapper');
 
     const opinionScaleWrapper = document.createElement('div');
     opinionScaleWrapper.classList.add('each-question-opinion-scale-wrapper');
-    for (let i = question.min_value; i <= question.max_value; i++) {
-      if (i != question.min_value) {
+    for (let i = question.range.min; i <= question.range.max; i++) {
+      if (i != question.range.min) {
         const eachEmptyScale = document.createElement('div');
         eachEmptyScale.classList.add('each-question-empty-scale');
         opinionScaleWrapper.appendChild(eachEmptyScale);
@@ -90,24 +113,24 @@ function createQuestion(question, answer, index) {
     opinionTextWrapper.classList.add('each-question-opinion-text-wrapper');
     const leftOpinionText = document.createElement('span');
     leftOpinionText.classList.add('each-question-opinion-text-left');
-    leftOpinionText.innerHTML = question.min_explanation;
+    leftOpinionText.innerHTML = question.labels.left;
     opinionTextWrapper.appendChild(leftOpinionText);
     const middleOpinionText = document.createElement('span');
     middleOpinionText.classList.add('each-question-opinion-text-middle');
-    middleOpinionText.innerHTML = '';
+    middleOpinionText.innerHTML = question.labels.middle;
     opinionTextWrapper.appendChild(middleOpinionText);
     const rightOpinionText = document.createElement('span');
     rightOpinionText.classList.add('each-question-opinion-text-right');
-    rightOpinionText.innerHTML = question.max_explanation;
+    rightOpinionText.innerHTML = question.labels.right;
     opinionTextWrapper.appendChild(rightOpinionText);
     opinionOuterWrapper.appendChild(opinionTextWrapper);
 
     questionWrapper.appendChild(opinionOuterWrapper);
-  } else if (question.type == 'radio' || question.type == 'checked') {
+  } else if (question.type == 'multiple_choice') {
     question.choices.forEach(choice => {
       const eachQuestionChoice = document.createElement('div');
       eachQuestionChoice.classList.add('each-question-choice');
-      if (question.type == 'radio') {
+      if (question.subtype == 'single') {
         eachQuestionChoice.classList.add('each-question-choice-radio');
         const radioChoiceWrapper = document.createElement('div');
         radioChoiceWrapper.classList.add('radio-choice-wrapper');
@@ -142,7 +165,7 @@ function createQuestion(question, answer, index) {
   clearQuestionButton.innerHTML = clearAnswers;
   questionWrapper.appendChild(clearQuestionButton);
 
-  if (!answer || !answer.length)
+  if ((!answer || !answer.length) && question.required)
     document.querySelector('.next-button').style.cursor = 'not-allowed';
   else
     document.querySelector('.next-button').style.cursor = 'pointer';
@@ -204,7 +227,7 @@ function createAllWrapperContent() {
 }
 
 function saveAnswers(callback) {
-  serverRequest('/test/filter/save?id=' + submition._id, 'POST', {
+  serverRequest('/test/campaign/save?id=' + submition._id, 'POST', {
     last_question: submition.last_question,
     answers // Save the current answers
   }, res => {
@@ -216,7 +239,8 @@ function saveAnswers(callback) {
       }, res => { return callback(false); });
     } else {
       if (submition.last_question > -1 && submition.last_question < questions.length) {
-        if (answers[questions[submition.last_question].question._id] && answers[questions[submition.last_question].question._id].length)
+        questions[submition.last_question].question.required
+        if ((answers[questions[submition.last_question].question._id] && answers[questions[submition.last_question].question._id].length) || questions[submition.last_question].question.required)
           document.querySelector('.next-button').style.cursor = 'pointer';
         else
           document.querySelector('.next-button').style.cursor = 'not-allowed';
@@ -227,7 +251,7 @@ function saveAnswers(callback) {
 }
 
 function submitAnswers(callback) {
-  serverRequest('/test/filter/submit?id=' + submition._id, 'GET', {}, res => {
+  serverRequest('/test/campaign/submit?id=' + submition._id, 'GET', {}, res => {
     if (!res.success) {
       createConfirm({
         title: unknownErrorTitle,
@@ -249,6 +273,9 @@ window.onload = () => {
   confirmText = document.querySelector('.confirm-text').innerHTML;
   cancelText = document.querySelector('.cancel-text').innerHTML;
   required = document.querySelector('.required').innerHTML;
+  notRequired = document.querySelector('.not-required').innerHTML;
+  no = document.querySelector('.no').innerHTML;
+  yes = document.querySelector('.yes').innerHTML;
   clearAnswers = document.querySelector('.clear-answers').innerHTML;
   areYouSureTitle = document.querySelector('.are-you-sure-title').innerHTML;
   noUpdateAfterSubmitText = document.querySelector('.no-update-after-submit-text').innerHTML;
@@ -256,11 +283,10 @@ window.onload = () => {
   questions = JSON.parse(document.getElementById('questions').value);
   submition = JSON.parse(document.getElementById('submition').value);
 
-  question_types.short_text = document.querySelector('.short-text-type').innerHTML;
-  question_types.long_text = document.querySelector('.long-text-type').innerHTML;
-  question_types.range = document.querySelector('.range-type').innerHTML;
-  question_types.radio = document.querySelector('.radio-type').innerHTML;
-  question_types.checked = document.querySelector('.checked-type').innerHTML;
+  question_types.yes_no = document.querySelector('.yes-no-type').innerHTML;
+  question_types.open_answer = document.querySelector('.open-answer-type').innerHTML;
+  question_types.opinion_scale = document.querySelector('.opinion-scale-type').innerHTML;
+  question_types.multiple_choice = document.querySelector('.multiple-choice-type').innerHTML;
 
   yourAnswer = document.querySelector('.your-answer').innerHTML;
 
@@ -284,7 +310,7 @@ window.onload = () => {
 
     // Next button is clicked
     if (event.target.classList.contains('next-button') || event.target.parentNode.classList.contains('next-button')) {
-      if (!questions[submition.last_question].answer || !questions[submition.last_question].answer.length)
+      if ((!questions[submition.last_question].answer || !questions[submition.last_question].answer.length) && questions[submition.last_question].question.required)
         return;
       
       submition.last_question++;
@@ -321,6 +347,34 @@ window.onload = () => {
           if (res) return window.location = '/waiting';
         });
       });
+    }
+
+    // Yes No question no-button clicked
+    if (event.target.classList.contains('each-question-no-button') || event.target.parentNode.classList.contains('each-question-no-button')) {
+      let target = event.target;
+      if (event.target.parentNode.classList.contains('each-question-no-button'))
+        target = event.target.parentNode;
+
+      questions[submition.last_question].answer = 'no';
+      answers[questions[submition.last_question].question._id] = 'no';
+      if (document.querySelector('.selected-yes-button'))
+        document.querySelector('.selected-yes-button').classList.remove('selected-yes-button');
+      target.classList.add('selected-no-button');
+      saveAnswers(res => { return });
+    }
+
+    // Yes No question yes-button clicked
+    if (event.target.classList.contains('each-question-yes-button') || event.target.parentNode.classList.contains('each-question-yes-button')) {
+      let target = event.target;
+      if (event.target.parentNode.classList.contains('each-question-yes-button'))
+        target = event.target.parentNode;
+
+      questions[submition.last_question].answer = 'yes';
+      answers[questions[submition.last_question].question._id] = 'yes';
+      if (document.querySelector('.selected-no-button'))
+        document.querySelector('.selected-no-button').classList.remove('selected-no-button');
+      target.classList.add('selected-yes-button');
+      saveAnswers(res => { return });
     }
 
     // Range question clicked
@@ -421,7 +475,16 @@ window.onload = () => {
         choice.classList.remove('selected-choice');
       });
 
-      document.querySelector('.next-button').style.cursor = 'not-allowed';
+      if (document.querySelector('.selected-no-button'))
+        document.querySelector('.selected-no-button').classList.remove('selected-no-button');
+
+      if (document.querySelector('.selected-yes-button'))
+        document.querySelector('.selected-yes-button').classList.remove('selected-yes-button');
+
+      if (questions[submition.last_question].question.required)
+        document.querySelector('.next-button').style.cursor = 'not-allowed';
+      else
+        document.querySelector('.next-button').style.cursor = 'pointer';
     }
   });
 

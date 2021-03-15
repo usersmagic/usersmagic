@@ -13,8 +13,8 @@ block content
     .all-content-wrapper
       .all-content-header-wrapper
         .all-content-header-text-wrapper
-          span.all-content-header-title #{__('See your current campaigns')}
-          span.all-content-header-subtitle #{__('See the status of your joined campaigns and filters')}
+          span.all-content-header-title #{__('See your completed campaigns')}
+          span.all-content-header-subtitle #{__('See your old campaigns')}
         .all-content-header-buttons-wrapper
           a.each-all-content-header-button(href="/campaigns") #{__('New')}
           a.each-all-content-header-button(href="/filters") #{__('Filters')}
@@ -37,8 +37,8 @@ block content
                 if submition.status == 'approved'
                   span.each-campaign-status-text #{__('Your Answers are Approved!')}
                 else if submition.status == 'unapproved'
-                  span.each-campaign-status-text #{__('Your Answers are Rejected')}
+                  span.each-campaign-error-text #{__('Your Answers are Rejected')}
                 else if submition.status == 'timeout'
-                  span.each-campaign-status-text #{__('Your Submition is Timeout')}
+                  span.each-campaign-error-text #{__('Your Submition is Timeout')}
         else
           span.no-campaigns-text #{__('None of your submitions are yet approved or rejected, please wait')}

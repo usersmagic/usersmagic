@@ -447,6 +447,63 @@ UserSchema.statics.joinCampaign = function (campaign_id, user_id, callback) {
   });
 };
 
+UserSchema.statics.joinTarget = function (target_id, user_id, callback) {
+  // Find the Target with the given target_id and check if the user can join the Target
+  // If user can join create the submition and return the id or an error if it exists
+
+  if (!target_id || !validator.isMongoId(target_id.toString()) || !user_id || !validator.isMongoId(user_id.toString()))
+    return callback('bad_request');
+
+  const User = this;
+
+  User.findById(mongoose.Types.ObjectId(user_id.toString()), (err, user) => {
+    if (err || !user) return callback('document_not_found');
+
+    Target.findOne({$and: [
+      {_id: mongoose.Types.ObjectId(target_id.toString())},
+      {status: 'approved'},
+      {users_list: user_id.toString()},
+      {joined_users_list: {$ne: user_id.toString()}},
+      {submition_limit: {$gt: 0}}
+    ]}, (err, target) => {
+      if (err || !target) return callback('document_not_found');
+
+      Project.findProjectById(target.project_id, (err, project) => {
+        if (err || !project) return callback('document_not_found');
+
+        Submition.createSubmition({
+          campaign_id: project._id,
+          target_id: target._id,
+          user_id: user._id,
+          question_number: project.questions.length,
+          is_private_campaign: true
+        }, (err, submition) => {
+          if (err) return callback('database_error');
+    
+          Target.findByIdAndUpdate(mongoose.Types.ObjectId(target_id.toString()), {
+            $pull: {
+              users_list: user_id.toString()
+            },
+            $push: {
+              joined_users_list: user_id.toString()
+            },
+            $inc: {
+              submition_limit: -1
+            }
+          }, err => {
+            if (err) return callback('database_error');
+
+            Target.collection
+              .createIndex({ users_list: 1 })
+              .then(() => callback(null, submition._id.toString()))
+              .catch(err => callbakc('indexing_error'));
+          });
+        });
+      });
+    });
+  });
+};
+
 UserSchema.statics.getSubmitionCampaignAndQuestions = function (submition_id, user_id, callback) {
   // Get the Submition with given submition_id and user_id, find its campaign and questions, add answer of each question from User
   // Return an object with campaign and questions field, or an error if it exists
@@ -573,28 +630,34 @@ UserSchema.statics.getInReviewSubmitionsOfUser = function (user_id, callback) {
                 if (err || !project) {
                   Submition.findByIdAndDelete(mongoose.Types.ObjectId(submition._id.toString()), err => next('database_error'));
                 } else {
-                  return next(null, {
-                    _id: submition._id.toString(),
-                    is_private_campaign: true,
-                    campaign: {
-                      name: project.name,
-                      image: project.image,
-                      description: project.description,
-                      price: project.price,
-                      is_free: false
-                    },
-                    error: submition.reject_message,
-                    status: submition.status,
-                    last_question: submition.last_question,
-                    will_terminate_at: submition.will_terminate_at
-                  });
+                  Target.findById(mongoose.Types.ObjectId(submition.target_id), (err, target) => {
+                    if (err || !target) {
+                      Submition.findByIdAndDelete(mongoose.Types.ObjectId(submition._id.toString()), err => next('database_error'));
+                    } else {
+                      return next(null, {
+                        _id: submition._id.toString(),
+                        is_private_campaign: true,
+                        campaign: {
+                          name: project.name,
+                          image: project.image,
+                          description: project.description,
+                          price: target.price,
+                          is_free: false
+                        },
+                        error: submition.reject_message,
+                        status: submition.status,
+                        last_question: submition.last_question,
+                        will_terminate_at: submition.will_terminate_at
+                      });
+                    }
+                  }); 
                 }
               });
             } else {
-              Target.leaveTarget(submition.target_id, user._id, () => {
+              Target.leaveTarget(submition.target_id, user_id, () => {
                 Submition.findByIdAndUpdate(mongoose.Types.ObjectId(submition._id.toString()), {$set: {
                   status: 'timeout'
-                }}, err => next('database_error'));
+                }}, err => next(null));
               });
             }
           } else {
@@ -710,6 +773,78 @@ UserSchema.statics.getCompletedSubmitionsOfUser = function (user_id, callback) {
     .catch(() => {
       return callback('database_error');
     });
+};
+
+UserSchema.statics.joinProjectFromCustomURL = function (project_id, callback) {
+  // Join the project with the given project_id from a custom account
+  // Return the id of the Submition that is created or an error if it exists
+
+  if (!project_id || !validator.isMongoId(project_id.toString()))
+    return callback('bad_request');
+
+  Project.findById(mongoose.Types.ObjectId(project_id.toString()), (err, project) => {
+    if (err || !project)
+      return callback('document_not_found');
+
+    Submition.createURLSubmition({
+      campaign_id: project_id,
+      question_number: project.questions.length
+    }, (err, submition) => {
+      if (err) return callback(err);
+
+      return callback(null, submition._id.toString());
+    });
+  });
+};
+
+UserSchema.statics.getSubmitionByIdOfCustomURL = function (submition_id, campaign_id, callback) {
+  // Get the Submition with the given submition_id, match it with its project.
+  // Return an object with campaign, submition and questions field, or an error if it exists
+
+  if (!submition_id || !validator.isMongoId(submition_id.toString()) || !campaign_id || !validator.isMongoId(campaign_id.toString()))
+    return callback('bad_request');
+
+  Submition.findById(mongoose.Types.ObjectId(submition_id.toString()), (err, submition) => {
+    if (err || !submition)
+      return callback('document_not_found');
+
+    Project.findById(mongoose.Types.ObjectId(submition.campaign_id.toString()), (err, project) => {
+      if (err || !project)
+        return callback('document_not_found');
+
+        if (project._id.toString() != campaign_id.toString())
+          return callback('document_validation');
+
+        async.timesSeries(
+          project.questions.length,
+          (time, next) => {
+            const question = project.questions[time];
+
+            return next(null, {
+              question,
+              answer: submition.answers[question._id.toString()] || (question.type == 'checked' ? [] : '')
+            });
+          },
+          (err, questions) => {
+            if (err) return callback(err);
+
+            getProject(project, {}, (err, project) => {
+              if (err)
+                return callback(err);
+
+              return callback(null, {
+                questions,
+                campaign: project,
+                submition: {
+                  _id: submition._id.toString(),
+                  last_question: submition.last_question
+                }
+              });
+            });
+          }
+        );
+    });
+  });
 };
 
 module.exports = mongoose.model('User', UserSchema);
