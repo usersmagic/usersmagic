@@ -1,0 +1,12 @@
+.confirm-info-text {
+  color: rgb(78, 75, 102);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+.confirm-email {
+  color: rgb(46, 197, 206);
+  font-weight: 600;
+}

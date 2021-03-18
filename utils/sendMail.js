@@ -1,195 +1,131 @@
 const nodemailer = require('nodemailer');
-const path = require('path');
 
 const htmlToText = require('nodemailer-html-to-text').htmlToText;
 
-const MAIL_USER_NAME = process.env.MAIL_USER_NAME || 'usersmagic@gmail.com';
-const MAIL_PASSWORD = process.env.MAIL_PASSWORD || 'usersmagicLOY123';
+const key = require('../keys/gmailApiKey.json');
+
+const MAIL_USER_NAME = 'onboarding@usersmagic.com';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true,
   auth: {
-    user: MAIL_USER_NAME, 
-    pass: MAIL_PASSWORD
-  },
-  tls: {
-    rejectUnauthorized: false
+    type: 'OAuth2',
+    user: MAIL_USER_NAME,
+    serviceClient: key.client_id,
+    privateKey: key.private_key
   }
 });
 transporter.use('compile', htmlToText());
 
 const templates = {
-  complete_campaign: (data) => ({
-    bcc: data.emailList,
-    subject: 'Seni Bekleyen Yeni Kampanyalar Var',
+  title_text_button_template: data => ({
+    /* 
+      data = {
+        email_list: [],
+        subject: '',
+        title: '',
+        text: '',
+        button: '',
+        url: '',
+      }
+    */
+    bcc: data.email_list,
+    subject: data.subject,
     html: `
-    <div style="width: 100%;" >
       <div style="
         width: 100%;
+        height: fit-content;
+        min-height: fit-content;
         background-color: rgb(254, 254, 254);
-        overflow-x: scroll;
+        overflow: scroll;
       " >
-        <div style="
-          width: 400px;
-          min-width: 400px;
-          background-color: rgb(254, 254, 254);
-          display: inline-block;
-          text-align: center;
-        " >
           <div style="
+            width: 400px;
+            min-width: 400px;
             height: fit-content;
-            width: 100%;
-            display: inline-block;
-            text-align: center;
-          " >
-            <img src="https://usersmagic.com/res/images/mail_top_image.png" style="width: 400px; margin-bottom: 20px;">
-            <span style="
-              color: rgb(12, 16, 20);
-              font-weight: 700;
-              font-size: 225%;
-              text-align: center;
-              font-family: Arial;
-              display: inline-block;
-              margin: 0px 20px;
-            " >
-              Seni bekleyen yeni bir anket var!
-            </span>
-            <div style="margin: auto; margin-top: 20px; width: 120px; height: 30px; display: inline-block; text-align: center;" >
-              <img  src="https://usersmagic.com/res/images/logo_black.png" style="height: 30px;">
-            </div>
-            <span style="font-family: Arial; color: rgb(30, 30, 30); font-weight: 600; font-size: 200%; width: 100%; display: inline-block; text-align: center; margin-top: 50px;" >Spor</span>
-            <span style="margin: auto; width: 100%; display: inline-block; text-align: center; margin-top: 30px; margin-bottom: 30px;" >
-              <img style="justify-self: center;" src="https://usersmagic.com/res/images/sport_balls.png">
-            </span>
-            <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center; margin-bottom: 30px;" >Spor hakkında eklediğimiz iki soruluk anketi cevaplayarak ileride daha fazla ankete katılmaya hak kazanabilirsin!</span>
-            <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center;" >Sen de spor yapan arkadaşlarını Usersmagic’e davet et, anketi doldurt, herkes kazansın!</span>
-            <a href="https://usersmagic.com/campaigns/user" style="
-              background-color: rgb(80, 177, 238);
-              width: 175px;
-              padding: 20px 0px;
-              margin: 40px 0px;
-              border-radius: 15px;
-              display: inline-block;
-              text-align: center;
-              cursor: pointer;
-              text-decoration: none;
-            ">
-              <span style="color: rgb(254, 254, 254); font-weight: 600; font-size: 115%; font-family: Arial;" >Hemen Doldur!</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    `
-  }),
-  new_campaigns: (data) => ({
-    bcc: data.emailList,
-    subject: 'Seni Bekleyen Yeni Kampanyalar Var',
-    html: `
-    <div style="width: 100%;" >
-    <div style="
-      width: 100%;
-      background-color: rgb(254, 254, 254);
-      overflow-x: scroll;2 zo
-    " >
-      <div style="
-        width: 400px;
-        min-width: 400px;
-        background-color: rgb(254, 254, 254);
-        display: inline-block;
-        text-align: center;
-      " >
-        <div style="
-          height: fit-content;
-          width: 100%;
-          display: inline-block;
-          text-align: center;
-        " >
-          <img src="https://usersmagic.com/res/images/mail_top_image.png" style="width: 400px; margin-bottom: 20px;">
-          <span style="
-            color: rgb(12, 16, 20);
-            font-weight: 700;
-            font-size: 225%;
-            text-align: center;
-            font-family: Arial;
-            display: inline-block;
-            margin: 0px 20px;
-          " >
-            Seni Bekleyen Yeni Kampanyalar Var!
-          </span>
-          <div style="margin: auto; margin-top: 20px; margin-bottom: 20px; width: 120px; height: 30px; display: inline-block; text-align: center;" >
-            <img  src="https://usersmagic.com/res/images/logo_black.png" style="height: 30px;">
-          </div>
-          
-          <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center; margin-bottom: 30px;" >
-            Usersmagic kazandırmaya devam ediyor!
-          </span>
-          <span style="margin: 0px 20px; font-family: Arial; color: rgb(81, 87, 89); font-weight: 300; font-size: 100%; display: inline-block; text-align: center;" >
-            Eklediğimiz yeni anketleri görmek ve para kazanmaya devam etmek için hemen siteye giriş yap.
-          </span>
-          <a href="https://usersmagic.com/campaigns/user" style="
-            background-color: rgb(80, 177, 238);
-            width: 175px;
-            padding: 20px 0px;
-            margin: 40px 0px;
-            border-radius: 15px;
-            display: inline-block;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
+            min-height: 100%;
+            padding: 30px;
+            background-color: rgb(254, 254, 254);
           ">
-            <span style="color: rgb(254, 254, 254); font-weight: 600; font-size: 115%; font-family: Arial;" >Siteye Git</span>
-          </a>
-        </div>
+            <div style="
+              width: 100%;
+              display: inline-block;
+              margin-bottom: 40px;
+              vertical-align: center;
+            ">
+              <img src="https://usersmagic.com/res/images/logo.png" alt="Usersmagic" style="
+                display: inline-block;
+                width: 15px;
+              " />
+              <span src="https://usersmagic.com/res/images/logo_text.png" alt="Usersmagic" style="
+                color: rgb(46, 197, 206);
+                font-weight: 600;
+                font-size: 20px;
+                justify-self: center;
+                display: inline-block;
+                position: relative;
+                top: 50%;
+                transform: translateY(-25%);
+                margin-left: 5px;
+              ">usersmagic</span>
+            </div>
+            <div class="all-wrapper">
+              <span style="
+                color: rgb(28, 30, 35);
+                font-size: 24px;
+                display: block;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 600;
+                width: 100%;
+                text-align: center;
+                letter-spacing: 0.75px;
+                margin-bottom: 30px;
+              ">${data.title}</span>
+              <span style="
+                color: rgb(143, 152, 177);
+                font-size: 17px;
+                display: block;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 300;
+                width: 100%;
+                text-align: center;
+                letter-spacing: 1px;
+                line-height: 24px;
+                margin-bottom: 30px;
+              ">${data.text}</span>
+              <div style="
+                width: 100%;
+                text-align: center;
+                display: block;
+              " >
+                <a href=${data.url} style="
+                  border-radius: 40px;
+                  background-color: rgb(46, 197, 206);
+                  color: rgb(254, 254, 254);
+                  padding: 15px 35px;
+                  text-decoration: none;
+                  font-size: 17px;
+                  font-weight: 600;
+                  display: inline-block;
+                  font-family: Arial, Helvetica, sans-serif;
+                  letter-spacing: 1.5px;
+                  line-height: 24px;
+                  cursor: pointer;
+                ">${data.button}</a>
+              </div>
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
     `
   }),
-  change_password: data => ({
-    to: data.email,
-    subject: 'Şifre Değiştirme Talebi',
-    html: `
-      <div style="width: 100%; padding: 20px; " >
-        <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 20px;" >
-          Usersmagic ailesinin değerli üyesi,
-        </span>
-        <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 20px;">
-          Şifrenizi değiştirmek için bir talepte bulundunuz. Yeni şifrenizi aşağıdaki linke tıklayarak belirleyebilirsiniz. Link bir saat sonra etkisiz hale gelecektir.
-        </span>
-        <span  style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 20px;" >
-          <span>Şifre Değiştirme Linki: </span>
-          <a style="color: rgb(30, 30, 30); font-weight: 600;" href='usersmagic.com/auth/user/change_password?email=${data.email}&code=${data.code}'>https://usersmagic.com/auth/user/change_password</a>
-        </span>
-        <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 20px;">
-          <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif;">
-            Eğer bu isteği siz göndermediyseniz lütfen 
-          </span>
-          <span style="color: rgb(30, 30, 30); font-weight: 600; font-family: Arial, Helvetica, sans-serif;">
-            hello@usersmagic.com
-          </span>
-          <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif;">
-            e-posta adresinden temsilcilerimiz ile temasa geçin. Anlayışınız için teşekkür ederiz.
-          </span>
-        </span>
-        <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 10px;">
-          İyi günler,
-        </span>
-        <span style="color: rgb(30, 30, 30); font-weight: 500; font-family: Arial, Helvetica, sans-serif; display: block; margin-bottom: 20px;">
-          Usersmagic Ekibi
-        </span>
-      </div>
-    `
-  })
 };
 
 module.exports = (data, template, callback) => {
   const mailOptions = {
-    from: "usersmagic",
+    from: 'usersmagic',
     ...templates[template](data)
   };
   transporter.sendMail(mailOptions, callback);
 };
-

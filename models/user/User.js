@@ -40,6 +40,17 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  confirmed: {
+    // If the user confirmed his/her mail address, cannot use the app without confirming
+    type: Boolean,
+    default: false
+  },
+  confirm_code: {
+    // A random generated code when the user is created. Secure and never sended to client side
+    type: String,
+    length: 20,
+    required: true
+  },
   country: {
     // Country of the user, required while completing account
     type: String,
@@ -215,6 +226,7 @@ UserSchema.statics.createUser = function (data, callback) {
   const User = this;
 
   const newUserData = {
+    confirm_code: Math.random().toString(36).substr(2, 10) + Math.random().toString(36).substr(2, 10),
     email: data.email,
     password: data.password,
     invitor: data.code && validator.isMongoId(data.code.toString()) ? data.code.toString() : null,
@@ -235,6 +247,41 @@ UserSchema.statics.createUser = function (data, callback) {
 
       return callback(null, user);
     });
+  });
+};
+
+UserSchema.statics.getConfirmCodeOfUser = function (id, callback) {
+  // Find the User with the given id and return its confirm code or an error if it exists
+
+  if (!id || !validator.isMongoId(id.toString()))
+    return callback('bad_request');
+
+  const User = this;
+
+  User.findById(mongoose.Types.ObjectId(id.toString()), (err, user) => {
+    if (err) return callback('database_error');
+    if (!user) return callback('document_not_found');
+
+    return callback(null, user.confirm_code);
+  });
+};
+
+UserSchema.statics.confirmUser = function (code, callback) {
+  // Confirm the User with the given code. Return an error if it exists
+
+  if (!code || typeof code != 'string' || code.length != 20)
+    return callback('bad_request');
+
+  const User = this;
+
+  User.findOneAndUpdate({
+    confirm_code: code.toString()
+  }, {$set: {
+    confirmed: true
+  }}, err => {
+    if (err) return callback('document_not_found');
+
+    return callback(null);
   });
 };
 

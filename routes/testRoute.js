@@ -2,8 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const isLoggedIn = require('../middleware/isLoggedIn');
 const isComplete = require('../middleware/isComplete');
+const isConfirmed = require('../middleware/isConfirmed');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
 const campaignIndexGetController = require('../controllers/test/campaign/index/get');
 const campaignSubmitGetController = require('../controllers/test/campaign/submit/get');
@@ -19,6 +20,7 @@ const filterSavePostController = require('../controllers/test/filter/save/post')
 router.get(
   '/campaign',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     campaignIndexGetController
 );
@@ -29,12 +31,14 @@ router.get(
 router.get(
   '/filter',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     filterIndexGetController
 );
 router.get(
   '/campaign/submit',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     campaignSubmitGetController
 );
@@ -45,6 +49,7 @@ router.get(
 router.get(
   '/filter/submit',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     filterSubmitGetController
 );
@@ -52,6 +57,7 @@ router.get(
 router.post(
   '/campaign/save',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     campaignSavePostController
 );
@@ -62,6 +68,7 @@ router.post(
 router.post(
   '/filter/save',
     isLoggedIn,
+    isConfirmed,
     isComplete,
     filterSavePostController
 );

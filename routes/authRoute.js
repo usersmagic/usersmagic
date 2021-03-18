@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const isConfirmed = require('../middleware/isConfirmed');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
 const loginGetController = require('../controllers/auth/login/get');
 const registerGetController = require('../controllers/auth/register/get');
 const completeGetController = require('../controllers/auth/complete/get');
+const confirmGetController = require('../controllers/auth/confirm/get');
 const lostPasswordGetController = require('../controllers/auth/lost_password/get');
 const changePasswordGetController = require('../controllers/auth/change_password/get');
 const userGetController = require('../controllers/auth/user/get');
@@ -27,7 +29,13 @@ router.get(
 router.get(
   '/complete',
     isLoggedIn,
+    isConfirmed,
     completeGetController
+);
+router.get(
+  '/confirm', 
+    isLoggedIn,
+    confirmGetController
 );
 router.get(
   '/lost_password',
@@ -53,6 +61,7 @@ router.post(
 router.post(
   '/complete',
     isLoggedIn,
+    isConfirmed,
     completePostController
 );
 router.post(

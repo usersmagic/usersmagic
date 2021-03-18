@@ -9,6 +9,7 @@ const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const i18n = require('i18n');
+const sendMail = require('./utils/sendMail');
 
 const MongoStore = require('connect-mongo')(session);
 
@@ -37,6 +38,8 @@ if (cluster.isMaster) {
   
   dotenv.config({ path: path.join(__dirname, ".env") });
   
+  const sendMail = require('./utils/sendMail');
+
   const PORT = process.env.PORT || 3000;
   const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/usersmagic";
   

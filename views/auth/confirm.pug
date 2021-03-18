@@ -1,0 +1,20 @@
+extends ../partials/head
+block content
+  .brand-wrapper
+    a.main-page-button(href=language_key ? "/?lang=" + language_key : "/")
+      img(src="/res/images/logo.png" alt="usersmagic tester")
+    .language-change-wrapper
+      a.language-text(href="/auth/confirm?lang=tr") TR
+      span |
+      a.language-text(href="/auth/confirm?lang=en") EN
+  .all-wrapper
+    .all-inner-wrapper
+      span.logo-name usersmagic
+      span.confirm-info-text
+        span= __('We have send an email to the email you provided,')
+        span.confirm-email= ` ${user.email} `
+        span= __('. Please click the button on the email to confirm your account.')
+      .general-seablue-button.resend-confirm-button
+        span #{__('Resend the Email')}
+    .bottom-wrapper
+      span.copyright-text Copyright 2020 - Loy Yazılım

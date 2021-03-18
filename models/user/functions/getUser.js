@@ -8,6 +8,7 @@ module.exports = (user, callback) => {
     agreement_approved: user.agreement_approved,
     email: user.email,
     completed: user.completed,
+    confirmed: user.confirmed,
     name: user.name,
     phone: user.phone,
     gender: user.gender,
