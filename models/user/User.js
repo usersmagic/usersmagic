@@ -262,7 +262,16 @@ UserSchema.statics.getConfirmCodeOfUser = function (id, callback) {
     if (err) return callback('database_error');
     if (!user) return callback('document_not_found');
 
-    return callback(null, user.confirm_code);
+    if (user.confirm_code && user.confirm_code.length == 20) 
+      return callback(null, user.confirm_code);
+
+    User.findByIdAndUpdate(mongoose.Types.ObjectId(id.toString()), {$set: {
+      confirm_code: Math.random().toString(36).substr(2, 10) + Math.random().toString(36).substr(2, 10)
+    }}, {new: true}, (err, user) => {
+      if (err) return callback('database_error');
+
+      return callback(null, user.confirm_code);
+    });
   });
 };
 
