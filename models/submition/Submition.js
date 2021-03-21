@@ -100,7 +100,17 @@ SubmitionSchema.statics.createSubmition = function (data, callback) {
         created_at: -1
       })
       .then(() => {
-        return callback(null, submition);
+        Submition.collection
+          .createIndex({
+            status: 'text',
+            target_id: -1
+          })
+          .then(() => {
+            return callback(null, submition);
+          })
+          .catch(err => {
+            return callback('indexing_error');
+          });
       })
       .catch(err => {
         return callback('indexing_error');
