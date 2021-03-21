@@ -102,7 +102,6 @@ SubmitionSchema.statics.createSubmition = function (data, callback) {
       .then(() => {
         Submition.collection
           .createIndex({
-            status: 'text',
             target_id: -1
           })
           .then(() => {
