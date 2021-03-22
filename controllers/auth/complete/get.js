@@ -25,7 +25,8 @@ module.exports = (req, res) => {
         {name: 'Male', id: 'male'},
         {name: 'Other', id: 'other'},
         {name: 'Prefer not to say', id: 'not_specified'}
-      ]
+      ],
+      language_key: req.query.lang ? req.query.lang : null
     });
   });
 }

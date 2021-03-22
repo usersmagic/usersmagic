@@ -7,6 +7,7 @@ module.exports = (req, res) => {
         css: ['page', 'general', 'inputs', 'buttons', 'auth', 'fontawesome'],
         js: ['page', 'serverRequest']
       }
-    }
+    },
+    language_key: req.query.lang ? req.query.lang : null
   });
 }

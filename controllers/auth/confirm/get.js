@@ -36,7 +36,8 @@ module.exports = (req, res) => {
               js: ['page']
             }
           },
-          user: req.session.user
+          user: req.session.user,
+          language_key: req.query.lang ? req.query.lang : null
         });
       });
     });
