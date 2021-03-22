@@ -2,8 +2,6 @@ const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const approveSubmition = require('./functions/approveSubmition');
-
 const Schema = mongoose.Schema;
 
 const SubmitionSchema = new Schema({

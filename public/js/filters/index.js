@@ -4,7 +4,7 @@ window.onload = () => {
       createConfirm({
         title: event.target.nextElementSibling.innerHTML,
         text: event.target.nextElementSibling.nextElementSibling.innerHTML,
-        accept: document.querySelector('.okey-text').innerHTML
+        accept: document.querySelector('.dismiss-text').innerHTML
       }, res => {
         return;
       });

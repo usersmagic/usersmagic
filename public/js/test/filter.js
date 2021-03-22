@@ -3,7 +3,7 @@ let question_types = {
   short_text: '', long_text: '', range: '', radio: '', checked: ''
 };
 let yourAnswer;
-let unknownErrorTitle, tryAgainLaterText, okeyText, confirmText, cancelText, required, clearAnswers, areYouSureTitle, noUpdateAfterSubmitText;
+let unknownErrorTitle, tryAgainLaterText, okayText, confirmText, cancelText, required, clearAnswers, areYouSureTitle, noUpdateAfterSubmitText;
 
 function createProgressBar(index) {
   const questionWrapper = document.querySelector('.question-wrapper');
@@ -245,7 +245,7 @@ window.onload = () => {
 
   unknownErrorTitle = document.querySelector('.unknown-error-title').innerHTML;
   tryAgainLaterText = document.querySelector('.try-again-later-text').innerHTML;
-  okeyText = document.querySelector('.okey-text').innerHTML;
+  okayText = document.querySelector('.okay-text').innerHTML;
   confirmText = document.querySelector('.confirm-text').innerHTML;
   cancelText = document.querySelector('.cancel-text').innerHTML;
   required = document.querySelector('.required').innerHTML;
