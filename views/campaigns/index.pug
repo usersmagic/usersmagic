@@ -1,6 +1,6 @@
 extends ../partials/head
 block content
-  span.okey-text.display-none= __('Okey')
+  span.dismiss-text.display-none= __('Dismiss')
   .all-wrapper
     .navigation-bar-wrapper
       img.navigation-bar-logo(src="/res/images/logo.png" alt="usersmagic tester")
@@ -13,7 +13,7 @@ block content
     .all-content-wrapper
       .all-content-header-wrapper
         .all-content-header-text-wrapper
-          span.all-content-header-title #{__('New test are here!')}
+          span.all-content-header-title #{__('New surveys are here!')}
           span.all-content-header-subtitle #{__('You can earn')} #{currency}#{total} #{__('when you complete the following')}
         .all-content-header-buttons-wrapper
           a.each-all-content-header-button.selected-all-content-header-button(href="/campaigns") #{__('New')}
@@ -23,8 +23,8 @@ block content
       .all-content-inner-wrapper
         if on_waitlist
           .waitlist-info-wrapper
-            span.waitlist-title #{__('You have entered the waitlist!')}
-            span.waitlist-info #{__('We will send you an email when you go out of the waitlist.')}
+            span.waitlist-title #{__('You joined the waitlist!')}
+            span.waitlist-info #{__('For early access, complete the short surveys in the "Filters" section. You will receive an email when you are off the waitlist. Meanwhile, join our discord server to hang out with others and ask questions.')}
             span.waitlist-info #{__('You may complete filters to higher your rank among other users.')}
             span.waitlist-info #{__('You are not paid for most of the filters, but with each question you answer you will get closer to the top of the list.')}
             .waitlist-button-wrapper

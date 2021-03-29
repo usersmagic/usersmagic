@@ -10,6 +10,7 @@ module.exports = (req, res) => {
         js: ['page', 'serverRequest']
       }
     },
-    code: req.query && req.query.code ? req.query.code : null
+    code: req.query && req.query.code ? req.query.code : null,
+    language_key: req.query.lang ? req.query.lang : null
   });
 }

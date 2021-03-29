@@ -2,8 +2,6 @@ const async = require('async');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const approveSubmition = require('./functions/approveSubmition');
-
 const Schema = mongoose.Schema;
 
 const SubmitionSchema = new Schema({
@@ -100,7 +98,16 @@ SubmitionSchema.statics.createSubmition = function (data, callback) {
         created_at: -1
       })
       .then(() => {
-        return callback(null, submition);
+        Submition.collection
+          .createIndex({
+            target_id: -1
+          })
+          .then(() => {
+            return callback(null, submition);
+          })
+          .catch(err => {
+            return callback('indexing_error');
+          });
       })
       .catch(err => {
         return callback('indexing_error');

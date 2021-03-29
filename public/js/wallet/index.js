@@ -15,7 +15,7 @@ window.onload = () => {
   const tryAgainLaterText = document.querySelector('.try-again-later-text').innerHTML;
   const notEnoughCreditTitle = document.querySelector('.not-enough-credit-title').innerHTML;
   const notEnoughCreditText = document.querySelector('.not-enough-credit-text').innerHTML;
-  const okeyText = document.querySelector('.okey-text').innerHTML;
+  const okayText = document.querySelector('.okay-text').innerHTML;
   const confirmText = document.querySelector('.confirm-text').innerHTML;
   const cancelText = document.querySelector('.cancel-text').innerHTML;
 
@@ -26,7 +26,7 @@ window.onload = () => {
           createConfirm({
             title: notEnoughCreditTitle,
             text: notEnoughCreditText.replace('0', country.min_payment_amount.toString()),
-            reject: okeyText
+            reject: okayText
           }, res => { return });
         } else {
           createConfirm({
@@ -72,7 +72,7 @@ window.onload = () => {
                 createConfirm({
                   title: numberChangedTitle,
                   text: numberChangedText,
-                  accept: okeyText
+                  accept: okayText
                 }, res => {
                   document.querySelector('.card-number').childNodes[1].innerHTML = paymentNumberInput.value.trim();
                   paymentNumberInput.remove();
@@ -84,7 +84,7 @@ window.onload = () => {
           createConfirm({
             title: noPaymentNumberTitle,
             text: noPaymentNumberText,
-            reject: okeyText
+            reject: okayText
           }, res => { return });
         }
       }

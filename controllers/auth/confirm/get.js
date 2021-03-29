@@ -22,7 +22,7 @@ module.exports = (req, res) => {
         subject: res.__('Welcome to Usersmagic!'),
         title: res.__('Welcome to Usersmagic!'),
         text: res.__('We\'re excited to have you get started. Please confirm your email address before you start earning with Usersmagic!'),
-        button: res.__('Confirm email address'),
+        button: res.__('CONFIRM EMAIL'),
         url: `https://usersmagic.com/auth/confirm?code=${code}`
       }, 'title_text_button_template', err => {
         if (err) return res.redirect('/');
@@ -36,7 +36,8 @@ module.exports = (req, res) => {
               js: ['page']
             }
           },
-          user: req.session.user
+          user: req.session.user,
+          language_key: req.query.lang ? req.query.lang : null
         });
       });
     });

@@ -327,10 +327,12 @@
   cursor: pointer;
 }
 .each-question-each-scale:hover {
-  border: 1px solid rgb(46, 197, 206);
+  border: 2px solid rgb(46, 197, 206);
+  margin: 0px -1px;
 }
 .each-question-selected-scale {
-  border: 1px solid rgb(46, 197, 206);
+  border: 2px solid rgb(46, 197, 206);
+  margin: 0px -1px;
 }
 .each-question-empty-scale {
   width: 5px;
