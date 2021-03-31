@@ -864,7 +864,7 @@ UserSchema.statics.getSubmitionByIdOfCustomURL = function (submition_id, campaig
     if (err || !submition)
       return callback('document_not_found');
 
-    Project.findById(mongoose.Types.ObjectId(submition.campaign_id.toString()), (err, project) => {
+    Project.findProjectById(submition.campaign_id.toString(), (err, project) => {
       if (err || !project)
         return callback('document_not_found');
 
@@ -884,18 +884,13 @@ UserSchema.statics.getSubmitionByIdOfCustomURL = function (submition_id, campaig
           (err, questions) => {
             if (err) return callback(err);
 
-            getProject(project, {}, (err, project) => {
-              if (err)
-                return callback(err);
-
-              return callback(null, {
-                questions,
-                campaign: project,
-                submition: {
-                  _id: submition._id.toString(),
-                  last_question: submition.last_question
-                }
-              });
+            return callback(null, {
+              questions,
+              campaign: project,
+              submition: {
+                _id: submition._id.toString(),
+                last_question: submition.last_question
+              }
             });
           }
         );
