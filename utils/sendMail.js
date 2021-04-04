@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer');
 
 const htmlToText = require('nodemailer-html-to-text').htmlToText;
 
-const key = require('../keys/gmailApiKey.json');
+const key = require('../keys/gmailAPIKey.json');
 
-const MAIL_USER_NAME = 'onboarding@usersmagic.com';
+const MAIL_USER_NAME = 'usersmagic@usersmagic.com';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -15,7 +15,8 @@ const transporter = nodemailer.createTransport({
     user: MAIL_USER_NAME,
     serviceClient: key.client_id,
     privateKey: key.private_key
-  }
+  },
+  pool: true
 });
 transporter.use('compile', htmlToText());
 

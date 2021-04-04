@@ -19,9 +19,9 @@ const ProjectSchema = new Schema({
     required: true
   },
   status: {
-    // Status of the project: [saved, finished, deleted]
+    // Status of the project: [template, saved, finished, deleted]
     type: String,
-    default: 'saved'
+    default: 'template'
   },
   created_at: {
     // UNIX date for the creation time of the object
@@ -37,7 +37,12 @@ const ProjectSchema = new Schema({
   image: {
     // Image of the project
     type: String,
-    required: true,
+    maxlength: 1000,
+    default: '/res/images/default/project.png'
+  },
+  image_updated: {
+    type:String,
+    default: '',
     maxlength: 1000
   },
   description: {
@@ -46,8 +51,19 @@ const ProjectSchema = new Schema({
     default: '',
     maxlength: 1000
   },
+  description_updated: {
+    //if the description edited, this field is used
+    type: String,
+    default: '',
+    maxlength: 1000
+  },
   questions: {
     // Questions array
+    type: Array,
+    default: []
+  },
+  questions_updated: {
+    // If the questions are edited, this field is used
     type: Array,
     default: []
   },
@@ -60,10 +76,14 @@ const ProjectSchema = new Schema({
       image: ''
     }
   },
-  country: {
-    // The country of testers that the Project will use
-    type: String,
-    default: null
+  welcome_screen_updated: {
+    // If the content edited, this field will be used
+    type: Object,
+    default:{
+      opening: '',
+      details: '',
+      image: ''
+    }
   }
 });
 

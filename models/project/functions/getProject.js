@@ -29,7 +29,7 @@ module.exports = (project, options, callback) => {
         created_at: timezone ? moment(project.created_at).tz(timezone).format('DD[.]MM[.]YYYY[, ]HH[:]mm') : project.created_at,
         name: project.name,
         description: project.description,
-        image: project.image,
+        image: project.image || '/res/images/default/project.png',
         questions: project.questions,
         welcome_screen: project.welcome_screen ? {
           opening: project.welcome_screen.opening,
@@ -48,7 +48,7 @@ module.exports = (project, options, callback) => {
       created_at: timezone ? moment(project.created_at).tz(timezone).format('DD[.]MM[.]YYYY[, ]HH[:]mm') : project.created_at,
       name: project.name,
       description: project.description,
-      image: project.image,
+      image: project.image || '/res/images/default/project.png', 
       questions: project.questions,
       welcome_screen: project.welcome_screen ? {
         opening: project.welcome_screen.opening,
