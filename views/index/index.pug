@@ -6,16 +6,13 @@ block content
       .all-wrapper-buttons-wrapper
         span.all-wrapper-left-button.go-tester-button= __('Yes, go to tester page')
         span.all-wrapper-right-button.go-company-button= __('Continue with company page')
-    .all-wrapper-inner-company
-      span.all-wrapper-text= __('Are you a company?')
-      .all-wrapper-buttons-wrapper
-        span.all-wrapper-left-button.go-company-button= __('Yes, go to company page')
-        span.all-wrapper-right-button.go-tester-button= __('Continue with tester page')
   .all-wrapper-tester
     .all-wrapper-tester-inner-wrapper
       img.tester-landing-background(src="/res/images/tester_landing_background.png" alt="usersmagic tester")
       .tester-landing-transparent-wrapper
-        img.tester-landing-logo(src="/res/images/logo/white.png" alt="usersmagic logo")
+        .tester-landing-header
+          img.tester-landing-logo(src="/res/images/logo/white.png" alt="usersmagic logo")
+          span.tester-go-company-button.go-company-button= __('Are you a company?')
         span.tester-landing-above-title= __('BECOME A TESTER')
         span.tester-landing-title= __('Be heard by companies,')
         span.tester-landing-title= __('while getting paid')
