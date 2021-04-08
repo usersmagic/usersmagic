@@ -5,6 +5,9 @@
   box-sizing: border-box;
   font-family: 'Poppins', 'Open Sans', 'Helvetica Neue', sans-serif;;
 }
+.fas, .far {
+  font-family: "Font Awesome 5 Free" !important;
+}
 html {
   width: 100%;
   height: 100%;
