@@ -1,12 +1,53 @@
 extends ../partials/head
 block content
   .all-wrapper
+    .all-wrapper-inner-tester
+      span.all-wrapper-text= __('Are you a tester?')
+      .all-wrapper-buttons-wrapper
+        span.all-wrapper-left-button.go-tester-button= __('Yes, go to tester page')
+        span.all-wrapper-right-button.go-company-button= __('Continue with company page')
+    .all-wrapper-inner-company
+      span.all-wrapper-text= __('Are you a company?')
+      .all-wrapper-buttons-wrapper
+        span.all-wrapper-left-button.go-company-button= __('Yes, go to company page')
+        span.all-wrapper-right-button.go-tester-button= __('Continue with tester page')
+  .all-wrapper-tester
+    .all-wrapper-tester-inner-wrapper
+      img.tester-landing-background(src="/res/images/tester_landing_background.png" alt="usersmagic tester")
+      .tester-landing-transparent-wrapper
+        img.tester-landing-logo(src="/res/images/logo/white.png" alt="usersmagic logo")
+        span.tester-landing-above-title= __('BECOME A TESTER')
+        span.tester-landing-title= __('Be heard by companies,')
+        span.tester-landing-title= __('while getting paid')
+        span.tester-landing-subtitle(style="margin-top: 30px")= __('Becoming a tester can help you turn your opinions into extra')
+        span.tester-landing-subtitle= __('income and support great products you might use and love.')
+        span.tester-landing-subtitle-responsive= __('Becoming a tester can help you turn your opinions into extra income and support great products you might use and love.')
+        a.tester-join-waitlist-button(href="https://tester.usersmagic.com" target="_blank")= __('Join the waitlist')
+      .tester-landing-wrapper
+        .each-tester-point-wrapper
+          .each-tester-point-icon
+            i.far.fa-user
+          .each-tester-point-info
+            span.each-tester-point-title= __('Create an account')
+            span.each-tester-point-text= __('Join the waitlist and fill out some surveys to earn priority. You will receive an email when you are in.')
+        .each-tester-point-wrapper(style="margin: 0px 40px")
+          .each-tester-point-icon
+            i.fas.fa-mobile-alt
+          .each-tester-point-info
+            span.each-tester-point-title= __('Answer questions')
+            span.each-tester-point-text= __('All you have to do is answer some questions about what you think about certian apps and websites. ')
+        .each-tester-point-wrapper
+          .each-tester-point-icon
+            i.far.fa-smile
+          .each-tester-point-info
+            span.each-tester-point-title= __('Get paid')
+            span.each-tester-point-text= __('We will pay you as soon as your answers are accepted. You will receive payments through Paypal.')
+  .all-wrapper-company
     .landing-all-header
       a.landing-header-logo-wrapper(href=language_key ? `/?lang=${language_key}` : '/')
         img.landing-header-logo(src="/res/images/logo_black.png" alt="usersmagic")
         span.landing-header-logo-text usersmagic
       .landing-header-buttons-wrapper
-        a.landing-header-tester-button(href=language_key ? `/auth/register?lang=${language_key}` : '/auth/register')= __("Become a Tester")
         a.landing-header-start-button(href="https://www.notion.so/4dc920a0096f400cbd74b976780a7526?v=0e2376c9d31b4ddd87b8f38e1462379a" target="_blank")= __("Try Usersmagic")
         a.change-language-button(href='/?lang=' + (current_language == 'TR' ? 'en' : 'tr'))
           span= (current_language == "TR" ? "EN" : "TR")
@@ -75,35 +116,16 @@ block content
               .each-growth-inner-wrapper
                 span.each-growth-title 92
                 span.each-growth-text= __('Cases')
-        //- .contact-content-wrapper
-        //-   .contact-left-wrapper
-        //-     span.contact-title= __('Bize Ulaşın')
-        //-     span.contact-subtitle= __('Usersmagic’ten nasıl faydalanabileceğinizi öğrenmek, bilgi almak ve bizimle çalışmak için bize ulaşın')
-        //-   .contact-right-wrapper
-        //-     .each-input-line
-        //-       input.each-landing-input#name-input(type="text" placeholder=__("Adınız") autocomplete="none" style="margin-right: 15px")
-        //-       input.each-landing-input#surname-input(type="text" placeholder=__("Soyadınız") autocomplete="none" style="margin-left: 15px")
-        //-     .each-input-line
-        //-       input.each-landing-input#email-input(type="text" placeholder=__("Email") autocomplete="none" style="margin-right: 15px")
-        //-       input.each-landing-input#company-name-input(type="text" placeholder=__("Şirket Adı") autocomplete="none" style="margin-left: 15px")
-        //-     textarea.each-landing-input#details-input(type="text" rows="5" placeholder=__("Detay (Opsiyonel)") autocomplete="none")
-        //-     .contact-send-line
-        //-       .contact-send-button
-        //-         span= __("Gönder")
-        //-       span.contact-error-message#general-error-span= __('Bir hata oluştu, lütfen daha sonra tekrar deneyin.')
-        //-       span.contact-error-message#already-registered-error-span= __('Bu e-posta adresi ile zaten bir kayıt alınmış.')
-        //-       span.contact-error-message#missing-information-error-span= __('Lütfen gerekli tüm bilgileri doldurun.')
-        //-       span.contact-error-message#finished-span= __('Kaydınız alındı, ekibimiz en kısa zamanda size ulaşacak. Teşekkürler.')
         .footer-wrapper
           .footer-top-wrapper
             .each-footer-wrapper
               span.each-footer-title= __('Become a Tester')
-              a.each-footer-text(href="/auth/register")= __('Register')
-              a.each-footer-text(href="/auth/login")= __('Login')
+              a.each-footer-text(href="https://tester.usersmagic.com/auth/register")= __('Register')
+              a.each-footer-text(href="https://tester.usersmagic.com/auth/login")= __('Login')
             .each-footer-wrapper
               span.each-footer-title= __('About')
-              a.each-footer-text(href="/agreement/privacy")= __('Privacy Statement')
-              a.each-footer-text(href="/agreement/user")= __('User Agreement')
+              a.each-footer-text(href="https://tester.usersmagic.com/agreement/privacy")= __('Privacy Statement')
+              a.each-footer-text(href="https://tester.usersmagic.com/agreement/user")= __('User Agreement')
             .each-footer-wrapper
               span.each-footer-title= __('Try Usersmagic')
               span.each-footer-text email:
