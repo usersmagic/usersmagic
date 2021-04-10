@@ -31,7 +31,7 @@
 	"About": "About",
 	"Privacy Statement": "Privacy Statement",
 	"User Agreement": "User Agreement",
-	"Are you a company?": "Are you a company?",
+	"Company Page": "Company Page",
 	"Yes, go to company page": "Yes, go to company page",
 	"Continue with tester page": "Continue with tester page",
 	"BECOME A TESTER": "BECOME A TESTER",
@@ -46,5 +46,6 @@
 	"All you have to do is answer some questions about what you think about certian apps and websites. ": "All you have to do is answer some questions about what you think about certian apps and websites. ",
 	"Get paid": "Get paid",
 	"We will pay you as soon as your answers are accepted. You will receive payments through Paypal.": "We will pay you as soon as your answers are accepted. You will receive payments through Paypal.",
-	"Join the waitlist": "Join the waitlist"
+	"Join the waitlist": "Join the waitlist",
+	"Already have an account?": "Already have an account?"
 }
