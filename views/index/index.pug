@@ -12,7 +12,7 @@ block content
       .tester-landing-transparent-wrapper
         .tester-landing-header
           img.tester-landing-logo(src="/res/images/logo/white.png" alt="usersmagic logo")
-          span.tester-go-company-button.go-company-button= __('Are you a company?')
+          span.tester-go-company-button.go-company-button= __('Company Page')
         span.tester-landing-above-title= __('BECOME A TESTER')
         span.tester-landing-title= __('Be heard by companies,')
         span.tester-landing-title= __('while getting paid')
@@ -20,6 +20,9 @@ block content
         span.tester-landing-subtitle= __('income and support great products you might use and love.')
         span.tester-landing-subtitle-responsive= __('Becoming a tester can help you turn your opinions into extra income and support great products you might use and love.')
         a.tester-join-waitlist-button(href="https://tester.usersmagic.com" target="_blank")= __('Join the waitlist')
+        .tester-login-button
+          span= __('Already have an account?')
+          a(href="https://tester.usersmagic.com/auth/login" target="_blank")= __('Login')
       .tester-landing-wrapper
         .each-tester-point-wrapper
           .each-tester-point-icon

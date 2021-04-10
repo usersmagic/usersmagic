@@ -94,7 +94,7 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(93.75deg, rgba(3, 17, 73, 0.8) 0%, rgba(0, 0, 0, 0.2) 26.57%);
+  background: linear-gradient(93.75deg, rgba(3, 17, 73, 0.8) 0%, rgba(0, 0, 0, 0.5) 26.57%);
 }
 .tester-landing-header {
   display: flex;
@@ -167,11 +167,35 @@
   align-self: start;
   margin-left: 120px;
   margin-top: 30px;
-  margin-bottom: 60px;
   box-shadow: 0 0 10px rgb(1, 1, 1, 0.5);
 }
 .tester-join-waitlist-button:hover {
   box-shadow: 0 0 10px rgb(1, 1, 1, 0.6);
+}
+.tester-login-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  margin-left: 120px;
+}
+.tester-login-button span {
+  margin-bottom: 5px;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgb(254, 254, 254);
+}
+.tester-login-button a {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgb(46, 197, 206);
+  text-decoration: none;
+}
+.tester-login-button a:hover {
+  text-decoration: underline;
 }
 
 .tester-landing-wrapper {
@@ -255,7 +279,7 @@
   .tester-landing-subtitle, .tester-landing-above-title {
     font-size: 16px;
   }
-  .tester-landing-title, .tester-landing-subtitle, .tester-landing-above-title, .tester-join-waitlist-button, .tester-landing-subtitle-responsive {
+  .tester-landing-title, .tester-landing-subtitle, .tester-landing-above-title, .tester-join-waitlist-button, .tester-landing-subtitle-responsive, .tester-login-button {
     margin-left: 70px;
   }
   .tester-landing-logo {
@@ -282,7 +306,7 @@
   }
 }
 @media only screen and (max-width: 600px) and (min-width: 300px) {
-  .tester-landing-title, .tester-landing-subtitle, .tester-landing-above-title, .tester-join-waitlist-button, .tester-landing-subtitle-responsive {
+  .tester-landing-title, .tester-landing-subtitle, .tester-landing-above-title, .tester-join-waitlist-button, .tester-landing-subtitle-responsive, .tester-login-button {
     margin-left: 30px;
   }
   .tester-landing-subtitle-responsive {
@@ -296,10 +320,22 @@
   .tester-landing-above-title, .tester-landing-subtitle-responsive {
     font-size: 14px;
   }
+  .tester-login-button span {
+    font-size: 15px;
+  }
+  .tester-login-button a {
+    font-size: 15px;
+  }
 }
 @media only screen and (max-width: 450px) and (min-width: 300px) {
   .tester-landing-background {
     width: 1400px;
+    right: -250px;
+  }
+}
+@media only screen and (max-width: 350px) and (min-width: 300px) {
+  .tester-landing-background {
+    width: 1600px;
     right: -250px;
   }
 }
